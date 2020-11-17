@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "50385327389",
+    "firebase_url": "https://mimisa-cbac3.firebaseio.com",
+    "project_id": "mimisa-cbac3",
+    "storage_bucket": "mimisa-cbac3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50385327389:android:3e99fe16775b9bb9387df4",
+        "android_client_info": {
+          "package_name": "com.circleappsstudio.mimisa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50385327389-uq06rcah55iv6d6hn6jo3iac5t22tnog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd_IL9t6TMr-gfj_25t2mTn5atGbK35oQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50385327389-uq06rcah55iv6d6hn6jo3iac5t22tnog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
