@@ -1,3 +1,5 @@
+// Clase Base para Activities.
+
 package com.circleappsstudio.mimisa.base
 
 import android.content.Context
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    // Método para obtener el layout del Activity.
     protected abstract fun getLayout(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,47 +21,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun Context.toast(context: Context = applicationContext, message: String?,
         duration: Int = Toast.LENGTH_SHORT) {
+        /*
+            Método para mostrar un Toast.
+        */
         Toast.makeText(context, message, duration).show()
     }
-
-    /*fun isOnline(context: Context): Boolean {
-        /*
-            Método para detectar la conexión a internet dentro de las activities.
-        */
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        if (connectivityManager != null) {
-
-            val capabilities =
-                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-
-            if (capabilities != null) {
-
-                when {
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                        //Hay conexión 2G, 3G o 4G.
-                        return true
-                    }
-
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                        //Hay conexión WiFi.
-                        return true
-                    }
-
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                        //Hay conexión Ethernet.
-                        return true
-                    }
-
-                }
-
-            }
-
-        }
-
-        return false
-
-    }*/
 
 }

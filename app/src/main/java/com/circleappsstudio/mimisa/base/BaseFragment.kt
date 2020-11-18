@@ -1,3 +1,5 @@
+// Clase Base para Fragments.
+
 package com.circleappsstudio.mimisa.base
 
 import android.content.Context
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment : Fragment() {
 
+    // Método para obtener el layout del Fragment.
     protected abstract fun getLayout() : Int
 
     override fun onCreateView(
@@ -22,6 +25,9 @@ abstract class BaseFragment : Fragment() {
 
     fun Context.toast(context: Context = applicationContext, message: String?,
                       duration: Int = Toast.LENGTH_SHORT) {
+        /*
+            Método para mostrar un Toast.
+        */
         Toast.makeText(context, message, duration).show()
     }
 

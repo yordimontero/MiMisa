@@ -2,18 +2,17 @@ package com.circleappsstudio.mimisa.ui.auth.resetpassword
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
-import com.circleappsstudio.mimisa.data.login.LogInDataSource
-import com.circleappsstudio.mimisa.domain.userauth.LogInRepo
+import com.circleappsstudio.mimisa.data.auth.AuthDataSource
+import com.circleappsstudio.mimisa.domain.auth.AuthRepo
 import com.circleappsstudio.mimisa.ui.UI
-import com.circleappsstudio.mimisa.viewmodel.factory.VMFactory
-import com.circleappsstudio.mimisa.viewmodel.userauth.LogInViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactory
+import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.google.firebase.FirebaseException
 import kotlinx.android.synthetic.main.fragment_reset_password.*
 import kotlinx.coroutines.launch
@@ -24,10 +23,10 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword {
 
     private lateinit var email: String
 
-    private val logInViewModel by activityViewModels<LogInViewModel> {
+    private val authViewModel by activityViewModels<AuthViewModel> {
         VMFactory(
-            LogInRepo(
-                LogInDataSource()
+            AuthRepo(
+                AuthDataSource()
             )
         )
     }
@@ -52,27 +51,39 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword {
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+            Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+            Método encargado de mostrar un progress bar.
+        */
         progressbar_reset_password_user.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
+        /*
+            Método encargado de ocultar un progress bar.
+        */
         progressbar_reset_password_user.visibility = View.GONE
     }
 
     override fun resetPasswordUserUI() {
-
+        /*
+             Método encargado de mandar un correo de cambio de contraseña a un
+             usuario existente en el sistema.
+        */
         email = txt_email_reset_password_user.text.toString()
 
-        if (logInViewModel.checkEmptyFieldsForResetPasswordViewModel(email)){
+        if (authViewModel.checkEmptyFieldsForResetPasswordViewModel(email)){
             txt_email_reset_password_user.error = "Complete los campos."
             return
         }
 
-        if (logInViewModel.checkValidEmailViewModel(email)){
+        if (authViewModel.checkValidEmailViewModel(email)){
             txt_email_reset_password_user.error = "El e-mail ingresado es inválido."
             return
         }
@@ -83,7 +94,7 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword {
 
             try {
 
-                logInViewModel.resetPasswordUserViewModel(email)
+                authViewModel.resetPasswordUserViewModel(email)
                 showMessage("Correo de cambio de contraseña enviado.", 2)
                 hideProgressBar()
 
