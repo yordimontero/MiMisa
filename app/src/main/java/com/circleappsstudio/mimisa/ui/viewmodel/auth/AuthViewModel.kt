@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewModel.Auth {
 
+    private val user by lazy { FirebaseAuth.getInstance() }
+
     override suspend fun signInUserViewModel(email: String, password: String) {
         /*
              Método encargado de registrar un usuario nuevo en el sistema.
@@ -59,12 +61,11 @@ class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewMode
         return email.isEmpty() && password.isEmpty()
     }
 
-    override fun checkUserLogged() : Boolean {
+    override fun checkUserLogged(): Boolean {
         /*
              Método encargado de validar que exista actualmente un usuario loggeado en el sistema.
         */
-        val user = FirebaseAuth.getInstance().currentUser
-        return user == null
+        return user.currentUser == null
     }
 
     override suspend fun resetPasswordUserViewModel(email: String) {

@@ -42,4 +42,15 @@ interface UI {
 
     }
 
+    interface SplashScreen {
+        /*
+            Interface encargada de controlar los métodos del SplashScreen.
+        */
+
+        fun checkUserLogged()
+        fun goToSignIn()
+        fun goToMainActivity()
+
+    }
+
 }
