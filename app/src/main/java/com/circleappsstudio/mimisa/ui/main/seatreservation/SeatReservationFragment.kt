@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
@@ -18,7 +16,6 @@ import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationV
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_seat_reservation.*
-import kotlinx.coroutines.launch
 
 class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
 
@@ -66,25 +63,5 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
         })
 
     }
-
-    /*fun test() {
-
-        seatReservationView.test.observe(viewLifecycleOwner, Observer { resultEmmited ->
-
-            when(resultEmmited){
-                is Resource.Loading -> {
-                    requireContext().toast(requireContext(), "Loading...")
-                }
-                is Resource.Success -> {
-                    //txt_iterator.text = resultEmmited.data.toString()
-                }
-                is Resource.Failure -> {
-                    requireContext().toast(requireContext(), "Failure: ${resultEmmited.exception}")
-                }
-            }
-
-        })
-
-    }*/
 
 }

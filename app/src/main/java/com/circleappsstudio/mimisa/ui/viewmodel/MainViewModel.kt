@@ -46,9 +46,7 @@ interface MainViewModel {
     }
 
     interface SeatReservation {
-
-        fun fetchIterator(): LiveData<Resource<Int?>>
-
+        fun fetchIterator(): LiveData<Resource<Int>>
     }
 
 }

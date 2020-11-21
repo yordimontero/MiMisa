@@ -3,49 +3,39 @@ package com.circleappsstudio.mimisa.data.seatreservation
 import com.circleappsstudio.mimisa.data.DataSource
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.tasks.await
 
 class SeatReservationDataSource : DataSource.SeatReservation {
 
     private val db by lazy { FirebaseFirestore.getInstance() }
 
-    override suspend fun fetchIterator(): Resource<Int?> {
+    @ExperimentalCoroutinesApi
+    override suspend fun fetchIterator(): Flow<Resource<Int>> = callbackFlow {
 
-        var iterator: Int? = 0
+        val iteratorPath = db.collection("asientos")
+                .document("diaconia")
+                .collection("la_argentina")
+                .document("data")
 
-        db.collection("asientos").document("diaconia")
-                .collection("la_argentina").document("data")
-                .get().addOnSuccessListener { documentFetched ->
-
-                    if (documentFetched.exists()){
-                        iterator = documentFetched.data?.get("iterador").toString().toInt()
-                    }
-
-                }.await()
-
-        return Resource.Success(iterator)
-
-    }
-
-    /*fun test(): Flow<Resource<Int>> = callbackFlow {
-
-        val docRef = db.collection("asientos").document("diaconia")
-                .collection("la_argentina").document("data")
-
-        val getIterator = docRef.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+        val subscription = iteratorPath.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
 
             if (documentSnapshot!!.exists()){
-                val iterator = documentSnapshot.getString("iterador")
-                offer(Resource.Success(iterator.toString().toInt()))
+
+                val iterator = documentSnapshot.getLong("iterador")!!.toInt()
+
+                offer(Resource.Success(iterator))
+
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
             }
 
         }
 
-        awaitClose { getIterator.remove() }
+        awaitClose { subscription.remove() }
 
-    }*/
+    }
 
 }

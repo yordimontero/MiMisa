@@ -28,7 +28,7 @@ interface DataSource {
     }*/
 
     interface SeatReservation {
-        suspend fun fetchIterator() : Resource<Int?>
+        suspend fun fetchIterator() : Flow<Resource<Int>>
     }
 
 }

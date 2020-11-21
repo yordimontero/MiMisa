@@ -54,15 +54,11 @@ interface UI {
     }
 
     interface Home {
-
         fun goToSeatReservation()
-
     }
 
     interface SeatReservation {
-
         fun fetchIterator()
-
     }
 
 }
