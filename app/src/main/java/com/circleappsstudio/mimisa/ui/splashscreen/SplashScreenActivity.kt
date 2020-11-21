@@ -12,14 +12,13 @@ import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.auth.LogInActivity
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
-import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactory
-import com.google.firebase.auth.FirebaseAuth
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 
 class SplashScreenActivity : BaseActivity(), UI.SplashScreen {
 
     private val authViewModel by lazy {
         ViewModelProvider(
-            this, VMFactory(
+            this, VMFactoryAuth(
                 AuthRepo(
                     AuthDataSource()
                 )

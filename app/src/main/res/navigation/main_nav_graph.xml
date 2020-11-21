@@ -9,17 +9,20 @@
         android:id="@+id/navigation_home"
         android:name="com.circleappsstudio.mimisa.ui.main.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.circleappsstudio.mimisa.ui.main.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_seatReservationFragment"
+            app:destination="@id/seatReservationFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.circleappsstudio.mimisa.ui.main.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/seatReservationFragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.SeatReservationFragment"
+        android:label="fragment_seat_reservation"
+        tools:layout="@layout/fragment_seat_reservation" />
 </navigation>

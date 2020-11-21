@@ -1,5 +1,8 @@
 package com.circleappsstudio.mimisa.domain
 
+import com.circleappsstudio.mimisa.vo.Resource
+import kotlinx.coroutines.flow.Flow
+
 interface Repo {
 
     interface Auth {
@@ -17,6 +20,10 @@ interface Repo {
 
         fun logOutUserRepo()
 
+    }
+
+    interface SeatReservation {
+        suspend fun fetchIterator() : Resource<Int?>
     }
 
 }

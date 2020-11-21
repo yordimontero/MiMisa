@@ -1,5 +1,8 @@
 package com.circleappsstudio.mimisa.ui.viewmodel
 
+import androidx.lifecycle.LiveData
+import com.circleappsstudio.mimisa.vo.Resource
+
 interface MainViewModel {
 
     interface Auth {
@@ -39,6 +42,12 @@ interface MainViewModel {
 
         // Cierra de Sesión de Usuarios:
         fun logOutUserViewModel()
+
+    }
+
+    interface SeatReservation {
+
+        fun fetchIterator(): LiveData<Resource<Int?>>
 
     }
 

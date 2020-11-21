@@ -13,7 +13,7 @@ import com.circleappsstudio.mimisa.data.auth.AuthDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepo
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.main.MainActivity
-import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactory
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.google.firebase.FirebaseException
 import kotlinx.android.synthetic.main.fragment_log_in.*
@@ -27,7 +27,7 @@ class LogInFragment : BaseFragment(), UI.LogInUI {
     private lateinit var password: String
 
     private val authViewModel by activityViewModels<AuthViewModel>{
-        VMFactory(
+        VMFactoryAuth(
             AuthRepo(
                 AuthDataSource()
             )

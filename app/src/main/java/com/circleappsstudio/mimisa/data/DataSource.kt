@@ -1,5 +1,8 @@
 package com.circleappsstudio.mimisa.data
 
+import com.circleappsstudio.mimisa.vo.Resource
+import kotlinx.coroutines.flow.Flow
+
 interface DataSource {
 
     interface Auth {
@@ -16,6 +19,16 @@ interface DataSource {
 
         fun logOutUser()
 
+    }
+
+    /*interface SeatReservation {
+
+        suspend fun fetchIterator() : Resource<Int?>
+
+    }*/
+
+    interface SeatReservation {
+        suspend fun fetchIterator() : Resource<Int?>
     }
 
 }

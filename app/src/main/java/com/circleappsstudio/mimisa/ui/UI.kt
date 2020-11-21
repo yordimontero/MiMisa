@@ -2,6 +2,17 @@ package com.circleappsstudio.mimisa.ui
 
 interface UI {
 
+    interface SplashScreen {
+        /*
+            Interface encargada de controlar los métodos del SplashScreen.
+        */
+
+        fun checkUserLogged()
+        fun goToSignIn()
+        fun goToMainActivity()
+
+    }
+
     interface SignInUI {
         /*
             Interface encargada de controlar los métodos del fragment de registro de usuarios.
@@ -42,14 +53,15 @@ interface UI {
 
     }
 
-    interface SplashScreen {
-        /*
-            Interface encargada de controlar los métodos del SplashScreen.
-        */
+    interface Home {
 
-        fun checkUserLogged()
-        fun goToSignIn()
-        fun goToMainActivity()
+        fun goToSeatReservation()
+
+    }
+
+    interface SeatReservation {
+
+        fun fetchIterator()
 
     }
 
