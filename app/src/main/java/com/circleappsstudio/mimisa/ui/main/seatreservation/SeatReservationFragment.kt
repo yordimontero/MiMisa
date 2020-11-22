@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
@@ -14,22 +15,25 @@ import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.FirebaseException
 import kotlinx.android.synthetic.main.fragment_seat_reservation.*
+import kotlinx.coroutines.launch
 
 class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
 
     private lateinit var navController: NavController
 
-    private val seatReservationView by activityViewModels<SeatReservationViewModel> {
+    private lateinit var seatNumber: String
+    private lateinit var nameUser: String
+    private lateinit var idNumberUser: String
+
+    private val seatReservationViewModel by activityViewModels<SeatReservationViewModel> {
         VMFactorySeatReservation(
                 SeatReservationRepo(
                       SeatReservationDataSource()
                 )
         )
     }
-
-    private val db by lazy { FirebaseFirestore.getInstance() }
 
     override fun getLayout(): Int {
         return R.layout.fragment_seat_reservation
@@ -42,11 +46,17 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
 
         fetchIterator()
 
+        btn_seat_reservation.setOnClickListener {
+
+            saveSeatReserved()
+
+        }
+
     }
 
     override fun fetchIterator() {
 
-        seatReservationView.fetchIterator().observe(viewLifecycleOwner, Observer { resultEmmited ->
+        seatReservationViewModel.fetchIterator().observe(viewLifecycleOwner, Observer { resultEmmited ->
 
             when(resultEmmited){
                 is Resource.Loading -> {
@@ -61,6 +71,18 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
             }
 
         })
+
+    }
+
+    override fun saveSeatReserved() {
+
+        seatNumber = txt_iterator.text.toString()
+        nameUser = txt_fullname_seat_reservation.text.toString()
+        idNumberUser = txt_id_number_user_seat_reservation.text.toString()
+
+        seatReservationViewModel.saveSeatReserved(seatNumber.toInt(), nameUser, idNumberUser)
+
+        requireContext().toast(requireContext(), "Asiento reservado con éxito.")
 
     }
 

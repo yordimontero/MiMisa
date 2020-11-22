@@ -2,6 +2,7 @@ package com.circleappsstudio.mimisa.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.circleappsstudio.mimisa.vo.Resource
+import com.google.firebase.FirebaseException
 
 interface MainViewModel {
 
@@ -47,6 +48,7 @@ interface MainViewModel {
 
     interface SeatReservation {
         fun fetchIterator(): LiveData<Resource<Int>>
+        fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String)
     }
 
 }

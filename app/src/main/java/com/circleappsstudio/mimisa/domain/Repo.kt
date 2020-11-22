@@ -24,6 +24,7 @@ interface Repo {
 
     interface SeatReservation {
         suspend fun fetchIterator() : Flow<Resource<Int>>
+        suspend fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String)
     }
 
 }

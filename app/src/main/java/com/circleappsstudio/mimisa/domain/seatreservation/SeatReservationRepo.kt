@@ -11,4 +11,10 @@ class SeatReservationRepo(
 
     override suspend fun fetchIterator(): Flow<Resource<Int>> = seatReservationDataSource.fetchIterator()
 
+    override suspend fun saveSeatReserved(
+            seatNumber: Int,
+            nameUser: String,
+            idNumberUser: String
+    ) = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, idNumberUser)
+
 }

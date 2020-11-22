@@ -59,6 +59,7 @@ interface UI {
 
     interface SeatReservation {
         fun fetchIterator()
+        fun saveSeatReserved()
     }
 
 }
