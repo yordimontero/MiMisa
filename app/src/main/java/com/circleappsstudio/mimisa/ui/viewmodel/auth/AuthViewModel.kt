@@ -3,28 +3,69 @@
 package com.circleappsstudio.mimisa.ui.viewmodel.auth
 
 import androidx.core.util.PatternsCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.circleappsstudio.mimisa.domain.Repo
 import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
+import com.circleappsstudio.mimisa.vo.Resource
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Dispatchers
 
 class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewModel.Auth {
 
     private val user by lazy { FirebaseAuth.getInstance() }
 
-    override suspend fun signInUserViewModel(email: String, password: String) {
+    override fun signInUserViewModel(
+        email: String,
+        password: String
+    ): LiveData<Resource<Boolean>> =
         /*
              Método encargado de registrar un usuario nuevo en el sistema.
         */
-        authRepo.signInUserRepo(email, password)
-    }
+        liveData(Dispatchers.IO) {
 
-    override suspend fun updateUserProfileViewModel(fullName: String) {
+            emit(Resource.Loading())
+
+            try {
+
+                authRepo.signInUserRepo(email, password)
+
+                emit(Resource.Success(true))
+
+            } catch (e: FirebaseException){
+
+                emit(Resource.Failure(e))
+
+            }
+
+        }
+
+
+    override fun updateUserProfileViewModel(
+        fullName: String
+    ): LiveData<Resource<Boolean>> =
         /*
              Método encargado de setear el nombre de un usuario nuevo en el sistema.
         */
-        authRepo.updateUserProfileRepo(fullName)
-    }
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.Loading())
+
+            try {
+
+                authRepo.updateUserProfileRepo(fullName)
+
+                emit(Resource.Success(true))
+
+            } catch (e: FirebaseException){
+
+                emit(Resource.Failure(e))
+
+            }
+
+        }
 
     override fun checkEmptyFieldsForSignInViewModel(
         fullName: String,
@@ -46,12 +87,30 @@ class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewMode
         return password1 != password2
     }
 
-    override suspend fun logInUserViewModel(email: String, password: String) {
+    override fun logInUserViewModel(
+        email: String, password: String
+    ): LiveData<Resource<Boolean>> =
         /*
              Método encargado de loggear un usuario existente en el sistema.
         */
-        authRepo.logInUserRepo(email, password)
-    }
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.Loading())
+
+            try {
+
+                authRepo.logInUserRepo(email, password)
+
+                emit(Resource.Success(true))
+
+            } catch (e: FirebaseException){
+
+                emit(Resource.Failure(e))
+
+            }
+
+        }
+
 
     override fun checkEmptyFieldsForLogInViewModel(email: String, password: String): Boolean {
         /*
@@ -68,13 +127,28 @@ class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewMode
         return user.currentUser == null
     }
 
-    override suspend fun resetPasswordUserViewModel(email: String) {
+    override fun resetPasswordUserViewModel(email: String): LiveData<Resource<Boolean>> =
         /*
              Método encargado de mandar un correo de cambio de contraseña a un
              usuario existente en el sistema.
         */
-        authRepo.resetPasswordUserRepo(email)
-    }
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.Loading())
+
+            try {
+
+                authRepo.resetPasswordUserRepo(email)
+
+                emit(Resource.Success(true))
+
+            } catch (e: FirebaseException){
+
+                emit(Resource.Failure(e))
+
+            }
+
+        }
 
     override fun checkEmptyFieldsForResetPasswordViewModel(email: String) : Boolean {
         /*

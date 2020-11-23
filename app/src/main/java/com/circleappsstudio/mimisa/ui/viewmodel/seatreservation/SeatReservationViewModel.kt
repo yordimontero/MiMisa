@@ -33,12 +33,45 @@ class SeatReservationViewModel(
 
     }
 
-    override fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String) {
+    override fun saveSeatReserved(
+        seatNumber: Int,
+        nameUser: String,
+        idNumberUser: String
+    ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
 
-        viewModelScope.launch {
+        emit(Resource.Loading())
+
+        try {
             seatReservationRepo.saveSeatReserved(seatNumber, nameUser, idNumberUser)
+            emit(Resource.Success(true))
+        } catch (e: FirebaseException){
+            emit(Resource.Failure(e))
         }
 
+    }
+
+    override fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+            seatReservationRepo.addIterator(seatNumber)
+            emit(Resource.Success(true))
+        } catch (e: FirebaseException){
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun checkEmptyFieldsForSeatReservation(
+        nameUser: String,
+        idNumberUser: String
+    ): Boolean {
+        return nameUser.isEmpty() && idNumberUser.isEmpty()
+    }
+
+    override fun checkValidIdNumberUser(idNumberUser: String): Boolean {
+        return idNumberUser.length < 9
     }
 
 }

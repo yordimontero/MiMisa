@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -15,6 +16,7 @@ import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
+import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.FirebaseException
 import kotlinx.android.synthetic.main.fragment_log_in.*
 import kotlinx.coroutines.launch
@@ -98,22 +100,32 @@ class LogInFragment : BaseFragment(), UI.LogInUI {
             return
         }
 
-        showProgressBar()
+        logInUserObserver()
 
-        lifecycleScope.launch {
+    }
 
-            try {
+    override fun logInUserObserver() {
 
-                authViewModel.logInUserViewModel(email, password)
+        authViewModel.logInUserViewModel(email, password).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                goToMainActivity()
+            when(resultEmitted){
 
-            } catch (e: FirebaseException){
-                showMessage(e.message.toString(), 2)
-                hideProgressBar()
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+
+                is Resource.Success -> {
+                    goToMainActivity()
+                }
+
+                is Resource.Failure -> {
+                    showMessage(resultEmitted.exception.message.toString(), 2)
+                    hideProgressBar()
+                }
+
             }
 
-        }
+        })
 
     }
 

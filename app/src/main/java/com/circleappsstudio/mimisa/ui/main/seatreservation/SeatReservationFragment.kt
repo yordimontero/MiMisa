@@ -1,10 +1,10 @@
 package com.circleappsstudio.mimisa.ui.main.seatreservation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
@@ -15,9 +15,7 @@ import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
-import com.google.firebase.FirebaseException
 import kotlinx.android.synthetic.main.fragment_seat_reservation.*
-import kotlinx.coroutines.launch
 
 class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
 
@@ -44,17 +42,15 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
 
         navController = Navigation.findNavController(view)
 
-        fetchIterator()
+        observeFetchIterator()
 
         btn_seat_reservation.setOnClickListener {
-
             saveSeatReserved()
-
         }
 
     }
 
-    override fun fetchIterator() {
+    override fun observeFetchIterator() {
 
         seatReservationViewModel.fetchIterator().observe(viewLifecycleOwner, Observer { resultEmmited ->
 
@@ -80,10 +76,87 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
         nameUser = txt_fullname_seat_reservation.text.toString()
         idNumberUser = txt_id_number_user_seat_reservation.text.toString()
 
-        seatReservationViewModel.saveSeatReserved(seatNumber.toInt(), nameUser, idNumberUser)
+        if (!isOnline(requireContext())){
+            showMessage("No hay conexión a Internet.", 2)
+            return
+        }
 
-        requireContext().toast(requireContext(), "Asiento reservado con éxito.")
+        if (seatReservationViewModel.checkEmptyFieldsForSeatReservation(nameUser, idNumberUser)){
+            txt_fullname_seat_reservation.error = "Complete los campos."
+            txt_id_number_user_seat_reservation.error = "Complete los campos."
+            return
+        }
 
+        if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)){
+            txt_id_number_user_seat_reservation.error = "Número de cédula inválido."
+            return
+        }
+
+        saveSeatReservedObserver()
+
+    }
+
+    override fun saveSeatReservedObserver() {
+
+        seatReservationViewModel.saveSeatReserved(seatNumber.toInt(), nameUser, idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+            when(resultEmitted){
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+
+                is Resource.Success -> {
+                    addIteratorObserver()
+                }
+
+                is Resource.Failure -> {
+                    showMessage(resultEmitted.exception.message.toString(), 2)
+                    hideProgressBar()
+                }
+
+            }
+
+        })
+
+    }
+
+    override fun addIteratorObserver() {
+
+        seatReservationViewModel.addIterator(seatNumber.toInt()).observe(viewLifecycleOwner,
+            Observer { resultEmitted ->
+
+                when (resultEmitted) {
+
+                    is Resource.Loading -> {
+                        Log.e("TAG", "observeAddIterator: Loading")
+                    }
+
+                    is Resource.Success -> {
+                        showMessage("Asiento número $seatNumber reservado con éxito.", 1)
+                        hideProgressBar()
+                    }
+
+                    is Resource.Failure -> {
+                        Log.e("TAG", "observeAddIterator: Failure")
+                    }
+
+                }
+
+            })
+
+    }
+
+    override fun showMessage(message: String, duration: Int) {
+        requireContext().toast(requireContext(), message, duration)
+    }
+
+    override fun showProgressBar() {
+        progressbar_seat_reservation.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        progressbar_seat_reservation.visibility = View.GONE
     }
 
 }

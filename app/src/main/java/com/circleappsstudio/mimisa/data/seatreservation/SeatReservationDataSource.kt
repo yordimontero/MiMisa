@@ -71,4 +71,19 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
+    override suspend fun addIterator(seatNumber: Int) {
+
+        val addIterator = seatNumber + 1
+
+        db.collection("asientos")
+            .document("diaconia")
+            .collection("la_argentina")
+            .document("data")
+            .collection("params")
+            .document("data")
+            .update("iterador", addIterator)
+            .await()
+
+    }
+
 }

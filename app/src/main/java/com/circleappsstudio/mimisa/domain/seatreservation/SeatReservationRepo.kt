@@ -17,4 +17,6 @@ class SeatReservationRepo(
             idNumberUser: String
     ) = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, idNumberUser)
 
+    override suspend fun addIterator(seatNumber: Int) = seatReservationDataSource.addIterator(seatNumber)
+
 }

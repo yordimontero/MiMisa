@@ -22,6 +22,8 @@ interface UI {
         fun showProgressBar()
         fun hideProgressBar()
         fun signInUserUI()
+        fun signInUserObserver()
+        fun setNameUserObserver()
         fun goToLogin()
         fun goToResetPassword()
         fun goToMainActivity()
@@ -37,6 +39,7 @@ interface UI {
         fun showProgressBar()
         fun hideProgressBar()
         fun logInUserUI()
+        fun logInUserObserver()
         fun goToMainActivity()
 
     }
@@ -50,6 +53,7 @@ interface UI {
         fun showProgressBar()
         fun hideProgressBar()
         fun resetPasswordUserUI()
+        fun resetPasswordUserObserver()
 
     }
 
@@ -58,8 +62,13 @@ interface UI {
     }
 
     interface SeatReservation {
-        fun fetchIterator()
+        fun showMessage(message: String, duration: Int)
+        fun showProgressBar()
+        fun hideProgressBar()
+        fun observeFetchIterator()
         fun saveSeatReserved()
+        fun saveSeatReservedObserver()
+        fun addIteratorObserver()
     }
 
 }

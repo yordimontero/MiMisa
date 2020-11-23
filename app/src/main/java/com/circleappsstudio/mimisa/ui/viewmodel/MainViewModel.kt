@@ -2,7 +2,6 @@ package com.circleappsstudio.mimisa.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.circleappsstudio.mimisa.vo.Resource
-import com.google.firebase.FirebaseException
 
 interface MainViewModel {
 
@@ -12,8 +11,8 @@ interface MainViewModel {
         */
 
         // Registro de Usuarios:
-        suspend fun signInUserViewModel(email: String, password: String)
-        suspend fun updateUserProfileViewModel(fullName: String)
+        fun signInUserViewModel(email: String, password: String): LiveData<Resource<Boolean>>
+        fun updateUserProfileViewModel(fullName: String): LiveData<Resource<Boolean>>
 
         // Validación Registro de Usuarios:
         fun checkEmptyFieldsForSignInViewModel(
@@ -25,13 +24,13 @@ interface MainViewModel {
         fun checkMatchPasswordsForSignInViewModel(password1: String, password2: String): Boolean
 
         // Loggeo de Usuarios:
-        suspend fun logInUserViewModel(email: String, password: String)
+        fun logInUserViewModel(email: String, password: String): LiveData<Resource<Boolean>>
 
         // Validaciones Loggeo de Usuarios:
         fun checkEmptyFieldsForLogInViewModel(email: String, password: String): Boolean
 
         // Cambio de Contraseña de Usuarios.
-        suspend fun resetPasswordUserViewModel(email: String)
+        fun resetPasswordUserViewModel(email: String): LiveData<Resource<Boolean>>
 
         // Validaciones Cambio de Contraseña de Usuarios:
         fun checkEmptyFieldsForResetPasswordViewModel(email: String): Boolean
@@ -48,7 +47,10 @@ interface MainViewModel {
 
     interface SeatReservation {
         fun fetchIterator(): LiveData<Resource<Int>>
-        fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String)
+        fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String): LiveData<Resource<Boolean>>
+        fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>>
+        fun checkEmptyFieldsForSeatReservation(nameUser: String, idNumberUser: String): Boolean
+        fun checkValidIdNumberUser(idNumberUser: String): Boolean
     }
 
 }

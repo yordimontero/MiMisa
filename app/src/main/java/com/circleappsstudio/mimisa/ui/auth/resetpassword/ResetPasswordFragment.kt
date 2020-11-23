@@ -3,6 +3,7 @@ package com.circleappsstudio.mimisa.ui.auth.resetpassword
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -13,6 +14,7 @@ import com.circleappsstudio.mimisa.domain.auth.AuthRepo
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
+import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.FirebaseException
 import kotlinx.android.synthetic.main.fragment_reset_password.*
 import kotlinx.coroutines.launch
@@ -88,22 +90,33 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword {
             return
         }
 
-        showProgressBar()
+        resetPasswordUserObserver()
 
-        lifecycleScope.launch {
+    }
 
-            try {
+    override fun resetPasswordUserObserver() {
 
-                authViewModel.resetPasswordUserViewModel(email)
-                showMessage("Correo de cambio de contraseña enviado.", 2)
-                hideProgressBar()
+        authViewModel.resetPasswordUserViewModel(email).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-            } catch (e: FirebaseException){
-                showMessage(e.message.toString(), 2)
-                hideProgressBar()
+            when(resultEmitted){
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+
+                is Resource.Success -> {
+                    showMessage("Correo de cambio de contraseña enviado.", 2)
+                    hideProgressBar()
+                }
+
+                is Resource.Failure -> {
+                    showMessage(resultEmitted.exception.message.toString(), 2)
+                    hideProgressBar()
+                }
+
             }
 
-        }
+        })
 
     }
 

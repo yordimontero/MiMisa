@@ -2,8 +2,10 @@ package com.circleappsstudio.mimisa.ui.auth.signin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -15,6 +17,7 @@ import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
+import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import com.google.firebase.FirebaseException
 import kotlinx.coroutines.launch
@@ -115,26 +118,59 @@ class SignInFragment : BaseFragment(), UI.SignInUI {
             return
         }
 
-        showProgressBar()
+        signInUserObserver()
 
-        lifecycleScope.launch {
+    }
 
-            try {
+    override fun signInUserObserver() {
 
-                authViewModel.signInUserViewModel(email, password1)
+        authViewModel.signInUserViewModel(email, password1).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                authViewModel.updateUserProfileViewModel(fullName)
+            when(resultEmitted){
 
-                showMessage("Usuario registrado con éxito.", 1)
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
 
-                goToMainActivity()
+                is Resource.Success -> {
+                    setNameUserObserver()
+                }
 
-            } catch (e: FirebaseException){
-                showMessage(e.message.toString(), 2)
-                hideProgressBar()
+                is Resource.Failure -> {
+                    showMessage(resultEmitted.exception.message.toString(), 2)
+                    hideProgressBar()
+                }
+
             }
 
-        }
+        })
+
+    }
+
+    override fun setNameUserObserver() {
+
+        authViewModel.updateUserProfileViewModel(fullName).observe(
+            viewLifecycleOwner,
+            Observer { resultEmitted ->
+
+                when (resultEmitted) {
+
+                    is Resource.Loading -> {
+                        Log.e("TAG", "setNameUserObserver: Loading")
+                    }
+
+                    is Resource.Success -> {
+                        showMessage("Usuario registrado con éxito.", 1)
+                        goToMainActivity()
+                    }
+
+                    is Resource.Failure -> {
+                        Log.e("TAG", "setNameUserObserver: Failure")
+                    }
+
+                }
+
+            })
 
     }
 
