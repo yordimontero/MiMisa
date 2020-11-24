@@ -1,8 +1,8 @@
 // DataSource encargado de interactuar con la autenticación de Firebase.
 
-package com.circleappsstudio.mimisa.data.auth
+package com.circleappsstudio.mimisa.data.datasource.auth
 
-import com.circleappsstudio.mimisa.data.DataSource
+import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.tasks.await

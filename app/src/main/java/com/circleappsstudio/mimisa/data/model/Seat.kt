@@ -1,7 +1,12 @@
 package com.circleappsstudio.mimisa.data.model
 
 data class Seat(
-        private val seatNumber: Int,
-        private val nameUser: String = "",
-        private val idNumberUser: String = ""
+        var seatNumber: Int = 0,
+        var nameUser: String = "",
+        var idNumberUser: String = "",
+        var seatRegisteredBy: String = ""
+)
+
+data class SeatList(
+        val seatList: List<Seat>
 )

@@ -69,6 +69,8 @@ interface UI {
         fun saveSeatReserved()
         fun saveSeatReservedObserver()
         fun addIteratorObserver()
+        fun fetchRegisteredSeatsByUserNameObserver()
+        fun setUpRecyclerView()
     }
 
 }

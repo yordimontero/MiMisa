@@ -2,7 +2,7 @@
 
 package com.circleappsstudio.mimisa.domain.auth
 
-import com.circleappsstudio.mimisa.data.DataSource
+import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.domain.Repo
 
 class AuthRepo(private val authDataSource: DataSource.Auth) : Repo.Auth {

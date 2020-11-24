@@ -1,9 +1,12 @@
 // DataSource encargado de interactuar con Cloud Firestore para la reserva de espacios.
 
-package com.circleappsstudio.mimisa.data.seatreservation
+package com.circleappsstudio.mimisa.data.datasource.seatreservation
 
-import com.circleappsstudio.mimisa.data.DataSource
+import android.util.Log
+import com.circleappsstudio.mimisa.data.datasource.DataSource
+import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -14,6 +17,7 @@ import kotlinx.coroutines.tasks.await
 class SeatReservationDataSource : DataSource.SeatReservation {
 
     private val db by lazy { FirebaseFirestore.getInstance() }
+    private val userName by lazy { FirebaseAuth.getInstance().currentUser!!.displayName }
 
     @ExperimentalCoroutinesApi
     override suspend fun fetchIterator(): Flow<Resource<Int>> = callbackFlow {
@@ -58,7 +62,8 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         val seatReserved = hashMapOf (
                 "seatNumber" to seatNumber,
                 "userName" to nameUser,
-                "idNumberUser" to idNumberUser
+                "idNumberUser" to idNumberUser,
+                "seatRegisteredBy" to userName
         )
 
         db.collection("asientos")
@@ -83,6 +88,44 @@ class SeatReservationDataSource : DataSource.SeatReservation {
             .document("data")
             .update("iterador", addIterator)
             .await()
+
+    }
+
+    override suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>? {
+
+        //var seatList: List<Seat>
+        var seatList = listOf<Seat>()
+
+        db.collection("asientos")
+            .document("diaconia")
+            .collection("la_argentina")
+            .document("data")
+            .collection("asientos_registrados")
+            .whereEqualTo("seatRegisteredBy", userName)
+            .get().addOnSuccessListener { documents ->
+
+                for (document in documents.documents){
+
+                    if (document.exists()){
+
+                        seatList = listOf(
+                            Seat(
+                                document.data!!["seatNumber"].toString().toInt(),
+                                document.data!!["userName"].toString(),
+                                document.data!!["idNumberUser"].toString(),
+                                document.data!!["seatRegisteredBy"].toString()
+                            )
+                        )
+
+                        Log.e("TAG", seatList.toString())
+
+                    }
+
+                }
+
+            }.await()
+
+        return Resource.Success(seatList)
 
     }
 

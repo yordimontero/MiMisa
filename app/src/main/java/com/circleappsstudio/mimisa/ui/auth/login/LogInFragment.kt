@@ -5,21 +5,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
-import com.circleappsstudio.mimisa.data.auth.AuthDataSource
+import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepo
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.vo.Resource
-import com.google.firebase.FirebaseException
 import kotlinx.android.synthetic.main.fragment_log_in.*
-import kotlinx.coroutines.launch
 
 class LogInFragment : BaseFragment(), UI.LogInUI {
 

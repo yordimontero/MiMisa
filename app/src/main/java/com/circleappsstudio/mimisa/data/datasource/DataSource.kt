@@ -1,5 +1,6 @@
-package com.circleappsstudio.mimisa.data
+package com.circleappsstudio.mimisa.data.datasource
 
+import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -25,6 +26,7 @@ interface DataSource {
         suspend fun fetchIterator() : Flow<Resource<Int>>
         suspend fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String)
         suspend fun addIterator(seatNumber: Int)
+        suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>?
     }
 
 }

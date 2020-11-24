@@ -1,6 +1,7 @@
 package com.circleappsstudio.mimisa.domain.seatreservation
 
-import com.circleappsstudio.mimisa.data.DataSource
+import com.circleappsstudio.mimisa.data.datasource.DataSource
+import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.domain.Repo
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.coroutines.flow.Flow
@@ -18,5 +19,8 @@ class SeatReservationRepo(
     ) = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, idNumberUser)
 
     override suspend fun addIterator(seatNumber: Int) = seatReservationDataSource.addIterator(seatNumber)
+
+    override suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>? =
+        seatReservationDataSource.fetchRegisteredSeatsByUserName()
 
 }

@@ -1,6 +1,7 @@
 package com.circleappsstudio.mimisa.ui.viewmodel
 
 import androidx.lifecycle.LiveData
+import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
 
 interface MainViewModel {
@@ -51,6 +52,7 @@ interface MainViewModel {
         fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>>
         fun checkEmptyFieldsForSeatReservation(nameUser: String, idNumberUser: String): Boolean
         fun checkValidIdNumberUser(idNumberUser: String): Boolean
+        fun fetchRegisteredSeatsByUserName(): LiveData<Resource<List<Seat>>?>
     }
 
 }

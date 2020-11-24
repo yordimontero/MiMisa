@@ -6,7 +6,7 @@ import android.os.Handler
 import androidx.lifecycle.ViewModelProvider
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseActivity
-import com.circleappsstudio.mimisa.data.auth.AuthDataSource
+import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepo
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.auth.LogInActivity

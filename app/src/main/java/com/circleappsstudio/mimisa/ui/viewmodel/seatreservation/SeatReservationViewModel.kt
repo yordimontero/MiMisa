@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.domain.Repo
 import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
 import com.circleappsstudio.mimisa.vo.Resource
@@ -72,6 +73,22 @@ class SeatReservationViewModel(
 
     override fun checkValidIdNumberUser(idNumberUser: String): Boolean {
         return idNumberUser.length < 9
+    }
+
+    override fun fetchRegisteredSeatsByUserName(): LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepo.fetchRegisteredSeatsByUserName())
+
+        } catch (e: FirebaseException){
+
+            emit(Resource.Failure(e))
+
+        }
+
     }
 
 }
