@@ -2,12 +2,12 @@
 
 package com.circleappsstudio.mimisa.data.datasource.seatreservation
 
-import android.util.Log
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -57,11 +57,39 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
+    override suspend fun fetchSeatLimit(): Resource<Int> {
+        /*
+            Método encargado de traer el número límite de asientos disponibles.
+        */
+
+        var seatLimit = 0
+
+        db.collection("asientos")
+            .document("diaconia")
+            .collection("la_argentina")
+            .document("data")
+            .collection("params")
+            .document("data")
+            .get().addOnSuccessListener { document ->
+
+                if (document.exists()){
+                    seatLimit = document.data!!["limite_espacios"].toString().toInt()
+                }
+
+            }.await()
+
+        return Resource.Success(seatLimit)
+
+    }
+
     override suspend fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String) {
+        /*
+            Método encargado de reservar un asiento.
+        */
 
         val seatReserved = hashMapOf (
                 "seatNumber" to seatNumber,
-                "userName" to nameUser,
+                "nameUser" to nameUser,
                 "idNumberUser" to idNumberUser,
                 "seatRegisteredBy" to userName
         )
@@ -77,6 +105,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     override suspend fun addIterator(seatNumber: Int) {
+        /*
+            Método encargado de aumentar el iterador al reservar un asiento.
+        */
 
         val addIterator = seatNumber + 1
 
@@ -92,40 +123,43 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     override suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>? {
+        /*
+            Método encargado de traer todos los asientos reservados por el usuario leggeado.
+        */
 
-        //var seatList: List<Seat>
-        var seatList = listOf<Seat>()
+        var seat: Seat
+        val seatArrayList = arrayListOf<Seat>()
 
         db.collection("asientos")
-            .document("diaconia")
-            .collection("la_argentina")
-            .document("data")
-            .collection("asientos_registrados")
-            .whereEqualTo("seatRegisteredBy", userName)
-            .get().addOnSuccessListener { documents ->
+                .document("diaconia")
+                .collection("la_argentina")
+                .document("data")
+                .collection("asientos_registrados")
+                .whereEqualTo("seatRegisteredBy", userName)
+                .orderBy("seatNumber", Query.Direction.DESCENDING)
+                .get().addOnSuccessListener { documents ->
 
-                for (document in documents.documents){
+                    seatArrayList.clear()
 
-                    if (document.exists()){
+                    for (document in documents.documents) {
 
-                        seatList = listOf(
-                            Seat(
-                                document.data!!["seatNumber"].toString().toInt(),
-                                document.data!!["userName"].toString(),
-                                document.data!!["idNumberUser"].toString(),
-                                document.data!!["seatRegisteredBy"].toString()
+                        if (document.exists()) {
+
+                            seat = Seat(
+                                    document.data!!["seatNumber"].toString().toInt(),
+                                    document.data!!["nameUser"].toString(),
+                                    document.data!!["idNumberUser"].toString()
                             )
-                        )
 
-                        Log.e("TAG", seatList.toString())
+                            seatArrayList.add(seat)
+
+                        }
 
                     }
 
-                }
+                }.await()
 
-            }.await()
-
-        return Resource.Success(seatList)
+        return Resource.Success(seatArrayList)
 
     }
 

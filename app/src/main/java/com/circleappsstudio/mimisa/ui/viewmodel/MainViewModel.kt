@@ -47,12 +47,25 @@ interface MainViewModel {
     }
 
     interface SeatReservation {
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore.
+        */
         fun fetchIterator(): LiveData<Resource<Int>>
+
+        fun fetchSeatLimit(): LiveData<Resource<Int>>
+
         fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String): LiveData<Resource<Boolean>>
+
         fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>>
-        fun checkEmptyFieldsForSeatReservation(nameUser: String, idNumberUser: String): Boolean
-        fun checkValidIdNumberUser(idNumberUser: String): Boolean
+
         fun fetchRegisteredSeatsByUserName(): LiveData<Resource<List<Seat>>?>
+
+        fun checkEmptyFieldsForSeatReservation(nameUser: String, idNumberUser: String): Boolean
+
+        fun checkValidIdNumberUser(idNumberUser: String): Boolean
+
+        fun checkSeatLimit(seatNumber: Int, seatLimit: Int): Boolean
+
     }
 
 }

@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseViewHolder
 import com.circleappsstudio.mimisa.data.model.Seat
-import kotlinx.android.synthetic.main.reserved_seats_row.view.*
+import kotlinx.android.synthetic.main.seat_row.view.*
 import java.lang.IllegalArgumentException
 
-class RegisteredSeatsAdapter(private val context: Context,
-                             private val seatList: List<Seat>): RecyclerView.Adapter<BaseViewHolder<*>>() {
+class SeatAdapter(private val context: Context,
+                  private val seatList: List<Seat>): RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         // Retorno de la clase encargada de bindear cada elemento del RecyclerView.
         // Infla el resouce de vista (layout) creado para mostrar la información.
         return MainViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.reserved_seats_row, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.seat_row, parent, false)
         )
     }
 
@@ -40,7 +40,12 @@ class RegisteredSeatsAdapter(private val context: Context,
             itemView.txt_seat_number_row.text = item.seatNumber.toString()
             itemView.txt_name_user_row.text = item.nameUser
             itemView.txt_id_number_row.text = item.idNumberUser
-            itemView.txt_seat_reserved_by_row.text = item.seatRegisteredBy
+
+            if (item.seatRegisteredBy.isEmpty()){
+                itemView.layout_seat_registered_by.visibility = View.GONE
+            } else {
+                itemView.txt_seat_registered_by_row.text = item.seatRegisteredBy
+            }
 
         }
 

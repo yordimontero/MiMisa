@@ -18,6 +18,9 @@ class SeatReservationViewModel(
 ) : ViewModel(), MainViewModel.SeatReservation {
 
     override fun fetchIterator(): LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
 
         emit(Resource.Loading())
 
@@ -34,11 +37,32 @@ class SeatReservationViewModel(
 
     }
 
+    override fun fetchSeatLimit(): LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer el número límite de asientos disponibles.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepo.fetchSeatLimit())
+
+        } catch (e: FirebaseException){
+
+            emit(Resource.Failure(e))
+
+        }
+
+    }
+
     override fun saveSeatReserved(
         seatNumber: Int,
         nameUser: String,
         idNumberUser: String
     ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de reservar un asiento.
+        */
 
         emit(Resource.Loading())
 
@@ -52,7 +76,9 @@ class SeatReservationViewModel(
     }
 
     override fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
-
+        /*
+            Método encargado de aumentar el iterador al reservar un asiento.
+        */
         emit(Resource.Loading())
 
         try {
@@ -64,19 +90,10 @@ class SeatReservationViewModel(
 
     }
 
-    override fun checkEmptyFieldsForSeatReservation(
-        nameUser: String,
-        idNumberUser: String
-    ): Boolean {
-        return nameUser.isEmpty() && idNumberUser.isEmpty()
-    }
-
-    override fun checkValidIdNumberUser(idNumberUser: String): Boolean {
-        return idNumberUser.length < 9
-    }
-
     override fun fetchRegisteredSeatsByUserName(): LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
-
+        /*
+            Método encargado de traer todos los asientos reservados por el usuario leggeado.
+        */
         emit(Resource.Loading())
 
         try {
@@ -90,5 +107,25 @@ class SeatReservationViewModel(
         }
 
     }
+
+    /*
+        Método encargado de validar que los campos de texto no sean vacíos.
+    */
+    override fun checkEmptyFieldsForSeatReservation(
+        nameUser: String,
+        idNumberUser: String
+    ): Boolean = nameUser.isEmpty() && idNumberUser.isEmpty()
+
+    /*
+        Método encargado de validar que el número de cédula tenga la longitud válida.
+    */
+    override fun checkValidIdNumberUser(idNumberUser: String)
+            : Boolean = idNumberUser.length < 9
+
+    /*
+        Método encargado de validar que aún hayan asientos disponibles.
+    */
+    override fun checkSeatLimit(seatNumber: Int, seatLimit: Int)
+            : Boolean = seatNumber > seatLimit
 
 }

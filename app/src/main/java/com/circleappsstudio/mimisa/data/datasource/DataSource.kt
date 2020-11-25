@@ -23,10 +23,19 @@ interface DataSource {
     }
 
     interface SeatReservation {
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore.
+        */
         suspend fun fetchIterator() : Flow<Resource<Int>>
+
+        suspend fun fetchSeatLimit() : Resource<Int>
+
         suspend fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String)
+
         suspend fun addIterator(seatNumber: Int)
+
         suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>?
+
     }
 
 }

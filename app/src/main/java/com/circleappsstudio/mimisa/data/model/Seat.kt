@@ -6,7 +6,3 @@ data class Seat(
         var idNumberUser: String = "",
         var seatRegisteredBy: String = ""
 )
-
-data class SeatList(
-        val seatList: List<Seat>
-)

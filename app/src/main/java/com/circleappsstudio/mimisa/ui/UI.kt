@@ -57,20 +57,37 @@ interface UI {
 
     }
 
-    interface Home {
+    interface SeatReservationMain {
+        fun setUpRecyclerView()
+        fun fetchRegisteredSeatsByUserNameObserver()
         fun goToSeatReservation()
-    }
-
-    interface SeatReservation {
         fun showMessage(message: String, duration: Int)
         fun showProgressBar()
         fun hideProgressBar()
-        fun observeFetchIterator()
-        fun saveSeatReserved()
+    }
+
+    interface SeatReservation {
+
+        fun fetchIteratorObserver()
+
+        fun fetchSeatLimitObserver()
+
         fun saveSeatReservedObserver()
+
         fun addIteratorObserver()
-        fun fetchRegisteredSeatsByUserNameObserver()
-        fun setUpRecyclerView()
+
+        fun saveSeatReserved()
+
+        fun gotToSeatReservationMain()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun hideForm()
+
     }
 
 }
