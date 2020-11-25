@@ -39,4 +39,10 @@ interface Repo {
 
     }
 
+    interface Intention {
+
+        suspend fun saveIntention(category: String, intention: String)
+
+    }
+
 }

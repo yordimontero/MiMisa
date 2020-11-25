@@ -25,10 +25,8 @@ class SeatReservationDataSource : DataSource.SeatReservation {
             Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
         */
 
-        val iteratorPath = db.collection("asientos")
-                .document("diaconia")
-                .collection("la_argentina")
-                .document("data")
+        val iteratorPath = db.collection("diaconia")
+                .document("la_argentina")
                 .collection("params")
                 .document("data")
 
@@ -39,7 +37,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
             */
             if (documentSnapshot!!.exists()){
 
-                val iterator = documentSnapshot.getLong("iterador")!!.toInt()
+                val iterator = documentSnapshot.getLong("iterator")!!.toInt()
 
                 offer(Resource.Success(iterator))
 
@@ -64,19 +62,17 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
         var seatLimit = 0
 
-        db.collection("asientos")
-            .document("diaconia")
-            .collection("la_argentina")
-            .document("data")
-            .collection("params")
-            .document("data")
-            .get().addOnSuccessListener { document ->
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+                .get().addOnSuccessListener { document ->
 
-                if (document.exists()){
-                    seatLimit = document.data!!["limite_espacios"].toString().toInt()
-                }
+                    if (document.exists()){
+                        seatLimit = document.data!!["limit_seat"].toString().toInt()
+                    }
 
-            }.await()
+                }.await()
 
         return Resource.Success(seatLimit)
 
@@ -87,19 +83,19 @@ class SeatReservationDataSource : DataSource.SeatReservation {
             Método encargado de reservar un asiento.
         */
 
-        val seatReserved = hashMapOf (
+        val reservedSeat = hashMapOf (
                 "seatNumber" to seatNumber,
                 "nameUser" to nameUser,
                 "idNumberUser" to idNumberUser,
                 "seatRegisteredBy" to userName
         )
 
-        db.collection("asientos")
-                .document("diaconia")
-                .collection("la_argentina")
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("seat")
                 .document("data")
-                .collection("asientos_registrados")
-                .add(seatReserved)
+                .collection("registered_seats")
+                .add(reservedSeat)
                 .await()
 
     }
@@ -111,14 +107,12 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
         val addIterator = seatNumber + 1
 
-        db.collection("asientos")
-            .document("diaconia")
-            .collection("la_argentina")
-            .document("data")
-            .collection("params")
-            .document("data")
-            .update("iterador", addIterator)
-            .await()
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+                .update("iterator", addIterator)
+                .await()
 
     }
 
@@ -130,11 +124,11 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var seat: Seat
         val seatArrayList = arrayListOf<Seat>()
 
-        db.collection("asientos")
-                .document("diaconia")
-                .collection("la_argentina")
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("seat")
                 .document("data")
-                .collection("asientos_registrados")
+                .collection("registered_seats")
                 .whereEqualTo("seatRegisteredBy", userName)
                 .orderBy("seatNumber", Query.Direction.DESCENDING)
                 .get().addOnSuccessListener { documents ->

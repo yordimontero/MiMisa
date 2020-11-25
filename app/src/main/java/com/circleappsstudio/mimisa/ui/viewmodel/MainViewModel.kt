@@ -68,4 +68,10 @@ interface MainViewModel {
 
     }
 
+    interface Intention {
+
+        fun saveIntention(category: String, intention: String): LiveData<Resource<Boolean>>
+
+    }
+
 }

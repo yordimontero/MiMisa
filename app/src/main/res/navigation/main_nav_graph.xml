@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.circleappsstudio.mimisa.ui.main.notifications.NotificationsFragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.intention.main.MainIntentionFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_main_intention" />
     <fragment
         android:id="@+id/fragmentSeatReservation"
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.SeatReservationFragment"

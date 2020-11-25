@@ -38,4 +38,10 @@ interface DataSource {
 
     }
 
+    interface Intention {
+
+        suspend fun saveIntention(category: String, intention: String)
+
+    }
+
 }
