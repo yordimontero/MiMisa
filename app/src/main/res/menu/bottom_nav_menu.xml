@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_seat_reservation"
         android:icon="@drawable/ic_seat_reservation"
-        android:title="Reservación de Asientos" />
+        android:title="Asientos" />
 
     <item
         android:id="@+id/navigation_notifications"

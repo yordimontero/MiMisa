@@ -1,6 +1,7 @@
 package com.circleappsstudio.mimisa.ui.main
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -9,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -33,10 +35,39 @@ class MainActivity : BaseActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        setNavViewVisibility()
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
+    }
+
+    fun setNavViewVisibility(){
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+
+            when(destination.id){
+
+                R.id.navigation_home -> showNavView()
+                R.id.navigation_seat_reservation -> showNavView()
+                R.id.navigation_notifications -> showNavView()
+
+                else -> hideNavView()
+
+            }
+
+        }
+
+    }
+
+    fun showNavView(){
+        nav_view.visibility = View.VISIBLE
+    }
+
+    fun hideNavView(){
+        nav_view.visibility = View.GONE
     }
 
 }
