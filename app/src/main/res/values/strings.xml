@@ -6,4 +6,17 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="intention_category_init">Seleccione la categoría de su Intención</string>
+    <string name="thanksgiving">Acción de Gracias</string>
+    <string name="deceased">Difuntos</string>
+    <string name="birthday">Cumpleaños</string>
+
+    <string-array name="intention_category_array">
+        <item>Seleccione la categoría de su Intención</item>
+        <item>Acción de Gracias</item>
+        <item>Difuntos</item>
+        <item>Cumpleaños</item>
+    </string-array>
+
 </resources>

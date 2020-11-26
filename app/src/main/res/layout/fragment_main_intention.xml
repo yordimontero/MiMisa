@@ -6,8 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".ui.main.intention.main.MainIntentionFragment">
 
-
+    <Button
+        android:id="@+id/btn_go_to_intention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apuntar Intención"
+        android:textAllCaps="false"
+        android:layout_margin="8dp"/>
 
 </LinearLayout>

@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_intention"
         android:name="com.circleappsstudio.mimisa.ui.main.intention.main.MainIntentionFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_main_intention" />
+        tools:layout="@layout/fragment_main_intention" >
+        <action
+            android:id="@+id/action_navigation_intention_to_intentionFragment"
+            app:destination="@id/intentionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentSeatReservation"
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.SeatReservationFragment"
@@ -30,4 +34,9 @@
             android:id="@+id/action_mainSeatReservationFragment_to_navigation_seat_reservation"
             app:destination="@id/fragmentSeatReservation" />
     </fragment>
+    <fragment
+        android:id="@+id/intentionFragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.intention.IntentionFragment"
+        android:label="fragment_intention"
+        tools:layout="@layout/fragment_intention" />
 </navigation>

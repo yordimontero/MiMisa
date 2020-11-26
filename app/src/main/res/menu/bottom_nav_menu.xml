@@ -12,7 +12,7 @@
         android:title="Asientos" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_intention"
         android:icon="@drawable/ic_intentions"
         android:title="Intenciones" />
 

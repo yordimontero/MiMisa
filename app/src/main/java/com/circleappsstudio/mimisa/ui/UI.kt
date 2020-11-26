@@ -90,4 +90,24 @@ interface UI {
 
     }
 
+    interface IntentionMain {
+
+        fun goToIntention()
+
+    }
+
+    interface Intention {
+
+        fun setUpSpinner()
+
+        fun saveIntentionObserver()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
@@ -71,6 +72,12 @@ interface MainViewModel {
     interface Intention {
 
         fun saveIntention(category: String, intention: String): LiveData<Resource<Boolean>>
+
+        fun renameCategoryResource(context: Context, category: String): String
+
+        fun checkEmptyIntentionCategory(category: String): Boolean
+
+        fun checkEmptyIntention(intention: String): Boolean
 
     }
 
