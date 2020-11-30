@@ -2,6 +2,7 @@
 
 package com.circleappsstudio.mimisa.data.datasource.seatreservation
 
+import android.util.Log
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
@@ -35,7 +36,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 "subscription" va a estar siempre escuchando en tiempo real el valor del iterador
                 y va a estar ofreciendo el valor de dicho iterador por medio del offer(Resource.Success(iterator)).
             */
-            if (documentSnapshot!!.exists()){
+            if (documentSnapshot!!.exists()) {
 
                 val iterator = documentSnapshot.getLong("iterator")!!.toInt()
 
@@ -68,7 +69,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 .document("data")
                 .get().addOnSuccessListener { document ->
 
-                    if (document.exists()){
+                    if (document.exists()) {
                         seatLimit = document.data!!["limit_seat"].toString().toInt()
                     }
 
@@ -83,7 +84,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
             Método encargado de reservar un asiento.
         */
 
-        val reservedSeat = hashMapOf (
+        val reservedSeat = hashMapOf(
                 "seatNumber" to seatNumber,
                 "nameUser" to nameUser,
                 "idNumberUser" to idNumberUser,
@@ -133,7 +134,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 .orderBy("seatNumber", Query.Direction.DESCENDING)
                 .get().addOnSuccessListener { documents ->
 
-                    seatArrayList.clear()
+                seatArrayList.clear()
 
                     for (document in documents.documents) {
 
@@ -146,6 +147,8 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                             )
 
                             seatArrayList.add(seat)
+
+                            Log.e("TAG", "Asientos: $seatArrayList")
 
                         }
 

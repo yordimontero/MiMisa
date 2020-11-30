@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.circleappsstudio.mimisa.R
+import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.domain.Repo
 import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
 import com.circleappsstudio.mimisa.vo.Resource
@@ -12,8 +13,8 @@ import com.google.firebase.FirebaseException
 import kotlinx.coroutines.Dispatchers
 
 class IntentionViewModel(
-        private val intentionRepo: Repo.Intention
-): ViewModel(), MainViewModel.Intention {
+        private val intentionRepo: Repo.Intentions
+) : ViewModel(), MainViewModel.Intentions {
 
     override fun saveIntention(
             category: String,
@@ -28,7 +29,7 @@ class IntentionViewModel(
 
             emit(Resource.Success(true))
 
-        } catch (e: FirebaseException){
+        } catch (e: FirebaseException) {
 
             emit(Resource.Failure(e))
 
@@ -38,19 +39,19 @@ class IntentionViewModel(
 
     override fun renameCategoryResource(context: Context, category: String): String {
 
-        if (category == context.resources.getString(R.string.intention_category_init)){
+        if (category == context.resources.getString(R.string.intention_category_init)) {
             return "error"
         }
 
-        if (category == context.resources.getString(R.string.thanksgiving)){
+        if (category == context.resources.getString(R.string.thanksgiving)) {
             return "thanksgiving"
         }
 
-        if (category == context.resources.getString(R.string.deceased)){
+        if (category == context.resources.getString(R.string.deceased)) {
             return "deceased"
         }
 
-        if (category == context.resources.getString(R.string.birthday)){
+        if (category == context.resources.getString(R.string.birthday)) {
             return "birthday"
         }
 
@@ -61,5 +62,19 @@ class IntentionViewModel(
     override fun checkEmptyIntentionCategory(category: String): Boolean = category == "error"
 
     override fun checkEmptyIntention(intention: String): Boolean = intention.isEmpty()
+
+    override fun fetchSavedIntentionsByNameUser(): LiveData<Resource<List<Intention>>?> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(intentionRepo.fetchSavedIntentionsByUserName())
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.domain
 
+import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.coroutines.flow.Flow
@@ -39,9 +40,11 @@ interface Repo {
 
     }
 
-    interface Intention {
+    interface Intentions {
 
         suspend fun saveIntention(category: String, intention: String)
+
+        suspend fun fetchSavedIntentionsByUserName(): Resource<List<Intention>>?
 
     }
 

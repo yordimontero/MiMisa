@@ -1,6 +1,7 @@
 package com.circleappsstudio.mimisa.ui.main.intention
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
@@ -19,7 +20,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_intention.*
 
-class IntentionFragment : BaseFragment(), UI.Intention {
+class IntentionFragment : BaseFragment(), UI.Intentions {
 
     private lateinit var navController: NavController
 

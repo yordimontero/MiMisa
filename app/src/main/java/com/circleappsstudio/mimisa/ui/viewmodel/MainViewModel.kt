@@ -2,6 +2,7 @@ package com.circleappsstudio.mimisa.ui.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
 
@@ -69,7 +70,7 @@ interface MainViewModel {
 
     }
 
-    interface Intention {
+    interface Intentions {
 
         fun saveIntention(category: String, intention: String): LiveData<Resource<Boolean>>
 
@@ -78,6 +79,8 @@ interface MainViewModel {
         fun checkEmptyIntentionCategory(category: String): Boolean
 
         fun checkEmptyIntention(intention: String): Boolean
+
+        fun fetchSavedIntentionsByNameUser(): LiveData<Resource<List<Intention>>?>
 
     }
 

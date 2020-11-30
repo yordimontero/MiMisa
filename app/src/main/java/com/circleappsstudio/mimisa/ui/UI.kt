@@ -94,9 +94,13 @@ interface UI {
 
         fun goToIntention()
 
+        fun setUpRecyclerView()
+
+        fun fetchSavedIntentionsByNameUserObserver()
+
     }
 
-    interface Intention {
+    interface Intentions {
 
         fun setUpSpinner()
 

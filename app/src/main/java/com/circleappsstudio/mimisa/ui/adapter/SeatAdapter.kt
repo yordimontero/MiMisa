@@ -17,7 +17,7 @@ class SeatAdapter(private val context: Context,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         // Retorno de la clase encargada de bindear cada elemento del RecyclerView.
         // Infla el resouce de vista (layout) creado para mostrar la información.
-        return MainViewHolder(
+        return MainSeatViewHolder(
             LayoutInflater.from(context).inflate(R.layout.seat_row, parent, false)
         )
     }
@@ -25,14 +25,14 @@ class SeatAdapter(private val context: Context,
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         when (holder) {
             // Bindeo de cada elemento del RecyclerView.
-            is MainViewHolder -> holder.bind(seatList[position], position)
+            is MainSeatViewHolder -> holder.bind(seatList[position], position)
             else -> throw IllegalArgumentException("Error on bind.")
         }
     }
 
     override fun getItemCount(): Int = seatList.size
 
-    inner class MainViewHolder(itemView: View): BaseViewHolder<Seat>(itemView) {
+    inner class MainSeatViewHolder(itemView: View): BaseViewHolder<Seat>(itemView) {
 
         override fun bind(item: Seat, position: Int) {
             // Creación de cada elemento a "dibujar" en el RecyclerView.

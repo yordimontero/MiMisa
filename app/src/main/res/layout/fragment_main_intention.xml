@@ -9,6 +9,11 @@
     android:gravity="center"
     tools:context=".ui.main.intention.main.MainIntentionFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_intentions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/btn_go_to_intention"
         android:layout_width="match_parent"
