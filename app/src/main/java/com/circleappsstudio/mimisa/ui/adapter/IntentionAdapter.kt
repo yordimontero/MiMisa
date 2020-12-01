@@ -39,9 +39,29 @@ class IntentionAdapter(
 
         override fun bind(item: Intention, position: Int) {
 
-            itemView.txt_user_name_intention_row.text = item.userName
             itemView.txt_category_intention_row.text = item.category
             itemView.txt_intention_row.text = item.intention
+            itemView.txt_intention_registered_by_intention_row.text = item.intentionRegisteredBy
+
+            when (item.category) {
+
+                "thanksgiving" -> {
+                    itemView.img_intention_intention_row.setImageDrawable(context.getDrawable(R.drawable.ic_thumb_up))
+                }
+                "deceased" -> {
+                    itemView.img_intention_intention_row.setImageDrawable(context.getDrawable(R.drawable.ic_deceased))
+                }
+                "birthday" -> {
+                    itemView.img_intention_intention_row.setImageDrawable(context.getDrawable(R.drawable.ic_cake))
+                }
+
+            }
+
+            if (item.intentionRegisteredBy.isEmpty()){
+                itemView.layout_intention_registered_by_intention_row.visibility = View.GONE
+            } else {
+                itemView.layout_intention_registered_by_intention_row.visibility = View.VISIBLE
+            }
 
         }
 

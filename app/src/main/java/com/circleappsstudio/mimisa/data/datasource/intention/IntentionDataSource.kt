@@ -51,7 +51,7 @@ class IntentionDataSource : DataSource.Intentions {
                         if (document.exists()) {
 
                             intention = Intention(
-                                    document.data!!["userName"].toString(),
+                                    //document.data!!["userName"].toString(),
                                     document.data!!["category"].toString(),
                                     document.data!!["intention"].toString()
                             )

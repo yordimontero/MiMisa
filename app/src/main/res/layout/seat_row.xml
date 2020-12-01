@@ -10,7 +10,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="true"
@@ -32,7 +31,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="2dp"
                     android:src="@drawable/ic_verified"
-                    app:tint="@color/green" />
+                    app:tint="@color/light_green" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,7 +62,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="2dp"
                     android:src="@drawable/ic_person_pin"
-                    app:tint="@color/green" />
+                    app:tint="@color/light_green" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,7 +93,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="2dp"
                     android:src="@drawable/ic_person_pin"
-                    app:tint="@color/green" />
+                    app:tint="@color/light_green" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -125,8 +124,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="2dp"
-                    android:src="@drawable/ic_person_add"
-                    app:tint="@color/green" />
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/light_green" />
 
                 <TextView
                     android:layout_width="wrap_content"

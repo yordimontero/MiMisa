@@ -1,5 +1,7 @@
 package com.circleappsstudio.mimisa.ui
 
+import com.circleappsstudio.mimisa.data.model.IntentionSpinner
+
 interface UI {
 
     interface SplashScreen {
@@ -103,6 +105,8 @@ interface UI {
     interface Intentions {
 
         fun setUpSpinner()
+
+        fun getSelectedCategoryFromSpinner(intentionSpinnerAdapter: IntentionSpinner)
 
         fun saveIntentionObserver()
 

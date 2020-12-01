@@ -14,8 +14,8 @@
     <fragment
         android:id="@+id/navigation_intention"
         android:name="com.circleappsstudio.mimisa.ui.main.intention.main.MainIntentionFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_main_intention" >
+        android:label="Registro de Intenciones"
+        tools:layout="@layout/fragment_main_intention">
         <action
             android:id="@+id/action_navigation_intention_to_intentionFragment"
             app:destination="@id/intentionFragment" />
@@ -23,12 +23,12 @@
     <fragment
         android:id="@+id/fragmentSeatReservation"
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.SeatReservationFragment"
-        android:label="fragment_seat_reservation"
+        android:label="Reservación de Asientos"
         tools:layout="@layout/fragment_seat_reservation" />
     <fragment
         android:id="@+id/navigation_seat_reservation"
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.main.MainSeatReservationFragment"
-        android:label="Reservar Asientos"
+        android:label="Reservación de Asientos"
         tools:layout="@layout/fragment_main_seat_reservation">
         <action
             android:id="@+id/action_mainSeatReservationFragment_to_navigation_seat_reservation"
@@ -37,6 +37,6 @@
     <fragment
         android:id="@+id/intentionFragment"
         android:name="com.circleappsstudio.mimisa.ui.main.intention.IntentionFragment"
-        android:label="fragment_intention"
+        android:label="Registro de Intenciones"
         tools:layout="@layout/fragment_intention" />
 </navigation>

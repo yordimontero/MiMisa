@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.circleappsstudio.mimisa">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,7 +26,9 @@
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ui.auth.LogInActivity"/>
 
