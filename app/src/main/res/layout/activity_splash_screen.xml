@@ -6,14 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_gold"
+    android:gravity="center"
     tools:context=".ui.splashscreen.SplashScreenActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="26sp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Loading..."/>
+    <ImageView
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:src="@drawable/circle_apps_studio_gold"/>
 
 </LinearLayout>

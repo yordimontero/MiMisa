@@ -68,6 +68,11 @@ dependencies {
     implementation 'ru.egslava:MaskedEditText:1.0.5'
 
 
+
+    // Neomorphism:
+    implementation 'com.github.4inodev:Neomorphic-FrameLayout-Android:1.03'
+
+
     implementation 'com.google.firebase:firebase-firestore:21.4.3'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

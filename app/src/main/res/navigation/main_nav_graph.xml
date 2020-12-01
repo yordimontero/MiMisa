@@ -28,8 +28,8 @@
     <fragment
         android:id="@+id/navigation_seat_reservation"
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.main.MainSeatReservationFragment"
-        android:label="fragment_main_seat_reservation"
-        tools:layout="@layout/fragment_main_seat_reservation" >
+        android:label="Reservar Asientos"
+        tools:layout="@layout/fragment_main_seat_reservation">
         <action
             android:id="@+id/action_mainSeatReservationFragment_to_navigation_seat_reservation"
             app:destination="@id/fragmentSeatReservation" />
