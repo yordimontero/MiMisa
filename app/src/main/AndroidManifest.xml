@@ -30,7 +30,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustResize"/>
 
-        <activity android:name=".ui.auth.LogInActivity"/>
+        <activity
+            android:name=".ui.auth.LogInActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
 
     </application>
 

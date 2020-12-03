@@ -7,6 +7,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <!-- Login Fragment -->
+
+
+    <!-- Reset Password Fragment -->
+    <string name="change_password">Cambiar Contraseña</string>
+
+
     <string name="intention_category_init">Seleccione una categoría</string>
     <string name="thanksgiving">Acción de Gracias</string>
     <string name="deceased">Difuntos</string>

@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_intentions"
         android:title="Intenciones" />
 
+    <item
+        android:id="@+id/navigation_more"
+        android:icon="@drawable/ic_more"
+        android:title="Más"/>
+
 </menu>

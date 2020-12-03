@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
+    android:label="Más"
     app:startDestination="@+id/navigation_home">
 
     <fragment
@@ -39,4 +40,9 @@
         android:name="com.circleappsstudio.mimisa.ui.main.intention.IntentionFragment"
         android:label="Registro de Intenciones"
         tools:layout="@layout/fragment_intention" />
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.circleappsstudio.mimisa.ui.main.more.MoreFragment"
+        android:label="Más"
+        tools:layout="@layout/fragment_more" />
 </navigation>
