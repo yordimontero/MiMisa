@@ -12,22 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
             android:fontFamily="sans-serif-light"
-            android:text="Bienvenido,"
-            android:textSize="26sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:text="NameUser"
+            android:text="MiMisa"
             android:textSize="26sp" />
 
     </LinearLayout>
@@ -68,8 +61,8 @@
                     android:padding="8dp">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_mask" />
 
                     <TextView
@@ -104,8 +97,8 @@
                     android:padding="8dp">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_wash_hands"
                         app:tint="@color/aqua_green" />
 
@@ -141,8 +134,8 @@
                     android:padding="8dp">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/ic_campaign"
                         app:tint="@color/red" />
 

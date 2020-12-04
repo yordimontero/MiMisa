@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
-import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepo
+import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.adapter.SeatAdapter
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
@@ -25,18 +25,17 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain {
 
     private val seatReservationViewModel by activityViewModels<SeatReservationViewModel> {
         VMFactorySeatReservation(
-                SeatReservationRepo(
+                SeatReservationRepository(
                         SeatReservationDataSource()
                 )
         )
     }
 
+    private lateinit var seatNumber: String
+    private lateinit var seatLimitNumber: String
+
     override fun getLayout(): Int {
         return R.layout.fragment_main_seat_reservation
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,6 +46,8 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain {
         setUpRecyclerView()
 
         fetchRegisteredSeatsByUserNameObserver()
+
+        fetchIteratorObserver()
 
         goToSeatReservation()
 
@@ -92,11 +93,77 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain {
     }
 
     override fun showProgressBar() {
-        progressbar_home.visibility = View.VISIBLE
+        progressbar_main_seat_reservation.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        progressbar_home.visibility = View.GONE
+        progressbar_main_seat_reservation.visibility = View.GONE
+    }
+
+    override fun showNoSeatsAvailable() {
+        layout_no_seats_available.visibility = View.VISIBLE
+    }
+
+    override fun hideButton() {
+        btn_go_to_seat_reservation.visibility = View.GONE
+    }
+
+    override fun fetchIteratorObserver() {
+
+        seatReservationViewModel.fetchIterator().observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+            when(resultEmitted){
+
+                is Resource.Loading -> { showProgressBar() }
+
+                is Resource.Success -> {
+                    seatNumber = resultEmitted.data.toString()
+                    fetchSeatLimitObserver()
+                }
+
+                is Resource.Failure -> {
+                    showMessage(resultEmitted.exception.message.toString(), 2)
+                    hideProgressBar()
+                }
+
+            }
+
+        })
+
+    }
+
+    override fun fetchSeatLimitObserver() {
+
+        seatReservationViewModel.fetchSeatLimit().observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+            when(resultEmitted){
+
+                is Resource.Loading -> { showProgressBar() }
+
+                is Resource.Success -> {
+                    seatLimitNumber = resultEmitted.data.toString()
+                    checkAvailableSeats()
+                    hideProgressBar()
+                }
+
+                is Resource.Failure -> {
+                    showMessage(resultEmitted.exception.message.toString(), 2)
+                    hideProgressBar()
+                }
+
+            }
+
+        })
+
+    }
+
+    override fun checkAvailableSeats() {
+
+        if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())){
+            showNoSeatsAvailable()
+            hideButton()
+        }
+
     }
 
 }

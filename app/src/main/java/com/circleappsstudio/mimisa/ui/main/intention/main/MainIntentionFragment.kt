@@ -1,7 +1,6 @@
 package com.circleappsstudio.mimisa.ui.main.intention.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.intention.IntentionDataSource
-import com.circleappsstudio.mimisa.domain.intention.IntentionRepo
+import com.circleappsstudio.mimisa.domain.intention.IntentionRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.adapter.IntentionAdapter
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryIntention
@@ -26,7 +25,7 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
 
     private val intentionViewModel by activityViewModels<IntentionViewModel> {
         VMFactoryIntention(
-                IntentionRepo(
+                IntentionRepository(
                         IntentionDataSource()
                 )
         )
@@ -68,20 +67,34 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
 
             when (resultEmitted) {
 
-                is Resource.Loading -> {
-                }
+                is Resource.Loading -> { showProgressBar() }
 
                 is Resource.Success -> {
                     rv_intentions.adapter = IntentionAdapter(requireContext(), resultEmitted.data)
+                    hideProgressBar()
                 }
 
                 is Resource.Failure -> {
+                    showMessage(resultEmitted.exception.message.toString(), 2)
+                    hideProgressBar()
                 }
 
             }
 
         })
 
+    }
+
+    override fun showMessage(message: String, duration: Int) {
+        requireContext().toast(requireContext(), message, duration)
+    }
+
+    override fun showProgressBar() {
+        progressbar_main_intention.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        progressbar_main_intention.visibility = View.GONE
     }
 
 }

@@ -2,13 +2,13 @@ package com.circleappsstudio.mimisa.domain.seatreservation
 
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.data.model.Seat
-import com.circleappsstudio.mimisa.domain.Repo
+import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
-class SeatReservationRepo(
+class SeatReservationRepository(
         private val seatReservationDataSource: DataSource.SeatReservation
-) : Repo.SeatReservation {
+) : Repository.SeatReservation {
 
     /*
         Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.

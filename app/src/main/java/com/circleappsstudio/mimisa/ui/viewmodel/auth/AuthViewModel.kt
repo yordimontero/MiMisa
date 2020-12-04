@@ -6,14 +6,14 @@ import androidx.core.util.PatternsCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.circleappsstudio.mimisa.domain.Repo
+import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 
-class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewModel.Auth {
+class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), MainViewModel.Auth {
 
     private val user by lazy { FirebaseAuth.getInstance() }
 
@@ -30,7 +30,7 @@ class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewMode
 
             try {
 
-                authRepo.signInUserRepo(email, password)
+                authRepository.signInUserRepo(email, password)
 
                 emit(Resource.Success(true))
 
@@ -55,7 +55,7 @@ class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewMode
 
             try {
 
-                authRepo.updateUserProfileRepo(fullName)
+                authRepository.updateUserProfileRepo(fullName)
 
                 emit(Resource.Success(true))
 
@@ -99,7 +99,7 @@ class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewMode
 
             try {
 
-                authRepo.logInUserRepo(email, password)
+                authRepository.logInUserRepo(email, password)
 
                 emit(Resource.Success(true))
 
@@ -138,7 +138,7 @@ class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewMode
 
             try {
 
-                authRepo.resetPasswordUserRepo(email)
+                authRepository.resetPasswordUserRepo(email)
 
                 emit(Resource.Success(true))
 
@@ -176,7 +176,7 @@ class AuthViewModel(private val authRepo: Repo.Auth) : ViewModel(), MainViewMode
         /*
              Método encargado de cerrar la sesión de un usuario existente en el sistema.
         */
-        authRepo.logOutUserRepo()
+        authRepository.logOutUserRepo()
     }
 
 }

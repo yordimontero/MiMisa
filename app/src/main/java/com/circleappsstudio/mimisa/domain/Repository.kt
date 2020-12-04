@@ -5,7 +5,7 @@ import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface Repo {
+interface Repository {
 
     interface Auth {
         /*

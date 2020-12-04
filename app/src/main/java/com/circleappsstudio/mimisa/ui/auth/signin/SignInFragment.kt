@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
-import com.circleappsstudio.mimisa.domain.auth.AuthRepo
+import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
@@ -23,25 +23,21 @@ class SignInFragment : BaseFragment(), UI.SignInUI {
 
     private lateinit var navController: NavController
 
+    private val authViewModel by activityViewModels<AuthViewModel> {
+        VMFactoryAuth(
+                AuthRepository(
+                        AuthDataSource()
+                )
+        )
+    }
+
     private lateinit var fullName: String
     private lateinit var email: String
     private lateinit var password1: String
     private lateinit var password2: String
 
-    private val authViewModel by activityViewModels<AuthViewModel> {
-        VMFactoryAuth(
-            AuthRepo(
-                AuthDataSource()
-            )
-        )
-    }
-
     override fun getLayout(): Int {
         return R.layout.fragment_sign_in
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -152,7 +148,7 @@ class SignInFragment : BaseFragment(), UI.SignInUI {
 
                 when (resultEmitted) {
 
-                    is Resource.Loading -> {
+                    /*is Resource.Loading -> {
                         Log.e("TAG", "setNameUserObserver: Loading")
                     }
 
@@ -163,6 +159,11 @@ class SignInFragment : BaseFragment(), UI.SignInUI {
 
                     is Resource.Failure -> {
                         Log.e("TAG", "setNameUserObserver: Failure")
+                    }*/
+
+                    is Resource.Success -> {
+                        showMessage("Usuario registrado con éxito.", 1)
+                        goToMainActivity()
                     }
 
                 }

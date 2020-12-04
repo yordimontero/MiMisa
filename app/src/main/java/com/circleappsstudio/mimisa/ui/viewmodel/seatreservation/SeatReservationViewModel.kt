@@ -3,18 +3,16 @@ package com.circleappsstudio.mimisa.ui.viewmodel.seatreservation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
 import com.circleappsstudio.mimisa.data.model.Seat
-import com.circleappsstudio.mimisa.domain.Repo
+import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.FirebaseException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class SeatReservationViewModel(
-        private val seatReservationRepo: Repo.SeatReservation
+        private val seatReservationRepository: Repository.SeatReservation
 ) : ViewModel(), MainViewModel.SeatReservation {
 
     override fun fetchIterator(): LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
@@ -26,7 +24,7 @@ class SeatReservationViewModel(
 
         try {
 
-            seatReservationRepo.fetchIterator().collect { iterator ->
+            seatReservationRepository.fetchIterator().collect { iterator ->
                 // ".collect" colecta lo que está dentro del Flow (en este caso el iterador en la base de datos).
                 emit(iterator)
             }
@@ -45,7 +43,7 @@ class SeatReservationViewModel(
 
         try {
 
-            emit(seatReservationRepo.fetchSeatLimit())
+            emit(seatReservationRepository.fetchSeatLimit())
 
         } catch (e: FirebaseException){
 
@@ -67,7 +65,7 @@ class SeatReservationViewModel(
         emit(Resource.Loading())
 
         try {
-            seatReservationRepo.saveSeatReserved(seatNumber, nameUser, idNumberUser)
+            seatReservationRepository.saveSeatReserved(seatNumber, nameUser, idNumberUser)
             emit(Resource.Success(true))
         } catch (e: FirebaseException){
             emit(Resource.Failure(e))
@@ -82,7 +80,7 @@ class SeatReservationViewModel(
         emit(Resource.Loading())
 
         try {
-            seatReservationRepo.addIterator(seatNumber)
+            seatReservationRepository.addIterator(seatNumber)
             emit(Resource.Success(true))
         } catch (e: FirebaseException){
             emit(Resource.Failure(e))
@@ -98,7 +96,7 @@ class SeatReservationViewModel(
 
         try {
 
-            emit(seatReservationRepo.fetchRegisteredSeatsByUserName())
+            emit(seatReservationRepository.fetchRegisteredSeatsByUserName())
 
         } catch (e: FirebaseException){
 
@@ -120,7 +118,7 @@ class SeatReservationViewModel(
         Método encargado de validar que el número de cédula tenga la longitud válida.
     */
     override fun checkValidIdNumberUser(idNumberUser: String)
-            : Boolean = idNumberUser.length < 9
+            : Boolean = idNumberUser.length < 11
 
     /*
         Método encargado de validar que aún hayan asientos disponibles.

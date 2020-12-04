@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.data.model.Intention
-import com.circleappsstudio.mimisa.domain.Repo
+import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.FirebaseException
 import kotlinx.coroutines.Dispatchers
 
 class IntentionViewModel(
-        private val intentionRepo: Repo.Intentions
+        private val intentionRepository: Repository.Intentions
 ) : ViewModel(), MainViewModel.Intentions {
 
     override fun saveIntention(
@@ -25,7 +25,7 @@ class IntentionViewModel(
 
         try {
 
-            intentionRepo.saveIntention(category, intention)
+            intentionRepository.saveIntention(category, intention)
 
             emit(Resource.Success(true))
 
@@ -69,7 +69,7 @@ class IntentionViewModel(
 
         try {
 
-            emit(intentionRepo.fetchSavedIntentionsByUserName())
+            emit(intentionRepository.fetchSavedIntentionsByUserName())
 
         } catch (e: FirebaseException) {
             emit(Resource.Failure(e))

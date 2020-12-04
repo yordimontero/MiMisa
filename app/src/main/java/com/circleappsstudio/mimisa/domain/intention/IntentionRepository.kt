@@ -2,10 +2,10 @@ package com.circleappsstudio.mimisa.domain.intention
 
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.data.model.Intention
-import com.circleappsstudio.mimisa.domain.Repo
+import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.vo.Resource
 
-class IntentionRepo(private val intentionDataSource: DataSource.Intentions) : Repo.Intentions {
+class IntentionRepository(private val intentionDataSource: DataSource.Intentions) : Repository.Intentions {
 
     override suspend fun saveIntention(
             category: String,

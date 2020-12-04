@@ -1,7 +1,7 @@
 package com.circleappsstudio.mimisa.ui.main.seatreservation
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
-import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepo
+import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
@@ -23,15 +23,16 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
 
     private val seatReservationViewModel by activityViewModels<SeatReservationViewModel> {
         VMFactorySeatReservation(
-            SeatReservationRepo(
-                SeatReservationDataSource()
-            )
+                SeatReservationRepository(
+                        SeatReservationDataSource()
+                )
         )
     }
 
     private lateinit var seatNumber: String
     private lateinit var nameUser: String
     private lateinit var idNumberUser: String
+    private lateinit var seatLimitNumber: String
 
     override fun getLayout(): Int {
         return R.layout.fragment_seat_reservation
@@ -52,102 +53,65 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
 
     override fun fetchIteratorObserver() {
 
-        seatReservationViewModel.fetchIterator().observe(viewLifecycleOwner, Observer { resultEmmited ->
+        if (isOnline(requireContext())){
 
-            when(resultEmmited){
-                is Resource.Loading -> {
-                    requireContext().toast(requireContext(), "Loading...")
-                }
-                is Resource.Success -> {
-                    txt_iterator.text = resultEmmited.data.toString()
-                    seatNumber = resultEmmited.data.toString()
-                    fetchSeatLimitObserver()
-                }
-                is Resource.Failure -> {
-                    requireContext().toast(requireContext(), "Failure: ${resultEmmited.exception}")
-                }
-            }
-
-        })
-
-    }
-
-    override fun fetchSeatLimitObserver() {
-
-        seatReservationViewModel.fetchSeatLimit().observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-            when(resultEmitted){
-
-                is Resource.Loading -> {}
-
-                is Resource.Success -> {
-
-                    if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), resultEmitted.data)){
-                        hideForm()
-                        showMessage("Ya no hay asientos disponibles.", 2)
-                    }
-
-                }
-
-                is Resource.Failure -> {
-                    showMessage(resultEmitted.exception.message.toString(), 2)
-                }
-
-            }
-
-        })
-
-    }
-
-    override fun saveSeatReservedObserver() {
-
-        seatReservationViewModel.saveSeatReserved(seatNumber.toInt(), nameUser, idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-            when(resultEmitted){
-
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
-
-                is Resource.Success -> {
-                    addIteratorObserver()
-                }
-
-                is Resource.Failure -> {
-                    showMessage(resultEmitted.exception.message.toString(), 2)
-                    hideProgressBar()
-                }
-
-            }
-
-        })
-
-    }
-
-    override fun addIteratorObserver() {
-
-        seatReservationViewModel.addIterator(seatNumber.toInt()).observe(viewLifecycleOwner,
-            Observer { resultEmitted ->
+            seatReservationViewModel.fetchIterator().observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
 
                     is Resource.Loading -> {
-                        Log.e("TAG", "observeAddIterator: Loading")
+                        showProgressBar()
                     }
 
                     is Resource.Success -> {
-                        showMessage("Asiento número $seatNumber reservado con éxito.", 1)
-                        hideProgressBar()
-                        gotToSeatReservationMain()
+                        seatNumber = resultEmitted.data.toString()
+                        fetchSeatLimitObserver()
                     }
 
                     is Resource.Failure -> {
-                        Log.e("TAG", "observeAddIterator: Failure")
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
                     }
 
                 }
 
             })
+
+        } else {
+            showMessage("No hay conexión a Internet", 1)
+        }
+
+    }
+
+    override fun fetchSeatLimitObserver() {
+
+        if (isOnline(requireContext())){
+
+            seatReservationViewModel.fetchSeatLimit().observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                when (resultEmitted) {
+
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
+
+                    is Resource.Success -> {
+                        seatLimitNumber = resultEmitted.data.toString()
+                        hideProgressBar()
+                    }
+
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
+                    }
+
+                }
+
+            })
+
+        } else {
+            showMessage("No hay conexión a Internet.", 1)
+        }
 
     }
 
@@ -156,19 +120,26 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
         nameUser = txt_fullname_seat_reservation.text.toString()
         idNumberUser = txt_id_number_user_seat_reservation.text.toString()
 
-        if (!isOnline(requireContext())){
-            showMessage("No hay conexión a Internet.", 2)
+        if (!isOnline(requireContext())) {
+            //showMessage("No hay conexión a Internet.", 2)
+            showDialog()
             return
         }
 
-        if (seatReservationViewModel.checkEmptyFieldsForSeatReservation(nameUser, idNumberUser)){
+        if (seatReservationViewModel.checkEmptyFieldsForSeatReservation(nameUser, idNumberUser)) {
             txt_fullname_seat_reservation.error = "Complete los campos."
             txt_id_number_user_seat_reservation.error = "Complete los campos."
             return
         }
 
-        if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)){
+        if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
             txt_id_number_user_seat_reservation.error = "Número de cédula inválido."
+            return
+        }
+
+        if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())){
+            showMessage("Ya no hay asientos disponibles.", 2)
+            goToSeatReservationMain()
             return
         }
 
@@ -176,8 +147,75 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
 
     }
 
-    override fun gotToSeatReservationMain() {
-        navController.navigate(R.id.navigation_seat_reservation)
+    override fun saveSeatReservedObserver() {
+
+        if (isOnline(requireContext())){
+
+            seatReservationViewModel.saveSeatReserved(
+                    seatNumber.toInt(),
+                    nameUser,
+                    idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                when (resultEmitted) {
+
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
+
+                    is Resource.Success -> {
+                        addIteratorObserver()
+                    }
+
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
+                    }
+
+                }
+
+            })
+
+        } else {
+            showMessage("No hay conexión a Internet.", 1)
+        }
+
+    }
+
+    override fun addIteratorObserver() {
+
+        if (isOnline(requireContext())){
+
+            seatReservationViewModel.addIterator(seatNumber.toInt()).observe(viewLifecycleOwner,
+                    Observer { resultEmitted ->
+
+                        when (resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+                                showMessage("Asiento reservado con éxito.", 1)
+                                goToSeatReservationMain()
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        } else {
+            showMessage("No hay conexión a Internet", 1)
+        }
+
+    }
+
+    override fun goToSeatReservationMain() {
+        navController.navigateUp()
     }
 
     override fun showMessage(message: String, duration: Int) {
@@ -192,8 +230,34 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation {
         progressbar_seat_reservation.visibility = View.GONE
     }
 
-    override fun hideForm() {
-        form_seat_reservation.visibility = View.INVISIBLE
+    override fun showDialog() {
+
+        val builder: AlertDialog.Builder? = context?.let {
+            AlertDialog.Builder(it)
+        }
+
+        builder!!.setTitle("¡No hay conexión a Internet!")
+        builder.setMessage("Verifique su conexión e inténtelo de nuevo.")
+
+        builder.setCancelable(false)
+        builder.setIcon(R.drawable.ic_wifi_off)
+
+        builder.apply {
+            setPositiveButton("Intentar de nuevo") { dialog, id ->
+
+                if (isOnline(requireContext())){
+                    fetchIteratorObserver()
+                } else {
+                    showDialog()
+                }
+
+            }
+        }
+
+        val dialog: AlertDialog? = builder.create()
+
+        dialog!!.show()
+
     }
 
 }

@@ -60,17 +60,34 @@ interface UI {
     }
 
     interface SeatReservationMain {
+
         fun setUpRecyclerView()
+
         fun fetchRegisteredSeatsByUserNameObserver()
+
         fun goToSeatReservation()
+
         fun showMessage(message: String, duration: Int)
+
         fun showProgressBar()
+
         fun hideProgressBar()
+
+        fun showNoSeatsAvailable()
+
+        fun hideButton()
+
+        fun fetchIteratorObserver()
+
+        fun fetchSeatLimitObserver()
+
+        fun checkAvailableSeats()
+
     }
 
     interface SeatReservation {
 
-        fun fetchIteratorObserver()
+        /*fun fetchIteratorObserver()
 
         fun fetchSeatLimitObserver()
 
@@ -88,7 +105,27 @@ interface UI {
 
         fun hideProgressBar()
 
-        fun hideForm()
+        fun hideForm()*/
+
+        fun fetchIteratorObserver()
+
+        fun fetchSeatLimitObserver()
+
+        fun saveSeatReserved()
+
+        fun saveSeatReservedObserver()
+
+        fun addIteratorObserver()
+
+        fun goToSeatReservationMain()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showDialog()
 
     }
 
@@ -99,6 +136,12 @@ interface UI {
         fun setUpRecyclerView()
 
         fun fetchSavedIntentionsByNameUserObserver()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
 
     }
 
@@ -115,6 +158,8 @@ interface UI {
         fun showProgressBar()
 
         fun hideProgressBar()
+
+        fun gotToSeatReservationMain()
 
     }
 

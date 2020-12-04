@@ -13,7 +13,7 @@ import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.intention.IntentionDataSource
 import com.circleappsstudio.mimisa.data.model.IntentionSpinner
 import com.circleappsstudio.mimisa.data.model.Intentions
-import com.circleappsstudio.mimisa.domain.intention.IntentionRepo
+import com.circleappsstudio.mimisa.domain.intention.IntentionRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.adapter.IntentionSpinnerAdapter
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryIntention
@@ -27,7 +27,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
 
     private val intentionViewModel by activityViewModels<IntentionViewModel> {
         VMFactoryIntention(
-            IntentionRepo(
+            IntentionRepository(
                 IntentionDataSource()
             )
         )
@@ -55,12 +55,6 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
     }
 
     override fun setUpSpinner() {
-
-        /*spinIntentionCategory.adapter = ArrayAdapter(
-            requireContext(),
-            R.layout.support_simple_spinner_dropdown_item,
-            resources.getStringArray(R.array.intention_category_array)
-        )*/
 
         val adapter = IntentionSpinnerAdapter(requireContext(), Intentions.list!!)
         spinIntentionCategory.adapter = adapter
@@ -90,8 +84,6 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
         renamedCategory = intentionViewModel
             .renameCategoryResource(requireContext(), spinnerIntentionCategory)
 
-        showMessage(renamedCategory, 1)
-
     }
 
     override fun saveIntentionObserver() {
@@ -99,7 +91,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
         intention = txt_intention.text.toString()
 
         if (intentionViewModel.checkEmptyIntentionCategory(renamedCategory)){
-            showMessage("Seleccione la categoría de su Intención.", 2)
+            showMessage("Seleccione la categoría de su intención.", 2)
             return
         }
 
@@ -121,7 +113,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
 
                 is Resource.Success -> {
                     showMessage("Intención guardada con éxito.", 1)
-                    hideProgressBar()
+                    gotToSeatReservationMain()
                 }
 
                 is Resource.Failure -> {
@@ -145,6 +137,10 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
 
     override fun hideProgressBar() {
         progressbar_intention.visibility = View.GONE
+    }
+
+    override fun gotToSeatReservationMain() {
+        navController.navigateUp()
     }
 
 }

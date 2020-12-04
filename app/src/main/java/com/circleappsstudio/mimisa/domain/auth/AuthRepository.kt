@@ -3,9 +3,9 @@
 package com.circleappsstudio.mimisa.domain.auth
 
 import com.circleappsstudio.mimisa.data.datasource.DataSource
-import com.circleappsstudio.mimisa.domain.Repo
+import com.circleappsstudio.mimisa.domain.Repository
 
-class AuthRepo(private val authDataSource: DataSource.Auth) : Repo.Auth {
+class AuthRepository(private val authDataSource: DataSource.Auth) : Repository.Auth {
 
     override suspend fun signInUserRepo(email: String, password: String) {
         /*

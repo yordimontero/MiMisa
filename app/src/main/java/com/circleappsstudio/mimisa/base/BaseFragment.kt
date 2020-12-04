@@ -2,6 +2,7 @@
 
 package com.circleappsstudio.mimisa.base
 
+import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -11,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.circleappsstudio.mimisa.R
+import java.lang.Exception
 
 abstract class BaseFragment : Fragment() {
 
@@ -71,6 +74,5 @@ abstract class BaseFragment : Fragment() {
 
         return false
     }
-
 
 }

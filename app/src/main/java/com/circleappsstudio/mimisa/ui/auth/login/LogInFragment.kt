@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
-import com.circleappsstudio.mimisa.domain.auth.AuthRepo
+import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
@@ -22,23 +22,19 @@ class LogInFragment : BaseFragment(), UI.LogInUI {
 
     private lateinit var navController: NavController
 
-    private lateinit var email: String
-    private lateinit var password: String
-
     private val authViewModel by activityViewModels<AuthViewModel>{
         VMFactoryAuth(
-            AuthRepo(
-                AuthDataSource()
-            )
+                AuthRepository(
+                        AuthDataSource()
+                )
         )
     }
 
+    private lateinit var email: String
+    private lateinit var password: String
+
     override fun getLayout(): Int {
         return R.layout.fragment_log_in
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
