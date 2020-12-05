@@ -22,6 +22,8 @@ interface Repository {
 
         fun logOutUserRepo()
 
+        fun getUserName(): String
+
     }
 
     interface SeatReservation {
@@ -37,6 +39,8 @@ interface Repository {
         suspend fun addIterator(seatNumber: Int)
 
         suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>?
+
+        suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
 
     }
 

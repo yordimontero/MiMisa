@@ -68,8 +68,20 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain {
                 is Resource.Loading -> { showProgressBar() }
 
                 is Resource.Success -> {
-                    rv_seat_reservation.adapter = SeatAdapter(requireContext(), resultEmitted.data)
-                    hideProgressBar()
+
+                    if (resultEmitted.data.isNotEmpty()) {
+
+                        rv_seat_reservation.adapter = SeatAdapter(requireContext(), resultEmitted.data)
+                        hideProgressBar()
+                        showRecyclerView()
+
+                    } else {
+
+                        hideRecyclerView()
+                        hideProgressBar()
+
+                    }
+
                 }
 
                 is Resource.Failure -> {
@@ -164,6 +176,14 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain {
             hideButton()
         }
 
+    }
+
+    override fun showRecyclerView() {
+        layout_rv_seat_reservation.visibility = View.VISIBLE
+    }
+
+    override fun hideRecyclerView() {
+        layout_rv_seat_reservation.visibility = View.GONE
     }
 
 }

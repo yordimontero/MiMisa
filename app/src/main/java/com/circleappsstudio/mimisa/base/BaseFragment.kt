@@ -15,17 +15,17 @@ import androidx.fragment.app.Fragment
 import com.circleappsstudio.mimisa.R
 import java.lang.Exception
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment() : Fragment() {
 
     // Método para obtener el layout del Fragment.
-    protected abstract fun getLayout() : Int
+    protected abstract fun getLayout(): Int
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(getLayout(),container, false)
+        return inflater.inflate(getLayout(), container, false)
     }
 
     fun Context.toast(context: Context = applicationContext, message: String?,
@@ -73,6 +73,39 @@ abstract class BaseFragment : Fragment() {
         }
 
         return false
+    }
+
+    fun dialog(buttonListener: OnDialogClickButtonListener,
+               title: String,
+               message: String,
+               icon: Int,
+               positiveButton: String,
+               negativeButton: String) {
+
+        val builder: AlertDialog.Builder? = context?.let {
+            AlertDialog.Builder(it)
+        }
+
+        builder!!.setTitle(title)
+        builder.setMessage(message)
+
+        builder.setCancelable(false)
+        builder.setIcon(icon)
+
+        builder.apply {
+            setPositiveButton(positiveButton) { dialog, id ->
+                buttonListener.onPositiveButtonClicked()
+            }
+
+            setNegativeButton(negativeButton) { dialog, id ->
+                buttonListener.onNegativeButtonClicked()
+            }
+        }
+
+        val dialog: AlertDialog? = builder.create()
+
+        dialog!!.show()
+
     }
 
 }

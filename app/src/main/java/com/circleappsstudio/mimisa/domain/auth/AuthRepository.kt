@@ -43,4 +43,6 @@ class AuthRepository(private val authDataSource: DataSource.Auth) : Repository.A
         authDataSource.logOutUser()
     }
 
+    override fun getUserName(): String = authDataSource.getUserName()
+
 }

@@ -70,8 +70,20 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
                 is Resource.Loading -> { showProgressBar() }
 
                 is Resource.Success -> {
-                    rv_intentions.adapter = IntentionAdapter(requireContext(), resultEmitted.data)
-                    hideProgressBar()
+
+                    if (resultEmitted.data.isNotEmpty()) {
+
+                        rv_intentions.adapter = IntentionAdapter(requireContext(), resultEmitted.data)
+                        hideProgressBar()
+                        showRecyclerView()
+
+                    } else {
+
+                        hideProgressBar()
+                        hideRecyclerView()
+
+                    }
+
                 }
 
                 is Resource.Failure -> {
@@ -95,6 +107,14 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
 
     override fun hideProgressBar() {
         progressbar_main_intention.visibility = View.GONE
+    }
+
+    override fun showRecyclerView() {
+        layout_rv_intentions.visibility = View.VISIBLE
+    }
+
+    override fun hideRecyclerView() {
+        layout_rv_intentions.visibility = View.GONE
     }
 
 }

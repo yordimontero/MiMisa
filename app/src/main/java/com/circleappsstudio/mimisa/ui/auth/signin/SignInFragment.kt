@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.base.OnDialogClickButtonListener
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.ui.UI
@@ -19,7 +20,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
-class SignInFragment : BaseFragment(), UI.SignInUI {
+class SignInFragment : BaseFragment(), UI.SignInUI, OnDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -95,6 +96,11 @@ class SignInFragment : BaseFragment(), UI.SignInUI {
             return
         }
 
+        if (authViewModel.chechEmptyUserName(fullName)){
+            txt_fullname_sign_in_user.error = "Complete los campos."
+            return
+        }
+
         if (authViewModel.checkValidEmailViewModel(email)) {
             txt_email_sign_in_user.error = "El e-mail ingresado es incorrecto."
             return
@@ -111,64 +117,74 @@ class SignInFragment : BaseFragment(), UI.SignInUI {
             return
         }
 
+        if (!isOnline(requireContext())) {
+            showDialog()
+            return
+        }
+
         signInUserObserver()
 
     }
 
     override fun signInUserObserver() {
 
-        authViewModel.signInUserViewModel(email, password1).observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-            when(resultEmitted){
+            authViewModel.signInUserViewModel(email, password1).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
+                when(resultEmitted){
 
-                is Resource.Success -> {
-                    setNameUserObserver()
-                }
-
-                is Resource.Failure -> {
-                    showMessage(resultEmitted.exception.message.toString(), 2)
-                    hideProgressBar()
-                }
-
-            }
-
-        })
-
-    }
-
-    override fun setNameUserObserver() {
-
-        authViewModel.updateUserProfileViewModel(fullName).observe(
-            viewLifecycleOwner,
-            Observer { resultEmitted ->
-
-                when (resultEmitted) {
-
-                    /*is Resource.Loading -> {
-                        Log.e("TAG", "setNameUserObserver: Loading")
+                    is Resource.Loading -> {
+                        showProgressBar()
                     }
 
                     is Resource.Success -> {
-                        showMessage("Usuario registrado con éxito.", 1)
-                        goToMainActivity()
+                        setNameUserObserver()
                     }
 
                     is Resource.Failure -> {
-                        Log.e("TAG", "setNameUserObserver: Failure")
-                    }*/
-
-                    is Resource.Success -> {
-                        showMessage("Usuario registrado con éxito.", 1)
-                        goToMainActivity()
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
                     }
 
                 }
 
             })
+
+
+        }
+
+    }
+
+    override fun setNameUserObserver() {
+
+        if (isOnline(requireContext())) {
+
+            authViewModel.updateUserProfileViewModel(fullName).observe(
+                    viewLifecycleOwner,
+                    Observer { resultEmitted ->
+
+                        when (resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+                                showMessage("Usuario registrado con éxito.", 1)
+                                goToMainActivity()
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
 
     }
 
@@ -203,6 +219,42 @@ class SignInFragment : BaseFragment(), UI.SignInUI {
 
         }
 
+    }
+
+    override fun showDialog() {
+
+        dialog(this,
+                "¡No hay conexión a Internet!",
+                "Verifique su conexión e inténtelo de nuevo.",
+                R.drawable.ic_wifi_off,
+                "Intentar de nuevo",
+                ""
+        )
+
+    }
+
+    override fun onPositiveButtonClicked() {
+
+        if (isOnline(requireContext())){
+
+            signInUserUI()
+
+        } else {
+
+            dialog(this,
+                    "¡No hay conexión a Internet!",
+                    "Verifique su conexión e inténtelo de nuevo.",
+                    R.drawable.ic_wifi_off,
+                    "Intentar de nuevo",
+                    ""
+            )
+
+        }
+
+    }
+
+    override fun onNegativeButtonClicked() {
+        TODO("Not yet implemented")
     }
 
 }

@@ -51,4 +51,6 @@ class AuthDataSource : DataSource.Auth {
         user.signOut()
     }
 
+    override fun getUserName(): String = user.currentUser!!.displayName.toString()
+
 }

@@ -32,6 +32,8 @@ interface MainViewModel {
         // Validaciones Loggeo de Usuarios:
         fun checkEmptyFieldsForLogInViewModel(email: String, password: String): Boolean
 
+        fun chechEmptyUserName(nameUser: String): Boolean
+
         // Cambio de Contraseña de Usuarios.
         fun resetPasswordUserViewModel(email: String): LiveData<Resource<Boolean>>
 
@@ -45,6 +47,8 @@ interface MainViewModel {
 
         // Cierra de Sesión de Usuarios:
         fun logOutUserViewModel()
+
+        fun getUserName(): String
 
     }
 
@@ -62,11 +66,15 @@ interface MainViewModel {
 
         fun fetchRegisteredSeatsByUserName(): LiveData<Resource<List<Seat>>?>
 
-        fun checkEmptyFieldsForSeatReservation(nameUser: String, idNumberUser: String): Boolean
+        fun checkEmptyNameUser(nameUser: String): Boolean
+
+        fun checkEmptyIdNumberUser(idNumberUser: String): Boolean
 
         fun checkValidIdNumberUser(idNumberUser: String): Boolean
 
         fun checkSeatLimit(seatNumber: Int, seatLimit: Int): Boolean
+
+        fun checkSeatSavedByIdNumberUser(idNumberUser: String): LiveData<Resource<Boolean>>
 
     }
 
@@ -74,13 +82,29 @@ interface MainViewModel {
 
         fun saveIntention(category: String, intention: String): LiveData<Resource<Boolean>>
 
-        fun renameCategoryResource(context: Context, category: String): String
-
         fun checkEmptyIntentionCategory(category: String): Boolean
 
         fun checkEmptyIntention(intention: String): Boolean
 
         fun fetchSavedIntentionsByNameUser(): LiveData<Resource<List<Intention>>?>
+
+    }
+
+    interface More {
+
+        fun fetchUserName(context: Context)
+
+        fun goToFacebook(context: Context)
+
+        fun goToTwitter(context: Context)
+
+        fun goToWebPage(context: Context)
+
+        fun goToPrivacyPolicy(context: Context)
+
+        fun rateApp(context: Context)
+
+        fun goToPlayStoreMoreApps(context: Context)
 
     }
 

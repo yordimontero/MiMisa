@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.ui
 
+import android.content.Context
 import com.circleappsstudio.mimisa.data.model.IntentionSpinner
 
 interface UI {
@@ -29,6 +30,7 @@ interface UI {
         fun goToLogin()
         fun goToResetPassword()
         fun goToMainActivity()
+        fun showDialog()
 
     }
 
@@ -43,6 +45,7 @@ interface UI {
         fun logInUserUI()
         fun logInUserObserver()
         fun goToMainActivity()
+        fun showDialog()
 
     }
 
@@ -56,6 +59,7 @@ interface UI {
         fun hideProgressBar()
         fun resetPasswordUserUI()
         fun resetPasswordUserObserver()
+        fun showDialog()
 
     }
 
@@ -83,29 +87,13 @@ interface UI {
 
         fun checkAvailableSeats()
 
+        fun showRecyclerView()
+
+        fun hideRecyclerView()
+
     }
 
     interface SeatReservation {
-
-        /*fun fetchIteratorObserver()
-
-        fun fetchSeatLimitObserver()
-
-        fun saveSeatReservedObserver()
-
-        fun addIteratorObserver()
-
-        fun saveSeatReserved()
-
-        fun gotToSeatReservationMain()
-
-        fun showMessage(message: String, duration: Int)
-
-        fun showProgressBar()
-
-        fun hideProgressBar()
-
-        fun hideForm()*/
 
         fun fetchIteratorObserver()
 
@@ -127,6 +115,10 @@ interface UI {
 
         fun showDialog()
 
+        fun checkSeatSavedByIdNumberUser()
+
+        fun checkSeatSavedByIdNumberUserObserver()
+
     }
 
     interface IntentionMain {
@@ -142,6 +134,10 @@ interface UI {
         fun showProgressBar()
 
         fun hideProgressBar()
+
+        fun showRecyclerView()
+
+        fun hideRecyclerView()
 
     }
 
@@ -160,6 +156,32 @@ interface UI {
         fun hideProgressBar()
 
         fun gotToSeatReservationMain()
+
+        fun showDialog()
+
+    }
+
+    interface More {
+
+        fun logOut()
+
+        fun fetchUserName()
+
+        fun links()
+
+        fun goToFacebook()
+
+        fun goToTwitter()
+
+        fun goToWebPage()
+
+        fun goToPrivacyPolicy()
+
+        fun rateApp()
+
+        fun goToPlayStoreMoreApps()
+
+        fun goToSignIn()
 
     }
 

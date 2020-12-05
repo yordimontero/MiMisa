@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.base.OnDialogClickButtonListener
 import com.circleappsstudio.mimisa.data.datasource.intention.IntentionDataSource
 import com.circleappsstudio.mimisa.data.model.IntentionSpinner
 import com.circleappsstudio.mimisa.data.model.Intentions
@@ -21,7 +22,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_intention.*
 
-class IntentionFragment : BaseFragment(), UI.Intentions {
+class IntentionFragment : BaseFragment(), UI.Intentions, OnDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -33,8 +34,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
         )
     }
 
-    private lateinit var spinnerIntentionCategory: String
-    private lateinit var renamedCategory: String
+    private lateinit var intentionCategory: String
     private lateinit var intention: String
 
     override fun getLayout(): Int {
@@ -79,10 +79,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
 
     override fun getSelectedCategoryFromSpinner(intentionSpinnerAdapter: IntentionSpinner) {
 
-        spinnerIntentionCategory = intentionSpinnerAdapter.name
-
-        renamedCategory = intentionViewModel
-            .renameCategoryResource(requireContext(), spinnerIntentionCategory)
+        intentionCategory = intentionSpinnerAdapter.name
 
     }
 
@@ -90,7 +87,12 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
 
         intention = txt_intention.text.toString()
 
-        if (intentionViewModel.checkEmptyIntentionCategory(renamedCategory)){
+        if (!isOnline(requireContext())) {
+            showDialog()
+            return
+        }
+
+        if (intentionViewModel.checkEmptyIntentionCategory(intentionCategory)){
             showMessage("Seleccione la categoría de su intención.", 2)
             return
         }
@@ -100,30 +102,34 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
             return
         }
 
-        intentionViewModel.saveIntention(
-            renamedCategory,
-            intention
-        ).observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-            when(resultEmitted){
+            intentionViewModel.saveIntention(
+                    intentionCategory,
+                    intention
+            ).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                is Resource.Loading -> {
-                    showProgressBar()
+                when(resultEmitted){
+
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
+
+                    is Resource.Success -> {
+                        showMessage("Intención guardada con éxito.", 1)
+                        gotToSeatReservationMain()
+                    }
+
+                    is Resource.Failure -> {
+                        requireContext().toast(requireContext(), resultEmitted.exception.message.toString())
+                        hideProgressBar()
+                    }
+
                 }
 
-                is Resource.Success -> {
-                    showMessage("Intención guardada con éxito.", 1)
-                    gotToSeatReservationMain()
-                }
+            })
 
-                is Resource.Failure -> {
-                    requireContext().toast(requireContext(), resultEmitted.exception.message.toString())
-                    hideProgressBar()
-                }
-
-            }
-
-        })
+        }
 
     }
 
@@ -141,6 +147,42 @@ class IntentionFragment : BaseFragment(), UI.Intentions {
 
     override fun gotToSeatReservationMain() {
         navController.navigateUp()
+    }
+
+    override fun showDialog() {
+
+        dialog(this,
+                "¡No hay conexión a Internet!",
+                "Verifique su conexión e inténtelo de nuevo.",
+                R.drawable.ic_wifi_off,
+                "Intentar de nuevo",
+                ""
+        )
+
+    }
+
+    override fun onPositiveButtonClicked() {
+
+        if (isOnline(requireContext())){
+
+            saveIntentionObserver()
+
+        } else {
+
+            dialog(this,
+                    "¡No hay conexión a Internet!",
+                    "Verifique su conexión e inténtelo de nuevo.",
+                    R.drawable.ic_wifi_off,
+                    "Intentar de nuevo",
+                    ""
+            )
+
+        }
+
+    }
+
+    override fun onNegativeButtonClicked() {
+        TODO("Not yet implemented")
     }
 
 }

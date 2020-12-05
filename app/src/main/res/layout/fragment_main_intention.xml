@@ -43,14 +43,16 @@
 
 
     <LinearLayout
+        android:id="@+id/layout_rv_intentions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:fontFamily="sans-serif-light"
             android:text="Sus intenciones:"
             android:textSize="20sp" />

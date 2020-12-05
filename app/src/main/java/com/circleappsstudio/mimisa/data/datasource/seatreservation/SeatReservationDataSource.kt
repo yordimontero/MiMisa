@@ -160,4 +160,28 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
+    override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean> {
+
+        var isUserRegistered = false
+
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .whereEqualTo("idNumberUser", idNumberUser)
+                .get().addOnSuccessListener { documents ->
+
+                    for (document in documents.documents){
+
+                        isUserRegistered = document.exists()
+
+                    }
+
+                }.await()
+
+        return Resource.Success(isUserRegistered)
+
+    }
+
 }

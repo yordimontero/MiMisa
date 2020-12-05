@@ -106,17 +106,13 @@ class SeatReservationViewModel(
 
     }
 
-    /*
-        Método encargado de validar que los campos de texto no sean vacíos.
-    */
-    override fun checkEmptyFieldsForSeatReservation(
-        nameUser: String,
-        idNumberUser: String
-    ): Boolean = nameUser.isEmpty() && idNumberUser.isEmpty()
+    override fun checkEmptyNameUser(nameUser: String): Boolean = nameUser.isEmpty()
+
+    override fun checkEmptyIdNumberUser(idNumberUser: String): Boolean = idNumberUser.isEmpty()
 
     /*
-        Método encargado de validar que el número de cédula tenga la longitud válida.
-    */
+                Método encargado de validar que el número de cédula tenga la longitud válida.
+            */
     override fun checkValidIdNumberUser(idNumberUser: String)
             : Boolean = idNumberUser.length < 11
 
@@ -125,5 +121,21 @@ class SeatReservationViewModel(
     */
     override fun checkSeatLimit(seatNumber: Int, seatLimit: Int)
             : Boolean = seatNumber > seatLimit
+
+    override fun checkSeatSavedByIdNumberUser(idNumberUser: String): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepository.checkSeatSavedByIdNumberUser(idNumberUser))
+
+        } catch (e: FirebaseException){
+
+            emit(Resource.Failure(e))
+
+        }
+
+    }
 
 }

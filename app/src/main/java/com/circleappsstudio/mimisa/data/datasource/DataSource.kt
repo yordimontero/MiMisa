@@ -21,6 +21,8 @@ interface DataSource {
 
         fun logOutUser()
 
+        fun getUserName(): String
+
     }
 
     interface SeatReservation {
@@ -36,6 +38,8 @@ interface DataSource {
         suspend fun addIterator(seatNumber: Int)
 
         suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>?
+
+        suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
 
     }
 

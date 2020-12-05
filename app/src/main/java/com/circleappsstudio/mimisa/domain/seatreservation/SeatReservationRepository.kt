@@ -40,4 +40,6 @@ class SeatReservationRepository(
     override suspend fun fetchRegisteredSeatsByUserName()
             : Resource<List<Seat>>? = seatReservationDataSource.fetchRegisteredSeatsByUserName()
 
+    override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String)
+            : Resource<Boolean> = seatReservationDataSource.checkSeatSavedByIdNumberUser(idNumberUser)
 }

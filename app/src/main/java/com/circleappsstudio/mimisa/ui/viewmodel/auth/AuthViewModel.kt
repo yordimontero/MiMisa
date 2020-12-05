@@ -80,6 +80,8 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
         return email.isEmpty() && password1.isEmpty() && password2.isEmpty()
     }
 
+    override fun chechEmptyUserName(nameUser: String): Boolean = nameUser.isEmpty()
+
     override fun checkMatchPasswordsForSignInViewModel(password1: String, password2: String): Boolean {
         /*
              Método encargado de validar que las contraseñas ingresadas sean iguales.
@@ -178,5 +180,7 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
         */
         authRepository.logOutUserRepo()
     }
+
+    override fun getUserName(): String = authRepository.getUserName()
 
 }
