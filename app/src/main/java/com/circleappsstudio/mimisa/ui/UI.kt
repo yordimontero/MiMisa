@@ -26,11 +26,13 @@ interface UI {
 
         fun hideProgressBar()
 
-        fun signInUserUI()
+        fun signInUser()
 
         fun signInUserObserver()
 
         fun updateUserProfileObserver()
+
+        fun signInUserWithGoogle()
 
         fun goToLogin()
 

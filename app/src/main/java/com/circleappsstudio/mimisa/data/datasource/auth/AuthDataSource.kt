@@ -2,12 +2,23 @@
 
 package com.circleappsstudio.mimisa.data.datasource.auth
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.circleappsstudio.mimisa.data.datasource.DataSource
+import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.tasks.await
 
 class AuthDataSource : DataSource.Auth {
+
+    companion object{
+        //Constante para hacer a verificación con el RequestCode lanzado con el onActivityResult.
+        private const val RC_SIGN_IN = 423
+    }
 
     private var currentUser: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -55,5 +66,25 @@ class AuthDataSource : DataSource.Auth {
         Método encargado de obtener el nombre del actual usuario autenticado.
     */
     override fun getNameUser(): String = currentUser.currentUser!!.displayName.toString()
+
+    override fun intentForGoogleAuth(): Intent {
+        /*
+            Método encargado de crear el Intent para la autenticación de Google.
+        */
+        val providers = arrayListOf( AuthUI.IdpConfig.GoogleBuilder().build() )
+
+        return AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .setIsSmartLockEnabled(true)
+            .build()
+
+    }
+
+    /*
+        Método encargado de obtener el ResultCode para la autenticación de Google.
+    */
+    override fun getResultCode(): Int = RC_SIGN_IN
+
 
 }

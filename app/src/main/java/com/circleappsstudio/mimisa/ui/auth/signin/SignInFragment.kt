@@ -1,7 +1,9 @@
 package com.circleappsstudio.mimisa.ui.auth.signin
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -16,6 +18,7 @@ import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.vo.Resource
+import com.firebase.ui.auth.IdpResponse
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButtonListener {
@@ -45,7 +48,11 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
         navController = Navigation.findNavController(view)
 
         btn_sign_in_user.setOnClickListener {
-            signInUserUI()
+            signInUser()
+        }
+
+        btn_google_sign_in_user.setOnClickListener {
+            signInUserWithGoogle()
         }
 
         goToLogin()
@@ -75,7 +82,7 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
         progressbar_sign_in_user.visibility = View.GONE
     }
 
-    override fun signInUserUI() {
+    override fun signInUser() {
         /*
              Método encargado de registrar un usuario nuevo en el sistema
              y setear el nombre de un usuario nuevo en el sistema.
@@ -189,6 +196,41 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
 
     }
 
+    override fun signInUserWithGoogle() {
+        /*
+            Método encargado de autenticar por medio de Google.
+        */
+        startActivityForResult(
+            authViewModel.intentForGoogleAuth(),
+            authViewModel.getResultCode()
+        )
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        /*
+            OnActivityResult para autenticar por medio de Google.
+        */
+        if (requestCode == authViewModel.getResultCode()) {
+            //Validación del RequestCode con la constante "RC_SIGN_IN".
+            val response = IdpResponse.fromResultIntent(data)
+
+            if (resultCode == Activity.RESULT_OK) {
+                //Autenticación exitosa.
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+
+            } else {
+                //Error de autenticación.
+                showMessage(response!!.error!!.errorCode.toString(), 2)
+            }
+
+        }
+
+    }
+
     override fun goToLogin() {
         /*
              Método encargado de navegar hacia el login.
@@ -240,7 +282,7 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
             Método encargado de controlar el botón positivo del Dialog.
         */
         if (isOnline(requireContext())){
-            signInUserUI()
+            signInUser()
         } else {
             showDialog()
         }

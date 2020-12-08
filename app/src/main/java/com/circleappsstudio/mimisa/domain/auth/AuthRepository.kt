@@ -2,6 +2,7 @@
 
 package com.circleappsstudio.mimisa.domain.auth
 
+import android.content.Intent
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.domain.Repository
 
@@ -44,5 +45,15 @@ class AuthRepository(private val authDataSource: DataSource.Auth) : Repository.A
         Método encargado de obtener el nombre del actual usuario autenticado.
     */
     override fun getUserName(): String = authDataSource.getNameUser()
+
+    /*
+        Método encargado de crear el Intent para la autenticación de Google.
+    */
+    override fun intentForGoogleAuth(): Intent = authDataSource.intentForGoogleAuth()
+
+    /*
+        Método encargado de obtener el ResultCode para la autenticación de Google.
+    */
+    override fun getResultCode(): Int = authDataSource.getResultCode()
 
 }

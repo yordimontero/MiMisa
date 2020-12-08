@@ -1,5 +1,7 @@
 package com.circleappsstudio.mimisa.data.datasource
 
+import android.app.Activity
+import android.content.Intent
 import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
@@ -22,6 +24,10 @@ interface DataSource {
         fun logOutUser()
 
         fun getNameUser(): String
+
+        fun intentForGoogleAuth(): Intent
+
+        fun getResultCode(): Int
 
     }
 

@@ -1,5 +1,7 @@
 package com.circleappsstudio.mimisa.ui.viewmodel
 
+import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
@@ -47,6 +49,10 @@ interface MainViewModel {
         fun logOutUser()
 
         fun getUserName(): String
+
+        fun intentForGoogleAuth(): Intent
+
+        fun getResultCode(): Int
 
     }
 

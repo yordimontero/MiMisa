@@ -2,6 +2,7 @@
 
 package com.circleappsstudio.mimisa.ui.viewmodel.auth
 
+import android.content.Intent
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -164,5 +165,15 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
         Método encargado de obtener el nombre del actual usuario autenticado.
     */
     override fun getUserName(): String = authRepository.getUserName()
+
+    /*
+        Método encargado de crear el Intent para la autenticación de Google.
+    */
+    override fun intentForGoogleAuth(): Intent = authRepository.intentForGoogleAuth()
+
+    /*
+        Método encargado de obtener el ResultCode para la autenticación de Google.
+    */
+    override fun getResultCode(): Int = authRepository.getResultCode()
 
 }
