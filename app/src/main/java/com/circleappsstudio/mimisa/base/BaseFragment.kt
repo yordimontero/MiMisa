@@ -12,12 +12,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.circleappsstudio.mimisa.R
-import java.lang.Exception
+import com.circleappsstudio.mimisa.ui.UI
 
 abstract class BaseFragment() : Fragment() {
 
-    // Método para obtener el layout del Fragment.
+    /*
+        Método encargado de obtener el layout del Fragment.
+    */
     protected abstract fun getLayout(): Int
 
     override fun onCreateView(
@@ -31,16 +32,15 @@ abstract class BaseFragment() : Fragment() {
     fun Context.toast(context: Context = applicationContext, message: String?,
                       duration: Int = Toast.LENGTH_SHORT) {
         /*
-            Método para mostrar un Toast.
+            Método encargado de mostrar un Toast.
         */
         Toast.makeText(context, message, duration).show()
     }
 
     fun isOnline(context: Context?): Boolean {
         /*
-            Método para detectar la conexión a internet dentro de los fragments.
+            Método encargado de detectar la conexión a internet dentro de los fragments.
         */
-
         val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         if (connectivityManager != null) {
@@ -75,13 +75,14 @@ abstract class BaseFragment() : Fragment() {
         return false
     }
 
-    fun dialog(buttonListener: OnDialogClickButtonListener,
-               title: String,
-               message: String,
-               icon: Int,
-               positiveButton: String,
-               negativeButton: String) {
-
+    fun isOnlineDialog(buttonListener: UI.IsOnlineDialogClickButtonListener,
+                       title: String,
+                       message: String,
+                       icon: Int,
+                       positiveButton: String) {
+        /*
+            Método encargado de mostrar un Dialog cuando no hay conexión a internet.
+        */
         val builder: AlertDialog.Builder? = context?.let {
             AlertDialog.Builder(it)
         }
@@ -95,10 +96,6 @@ abstract class BaseFragment() : Fragment() {
         builder.apply {
             setPositiveButton(positiveButton) { dialog, id ->
                 buttonListener.onPositiveButtonClicked()
-            }
-
-            setNegativeButton(negativeButton) { dialog, id ->
-                buttonListener.onNegativeButtonClicked()
             }
         }
 

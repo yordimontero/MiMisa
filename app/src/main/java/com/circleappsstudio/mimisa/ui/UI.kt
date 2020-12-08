@@ -1,6 +1,5 @@
 package com.circleappsstudio.mimisa.ui
 
-import android.content.Context
 import com.circleappsstudio.mimisa.data.model.IntentionSpinner
 
 interface UI {
@@ -9,9 +8,10 @@ interface UI {
         /*
             Interface encargada de controlar los métodos del SplashScreen.
         */
-
         fun checkUserLogged()
+
         fun goToSignIn()
+
         fun goToMainActivity()
 
     }
@@ -20,16 +20,24 @@ interface UI {
         /*
             Interface encargada de controlar los métodos del fragment de registro de usuarios.
         */
-
         fun showMessage(message: String, duration: Int)
+
         fun showProgressBar()
+
         fun hideProgressBar()
+
         fun signInUserUI()
+
         fun signInUserObserver()
-        fun setNameUserObserver()
+
+        fun updateUserProfileObserver()
+
         fun goToLogin()
+
         fun goToResetPassword()
+
         fun goToMainActivity()
+
         fun showDialog()
 
     }
@@ -38,13 +46,18 @@ interface UI {
         /*
             Interface encargada de controlar los métodos del fragment de loggeo de usuarios.
         */
-
         fun showMessage(message: String, duration: Int)
+
         fun showProgressBar()
+
         fun hideProgressBar()
-        fun logInUserUI()
+
+        fun logInUser()
+
         fun logInUserObserver()
+
         fun goToMainActivity()
+
         fun showDialog()
 
     }
@@ -53,12 +66,16 @@ interface UI {
         /*
             Interface encargada de controlar los métodos del fragment de cambio de contraseña de usuarios.
         */
-
         fun showMessage(message: String, duration: Int)
+
         fun showProgressBar()
+
         fun hideProgressBar()
-        fun resetPasswordUserUI()
+
+        fun resetPasswordUser()
+
         fun resetPasswordUserObserver()
+
         fun showDialog()
 
     }
@@ -94,12 +111,13 @@ interface UI {
     }
 
     interface SeatReservation {
-
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para
+            la reservación de asientos.
+        */
         fun fetchIteratorObserver()
 
         fun fetchSeatLimitObserver()
-
-        fun saveSeatReserved()
 
         fun saveSeatReservedObserver()
 
@@ -115,14 +133,17 @@ interface UI {
 
         fun showDialog()
 
-        fun checkSeatSavedByIdNumberUser()
-
         fun checkSeatSavedByIdNumberUserObserver()
+
+        fun checkSeatSavedByIdNumberUser()
 
     }
 
     interface IntentionMain {
-
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para el
+            registro de intenciones.
+        */
         fun goToIntention()
 
         fun setUpRecyclerView()
@@ -142,12 +163,17 @@ interface UI {
     }
 
     interface Intentions {
-
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para el
+            registro de intenciones.
+        */
         fun setUpSpinner()
 
         fun getSelectedCategoryFromSpinner(intentionSpinnerAdapter: IntentionSpinner)
 
         fun saveIntentionObserver()
+
+        fun saveIntention()
 
         fun showMessage(message: String, duration: Int)
 
@@ -162,7 +188,9 @@ interface UI {
     }
 
     interface More {
-
+        /*
+            Interface encargada de controlar los métodos del fragment "MoreFragment".
+        */
         fun logOut()
 
         fun fetchUserName()
@@ -183,6 +211,10 @@ interface UI {
 
         fun goToSignIn()
 
+    }
+
+    interface IsOnlineDialogClickButtonListener {
+        fun onPositiveButtonClicked()
     }
 
 }

@@ -2,7 +2,6 @@ package com.circleappsstudio.mimisa.ui.auth.signin
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -10,7 +9,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
-import com.circleappsstudio.mimisa.base.OnDialogClickButtonListener
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.ui.UI
@@ -20,7 +18,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
-class SignInFragment : BaseFragment(), UI.SignInUI, OnDialogClickButtonListener {
+class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -88,7 +86,7 @@ class SignInFragment : BaseFragment(), UI.SignInUI, OnDialogClickButtonListener 
         password1 = txt_password1_sign_in_user.text.toString()
         password2 = txt_password2_sign_in_user.text.toString()
 
-        if (authViewModel.checkEmptyFieldsForSignInViewModel(fullName, email, password1, password2)) {
+        if (authViewModel.checkEmptyFieldsForSignIn(fullName, email, password1, password2)) {
             txt_fullname_sign_in_user.error = "Complete los campos."
             txt_email_sign_in_user.error = "Complete los campos."
             txt_password1_sign_in_user.error = "Complete los campos."
@@ -96,22 +94,22 @@ class SignInFragment : BaseFragment(), UI.SignInUI, OnDialogClickButtonListener 
             return
         }
 
-        if (authViewModel.chechEmptyUserName(fullName)){
+        if (authViewModel.checkEmptyNameUser(fullName)){
             txt_fullname_sign_in_user.error = "Complete los campos."
             return
         }
 
-        if (authViewModel.checkValidEmailViewModel(email)) {
+        if (authViewModel.checkValidEmail(email)) {
             txt_email_sign_in_user.error = "El e-mail ingresado es incorrecto."
             return
         }
 
-        if (authViewModel.checkValidPasswordViewModel(password1)) {
+        if (authViewModel.checkValidPassword(password1)) {
             txt_password1_sign_in_user.error = "La contraseña debe tener al menos 6 caracteres."
             return
         }
 
-        if (authViewModel.checkMatchPasswordsForSignInViewModel(password1, password2)){
+        if (authViewModel.checkMatchPasswordsForSignIn(password1, password2)){
             txt_password1_sign_in_user.error = "Las contraseñas no coinciden."
             txt_password2_sign_in_user.error = "Las contraseñas no coinciden."
             return
@@ -127,10 +125,12 @@ class SignInFragment : BaseFragment(), UI.SignInUI, OnDialogClickButtonListener 
     }
 
     override fun signInUserObserver() {
-
+        /*
+             Método encargado de registrar un usuario nuevo en el sistema.
+        */
         if (isOnline(requireContext())) {
 
-            authViewModel.signInUserViewModel(email, password1).observe(viewLifecycleOwner, Observer { resultEmitted ->
+            authViewModel.signInUser(email, password1).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when(resultEmitted){
 
@@ -139,7 +139,7 @@ class SignInFragment : BaseFragment(), UI.SignInUI, OnDialogClickButtonListener 
                     }
 
                     is Resource.Success -> {
-                        setNameUserObserver()
+                        updateUserProfileObserver()
                     }
 
                     is Resource.Failure -> {
@@ -151,16 +151,17 @@ class SignInFragment : BaseFragment(), UI.SignInUI, OnDialogClickButtonListener 
 
             })
 
-
         }
 
     }
 
-    override fun setNameUserObserver() {
-
+    override fun updateUserProfileObserver() {
+        /*
+             Método encargado de setear el nombre de un usuario nuevo en el sistema.
+        */
         if (isOnline(requireContext())) {
 
-            authViewModel.updateUserProfileViewModel(fullName).observe(
+            authViewModel.updateUserProfile(fullName).observe(
                     viewLifecycleOwner,
                     Observer { resultEmitted ->
 
@@ -222,39 +223,28 @@ class SignInFragment : BaseFragment(), UI.SignInUI, OnDialogClickButtonListener 
     }
 
     override fun showDialog() {
-
-        dialog(this,
+        /*
+             Método encargado de mostrar un Dialog.
+        */
+        isOnlineDialog(this,
                 "¡No hay conexión a Internet!",
                 "Verifique su conexión e inténtelo de nuevo.",
                 R.drawable.ic_wifi_off,
-                "Intentar de nuevo",
-                ""
+                "Intentar de nuevo"
         )
 
     }
 
     override fun onPositiveButtonClicked() {
-
+        /*
+            Método encargado de controlar el botón positivo del Dialog.
+        */
         if (isOnline(requireContext())){
-
             signInUserUI()
-
         } else {
-
-            dialog(this,
-                    "¡No hay conexión a Internet!",
-                    "Verifique su conexión e inténtelo de nuevo.",
-                    R.drawable.ic_wifi_off,
-                    "Intentar de nuevo",
-                    ""
-            )
-
+            showDialog()
         }
 
-    }
-
-    override fun onNegativeButtonClicked() {
-        TODO("Not yet implemented")
     }
 
 }

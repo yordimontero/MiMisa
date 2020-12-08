@@ -41,6 +41,7 @@ class IntentionAdapter(
 
             itemView.txt_category_intention_row.text = item.category
             itemView.txt_intention_row.text = item.intention
+            itemView.txt_date_intention_row.text = item.dateRegistered
             itemView.txt_intention_registered_by_intention_row.text = item.intentionRegisteredBy
 
             when (item.category) {

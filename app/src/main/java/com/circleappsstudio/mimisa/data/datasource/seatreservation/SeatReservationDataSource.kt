@@ -2,7 +2,6 @@
 
 package com.circleappsstudio.mimisa.data.datasource.seatreservation
 
-import android.util.Log
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
@@ -14,11 +13,16 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SeatReservationDataSource : DataSource.SeatReservation {
 
     private val db by lazy { FirebaseFirestore.getInstance() }
-    private val userName by lazy { FirebaseAuth.getInstance().currentUser!!.displayName }
+    private val currentNameUser by lazy { FirebaseAuth.getInstance().currentUser!!.displayName }
+    private val date by lazy {
+        SimpleDateFormat("dd-MM-yyyy", Locale.US).format(Calendar.getInstance().time)
+    }
 
     @ExperimentalCoroutinesApi
     override suspend fun fetchIterator(): Flow<Resource<Int>> = callbackFlow {
@@ -88,7 +92,8 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 "seatNumber" to seatNumber,
                 "nameUser" to nameUser,
                 "idNumberUser" to idNumberUser,
-                "seatRegisteredBy" to userName
+                "dateRegistered" to date,
+                "seatRegisteredBy" to currentNameUser
         )
 
         db.collection("diaconia")
@@ -117,24 +122,24 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
-    override suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>? {
+    override suspend fun fetchRegisteredSeatsByNameUser(): Resource<List<Seat>>? {
         /*
             Método encargado de traer todos los asientos reservados por el usuario leggeado.
         */
 
         var seat: Seat
-        val seatArrayList = arrayListOf<Seat>()
+        val seatList = arrayListOf<Seat>()
 
         db.collection("diaconia")
                 .document("la_argentina")
                 .collection("seat")
                 .document("data")
                 .collection("registered_seats")
-                .whereEqualTo("seatRegisteredBy", userName)
+                .whereEqualTo("seatRegisteredBy", currentNameUser)
                 .orderBy("seatNumber", Query.Direction.DESCENDING)
                 .get().addOnSuccessListener { documents ->
 
-                seatArrayList.clear()
+                seatList.clear()
 
                     for (document in documents.documents) {
 
@@ -143,12 +148,11 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                             seat = Seat(
                                     document.data!!["seatNumber"].toString().toInt(),
                                     document.data!!["nameUser"].toString(),
-                                    document.data!!["idNumberUser"].toString()
+                                    document.data!!["idNumberUser"].toString(),
+                                    document.data!!["dateRegistered"].toString()
                             )
 
-                            seatArrayList.add(seat)
-
-                            Log.e("TAG", "Asientos: $seatArrayList")
+                            seatList.add(seat)
 
                         }
 
@@ -156,12 +160,14 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
                 }.await()
 
-        return Resource.Success(seatArrayList)
+        return Resource.Success(seatList)
 
     }
 
     override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean> {
-
+        /*
+            Método encargado de verificar si una persona ya tiene reservado un asiento.
+        */
         var isUserRegistered = false
 
         db.collection("diaconia")
@@ -172,10 +178,8 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 .whereEqualTo("idNumberUser", idNumberUser)
                 .get().addOnSuccessListener { documents ->
 
-                    for (document in documents.documents){
-
+                    for (document in documents){
                         isUserRegistered = document.exists()
-
                     }
 
                 }.await()

@@ -11,7 +11,6 @@ interface Repository {
         /*
             Interface encargada de controlar los métodos de autenticación de Firebase.
         */
-
         suspend fun signInUserRepo(email: String, password: String)
 
         suspend fun updateUserProfileRepo(fullName: String)
@@ -28,7 +27,8 @@ interface Repository {
 
     interface SeatReservation {
         /*
-            Interface encargada de controlar los métodos de la base de datos Firestore.
+            Interface encargada de controlar los métodos de la base de datos Firestore para
+            la reservación de asientos.
         */
         suspend fun fetchIterator() : Flow<Resource<Int>>
 
@@ -38,17 +38,20 @@ interface Repository {
 
         suspend fun addIterator(seatNumber: Int)
 
-        suspend fun fetchRegisteredSeatsByUserName(): Resource<List<Seat>>?
+        suspend fun fetchRegisteredSeatsByNameUser(): Resource<List<Seat>>?
 
         suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
 
     }
 
     interface Intentions {
-
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para el
+            registro de intenciones.
+        */
         suspend fun saveIntention(category: String, intention: String)
 
-        suspend fun fetchSavedIntentionsByUserName(): Resource<List<Intention>>?
+        suspend fun fetchSavedIntentionsByNameUser(): Resource<List<Intention>>?
 
     }
 

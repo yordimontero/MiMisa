@@ -9,16 +9,16 @@ import kotlinx.coroutines.tasks.await
 
 class AuthDataSource : DataSource.Auth {
 
-    private var user: FirebaseAuth = FirebaseAuth.getInstance()
+    private var currentUser: FirebaseAuth = FirebaseAuth.getInstance()
 
-    override suspend fun signInUserDataSource(email: String, password: String) {
+    override suspend fun signInUser(email: String, password: String) {
         /*
              Método encargado de registrar un usuario nuevo en el sistema.
         */
-        user.createUserWithEmailAndPassword(email, password).await()
+        currentUser.createUserWithEmailAndPassword(email, password).await()
     }
 
-    override suspend fun updateUserProfileDataSource(fullName: String) {
+    override suspend fun updateUserProfile(fullName: String) {
         /*
              Método encargado de setear el nombre de un usuario nuevo en el sistema.
         */
@@ -26,31 +26,34 @@ class AuthDataSource : DataSource.Auth {
             .setDisplayName(fullName)
             .build()
 
-        user.currentUser?.updateProfile(profileUpdates)?.await()
+        currentUser.currentUser?.updateProfile(profileUpdates)?.await()
     }
 
-    override suspend fun logInUserDataSource(email: String, password: String) {
+    override suspend fun logInUser(email: String, password: String) {
         /*
              Método encargado de loggear un usuario existente en el sistema.
         */
-        user.signInWithEmailAndPassword(email, password).await()
+        currentUser.signInWithEmailAndPassword(email, password).await()
     }
 
-    override suspend fun resetPasswordUserDataSource(email: String) {
+    override suspend fun resetPasswordUser(email: String) {
         /*
              Método encargado de mandar un correo de cambio de contraseña a un
              usuario existente en el sistema.
         */
-        user.sendPasswordResetEmail(email).await()
+        currentUser.sendPasswordResetEmail(email).await()
     }
 
     override fun logOutUser() {
         /*
              Método encargado de cerrar la sesión de un usuario existente en el sistema.
         */
-        user.signOut()
+        currentUser.signOut()
     }
 
-    override fun getUserName(): String = user.currentUser!!.displayName.toString()
+    /*
+        Método encargado de obtener el nombre del actual usuario autenticado.
+    */
+    override fun getNameUser(): String = currentUser.currentUser!!.displayName.toString()
 
 }

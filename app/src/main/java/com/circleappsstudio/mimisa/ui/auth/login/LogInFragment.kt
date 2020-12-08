@@ -9,7 +9,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
-import com.circleappsstudio.mimisa.base.OnDialogClickButtonListener
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.ui.UI
@@ -19,7 +18,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_log_in.*
 
-class LogInFragment : BaseFragment(), UI.LogInUI, OnDialogClickButtonListener {
+class LogInFragment : BaseFragment(), UI.LogInUI, UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -44,7 +43,7 @@ class LogInFragment : BaseFragment(), UI.LogInUI, OnDialogClickButtonListener {
         navController = Navigation.findNavController(view)
 
         btn_log_in_user.setOnClickListener {
-            logInUserUI()
+            logInUser()
         }
 
     }
@@ -70,11 +69,10 @@ class LogInFragment : BaseFragment(), UI.LogInUI, OnDialogClickButtonListener {
         progressbar_log_in_user.visibility = View.GONE
     }
 
-    override fun logInUserUI() {
+    override fun logInUser() {
         /*
              Método encargado de loggear un usuario existente en el sistema.
         */
-
         email = txt_email_log_in_user.text.toString()
         password = txt_password_log_in_user.text.toString()
 
@@ -83,18 +81,18 @@ class LogInFragment : BaseFragment(), UI.LogInUI, OnDialogClickButtonListener {
             return
         }
 
-        if (authViewModel.checkEmptyFieldsForLogInViewModel(email, password)){
+        if (authViewModel.checkEmptyFieldsForLogIn(email, password)){
             txt_email_log_in_user.error = "Complete los campos."
             txt_password_log_in_user.error = "Complete los campos."
             return
         }
 
-        if (authViewModel.checkValidEmailViewModel(email)){
+        if (authViewModel.checkValidEmail(email)){
             txt_email_log_in_user.error = "El e-mail ingresado es incorrecto."
             return
         }
 
-        if (authViewModel.checkValidPasswordViewModel(password)){
+        if (authViewModel.checkValidPassword(password)){
             txt_password_log_in_user.error = "Contraseña incorrecta."
             return
         }
@@ -104,10 +102,12 @@ class LogInFragment : BaseFragment(), UI.LogInUI, OnDialogClickButtonListener {
     }
 
     override fun logInUserObserver() {
-
+        /*
+             Método encargado de loggear un usuario existente en el sistema.
+        */
         if (isOnline(requireContext())) {
 
-            authViewModel.logInUserViewModel(email, password).observe(viewLifecycleOwner, Observer { resultEmitted ->
+            authViewModel.logInUser(email, password).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when(resultEmitted){
 
@@ -147,39 +147,28 @@ class LogInFragment : BaseFragment(), UI.LogInUI, OnDialogClickButtonListener {
     }
 
     override fun showDialog() {
-
-        dialog(this,
+        /*
+             Método encargado de mostrar un Dialog.
+        */
+        isOnlineDialog(this,
                 "¡No hay conexión a Internet!",
                 "Verifique su conexión e inténtelo de nuevo.",
                 R.drawable.ic_wifi_off,
-                "Intentar de nuevo",
-                ""
+                "Intentar de nuevo"
         )
 
     }
 
     override fun onPositiveButtonClicked() {
-
+        /*
+            Método encargado de controlar el botón positivo del Dialog.
+        */
         if (isOnline(requireContext())){
-
-            logInUserUI()
-
+            logInUser()
         } else {
-
-            dialog(this,
-                    "¡No hay conexión a Internet!",
-                    "Verifique su conexión e inténtelo de nuevo.",
-                    R.drawable.ic_wifi_off,
-                    "Intentar de nuevo",
-                    ""
-            )
-
+            showDialog()
         }
 
-    }
-
-    override fun onNegativeButtonClicked() {
-        TODO("Not yet implemented")
     }
 
 }

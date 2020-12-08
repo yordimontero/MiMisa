@@ -1,4 +1,4 @@
-// Repo encargado de interactuar con el DataSource "AuthDataSource".
+// Repositorio encargado de interactuar con el DataSource "AuthDataSource".
 
 package com.circleappsstudio.mimisa.domain.auth
 
@@ -7,42 +7,42 @@ import com.circleappsstudio.mimisa.domain.Repository
 
 class AuthRepository(private val authDataSource: DataSource.Auth) : Repository.Auth {
 
-    override suspend fun signInUserRepo(email: String, password: String) {
-        /*
-             Método encargado de registrar un usuario nuevo en el sistema.
-        */
-        authDataSource.signInUserDataSource(email, password)
-    }
+    /*
+        Método encargado de registrar un usuario nuevo en el sistema.
+    */
+    override suspend fun signInUserRepo(email: String, password: String)
+            = authDataSource.signInUser(email, password)
 
-    override suspend fun updateUserProfileRepo(fullName: String) {
-        /*
-             Método encargado de setear el nombre de un usuario nuevo en el sistema.
-        */
-        authDataSource.updateUserProfileDataSource(fullName)
-    }
+    /*
+        Método encargado de setear el nombre de un usuario nuevo en el sistema.
+    */
+    override suspend fun updateUserProfileRepo(fullName: String)
+            = authDataSource.updateUserProfile(fullName)
 
-    override suspend fun logInUserRepo(email: String, password: String) {
-        /*
-             Método encargado de loggear un usuario existente en el sistema.
-        */
-        authDataSource.logInUserDataSource(email, password)
-    }
 
-    override suspend fun resetPasswordUserRepo(email: String) {
-        /*
-             Método encargado de mandar un correo de cambio de contraseña a un
-             usuario existente en el sistema.
-        */
-        authDataSource.resetPasswordUserDataSource(email)
-    }
+    /*
+        Método encargado de loggear un usuario existente en el sistema.
+    */
+    override suspend fun logInUserRepo(email: String, password: String)
+            = authDataSource.logInUser(email, password)
 
-    override fun logOutUserRepo() {
-        /*
-             Método encargado de cerrar la sesión de un usuario existente en el sistema.
-        */
-        authDataSource.logOutUser()
-    }
 
-    override fun getUserName(): String = authDataSource.getUserName()
+    /*
+        Método encargado de mandar un correo de cambio de contraseña a un
+        usuario existente en el sistema.
+    */
+    override suspend fun resetPasswordUserRepo(email: String)
+            = authDataSource.resetPasswordUser(email)
+
+
+    /*
+        Método encargado de cerrar la sesión de un usuario existente en el sistema.
+    */
+    override fun logOutUserRepo() = authDataSource.logOutUser()
+
+    /*
+        Método encargado de obtener el nombre del actual usuario autenticado.
+    */
+    override fun getUserName(): String = authDataSource.getNameUser()
 
 }

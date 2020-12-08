@@ -40,6 +40,7 @@ class SeatAdapter(private val context: Context,
             itemView.txt_seat_number_row.text = item.seatNumber.toString()
             itemView.txt_name_user_row.text = item.nameUser
             itemView.txt_id_number_row.text = item.idNumberUser
+            itemView.txt_date_seat_row.text = item.dateRegistered
 
             if (item.seatRegisteredBy.isEmpty()){
                 itemView.layout_seat_registered_by.visibility = View.GONE

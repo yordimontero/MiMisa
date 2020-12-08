@@ -15,9 +15,9 @@ import kotlinx.coroutines.Dispatchers
 
 class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), MainViewModel.Auth {
 
-    private val user by lazy { FirebaseAuth.getInstance() }
+    private val currentUser by lazy { FirebaseAuth.getInstance().currentUser }
 
-    override fun signInUserViewModel(
+    override fun signInUser(
         email: String,
         password: String
     ): LiveData<Resource<Boolean>> =
@@ -31,19 +31,16 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
             try {
 
                 authRepository.signInUserRepo(email, password)
-
                 emit(Resource.Success(true))
 
             } catch (e: FirebaseException){
-
                 emit(Resource.Failure(e))
-
             }
 
         }
 
 
-    override fun updateUserProfileViewModel(
+    override fun updateUserProfile(
         fullName: String
     ): LiveData<Resource<Boolean>> =
         /*
@@ -56,40 +53,37 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
             try {
 
                 authRepository.updateUserProfileRepo(fullName)
-
                 emit(Resource.Success(true))
 
             } catch (e: FirebaseException){
-
                 emit(Resource.Failure(e))
-
             }
 
         }
 
-    override fun checkEmptyFieldsForSignInViewModel(
+    /*
+        Método encargado de validar que los campos de texto en la pantalla
+        de registrar usuario no sean vacíos.
+    */
+    override fun checkEmptyFieldsForSignIn(
         fullName: String,
         email: String,
         password1: String,
         password2: String
-    ): Boolean {
-        /*
-             Método encargado de validar que los campos de texto en la pantalla
-             de registrar usuario no sean vacíos.
-        */
-        return email.isEmpty() && password1.isEmpty() && password2.isEmpty()
-    }
+    ): Boolean = email.isEmpty() && password1.isEmpty() && password2.isEmpty()
 
-    override fun chechEmptyUserName(nameUser: String): Boolean = nameUser.isEmpty()
+    /*
+        Método encargado de validar que el nombre no sea vacío.
+    */
+    override fun checkEmptyNameUser(nameUser: String): Boolean = nameUser.isEmpty()
 
-    override fun checkMatchPasswordsForSignInViewModel(password1: String, password2: String): Boolean {
-        /*
-             Método encargado de validar que las contraseñas ingresadas sean iguales.
-        */
-        return password1 != password2
-    }
+    /*
+        Método encargado de validar que las contraseñas ingresadas sean iguales.
+    */
+    override fun checkMatchPasswordsForSignIn(password1: String, password2: String)
+            : Boolean = password1 != password2
 
-    override fun logInUserViewModel(
+    override fun logInUser(
         email: String, password: String
     ): LiveData<Resource<Boolean>> =
         /*
@@ -102,34 +96,27 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
             try {
 
                 authRepository.logInUserRepo(email, password)
-
                 emit(Resource.Success(true))
 
             } catch (e: FirebaseException){
-
                 emit(Resource.Failure(e))
-
             }
 
         }
 
+    /*
+        Método encargado de validar que los campos de texto en la pantalla de
+        loggear usuario no sean vacíos.
+    */
+    override fun checkEmptyFieldsForLogIn(email: String, password: String)
+            : Boolean = email.isEmpty() && password.isEmpty()
 
-    override fun checkEmptyFieldsForLogInViewModel(email: String, password: String): Boolean {
-        /*
-             Método encargado de validar que los campos de texto en la pantalla de
-             loggear usuario no sean vacíos.
-        */
-        return email.isEmpty() && password.isEmpty()
-    }
+    /*
+        Método encargado de validar que exista actualmente un usuario loggeado en el sistema.
+    */
+    override fun checkUserLogged(): Boolean = currentUser == null
 
-    override fun checkUserLogged(): Boolean {
-        /*
-             Método encargado de validar que exista actualmente un usuario loggeado en el sistema.
-        */
-        return user.currentUser == null
-    }
-
-    override fun resetPasswordUserViewModel(email: String): LiveData<Resource<Boolean>> =
+    override fun resetPasswordUser(email: String): LiveData<Resource<Boolean>> =
         /*
              Método encargado de mandar un correo de cambio de contraseña a un
              usuario existente en el sistema.
@@ -141,46 +128,41 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
             try {
 
                 authRepository.resetPasswordUserRepo(email)
-
                 emit(Resource.Success(true))
 
             } catch (e: FirebaseException){
-
                 emit(Resource.Failure(e))
-
             }
 
         }
 
-    override fun checkEmptyFieldsForResetPasswordViewModel(email: String) : Boolean {
-        /*
-             Método encargado de validar que los campos de texto en la pantalla de
-             cambiar contraseña del usuario no sean vacíos.
-        */
-        return email.isEmpty()
-    }
+    /*
+        Método encargado de validar que los campos de texto en la pantalla de
+        cambiar contraseña del usuario no sean vacíos.
+    */
+    override fun checkEmptyFieldsForResetPassword(email: String)
+            : Boolean = email.isEmpty()
 
-    override fun checkValidEmailViewModel(email: String): Boolean {
-        /*
-             Método encargado de validar que el correo ingresado sea válido.
-        */
-        return !PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
-    }
+    /*
+        Método encargado de validar que el correo ingresado sea válido.
+    */
+    override fun checkValidEmail(email: String)
+            : Boolean = !PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
 
-    override fun checkValidPasswordViewModel(password: String): Boolean {
-        /*
-             Método encargado de validar que la contraseña ingresada sea válida.
-        */
-        return password.length <= 5
-    }
+    /*
+        Método encargado de validar que la contraseña ingresada sea válida.
+    */
+    override fun checkValidPassword(password: String)
+            : Boolean = password.length <= 5
 
-    override fun logOutUserViewModel() {
-        /*
-             Método encargado de cerrar la sesión de un usuario existente en el sistema.
-        */
-        authRepository.logOutUserRepo()
-    }
+    /*
+        Método encargado de cerrar la sesión de un usuario existente en el sistema.
+    */
+    override fun logOutUser() = authRepository.logOutUserRepo()
 
+    /*
+        Método encargado de obtener el nombre del actual usuario autenticado.
+    */
     override fun getUserName(): String = authRepository.getUserName()
 
 }

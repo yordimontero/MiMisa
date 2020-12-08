@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
-import com.circleappsstudio.mimisa.base.OnDialogClickButtonListener
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.ui.UI
@@ -17,7 +16,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_reset_password.*
 
-class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, OnDialogClickButtonListener {
+class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -41,7 +40,7 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, OnDialogClickBut
         navController = Navigation.findNavController(view)
 
         btn_reset_password_user.setOnClickListener {
-            resetPasswordUserUI()
+            resetPasswordUser()
         }
 
     }
@@ -67,7 +66,7 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, OnDialogClickBut
         progressbar_reset_password_user.visibility = View.GONE
     }
 
-    override fun resetPasswordUserUI() {
+    override fun resetPasswordUser() {
         /*
              Método encargado de mandar un correo de cambio de contraseña a un
              usuario existente en el sistema.
@@ -79,12 +78,12 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, OnDialogClickBut
             return
         }
 
-        if (authViewModel.checkEmptyFieldsForResetPasswordViewModel(email)){
+        if (authViewModel.checkEmptyFieldsForResetPassword(email)){
             txt_email_reset_password_user.error = "Complete los campos."
             return
         }
 
-        if (authViewModel.checkValidEmailViewModel(email)){
+        if (authViewModel.checkValidEmail(email)){
             txt_email_reset_password_user.error = "El e-mail ingresado es inválido."
             return
         }
@@ -94,10 +93,13 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, OnDialogClickBut
     }
 
     override fun resetPasswordUserObserver() {
-
+        /*
+             Método encargado de mandar un correo de cambio de contraseña a un
+             usuario existente en el sistema.
+        */
         if (isOnline(requireContext())) {
 
-            authViewModel.resetPasswordUserViewModel(email).observe(viewLifecycleOwner, Observer { resultEmitted ->
+            authViewModel.resetPasswordUser(email).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when(resultEmitted){
 
@@ -124,39 +126,28 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, OnDialogClickBut
     }
 
     override fun showDialog() {
-
-        dialog(this,
+        /*
+             Método encargado de mostrar un Dialog.
+        */
+        isOnlineDialog(this,
                 "¡No hay conexión a Internet!",
                 "Verifique su conexión e inténtelo de nuevo.",
                 R.drawable.ic_wifi_off,
-                "Intentar de nuevo",
-                ""
+                "Intentar de nuevo"
         )
 
     }
 
     override fun onPositiveButtonClicked() {
-
+        /*
+            Método encargado de controlar el botón positivo del Dialog.
+        */
         if (isOnline(requireContext())){
-
-            resetPasswordUserUI()
-
+            resetPasswordUser()
         } else {
-
-            dialog(this,
-                    "¡No hay conexión a Internet!",
-                    "Verifique su conexión e inténtelo de nuevo.",
-                    R.drawable.ic_wifi_off,
-                    "Intentar de nuevo",
-                    ""
-            )
-
+            showDialog()
         }
 
-    }
-
-    override fun onNegativeButtonClicked() {
-        TODO("Not yet implemented")
     }
 
 }

@@ -1,6 +1,5 @@
 package com.circleappsstudio.mimisa.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
@@ -12,41 +11,40 @@ interface MainViewModel {
         /*
             Interface encargada de controlar los métodos de autenticación de Firebase.
         */
-
         // Registro de Usuarios:
-        fun signInUserViewModel(email: String, password: String): LiveData<Resource<Boolean>>
-        fun updateUserProfileViewModel(fullName: String): LiveData<Resource<Boolean>>
+        fun signInUser(email: String, password: String): LiveData<Resource<Boolean>>
+        fun updateUserProfile(fullName: String): LiveData<Resource<Boolean>>
 
         // Validación Registro de Usuarios:
-        fun checkEmptyFieldsForSignInViewModel(
+        fun checkEmptyFieldsForSignIn(
             fullName: String,
             email: String,
             password1: String,
             password2: String
         ): Boolean
-        fun checkMatchPasswordsForSignInViewModel(password1: String, password2: String): Boolean
+        fun checkMatchPasswordsForSignIn(password1: String, password2: String): Boolean
 
         // Loggeo de Usuarios:
-        fun logInUserViewModel(email: String, password: String): LiveData<Resource<Boolean>>
+        fun logInUser(email: String, password: String): LiveData<Resource<Boolean>>
 
         // Validaciones Loggeo de Usuarios:
-        fun checkEmptyFieldsForLogInViewModel(email: String, password: String): Boolean
+        fun checkEmptyFieldsForLogIn(email: String, password: String): Boolean
 
-        fun chechEmptyUserName(nameUser: String): Boolean
+        fun checkEmptyNameUser(nameUser: String): Boolean
 
         // Cambio de Contraseña de Usuarios.
-        fun resetPasswordUserViewModel(email: String): LiveData<Resource<Boolean>>
+        fun resetPasswordUser(email: String): LiveData<Resource<Boolean>>
 
         // Validaciones Cambio de Contraseña de Usuarios:
-        fun checkEmptyFieldsForResetPasswordViewModel(email: String): Boolean
+        fun checkEmptyFieldsForResetPassword(email: String): Boolean
 
         // Validaciones Generales:
         fun checkUserLogged(): Boolean
-        fun checkValidEmailViewModel(email: String): Boolean
-        fun checkValidPasswordViewModel(password: String): Boolean
+        fun checkValidEmail(email: String): Boolean
+        fun checkValidPassword(password: String): Boolean
 
         // Cierra de Sesión de Usuarios:
-        fun logOutUserViewModel()
+        fun logOutUser()
 
         fun getUserName(): String
 
@@ -54,7 +52,8 @@ interface MainViewModel {
 
     interface SeatReservation {
         /*
-            Interface encargada de controlar los métodos de la base de datos Firestore.
+            Interface encargada de controlar los métodos de la base de datos Firestore para
+            la reservación de asientos.
         */
         fun fetchIterator(): LiveData<Resource<Int>>
 
@@ -64,7 +63,7 @@ interface MainViewModel {
 
         fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>>
 
-        fun fetchRegisteredSeatsByUserName(): LiveData<Resource<List<Seat>>?>
+        fun fetchRegisteredSeatsByNameUser(): LiveData<Resource<List<Seat>>?>
 
         fun checkEmptyNameUser(nameUser: String): Boolean
 
@@ -79,32 +78,17 @@ interface MainViewModel {
     }
 
     interface Intentions {
-
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para el
+            registro de intenciones.
+        */
         fun saveIntention(category: String, intention: String): LiveData<Resource<Boolean>>
 
-        fun checkEmptyIntentionCategory(category: String): Boolean
+        fun checkValidIntentionCategory(category: String): Boolean
 
         fun checkEmptyIntention(intention: String): Boolean
 
         fun fetchSavedIntentionsByNameUser(): LiveData<Resource<List<Intention>>?>
-
-    }
-
-    interface More {
-
-        fun fetchUserName(context: Context)
-
-        fun goToFacebook(context: Context)
-
-        fun goToTwitter(context: Context)
-
-        fun goToWebPage(context: Context)
-
-        fun goToPrivacyPolicy(context: Context)
-
-        fun rateApp(context: Context)
-
-        fun goToPlayStoreMoreApps(context: Context)
 
     }
 

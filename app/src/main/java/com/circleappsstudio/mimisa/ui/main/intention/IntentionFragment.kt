@@ -10,7 +10,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
-import com.circleappsstudio.mimisa.base.OnDialogClickButtonListener
 import com.circleappsstudio.mimisa.data.datasource.intention.IntentionDataSource
 import com.circleappsstudio.mimisa.data.model.IntentionSpinner
 import com.circleappsstudio.mimisa.data.model.Intentions
@@ -22,7 +21,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_intention.*
 
-class IntentionFragment : BaseFragment(), UI.Intentions, OnDialogClickButtonListener {
+class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -55,7 +54,9 @@ class IntentionFragment : BaseFragment(), UI.Intentions, OnDialogClickButtonList
     }
 
     override fun setUpSpinner() {
-
+        /*
+            Método encargado de hacer el setup de un Spinner.
+        */
         val adapter = IntentionSpinnerAdapter(requireContext(), Intentions.list!!)
         spinIntentionCategory.adapter = adapter
 
@@ -78,13 +79,17 @@ class IntentionFragment : BaseFragment(), UI.Intentions, OnDialogClickButtonList
     }
 
     override fun getSelectedCategoryFromSpinner(intentionSpinnerAdapter: IntentionSpinner) {
-
+        /*
+            Método encargado de obtener el valor del item seleccionado en el Spinner.
+        */
         intentionCategory = intentionSpinnerAdapter.name
 
     }
 
     override fun saveIntentionObserver() {
-
+        /*
+            Método encargado de guardar una intención en la base de datos.
+        */
         intention = txt_intention.text.toString()
 
         if (!isOnline(requireContext())) {
@@ -92,7 +97,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions, OnDialogClickButtonList
             return
         }
 
-        if (intentionViewModel.checkEmptyIntentionCategory(intentionCategory)){
+        if (intentionViewModel.checkValidIntentionCategory(intentionCategory)){
             showMessage("Seleccione la categoría de su intención.", 2)
             return
         }
@@ -102,18 +107,22 @@ class IntentionFragment : BaseFragment(), UI.Intentions, OnDialogClickButtonList
             return
         }
 
+        saveIntention()
+
+    }
+
+    override fun saveIntention() {
+        /*
+            Método encargado de guardar una intención en la base de datos.
+        */
         if (isOnline(requireContext())) {
 
-            intentionViewModel.saveIntention(
-                    intentionCategory,
-                    intention
-            ).observe(viewLifecycleOwner, Observer { resultEmitted ->
+            intentionViewModel.saveIntention(intentionCategory, intention)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when(resultEmitted){
 
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
+                    is Resource.Loading -> { showProgressBar() }
 
                     is Resource.Success -> {
                         showMessage("Intención guardada con éxito.", 1)
@@ -134,55 +143,56 @@ class IntentionFragment : BaseFragment(), UI.Intentions, OnDialogClickButtonList
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+            Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+            Método encargado de mostrar un ProgressBar.
+        */
         progressbar_intention.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
+        /*
+            Método encargado de ocultar un ProgressBar.
+        */
         progressbar_intention.visibility = View.GONE
     }
 
     override fun gotToSeatReservationMain() {
+        /*
+            Método encargado de navegar hacia el fragment inicio de registro de intenciones.
+        */
         navController.navigateUp()
     }
 
     override fun showDialog() {
-
-        dialog(this,
+        /*
+            Método encargado de mostrar un Dialog.
+        */
+        isOnlineDialog(this,
                 "¡No hay conexión a Internet!",
                 "Verifique su conexión e inténtelo de nuevo.",
                 R.drawable.ic_wifi_off,
-                "Intentar de nuevo",
-                ""
+                "Intentar de nuevo"
         )
 
     }
 
     override fun onPositiveButtonClicked() {
-
-        if (isOnline(requireContext())){
-
+        /*
+            Método encargado de controlar el botón positivo del Dialog.
+        */
+        if (isOnline(requireContext())) {
             saveIntentionObserver()
-
         } else {
-
-            dialog(this,
-                    "¡No hay conexión a Internet!",
-                    "Verifique su conexión e inténtelo de nuevo.",
-                    R.drawable.ic_wifi_off,
-                    "Intentar de nuevo",
-                    ""
-            )
-
+            showDialog()
         }
 
-    }
-
-    override fun onNegativeButtonClicked() {
-        TODO("Not yet implemented")
     }
 
 }

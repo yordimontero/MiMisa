@@ -1,10 +1,8 @@
 package com.circleappsstudio.mimisa.ui.viewmodel.intention
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
@@ -20,34 +18,43 @@ class IntentionViewModel(
             category: String,
             intention: String
     ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
-
+        /*
+            Método encargado de guardar una intención en la base de datos.
+        */
         emit(Resource.Loading())
 
         try {
 
             intentionRepository.saveIntention(category, intention)
-
             emit(Resource.Success(true))
 
         } catch (e: FirebaseException) {
-
             emit(Resource.Failure(e))
-
         }
 
     }
 
-    override fun checkEmptyIntentionCategory(category: String): Boolean = category == "Seleccione una categoría"
+    /*
+        Método encargado de verificar si la categoría de la intención es válida.
+    */
+    override fun checkValidIntentionCategory(category: String)
+            : Boolean = category == "Seleccione una categoría"
 
+    /*
+        Método encargado de verificar si la intención es vacía.
+    */
     override fun checkEmptyIntention(intention: String): Boolean = intention.isEmpty()
 
-    override fun fetchSavedIntentionsByNameUser(): LiveData<Resource<List<Intention>>?> = liveData(Dispatchers.IO) {
-
+    override fun fetchSavedIntentionsByNameUser()
+            : LiveData<Resource<List<Intention>>?> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer todas las intenciones guardadas por el usuario autenticado actual.
+        */
         emit(Resource.Loading())
 
         try {
 
-            emit(intentionRepository.fetchSavedIntentionsByUserName())
+            emit(intentionRepository.fetchSavedIntentionsByNameUser())
 
         } catch (e: FirebaseException) {
             emit(Resource.Failure(e))

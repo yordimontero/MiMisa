@@ -49,7 +49,9 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
     }
 
     override fun goToIntention() {
-
+        /*
+            Método encargado de navegar hacia el fragment de registro de intenciones.
+        */
         btn_go_to_intention.setOnClickListener {
             navController.navigate(R.id.intentionFragment)
         }
@@ -57,12 +59,17 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
     }
 
     override fun setUpRecyclerView() {
+        /*
+            Método encargado de hacer el setup del RecyclerView.
+        */
         rv_intentions.layoutManager = LinearLayoutManager(requireContext())
         rv_intentions.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     override fun fetchSavedIntentionsByNameUserObserver() {
-
+        /*
+            Método encargado de traer todas las intenciones guardadas por el usuario autenticado actual.
+        */
         intentionViewModel.fetchSavedIntentionsByNameUser().observe(viewLifecycleOwner, Observer { resultEmitted ->
 
             when (resultEmitted) {
@@ -74,14 +81,13 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
                     if (resultEmitted.data.isNotEmpty()) {
 
                         rv_intentions.adapter = IntentionAdapter(requireContext(), resultEmitted.data)
+
                         hideProgressBar()
                         showRecyclerView()
 
                     } else {
-
                         hideProgressBar()
                         hideRecyclerView()
-
                     }
 
                 }
@@ -98,22 +104,37 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+            Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+            Método encargado de mostrar un ProgressBar.
+        */
         progressbar_main_intention.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
+        /*
+            Método encargado de ocultar un ProgressBar.
+        */
         progressbar_main_intention.visibility = View.GONE
     }
 
     override fun showRecyclerView() {
+        /*
+            Método encargado de mostrar un RecyclerView.
+        */
         layout_rv_intentions.visibility = View.VISIBLE
     }
 
     override fun hideRecyclerView() {
+        /*
+            Método encargado de ocultar un RecyclerView.
+        */
         layout_rv_intentions.visibility = View.GONE
     }
 

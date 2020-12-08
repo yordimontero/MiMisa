@@ -15,7 +15,8 @@ class SeatReservationViewModel(
         private val seatReservationRepository: Repository.SeatReservation
 ) : ViewModel(), MainViewModel.SeatReservation {
 
-    override fun fetchIterator(): LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
+    override fun fetchIterator()
+            : LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
         /*
             Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
         */
@@ -35,7 +36,8 @@ class SeatReservationViewModel(
 
     }
 
-    override fun fetchSeatLimit(): LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
+    override fun fetchSeatLimit()
+            : LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
         /*
             Método encargado de traer el número límite de asientos disponibles.
         */
@@ -46,9 +48,7 @@ class SeatReservationViewModel(
             emit(seatReservationRepository.fetchSeatLimit())
 
         } catch (e: FirebaseException){
-
             emit(Resource.Failure(e))
-
         }
 
     }
@@ -61,34 +61,38 @@ class SeatReservationViewModel(
         /*
             Método encargado de reservar un asiento.
         */
-
         emit(Resource.Loading())
 
         try {
+
             seatReservationRepository.saveSeatReserved(seatNumber, nameUser, idNumberUser)
             emit(Resource.Success(true))
+
         } catch (e: FirebaseException){
             emit(Resource.Failure(e))
         }
 
     }
 
-    override fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+    override fun addIterator(seatNumber: Int)
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
         /*
             Método encargado de aumentar el iterador al reservar un asiento.
         */
         emit(Resource.Loading())
 
         try {
+
             seatReservationRepository.addIterator(seatNumber)
             emit(Resource.Success(true))
+
         } catch (e: FirebaseException){
             emit(Resource.Failure(e))
         }
 
     }
 
-    override fun fetchRegisteredSeatsByUserName(): LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
+    override fun fetchRegisteredSeatsByNameUser(): LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
         /*
             Método encargado de traer todos los asientos reservados por el usuario leggeado.
         */
@@ -96,23 +100,27 @@ class SeatReservationViewModel(
 
         try {
 
-            emit(seatReservationRepository.fetchRegisteredSeatsByUserName())
+            emit(seatReservationRepository.fetchRegisteredSeatsByNameUser())
 
         } catch (e: FirebaseException){
-
             emit(Resource.Failure(e))
-
         }
 
     }
 
+    /*
+        Método encargado de validar que el nombre no sea vacío.
+    */
     override fun checkEmptyNameUser(nameUser: String): Boolean = nameUser.isEmpty()
 
+    /*
+        Método encargado de validar que el número de cédula no sea vacío.
+    */
     override fun checkEmptyIdNumberUser(idNumberUser: String): Boolean = idNumberUser.isEmpty()
 
     /*
-                Método encargado de validar que el número de cédula tenga la longitud válida.
-            */
+        Método encargado de validar que el número de cédula tenga la longitud válida.
+    */
     override fun checkValidIdNumberUser(idNumberUser: String)
             : Boolean = idNumberUser.length < 11
 
@@ -122,7 +130,11 @@ class SeatReservationViewModel(
     override fun checkSeatLimit(seatNumber: Int, seatLimit: Int)
             : Boolean = seatNumber > seatLimit
 
-    override fun checkSeatSavedByIdNumberUser(idNumberUser: String): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+    /*
+        Método encargado de verificar si una persona ya tiene reservado un asiento.
+    */
+    override fun checkSeatSavedByIdNumberUser(idNumberUser: String)
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
 
         emit(Resource.Loading())
 
@@ -131,9 +143,7 @@ class SeatReservationViewModel(
             emit(seatReservationRepository.checkSeatSavedByIdNumberUser(idNumberUser))
 
         } catch (e: FirebaseException){
-
             emit(Resource.Failure(e))
-
         }
 
     }

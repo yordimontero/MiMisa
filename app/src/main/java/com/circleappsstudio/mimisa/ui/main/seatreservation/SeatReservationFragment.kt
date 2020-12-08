@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
-import com.circleappsstudio.mimisa.base.OnDialogClickButtonListener
 import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
 import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
@@ -17,7 +16,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationV
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_seat_reservation.*
 
-class SeatReservationFragment : BaseFragment(), UI.SeatReservation, OnDialogClickButtonListener {
+class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -52,7 +51,9 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, OnDialogClic
     }
 
     override fun fetchIteratorObserver() {
-
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
         if (isOnline(requireContext())){
 
             seatReservationViewModel.fetchIterator().observe(viewLifecycleOwner, Observer { resultEmitted ->
@@ -82,7 +83,9 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, OnDialogClic
     }
 
     override fun fetchSeatLimitObserver() {
-
+        /*
+            Método encargado de traer el número límite de asientos disponibles.
+        */
         if (isOnline(requireContext())){
 
             seatReservationViewModel.fetchSeatLimit().observe(viewLifecycleOwner, Observer { resultEmitted ->
@@ -111,14 +114,10 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, OnDialogClic
 
     }
 
-    override fun saveSeatReserved() {
-
-        saveSeatReservedObserver()
-
-    }
-
     override fun saveSeatReservedObserver() {
-
+        /*
+            Método encargado de reservar un asiento.
+        */
         if (isOnline(requireContext())){
 
             seatReservationViewModel.saveSeatReserved(
@@ -150,7 +149,9 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, OnDialogClic
     }
 
     override fun addIteratorObserver() {
-
+        /*
+            Método encargado de aumentar el iterador al reservar un asiento.
+        */
         if (isOnline(requireContext())){
 
             seatReservationViewModel.addIterator(seatNumber.toInt()).observe(viewLifecycleOwner,
@@ -181,63 +182,62 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, OnDialogClic
     }
 
     override fun goToSeatReservationMain() {
+        /*
+            Método encargado de navegar hacia el fragment inicio de reservación de asientos.
+        */
         navController.navigateUp()
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+            Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+            Método encargado de mostrar un ProgressBar.
+        */
         progressbar_seat_reservation.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
+        /*
+            Método encargado de ocultar un ProgressBar.
+        */
         progressbar_seat_reservation.visibility = View.GONE
     }
 
     override fun showDialog() {
-
-        dialog(this,
+        /*
+            Método encargado de mostrar un Dialog.
+        */
+        isOnlineDialog(this,
                 "¡No hay conexión a Internet!",
                 "Verifique su conexión e inténtelo de nuevo.",
                 R.drawable.ic_wifi_off,
-                "Intentar de nuevo",
-                ""
+                "Intentar de nuevo"
         )
 
     }
 
     override fun onPositiveButtonClicked() {
-
+        /*
+            Método encargado de controlar el botón positivo del Dialog.
+        */
         if (isOnline(requireContext())){
-
             fetchIteratorObserver()
-
         } else {
-
-            dialog(this,
-                    "¡No hay conexión a Internet!",
-                    "Verifique su conexión e inténtelo de nuevo.",
-                    R.drawable.ic_wifi_off,
-                    "Intentar de nuevo",
-                    ""
-            )
-
+            showDialog()
         }
 
     }
 
-    override fun onNegativeButtonClicked() {
-        TODO()
-    }
-
-    override fun checkSeatSavedByIdNumberUser() {
-        checkSeatSavedByIdNumberUserObserver()
-    }
-
     override fun checkSeatSavedByIdNumberUserObserver() {
-
+        /*
+            Método encargado de verificar si una persona ya tiene reservado un asiento.
+        */
         nameUser = txt_fullname_seat_reservation.text.toString()
         idNumberUser = txt_id_number_user_seat_reservation.text.toString()
 
@@ -267,6 +267,12 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, OnDialogClic
             return
         }
 
+        checkSeatSavedByIdNumberUser()
+
+    }
+
+    override fun checkSeatSavedByIdNumberUser() {
+
         seatReservationViewModel.checkSeatSavedByIdNumberUser(idNumberUser)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
@@ -282,18 +288,14 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, OnDialogClic
                                 hideProgressBar()
 
                             } else {
-
                                 saveSeatReservedObserver()
-
                             }
 
                         }
 
                         is Resource.Failure -> {
-
                             showMessage(resultEmitted.exception.message.toString(), 2)
                             hideProgressBar()
-
                         }
 
                     }

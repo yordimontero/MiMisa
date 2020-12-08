@@ -49,7 +49,7 @@ class MoreFragment : BaseFragment(), UI.More {
     override fun logOut() {
 
         btn_log_out.setOnClickListener {
-            authViewModel.logOutUserViewModel()
+            authViewModel.logOutUser()
             goToSignIn()
         }
 

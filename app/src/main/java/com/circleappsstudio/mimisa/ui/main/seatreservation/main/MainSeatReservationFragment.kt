@@ -61,7 +61,7 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain {
     }
 
     override fun fetchRegisteredSeatsByUserNameObserver() {
-        seatReservationViewModel.fetchRegisteredSeatsByUserName().observe(viewLifecycleOwner, Observer { resultEmitted ->
+        seatReservationViewModel.fetchRegisteredSeatsByNameUser().observe(viewLifecycleOwner, Observer { resultEmitted ->
 
             when(resultEmitted){
 
