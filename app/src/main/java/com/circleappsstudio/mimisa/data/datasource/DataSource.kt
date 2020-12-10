@@ -25,9 +25,19 @@ interface DataSource {
 
         fun getNameUser(): String
 
+        fun getEmailUser(): String
+
         fun intentForGoogleAuth(): Intent
 
         fun getResultCode(): Int
+
+    }
+
+    interface AdminUser {
+
+        suspend fun createAdmin(emailUser: String, nameUser: String)
+
+        suspend fun fetchAdminCode(): Resource<String?>
 
     }
 

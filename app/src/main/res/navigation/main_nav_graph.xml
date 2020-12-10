@@ -44,5 +44,14 @@
         android:id="@+id/navigation_more"
         android:name="com.circleappsstudio.mimisa.ui.main.more.MoreFragment"
         android:label="Más"
-        tools:layout="@layout/fragment_more" />
+        tools:layout="@layout/fragment_more" >
+        <action
+            android:id="@+id/action_navigation_more_to_profileUserFragment"
+            app:destination="@id/navigation_profile_user" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_profile_user"
+        android:name="com.circleappsstudio.mimisa.ui.main.profileuser.ProfileUserFragment"
+        android:label="Perfíl de Usuario"
+        tools:layout="@layout/fragment_profile_user" />
 </navigation>

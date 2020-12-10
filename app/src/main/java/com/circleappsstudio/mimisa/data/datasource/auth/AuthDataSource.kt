@@ -2,11 +2,7 @@
 
 package com.circleappsstudio.mimisa.data.datasource.auth
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -20,13 +16,13 @@ class AuthDataSource : DataSource.Auth {
         private const val RC_SIGN_IN = 423
     }
 
-    private var currentUser: FirebaseAuth = FirebaseAuth.getInstance()
+    private var user: FirebaseAuth = FirebaseAuth.getInstance()
 
     override suspend fun signInUser(email: String, password: String) {
         /*
              Método encargado de registrar un usuario nuevo en el sistema.
         */
-        currentUser.createUserWithEmailAndPassword(email, password).await()
+        user.createUserWithEmailAndPassword(email, password).await()
     }
 
     override suspend fun updateUserProfile(fullName: String) {
@@ -37,14 +33,14 @@ class AuthDataSource : DataSource.Auth {
             .setDisplayName(fullName)
             .build()
 
-        currentUser.currentUser?.updateProfile(profileUpdates)?.await()
+        user.currentUser?.updateProfile(profileUpdates)?.await()
     }
 
     override suspend fun logInUser(email: String, password: String) {
         /*
              Método encargado de loggear un usuario existente en el sistema.
         */
-        currentUser.signInWithEmailAndPassword(email, password).await()
+        user.signInWithEmailAndPassword(email, password).await()
     }
 
     override suspend fun resetPasswordUser(email: String) {
@@ -52,20 +48,22 @@ class AuthDataSource : DataSource.Auth {
              Método encargado de mandar un correo de cambio de contraseña a un
              usuario existente en el sistema.
         */
-        currentUser.sendPasswordResetEmail(email).await()
+        user.sendPasswordResetEmail(email).await()
     }
 
     override fun logOutUser() {
         /*
              Método encargado de cerrar la sesión de un usuario existente en el sistema.
         */
-        currentUser.signOut()
+        user.signOut()
     }
 
     /*
         Método encargado de obtener el nombre del actual usuario autenticado.
     */
-    override fun getNameUser(): String = currentUser.currentUser!!.displayName.toString()
+    override fun getNameUser(): String = user.currentUser?.displayName.toString()
+
+    override fun getEmailUser(): String = user.currentUser?.email.toString()
 
     override fun intentForGoogleAuth(): Intent {
         /*
@@ -85,6 +83,5 @@ class AuthDataSource : DataSource.Auth {
         Método encargado de obtener el ResultCode para la autenticación de Google.
     */
     override fun getResultCode(): Int = RC_SIGN_IN
-
 
 }

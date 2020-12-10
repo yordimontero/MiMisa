@@ -46,9 +46,12 @@ class AuthRepository(private val authDataSource: DataSource.Auth) : Repository.A
     */
     override fun getUserName(): String = authDataSource.getNameUser()
 
+
+    override fun getEmailUser(): String = authDataSource.getEmailUser()
+
     /*
-        Método encargado de crear el Intent para la autenticación de Google.
-    */
+            Método encargado de crear el Intent para la autenticación de Google.
+        */
     override fun intentForGoogleAuth(): Intent = authDataSource.intentForGoogleAuth()
 
     /*

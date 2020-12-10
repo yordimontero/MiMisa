@@ -215,6 +215,40 @@ interface UI {
 
     }
 
+    interface UserProfile {
+
+        fun addListenerRadioButtons()
+
+        fun fetchAdminCodeObserver()
+
+        fun changeRole()
+
+        fun createAdminObserver()
+
+        fun showUserInfo()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showEditText()
+
+        fun hideEditText()
+
+        fun showDialog()
+
+        fun showProfileLayout()
+
+        fun hideProfileLayout()
+
+        fun showChangeRoleLayout()
+
+        fun hideChangeRoleLayout()
+
+    }
+
     interface IsOnlineDialogClickButtonListener {
         fun onPositiveButtonClicked()
     }

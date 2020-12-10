@@ -10,11 +10,15 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
+import com.circleappsstudio.mimisa.data.datasource.user.admin.AdminDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
+import com.circleappsstudio.mimisa.domain.user.admin.AdminRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.auth.LogInActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
+import com.circleappsstudio.mimisa.ui.viewmodel.user.admin.AdminViewModel
 import kotlinx.android.synthetic.main.fragment_more.*
 
 class MoreFragment : BaseFragment(), UI.More {
@@ -43,6 +47,10 @@ class MoreFragment : BaseFragment(), UI.More {
         fetchUserName()
 
         links()
+
+        txt_user_name_more.setOnClickListener {
+            navController.navigate(R.id.navigation_profile_user)
+        }
 
     }
 

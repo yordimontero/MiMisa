@@ -50,9 +50,23 @@ interface MainViewModel {
 
         fun getUserName(): String
 
+        fun getEmailUser(): String
+
         fun intentForGoogleAuth(): Intent
 
         fun getResultCode(): Int
+
+    }
+
+    interface AdminUser {
+
+        fun createAdmin(emailUser: String, nameUser: String): LiveData<Resource<Boolean>>
+
+        fun fetchAdminCode(): LiveData<Resource<String?>>
+
+        fun checkEmptyAdminCode(adminCode: String): Boolean
+
+        fun validateAdminCode(fetchedAdminCode: String, adminCode: String): Boolean
 
     }
 

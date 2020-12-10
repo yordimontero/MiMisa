@@ -166,9 +166,11 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
     */
     override fun getUserName(): String = authRepository.getUserName()
 
+    override fun getEmailUser(): String = authRepository.getEmailUser()
+
     /*
-        Método encargado de crear el Intent para la autenticación de Google.
-    */
+            Método encargado de crear el Intent para la autenticación de Google.
+        */
     override fun intentForGoogleAuth(): Intent = authRepository.intentForGoogleAuth()
 
     /*
