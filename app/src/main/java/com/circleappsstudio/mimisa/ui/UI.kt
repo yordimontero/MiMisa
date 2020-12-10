@@ -247,6 +247,10 @@ interface UI {
 
         fun hideChangeRoleLayout()
 
+        fun checkCreatedAdminByEmailUserObserver()
+
+        fun deleteAdminObserver()
+
     }
 
     interface IsOnlineDialogClickButtonListener {

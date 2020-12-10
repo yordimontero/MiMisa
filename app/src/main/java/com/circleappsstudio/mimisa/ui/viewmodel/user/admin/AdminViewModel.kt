@@ -50,4 +50,35 @@ class AdminViewModel(private val adminRepository: Repository.AdminUser): ViewMod
         adminCode: String
     ): Boolean = fetchedAdminCode != adminCode
 
+    override fun checkCreatedAdminByEmailUser(emailUser: String)
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(adminRepository.checkCreatedAdminByEmailUser(emailUser))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun deleteAdmin(emailUser: String)
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            adminRepository.deleteAdmin(emailUser)
+            emit(Resource.Success(true))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
 }

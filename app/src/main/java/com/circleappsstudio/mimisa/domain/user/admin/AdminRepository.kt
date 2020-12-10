@@ -13,4 +13,9 @@ class AdminRepository(private val adminDataSource: DataSource.AdminUser): Reposi
 
     override suspend fun fetchAdminCode(): Resource<String?> = adminDataSource.fetchAdminCode()
 
+    override suspend fun checkCreatedAdminByEmailUser(emailUser: String)
+            : Resource<Boolean> = adminDataSource.checkCreatedAdminByEmailUser(emailUser)
+
+    override suspend fun deleteAdmin(emailUser: String) = adminDataSource.deleteAdmin(emailUser)
+
 }

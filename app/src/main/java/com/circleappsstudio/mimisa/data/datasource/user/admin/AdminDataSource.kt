@@ -16,12 +16,21 @@ class AdminDataSource: DataSource.AdminUser {
                 "nameUser" to nameUser
         )
 
-        db.collection("diaconia")
+        /*db.collection("diaconia")
                 .document("la_argentina")
                 .collection("admins")
                 .document("data")
                 .collection("registered_admins")
                 .add(admin)
+                .await()*/
+
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("admins")
+                .document("data")
+                .collection("registered_admins")
+                .document(emailUser)
+                .set(admin)
                 .await()
 
     }
@@ -44,6 +53,42 @@ class AdminDataSource: DataSource.AdminUser {
             }.await()
 
         return Resource.Success(adminCode)
+
+    }
+
+    override suspend fun checkCreatedAdminByEmailUser(emailUser: String): Resource<Boolean> {
+
+        var isAdminRegistered = false
+
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("admins")
+                .document("data")
+                .collection("registered_admins")
+                .whereEqualTo("emailUser", emailUser)
+                .get()
+                .addOnSuccessListener { documents ->
+
+                    for (document in documents) {
+                        isAdminRegistered = document.exists()
+                    }
+
+                }.await()
+
+        return Resource.Success(isAdminRegistered)
+
+    }
+
+    override suspend fun deleteAdmin(emailUser: String) {
+
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("admins")
+                .document("data")
+                .collection("registered_admins")
+                .document(emailUser)
+                .delete()
+                .await()
 
     }
 

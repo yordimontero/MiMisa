@@ -68,6 +68,10 @@ interface MainViewModel {
 
         fun validateAdminCode(fetchedAdminCode: String, adminCode: String): Boolean
 
+        fun checkCreatedAdminByEmailUser(emailUser: String): LiveData<Resource<Boolean>>
+
+        fun deleteAdmin(emailUser: String): LiveData<Resource<Boolean>>
+
     }
 
     interface SeatReservation {

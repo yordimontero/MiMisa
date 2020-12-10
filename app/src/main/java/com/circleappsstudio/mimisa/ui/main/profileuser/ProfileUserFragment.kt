@@ -132,6 +132,11 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
             return
         }
 
+        if (rd_btn_user_role.isChecked) {
+            deleteAdminObserver()
+            return
+        }
+
         if (adminViewModel.checkEmptyAdminCode(adminCode)) {
             txt_admin_code.error = "Complete los campos"
             return
@@ -143,7 +148,8 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
         }
 
         if (rd_btn_admin_role.isChecked){
-            createAdminObserver()
+            checkCreatedAdminByEmailUserObserver()
+            return
         }
 
     }
@@ -230,6 +236,75 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
     override fun hideChangeRoleLayout() {
         layout_change_role.visibility = View.GONE
+    }
+
+    override fun checkCreatedAdminByEmailUserObserver() {
+
+        if (isOnline(requireContext())) {
+
+            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                if (resultEmitted.data) {
+                                    showMessage("Ya eres administrador.", 1)
+                                    hideProgressBar()
+                                } else {
+                                    createAdminObserver()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+
+        }
+
+    }
+
+    override fun deleteAdminObserver() {
+
+        if (isOnline(requireContext())) {
+
+            adminViewModel.deleteAdmin(emailUser)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+                                showMessage("Ahora eres Usuario.", 2)
+                                hideProgressBar()
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
     }
 
     override fun onPositiveButtonClicked() {

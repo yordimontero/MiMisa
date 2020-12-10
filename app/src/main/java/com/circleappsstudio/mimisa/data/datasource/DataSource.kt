@@ -39,6 +39,10 @@ interface DataSource {
 
         suspend fun fetchAdminCode(): Resource<String?>
 
+        suspend fun checkCreatedAdminByEmailUser(emailUser: String): Resource<Boolean>
+
+        suspend fun deleteAdmin(emailUser: String)
+
     }
 
     interface SeatReservation {
