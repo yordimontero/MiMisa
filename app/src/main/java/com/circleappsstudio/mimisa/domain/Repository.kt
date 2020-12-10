@@ -33,13 +33,15 @@ interface Repository {
 
     }
 
-    interface AdminUser {
-
-        suspend fun createAdmin(emailUser: String, nameUser: String)
-
+    interface RoleUser {
+        /*
+            Interface encargada de controlar los métodos de creación de roles.
+        */
         suspend fun fetchAdminCode(): Resource<String?>
 
         suspend fun checkCreatedAdminByEmailUser(emailUser: String): Resource<Boolean>
+
+        suspend fun createAdmin(emailUser: String, nameUser: String)
 
         suspend fun deleteAdmin(emailUser: String)
 

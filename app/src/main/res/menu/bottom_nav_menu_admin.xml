@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home_admin"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Inicio" />
+
+    <item
+        android:id="@+id/navigation_seat_reservation_admin"
+        android:icon="@drawable/ic_seat_reservation"
+        android:title="Asientos" />
+
+    <item
+        android:id="@+id/navigation_intention_admin"
+        android:icon="@drawable/ic_intentions"
+        android:title="Intenciones" />
+
+    <item
+        android:id="@+id/navigation_more_admin"
+        android:icon="@drawable/ic_more"
+        android:title="Más"/>
+
+</menu>

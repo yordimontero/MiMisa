@@ -14,6 +14,10 @@ interface UI {
 
         fun goToMainActivity()
 
+        fun goToAdminMainActivity()
+
+        fun checkCreatedAdminByEmailUserObserver()
+
     }
 
     interface SignInUI {
@@ -216,16 +220,22 @@ interface UI {
     }
 
     interface UserProfile {
-
+        /*
+            Interface encargada de controlar los métodos del fragment "ProfileUserFragment".
+        */
         fun addListenerRadioButtons()
 
         fun fetchAdminCodeObserver()
 
+        fun showUserInfo()
+
         fun changeRole()
 
-        fun createAdminObserver()
+        fun deleteAdminObserver()
 
-        fun showUserInfo()
+        fun checkCreatedAdminByEmailUserObserver()
+
+        fun createAdminObserver()
 
         fun showMessage(message: String, duration: Int)
 
@@ -246,10 +256,6 @@ interface UI {
         fun showChangeRoleLayout()
 
         fun hideChangeRoleLayout()
-
-        fun checkCreatedAdminByEmailUserObserver()
-
-        fun deleteAdminObserver()
 
     }
 

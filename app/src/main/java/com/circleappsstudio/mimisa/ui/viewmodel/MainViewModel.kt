@@ -58,19 +58,21 @@ interface MainViewModel {
 
     }
 
-    interface AdminUser {
+    interface RoleUser {
+        /*
+            Interface encargada de controlar los métodos de creación de roles.
+        */
+        fun fetchAdminCode(): LiveData<Resource<String?>>
+
+        fun checkCreatedAdminByEmailUser(emailUser: String): LiveData<Resource<Boolean>>
 
         fun createAdmin(emailUser: String, nameUser: String): LiveData<Resource<Boolean>>
 
-        fun fetchAdminCode(): LiveData<Resource<String?>>
+        fun deleteAdmin(emailUser: String): LiveData<Resource<Boolean>>
 
         fun checkEmptyAdminCode(adminCode: String): Boolean
 
         fun validateAdminCode(fetchedAdminCode: String, adminCode: String): Boolean
-
-        fun checkCreatedAdminByEmailUser(emailUser: String): LiveData<Resource<Boolean>>
-
-        fun deleteAdmin(emailUser: String): LiveData<Resource<Boolean>>
 
     }
 

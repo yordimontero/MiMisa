@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.ui.main.profileuser
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -9,14 +10,15 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
-import com.circleappsstudio.mimisa.data.datasource.user.admin.AdminDataSource
+import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
-import com.circleappsstudio.mimisa.domain.user.admin.AdminRepository
+import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
+import com.circleappsstudio.mimisa.ui.main.admin.AdminMainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
-import com.circleappsstudio.mimisa.ui.viewmodel.user.admin.AdminViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_profile_user.*
 
@@ -24,10 +26,10 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
     private lateinit var navController: NavController
 
-    private val adminViewModel by activityViewModels<AdminViewModel> {
+    private val adminViewModel by activityViewModels<RoleUserViewModel> {
         VMFactoryAdmin(
-            AdminRepository(
-                AdminDataSource()
+            RoleUserRepository(
+                RoleDataSource()
             )
         )
     }
@@ -55,11 +57,11 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
         navController = Navigation.findNavController(view)
 
-        showUserInfo()
+        addListenerRadioButtons()
 
         fetchAdminCodeObserver()
 
-        addListenerRadioButtons()
+        showUserInfo()
 
         btn_show_change_role_layout_profile_user.setOnClickListener {
             hideProfileLayout()
@@ -78,7 +80,9 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
     }
 
     override fun addListenerRadioButtons() {
-
+        /*
+            Método encargado de escuchar cuál RadioButton está seleccionado.
+        */
         radiogroup_role.setOnCheckedChangeListener { radioGroup, i ->
 
             when(i){
@@ -98,33 +102,51 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
     }
 
     override fun fetchAdminCodeObserver() {
+        /*
+            Método encargado de traer el código de verificación para crear el rol de Administrador.
+        */
+        if (isOnline(requireContext())) {
 
-        adminViewModel.fetchAdminCode().observe(viewLifecycleOwner, Observer { resultEmitted ->
+            adminViewModel.fetchAdminCode().observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-            when(resultEmitted) {
+                when(resultEmitted) {
 
-                is Resource.Loading -> {
-                    showProgressBar()
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
+
+                    is Resource.Success -> {
+                        fetchedAdminCode = resultEmitted.data.toString()
+                        hideProgressBar()
+                    }
+
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
+                    }
+
                 }
 
-                is Resource.Success -> {
-                    fetchedAdminCode = resultEmitted.data.toString()
-                    hideProgressBar()
-                }
+            })
 
-                is Resource.Failure -> {
-                    showMessage(resultEmitted.exception.message.toString(), 2)
-                    hideProgressBar()
-                }
 
-            }
-
-        })
+        }
 
     }
 
-    override fun changeRole() {
+    override fun showUserInfo() {
+        /*
+            Método encargado de traer el nombre y el e-mail del usuario autenticado.
+        */
+        txt_name_user_profile_user.text = nameUser
+        txt_email_user_profile_user.text = emailUser
+    }
 
+    override fun changeRole() {
+        /*
+            Método encargado de cambiar el rol del usuario en función de cúal RadioButton está
+            seleccionado.
+        */
         adminCode = txt_admin_code.text.toString()
 
         if (!isOnline(requireContext())) {
@@ -154,21 +176,23 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
     }
 
-    override fun createAdminObserver() {
-
+    override fun deleteAdminObserver() {
+        /*
+            Método encargado de eliminar el rol de Administrador. (Crear rol de Usuario).
+        */
         if (isOnline(requireContext())) {
 
-            adminViewModel.createAdmin(emailUser, nameUser)
+            adminViewModel.deleteAdmin(emailUser)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                    when(resultEmitted){
+                    when(resultEmitted) {
 
                         is Resource.Loading -> {
                             showProgressBar()
                         }
 
                         is Resource.Success -> {
-                            showMessage("Ahora eres Administrador.", 2)
+                            showMessage("Ahora eres Usuario.", 2)
                             hideProgressBar()
                         }
 
@@ -185,28 +209,120 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
     }
 
-    override fun showUserInfo() {
-        txt_name_user_profile_user.text = nameUser
-        txt_email_user_profile_user.text = emailUser
+    override fun checkCreatedAdminByEmailUserObserver() {
+        /*
+            Método encargado de verificar que el código de verificación
+            para crear el rol de Administrador sea correcto.
+        */
+        if (isOnline(requireContext())) {
+
+            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when(resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+
+                            if (resultEmitted.data) {
+                                showMessage("Ya eres administrador.", 1)
+                                hideProgressBar()
+                            } else {
+                                createAdminObserver()
+                            }
+
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
+                    }
+
+                })
+
+
+        }
+
+    }
+
+    override fun createAdminObserver() {
+        /*
+            Método encargado de crear el rol de Administrador.
+        */
+        if (isOnline(requireContext())) {
+
+            adminViewModel.createAdmin(emailUser, nameUser)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when(resultEmitted){
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            showMessage("Ahora eres Administrador.", 2)
+                            hideProgressBar()
+
+                            // Refactor this.
+                            val intent = Intent(requireContext(), AdminMainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
+
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
+                    }
+
+                })
+
+        }
+
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+            Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+            Método encargado de mostrar un ProgressBar.
+        */
         progressbar_change_role.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
+        /*
+            Método encargado de ocultar un ProgressBar.
+        */
         progressbar_change_role.visibility = View.GONE
     }
 
     override fun showEditText() {
+        /*
+            Método encargado de mostrar el EditText del código de
+            verificación de creación de rol Administrador.
+        */
         tetx_imput_txt_admin_code.visibility = View.VISIBLE
     }
 
     override fun hideEditText() {
+        /*
+            Método encargado de ocultar el EditText del código de
+            verificación de creación de rol Administrador.
+        */
         tetx_imput_txt_admin_code.visibility = View.GONE
     }
 
@@ -223,88 +339,31 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
     }
 
     override fun showProfileLayout() {
+        /*
+            Método encargado de mostrar el layout de perfíl del usuario.
+        */
         layout_profile_user.visibility = View.VISIBLE
     }
 
     override fun hideProfileLayout() {
+        /*
+            Método encargado de ocultar el layout de perfíl del usuario.
+        */
         layout_profile_user.visibility = View.GONE
     }
 
     override fun showChangeRoleLayout() {
+        /*
+            Método encargado de mostrar el layout de cambiar rol de usuario.
+        */
         layout_change_role.visibility = View.VISIBLE
     }
 
     override fun hideChangeRoleLayout() {
+        /*
+            Método encargado de ocultar el layout de cambiar rol de usuario.
+        */
         layout_change_role.visibility = View.GONE
-    }
-
-    override fun checkCreatedAdminByEmailUserObserver() {
-
-        if (isOnline(requireContext())) {
-
-            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when(resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-
-                                if (resultEmitted.data) {
-                                    showMessage("Ya eres administrador.", 1)
-                                    hideProgressBar()
-                                } else {
-                                    createAdminObserver()
-                                }
-
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-
-        }
-
-    }
-
-    override fun deleteAdminObserver() {
-
-        if (isOnline(requireContext())) {
-
-            adminViewModel.deleteAdmin(emailUser)
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when(resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-                                showMessage("Ahora eres Usuario.", 2)
-                                hideProgressBar()
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-        }
-
     }
 
     override fun onPositiveButtonClicked() {
