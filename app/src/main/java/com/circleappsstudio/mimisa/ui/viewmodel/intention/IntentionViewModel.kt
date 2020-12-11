@@ -62,4 +62,22 @@ class IntentionViewModel(
 
     }
 
+    override fun fetchAllSavedIntentions()
+            : LiveData<Resource<List<Intention>>?> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer todas las intenciones guardadas en la base de datos.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            emit(intentionRepository.fetchAllSavedIntentions())
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+
 }

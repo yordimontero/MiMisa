@@ -29,8 +29,10 @@ class AdminMainActivity : BaseActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                //R.id.navigation_home, R.id.navigation_seat_reservation, R.id.navigation_intention, R.id.navigation_more
-                R.id.navigation_home_admin, R.id.navigation_more_admin
+                R.id.navigation_home_admin,
+                R.id.navigation_seat_reservation_admin,
+                R.id.navigation_intention_admin,
+                R.id.navigation_more_admin
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

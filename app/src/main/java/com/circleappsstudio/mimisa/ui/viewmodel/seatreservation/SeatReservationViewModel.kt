@@ -108,6 +108,22 @@ class SeatReservationViewModel(
 
     }
 
+    override fun fetchAllRegisteredSeats(): LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer todos los asientos reservados en la base de datos.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepository.fetchAllRegisteredSeats())
+
+        } catch (e: FirebaseException){
+            emit(Resource.Failure(e))
+        }
+
+    }
+
     /*
         Método encargado de validar que el nombre no sea vacío.
     */

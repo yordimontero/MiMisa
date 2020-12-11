@@ -41,7 +41,6 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/layout_rv_intentions"
         android:layout_width="match_parent"

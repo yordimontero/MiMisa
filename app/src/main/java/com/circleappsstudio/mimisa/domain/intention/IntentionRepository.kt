@@ -7,7 +7,7 @@ import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.vo.Resource
 
-class IntentionRepository(private val intentionDataSource: DataSource.Intentions) : Repository.Intentions {
+class IntentionRepository(private val intentionDataSource: DataSource.Intentions): Repository.Intentions {
     /*
         Método encargado de guardar una intención en la base de datos.
     */
@@ -21,5 +21,11 @@ class IntentionRepository(private val intentionDataSource: DataSource.Intentions
     */
     override suspend fun fetchSavedIntentionsByNameUser()
             : Resource<List<Intention>>? = intentionDataSource.fetchSavedIntentionsByNameUser()
+
+    /*
+        Método encargado de traer todas las intenciones guardadas en la base de datos.
+    */
+    override suspend fun fetchAllSavedIntentions()
+            : Resource<List<Intention>>? = intentionDataSource.fetchAllSavedIntentions()
 
 }

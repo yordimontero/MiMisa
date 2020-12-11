@@ -91,6 +91,8 @@ interface MainViewModel {
 
         fun fetchRegisteredSeatsByNameUser(): LiveData<Resource<List<Seat>>?>
 
+        fun fetchAllRegisteredSeats(): LiveData<Resource<List<Seat>>?>
+
         fun checkEmptyNameUser(nameUser: String): Boolean
 
         fun checkEmptyIdNumberUser(idNumberUser: String): Boolean
@@ -115,6 +117,8 @@ interface MainViewModel {
         fun checkEmptyIntention(intention: String): Boolean
 
         fun fetchSavedIntentionsByNameUser(): LiveData<Resource<List<Intention>>?>
+
+        fun fetchAllSavedIntentions(): LiveData<Resource<List<Intention>>?>
 
     }
 

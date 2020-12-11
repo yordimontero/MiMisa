@@ -14,6 +14,7 @@ import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
+import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.main.admin.AdminMainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
@@ -194,6 +195,7 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
                         is Resource.Success -> {
                             showMessage("Ahora eres Usuario.", 2)
                             hideProgressBar()
+                            goToMainActivity()
                         }
 
                         is Resource.Failure -> {
@@ -268,12 +270,7 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
                         is Resource.Success -> {
                             showMessage("Ahora eres Administrador.", 2)
                             hideProgressBar()
-
-                            // Refactor this.
-                            val intent = Intent(requireContext(), AdminMainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(intent)
-
+                            goToAdminMainActivity()
                         }
 
                         is Resource.Failure -> {
@@ -364,6 +361,24 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
             Método encargado de ocultar el layout de cambiar rol de usuario.
         */
         layout_change_role.visibility = View.GONE
+    }
+
+    override fun goToMainActivity() {
+        /*
+            Método para navegar hacia el menú principal.
+        */
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+
+    }
+
+    override fun goToAdminMainActivity() {
+
+        val intent = Intent(requireContext(), AdminMainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+
     }
 
     override fun onPositiveButtonClicked() {

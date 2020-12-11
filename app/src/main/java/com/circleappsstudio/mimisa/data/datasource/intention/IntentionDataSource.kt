@@ -80,4 +80,43 @@ class IntentionDataSource : DataSource.Intentions {
 
     }
 
+    override suspend fun fetchAllSavedIntentions(): Resource<List<Intention>>? {
+        /*
+            Método encargado de traer todas las intenciones guardadas en la base de datos.
+        */
+        var intention: Intention
+        val intentionList = arrayListOf<Intention>()
+
+        db.collection("diaconia")
+            .document("la_argentina")
+            .collection("intention")
+            .document("data")
+            .collection("registered_intentions")
+            .get().addOnSuccessListener { documents ->
+
+                intentionList.clear()
+
+                for (document in documents) {
+
+                    if (document.exists()) {
+
+                        intention = Intention(
+                            document.data["category"].toString(),
+                            document.data["intention"].toString(),
+                            document.data["dateRegistered"].toString(),
+                            document.data["intentionRegisteredBy"].toString()
+                        )
+
+                        intentionList.add(intention)
+
+                    }
+
+                }
+
+            }.await()
+
+        return Resource.Success(intentionList)
+
+    }
+
 }

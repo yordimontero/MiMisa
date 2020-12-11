@@ -41,6 +41,12 @@ class SeatReservationRepository(
             : Resource<List<Seat>>? = seatReservationDataSource.fetchRegisteredSeatsByNameUser()
 
     /*
+        Método encargado de traer todos los asientos reservados de la base datos.
+    */
+    override suspend fun fetchAllRegisteredSeats()
+            : Resource<List<Seat>>? = seatReservationDataSource.fetchAllRegisteredSeats()
+
+    /*
         Método encargado de verificar si una persona ya tiene reservado un asiento.
     */
     override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String)

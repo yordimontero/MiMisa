@@ -164,6 +164,47 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
+    override suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>? {
+        /*
+            Método encargado de traer todos los asientos reservados de la base datos.
+        */
+        var seat: Seat
+        val seatList = arrayListOf<Seat>()
+
+        db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("data")
+            .collection("registered_seats")
+            .orderBy("seatNumber", Query.Direction.DESCENDING)
+            .get().addOnSuccessListener { documents ->
+
+                seatList.clear()
+
+                for (document in documents.documents) {
+
+                    if (document.exists()) {
+
+                        seat = Seat(
+                            document.data!!["seatNumber"].toString().toInt(),
+                            document.data!!["nameUser"].toString(),
+                            document.data!!["idNumberUser"].toString(),
+                            document.data!!["dateRegistered"].toString(),
+                            document.data!!["seatRegisteredBy"].toString()
+                        )
+
+                        seatList.add(seat)
+
+                    }
+
+                }
+
+            }.await()
+
+        return Resource.Success(seatList)
+
+    }
+
     override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean> {
         /*
             Método encargado de verificar si una persona ya tiene reservado un asiento.

@@ -145,6 +145,24 @@ interface UI {
 
     }
 
+    interface AdminSeatReservation {
+
+        fun fetchSavedSeats()
+
+        fun setupRecyclerView()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showRecyclerView()
+
+        fun hideRecyclerView()
+
+    }
+
     interface IntentionMain {
         /*
             Interface encargada de controlar los métodos de la base de datos Firestore para el
@@ -190,6 +208,24 @@ interface UI {
         fun gotToSeatReservationMain()
 
         fun showDialog()
+
+    }
+
+    interface AdminIntentions {
+
+        fun fetchSavedIntentions()
+
+        fun setupRecyclerView()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showRecyclerView()
+
+        fun hideRecyclerView()
 
     }
 
@@ -256,6 +292,10 @@ interface UI {
         fun showChangeRoleLayout()
 
         fun hideChangeRoleLayout()
+
+        fun goToMainActivity()
+
+        fun goToAdminMainActivity()
 
     }
 

@@ -77,9 +77,11 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen {
         /*
             Método para navegar hacia el fragment de registro de usuarios.
         */
-        val intent = Intent(requireContext(), LogInActivity::class.java)
+        /*val intent = Intent(requireContext(), LogInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
+        startActivity(intent)*/
+
+        navController.navigate(R.id.signInFragment)
 
     }
 
@@ -115,8 +117,8 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen {
                     is Resource.Success -> {
 
                         if (resultEmitted.data) {
-                            //goToAdminMainActivity()
-                            goToMainActivity()
+                            goToAdminMainActivity()
+                            //goToMainActivity()
                         } else {
                             goToMainActivity()
                         }

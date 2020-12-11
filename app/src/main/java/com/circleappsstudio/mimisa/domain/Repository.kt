@@ -62,6 +62,8 @@ interface Repository {
 
         suspend fun fetchRegisteredSeatsByNameUser(): Resource<List<Seat>>?
 
+        suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>?
+
         suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
 
     }
@@ -74,6 +76,8 @@ interface Repository {
         suspend fun saveIntention(category: String, intention: String)
 
         suspend fun fetchSavedIntentionsByNameUser(): Resource<List<Intention>>?
+
+        suspend fun fetchAllSavedIntentions(): Resource<List<Intention>>?
 
     }
 
