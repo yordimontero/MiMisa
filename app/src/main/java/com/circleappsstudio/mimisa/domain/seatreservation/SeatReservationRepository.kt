@@ -51,4 +51,11 @@ class SeatReservationRepository(
     */
     override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String)
             : Resource<Boolean> = seatReservationDataSource.checkSeatSavedByIdNumberUser(idNumberUser)
+
+    /*
+        Método encargado de actualizar el número máximo de asientos disponibles.
+    */
+    override suspend fun updateSeatLimit(seatLimit: Int)
+            = seatReservationDataSource.updateSeatLimit(seatLimit)
+
 }

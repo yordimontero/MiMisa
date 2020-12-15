@@ -164,4 +164,22 @@ class SeatReservationViewModel(
 
     }
 
+    override fun updateSeatLimit(seatLimit: Int)
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de actualizar el número máximo de asientos disponibles.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.updateSeatLimit(seatLimit)
+            emit(Resource.Success(true))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
 }

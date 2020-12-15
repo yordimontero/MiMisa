@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home_admin"
         android:name="com.circleappsstudio.mimisa.ui.main.home.HomeFragment"
-        android:label="fragment_home"
+        android:label="Inicio"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_more_admin"

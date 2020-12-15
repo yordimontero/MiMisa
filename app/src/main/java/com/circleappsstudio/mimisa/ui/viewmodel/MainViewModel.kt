@@ -103,6 +103,8 @@ interface MainViewModel {
 
         fun checkSeatSavedByIdNumberUser(idNumberUser: String): LiveData<Resource<Boolean>>
 
+        fun updateSeatLimit(seatLimit: Int): LiveData<Resource<Boolean>>
+
     }
 
     interface Intentions {

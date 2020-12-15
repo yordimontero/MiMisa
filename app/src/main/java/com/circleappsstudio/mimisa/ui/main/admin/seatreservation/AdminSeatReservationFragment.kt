@@ -1,10 +1,7 @@
 package com.circleappsstudio.mimisa.ui.main.admin.seatreservation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -34,6 +31,8 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation {
         )
     }
 
+    private lateinit var seatLimit: String
+
     override fun getLayout(): Int = R.layout.fragment_admin_seat_reservation
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,6 +43,10 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation {
         setupRecyclerView()
 
         fetchSavedSeats()
+
+        fetchSeatLimitObserver()
+
+        updateSeatLimit()
 
     }
 
@@ -85,6 +88,77 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation {
                 }
 
             })
+
+    }
+
+    override fun fetchSeatLimitObserver() {
+        /*
+            Método encargado de traer el número límite de asientos disponibles.
+        */
+        seatReservationViewModel.fetchSeatLimit()
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when(resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            seatLimit = resultEmitted.data.toString()
+                            txt_seat_limit.setText(seatLimit)
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
+                    }
+
+                })
+
+    }
+
+    override fun updateSeatLimit() {
+        /*
+            Método encargado de actualizar el número máximo de asientos disponibles.
+        */
+
+        btn_update_seat_limit.setOnClickListener {
+
+            if (isOnline(requireContext())) {
+
+                val newSeatLimit = txt_seat_limit.text.toString().toInt()
+
+                seatReservationViewModel.updateSeatLimit(newSeatLimit)
+                        .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                            when(resultEmitted) {
+
+                                is Resource.Loading -> {
+                                    showProgressBar()
+                                }
+
+                                is Resource.Success -> {
+                                    showMessage("El límite de asientos fue actualizado con éxito.", 2)
+                                    fetchSeatLimitObserver()
+                                    hideProgressBar()
+                                }
+
+                                is Resource.Failure -> {
+                                    showMessage(resultEmitted.exception.message.toString(), 2)
+                                    hideProgressBar()
+                                }
+
+                            }
+
+                        })
+
+            }
+
+        }
 
     }
 

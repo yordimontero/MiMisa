@@ -23,6 +23,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.vo.Resource
+import kotlinx.android.synthetic.main.fragment_loading.*
 
 class LoadingFragment : BaseFragment(), UI.SplashScreen {
 
@@ -111,7 +112,7 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen {
                 when(resultEmitted) {
 
                     is Resource.Loading -> {
-
+                        showProgressBar()
                     }
 
                     is Resource.Success -> {
@@ -126,13 +127,26 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen {
                     }
 
                     is Resource.Failure -> {
-                        requireContext().toast(requireContext(), resultEmitted.exception.message.toString())
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
                     }
 
                 }
 
             })
 
+    }
+
+    override fun showProgressBar() {
+        progressbar_loading_fragment.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        progressbar_loading_fragment.visibility = View.GONE
+    }
+
+    override fun showMessage(message: String, duration: Int) {
+        requireContext().toast(requireContext(), message, duration)
     }
 
 }

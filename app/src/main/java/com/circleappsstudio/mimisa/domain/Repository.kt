@@ -66,6 +66,8 @@ interface Repository {
 
         suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
 
+        suspend fun updateSeatLimit(seatLimit: Int)
+
     }
 
     interface Intentions {

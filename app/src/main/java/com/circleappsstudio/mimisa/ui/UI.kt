@@ -18,6 +18,12 @@ interface UI {
 
         fun checkCreatedAdminByEmailUserObserver()
 
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showMessage(message: String, duration: Int)
+
     }
 
     interface SignInUI {
@@ -148,6 +154,10 @@ interface UI {
     interface AdminSeatReservation {
 
         fun fetchSavedSeats()
+
+        fun fetchSeatLimitObserver()
+
+        fun updateSeatLimit()
 
         fun setupRecyclerView()
 

@@ -8,28 +8,44 @@
     android:orientation="vertical"
     tools:context=".ui.main.home.HomeFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:layout_height="200dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/templo_la_argentina"
+            android:scaleType="fitXY"
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-light"
             android:text="MiMisa"
-            android:textSize="26sp" />
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Diaconía la Argentina, Parroquia de Tacares."
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Deberá lavar y desinfectar sus manos al ingresar al templo."
+                        android:text="Lave y desinfecte sus manos al ingresar al templo."
                         android:textSize="18sp"
                         android:textStyle="bold" />
 

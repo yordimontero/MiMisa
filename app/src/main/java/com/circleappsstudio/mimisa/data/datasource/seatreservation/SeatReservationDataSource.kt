@@ -74,7 +74,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 .get().addOnSuccessListener { document ->
 
                     if (document.exists()) {
-                        seatLimit = document.data!!["limit_seat"].toString().toInt()
+                        seatLimit = document.data!!["seat_limit"].toString().toInt()
                     }
 
                 }.await()
@@ -226,6 +226,19 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 }.await()
 
         return Resource.Success(isUserRegistered)
+
+    }
+
+    override suspend fun updateSeatLimit(seatLimit: Int) {
+        /*
+            Método encargado de actualizar el número máximo de asientos disponibles.
+        */
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+                .update("seat_limit", seatLimit)
+                .await()
 
     }
 

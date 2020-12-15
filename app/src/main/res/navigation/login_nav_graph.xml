@@ -30,6 +30,5 @@
     <fragment
         android:id="@+id/loadingFragment"
         android:name="com.circleappsstudio.mimisa.ui.splashscreen.LoadingFragment"
-        android:label="fragment_loading"
         tools:layout="@layout/fragment_loading" />
 </navigation>
