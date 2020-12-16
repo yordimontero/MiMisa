@@ -42,9 +42,7 @@ class LogInFragment : BaseFragment(), UI.LogInUI, UI.IsOnlineDialogClickButtonLi
 
         navController = Navigation.findNavController(view)
 
-        btn_log_in_user.setOnClickListener {
-            logInUser()
-        }
+        logInUser()
 
     }
 
@@ -73,31 +71,35 @@ class LogInFragment : BaseFragment(), UI.LogInUI, UI.IsOnlineDialogClickButtonLi
         /*
              Método encargado de loggear un usuario existente en el sistema.
         */
-        email = txt_email_log_in_user.text.toString()
-        password = txt_password_log_in_user.text.toString()
+        btn_log_in_user.setOnClickListener {
 
-        if (!isOnline(requireContext())) {
-            showDialog()
-            return
+            email = txt_email_log_in_user.text.toString()
+            password = txt_password_log_in_user.text.toString()
+
+            if (!isOnline(requireContext())) {
+                showDialog()
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkEmptyFieldsForLogIn(email, password)){
+                txt_email_log_in_user.error = "Complete los campos."
+                txt_password_log_in_user.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkValidEmail(email)){
+                txt_email_log_in_user.error = "El e-mail ingresado es incorrecto."
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkValidPassword(password)){
+                txt_password_log_in_user.error = "Contraseña incorrecta."
+                return@setOnClickListener
+            }
+
+            logInUserObserver()
+
         }
-
-        if (authViewModel.checkEmptyFieldsForLogIn(email, password)){
-            txt_email_log_in_user.error = "Complete los campos."
-            txt_password_log_in_user.error = "Complete los campos."
-            return
-        }
-
-        if (authViewModel.checkValidEmail(email)){
-            txt_email_log_in_user.error = "El e-mail ingresado es incorrecto."
-            return
-        }
-
-        if (authViewModel.checkValidPassword(password)){
-            txt_password_log_in_user.error = "Contraseña incorrecta."
-            return
-        }
-
-        logInUserObserver()
 
     }
 
@@ -150,12 +152,7 @@ class LogInFragment : BaseFragment(), UI.LogInUI, UI.IsOnlineDialogClickButtonLi
         /*
              Método encargado de mostrar un Dialog.
         */
-        isOnlineDialog(this,
-                "¡No hay conexión a Internet!",
-                "Verifique su conexión e inténtelo de nuevo.",
-                R.drawable.ic_wifi_off,
-                "Intentar de nuevo"
-        )
+        isOnlineDialog(this)
 
     }
 

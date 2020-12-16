@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.ui.UI
 
 abstract class BaseFragment() : Fragment() {
@@ -75,11 +76,7 @@ abstract class BaseFragment() : Fragment() {
         return false
     }
 
-    fun isOnlineDialog(buttonListener: UI.IsOnlineDialogClickButtonListener,
-                       title: String,
-                       message: String,
-                       icon: Int,
-                       positiveButton: String) {
+    fun isOnlineDialog(buttonListener: UI.IsOnlineDialogClickButtonListener) {
         /*
             Método encargado de mostrar un Dialog cuando no hay conexión a internet.
         */
@@ -87,14 +84,14 @@ abstract class BaseFragment() : Fragment() {
             AlertDialog.Builder(it)
         }
 
-        builder!!.setTitle(title)
-        builder.setMessage(message)
+        builder!!.setTitle("¡No hay conexión a Internet!")
+        builder.setMessage("Verifique su conexión e inténtelo de nuevo.")
 
         builder.setCancelable(false)
-        builder.setIcon(icon)
+        builder.setIcon(R.drawable.ic_wifi_off)
 
         builder.apply {
-            setPositiveButton(positiveButton) { dialog, id ->
+            setPositiveButton("Intentar de nuevo") { dialog, id ->
                 buttonListener.onPositiveButtonClicked()
             }
         }

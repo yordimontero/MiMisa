@@ -47,9 +47,11 @@ class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickB
 
         setUpSpinner()
 
-        btn_save_intention.setOnClickListener {
+        /*btn_save_intention.setOnClickListener {
             saveIntentionObserver()
-        }
+        }*/
+
+        saveIntentionObserver()
 
     }
 
@@ -90,24 +92,28 @@ class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickB
         /*
             Método encargado de guardar una intención en la base de datos.
         */
-        intention = txt_intention.text.toString()
+        btn_save_intention.setOnClickListener {
 
-        if (!isOnline(requireContext())) {
-            showDialog()
-            return
+            intention = txt_intention.text.toString()
+
+            if (!isOnline(requireContext())) {
+                showDialog()
+                return@setOnClickListener
+            }
+
+            if (intentionViewModel.checkValidIntentionCategory(intentionCategory)){
+                showMessage("Seleccione la categoría de su intención.", 2)
+                return@setOnClickListener
+            }
+
+            if (intentionViewModel.checkEmptyIntention(intention)){
+                txt_intention.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            saveIntention()
+
         }
-
-        if (intentionViewModel.checkValidIntentionCategory(intentionCategory)){
-            showMessage("Seleccione la categoría de su intención.", 2)
-            return
-        }
-
-        if (intentionViewModel.checkEmptyIntention(intention)){
-            txt_intention.error = "Complete los campos."
-            return
-        }
-
-        saveIntention()
 
     }
 
@@ -174,12 +180,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickB
         /*
             Método encargado de mostrar un Dialog.
         */
-        isOnlineDialog(this,
-                "¡No hay conexión a Internet!",
-                "Verifique su conexión e inténtelo de nuevo.",
-                R.drawable.ic_wifi_off,
-                "Intentar de nuevo"
-        )
+        isOnlineDialog(this)
 
     }
 

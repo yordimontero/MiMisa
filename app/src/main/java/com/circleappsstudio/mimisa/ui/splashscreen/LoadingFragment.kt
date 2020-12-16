@@ -15,7 +15,6 @@ import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
-import com.circleappsstudio.mimisa.ui.auth.LogInActivity
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.main.admin.AdminMainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
@@ -25,7 +24,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_loading.*
 
-class LoadingFragment : BaseFragment(), UI.SplashScreen {
+class LoadingFragment : BaseFragment(), UI.SplashScreen, UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -66,6 +65,14 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen {
         /*
              Método encargado de validar que exista actualmente un usuario loggeado en el sistema.
         */
+
+        if (!isOnline(requireContext())) {
+
+            showDialog()
+            return
+
+        }
+
         if (authViewModel.checkUserLogged()) {
             goToSignIn()
         } else {
@@ -78,10 +85,6 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen {
         /*
             Método para navegar hacia el fragment de registro de usuarios.
         */
-        /*val intent = Intent(requireContext(), LogInActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)*/
-
         navController.navigate(R.id.signInFragment)
 
     }
@@ -97,7 +100,9 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen {
     }
 
     override fun goToAdminMainActivity() {
-
+        /*
+            Método para navegar hacia el menú principal en rol de Administrador.
+        */
         val intent = Intent(requireContext(), AdminMainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
@@ -105,48 +110,84 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen {
     }
 
     override fun checkCreatedAdminByEmailUserObserver() {
+        /*
+            Método encargado de verificar que el código de verificación
+            para crear el rol de Administrador sea correcto.
+        */
 
-        adminViewModel.checkCreatedAdminByEmailUser(emailUser)
-            .observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-                when(resultEmitted) {
+            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
+                        when(resultEmitted) {
 
-                    is Resource.Success -> {
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
 
-                        if (resultEmitted.data) {
-                            goToAdminMainActivity()
-                            //goToMainActivity()
-                        } else {
-                            goToMainActivity()
+                            is Resource.Success -> {
+
+                                if (resultEmitted.data) {
+                                    goToAdminMainActivity()
+                                } else {
+                                    goToMainActivity()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
                         }
 
-                    }
+                    })
 
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
 
-                }
-
-            })
+        }
 
     }
 
     override fun showProgressBar() {
+        /*
+            Método encargado de mostrar un ProgressBar.
+        */
         progressbar_loading_fragment.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
+        /*
+            Método encargado de ocultar un ProgressBar.
+        */
         progressbar_loading_fragment.visibility = View.GONE
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+             Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
+    }
+
+    override fun showDialog() {
+        /*
+             Método encargado de mostrar el Dialog "isOnlineDialog".
+        */
+        isOnlineDialog(this)
+    }
+
+    override fun onPositiveButtonClicked() {
+        /*
+            Método encargado de controlar el botón positivo del Dialog.
+        */
+        if (isOnline(requireContext())) {
+            checkUserLogged()
+        } else {
+            showDialog()
+        }
+
     }
 
 }

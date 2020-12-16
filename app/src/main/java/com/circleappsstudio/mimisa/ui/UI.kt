@@ -24,6 +24,8 @@ interface UI {
 
         fun showMessage(message: String, duration: Int)
 
+        fun showDialog()
+
     }
 
     interface SignInUI {
@@ -94,6 +96,8 @@ interface UI {
 
     interface SeatReservationMain {
 
+        fun fetchData()
+
         fun setUpRecyclerView()
 
         fun fetchRegisteredSeatsByUserNameObserver()
@@ -119,6 +123,8 @@ interface UI {
         fun showRecyclerView()
 
         fun hideRecyclerView()
+
+        fun showDialog()
 
     }
 
@@ -153,6 +159,8 @@ interface UI {
 
     interface AdminSeatReservation {
 
+        fun fetchData()
+
         fun fetchSavedSeats()
 
         fun fetchSeatLimitObserver()
@@ -171,6 +179,8 @@ interface UI {
 
         fun hideRecyclerView()
 
+        fun showDialog()
+
     }
 
     interface IntentionMain {
@@ -178,6 +188,9 @@ interface UI {
             Interface encargada de controlar los métodos de la base de datos Firestore para el
             registro de intenciones.
         */
+
+        fun fetchData()
+
         fun goToIntention()
 
         fun setUpRecyclerView()
@@ -193,6 +206,8 @@ interface UI {
         fun showRecyclerView()
 
         fun hideRecyclerView()
+
+        fun showDialog()
 
     }
 
@@ -223,6 +238,8 @@ interface UI {
 
     interface AdminIntentions {
 
+        fun fetchData()
+
         fun fetchSavedIntentions()
 
         fun setupRecyclerView()
@@ -237,15 +254,15 @@ interface UI {
 
         fun hideRecyclerView()
 
+        fun showDialog()
+
     }
 
     interface More {
         /*
             Interface encargada de controlar los métodos del fragment "MoreFragment".
         */
-        fun logOut()
-
-        fun fetchUserName()
+        fun goToProfile()
 
         fun links()
 
@@ -261,19 +278,21 @@ interface UI {
 
         fun goToPlayStoreMoreApps()
 
-        fun goToSignIn()
-
     }
 
     interface UserProfile {
         /*
             Interface encargada de controlar los métodos del fragment "ProfileUserFragment".
         */
+        fun fetchData()
+
+        fun setCheckedRadioButton()
+
         fun addListenerRadioButtons()
 
         fun fetchAdminCodeObserver()
 
-        fun showUserInfo()
+        fun showUserInfo(resultEmitted: Boolean)
 
         fun changeRole()
 
@@ -294,10 +313,6 @@ interface UI {
         fun hideEditText()
 
         fun showDialog()
-
-        fun showProfileLayout()
-
-        fun hideProfileLayout()
 
         fun showChangeRoleLayout()
 

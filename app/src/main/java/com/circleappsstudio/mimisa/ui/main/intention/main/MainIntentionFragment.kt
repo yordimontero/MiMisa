@@ -19,7 +19,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_main_intention.*
 
-class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
+class MainIntentionFragment : BaseFragment(), UI.IntentionMain, UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -43,6 +43,18 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
         setUpRecyclerView()
 
         goToIntention()
+
+        fetchData()
+
+    }
+
+    override fun fetchData() {
+
+        if (!isOnline(requireContext())) {
+            showDialog()
+            showProgressBar()
+            return
+        }
 
         fetchSavedIntentionsByNameUserObserver()
 
@@ -70,36 +82,40 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
         /*
             Método encargado de traer todas las intenciones guardadas por el usuario autenticado actual.
         */
-        intentionViewModel.fetchSavedIntentionsByNameUser().observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-            when (resultEmitted) {
+            intentionViewModel.fetchSavedIntentionsByNameUser().observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                is Resource.Loading -> { showProgressBar() }
+                when (resultEmitted) {
 
-                is Resource.Success -> {
+                    is Resource.Loading -> { showProgressBar() }
 
-                    if (resultEmitted.data.isNotEmpty()) {
+                    is Resource.Success -> {
 
-                        rv_intentions.adapter = IntentionAdapter(requireContext(), resultEmitted.data)
+                        if (resultEmitted.data.isNotEmpty()) {
 
+                            rv_intentions.adapter = IntentionAdapter(requireContext(), resultEmitted.data)
+
+                            hideProgressBar()
+                            showRecyclerView()
+
+                        } else {
+                            hideProgressBar()
+                            hideRecyclerView()
+                        }
+
+                    }
+
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
                         hideProgressBar()
-                        showRecyclerView()
-
-                    } else {
-                        hideProgressBar()
-                        hideRecyclerView()
                     }
 
                 }
 
-                is Resource.Failure -> {
-                    showMessage(resultEmitted.exception.message.toString(), 2)
-                    hideProgressBar()
-                }
+            })
 
-            }
-
-        })
+        }
 
     }
 
@@ -136,6 +152,20 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain {
             Método encargado de ocultar un RecyclerView.
         */
         layout_rv_intentions.visibility = View.GONE
+    }
+
+    override fun showDialog() {
+        isOnlineDialog(this)
+    }
+
+    override fun onPositiveButtonClicked() {
+
+        if (isOnline(requireContext())) {
+            fetchData()
+        } else {
+            showDialog()
+        }
+
     }
 
 }

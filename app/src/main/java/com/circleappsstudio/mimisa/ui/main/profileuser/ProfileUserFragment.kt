@@ -35,7 +35,7 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
         )
     }
 
-    private val authViewModel by activityViewModels<AuthViewModel>{
+    private val authViewModel by activityViewModels<AuthViewModel> {
         VMFactoryAuth(
             AuthRepository(
                 AuthDataSource()
@@ -49,6 +49,8 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
     private lateinit var fetchedAdminCode: String
     private lateinit var adminCode: String
 
+    private var isAdmin = false
+
     override fun getLayout(): Int {
         return R.layout.fragment_profile_user
     }
@@ -60,23 +62,85 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
         addListenerRadioButtons()
 
-        fetchAdminCodeObserver()
+        fetchData()
 
-        showUserInfo()
+        showChangeRoleLayout()
 
-        btn_show_change_role_layout_profile_user.setOnClickListener {
+        hideChangeRoleLayout()
+
+        changeRole()
+
+        /*btn_show_change_role_layout_profile_user.setOnClickListener {
             hideProfileLayout()
             showChangeRoleLayout()
-        }
+        }*/
 
-        btn_change_role.setOnClickListener {
+        /*btn_change_role.setOnClickListener {
             changeRole()
-        }
+        }*/
 
-        btn_cancel_change_role.setOnClickListener {
+        /*btn_cancel_change_role.setOnClickListener {
             showProfileLayout()
             hideChangeRoleLayout()
+        }*/
+
+    }
+
+    override fun setCheckedRadioButton() {
+
+        if (isOnline(requireContext())) {
+
+            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                isAdmin = resultEmitted.data
+
+                                showUserInfo(isAdmin)
+
+                                if (isAdmin) {
+                                    rd_btn_admin_role.isChecked = true
+                                    hideProgressBar()
+                                } else {
+                                    rd_btn_user_role.isChecked = true
+                                    hideProgressBar()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
         }
+
+    }
+
+    override fun fetchData() {
+
+        if (!isOnline(requireContext())) {
+            showDialog()
+            showProgressBar()
+            return
+        }
+
+        setCheckedRadioButton()
+
+        fetchAdminCodeObserver()
+
+        //showUserInfo()
 
     }
 
@@ -108,7 +172,8 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
         */
         if (isOnline(requireContext())) {
 
-            adminViewModel.fetchAdminCode().observe(viewLifecycleOwner, Observer { resultEmitted ->
+            adminViewModel.fetchAdminCode()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when(resultEmitted) {
 
@@ -135,12 +200,19 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
     }
 
-    override fun showUserInfo() {
+    override fun showUserInfo(resultEmitted: Boolean) {
         /*
             Método encargado de traer el nombre y el e-mail del usuario autenticado.
         */
         txt_name_user_profile_user.text = nameUser
         txt_email_user_profile_user.text = emailUser
+
+        if (resultEmitted) {
+            txt_role_user_profile_user.text = "Administrador"
+        } else {
+            txt_role_user_profile_user.text = "Usuario"
+        }
+
     }
 
     override fun changeRole() {
@@ -148,31 +220,35 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
             Método encargado de cambiar el rol del usuario en función de cúal RadioButton está
             seleccionado.
         */
-        adminCode = txt_admin_code.text.toString()
+        btn_change_role.setOnClickListener {
 
-        if (!isOnline(requireContext())) {
-            showDialog()
-            return
-        }
+            adminCode = txt_admin_code.text.toString()
 
-        if (rd_btn_user_role.isChecked) {
-            deleteAdminObserver()
-            return
-        }
+            if (!isOnline(requireContext())) {
+                showDialog()
+                return@setOnClickListener
+            }
 
-        if (adminViewModel.checkEmptyAdminCode(adminCode)) {
-            txt_admin_code.error = "Complete los campos"
-            return
-        }
+            if (rd_btn_user_role.isChecked) {
+                deleteAdminObserver()
+                return@setOnClickListener
+            }
 
-        if (adminViewModel.validateAdminCode(fetchedAdminCode, adminCode)) {
-            txt_admin_code.error = "El código ingresado es incorrecto."
-            return
-        }
+            if (adminViewModel.checkEmptyAdminCode(adminCode)) {
+                txt_admin_code.error = "Complete los campos"
+                return@setOnClickListener
+            }
 
-        if (rd_btn_admin_role.isChecked){
-            checkCreatedAdminByEmailUserObserver()
-            return
+            if (adminViewModel.validateAdminCode(fetchedAdminCode, adminCode)) {
+                txt_admin_code.error = "El código ingresado es incorrecto."
+                return@setOnClickListener
+            }
+
+            if (rd_btn_admin_role.isChecked){
+                checkCreatedAdminByEmailUserObserver()
+                return@setOnClickListener
+            }
+
         }
 
     }
@@ -183,29 +259,35 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
         */
         if (isOnline(requireContext())) {
 
-            adminViewModel.deleteAdmin(emailUser)
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+            if (isAdmin) {
 
-                    when(resultEmitted) {
+                adminViewModel.deleteAdmin(emailUser)
+                        .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                        is Resource.Loading -> {
-                            showProgressBar()
-                        }
+                            when(resultEmitted) {
 
-                        is Resource.Success -> {
-                            showMessage("Ahora eres Usuario.", 2)
-                            hideProgressBar()
-                            goToMainActivity()
-                        }
+                                is Resource.Loading -> {
+                                    showProgressBar()
+                                }
 
-                        is Resource.Failure -> {
-                            showMessage(resultEmitted.exception.message.toString(), 2)
-                            hideProgressBar()
-                        }
+                                is Resource.Success -> {
+                                    showMessage("Ahora eres Usuario.", 2)
+                                    hideProgressBar()
+                                    goToMainActivity()
+                                }
 
-                    }
+                                is Resource.Failure -> {
+                                    showMessage(resultEmitted.exception.message.toString(), 2)
+                                    hideProgressBar()
+                                }
 
-                })
+                            }
+
+                        })
+
+            } else {
+                showMessage("Ya eres un Usuario", 1)
+            }
 
         }
 
@@ -230,7 +312,7 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
                         is Resource.Success -> {
 
                             if (resultEmitted.data) {
-                                showMessage("Ya eres administrador.", 1)
+                                showMessage("Ya eres un Administrador.", 1)
                                 hideProgressBar()
                             } else {
                                 createAdminObserver()
@@ -327,40 +409,29 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
         /*
             Método encargado de mostrar un Dialog.
         */
-        isOnlineDialog(this,
-            "¡No hay conexión a Internet!",
-            "Verifique su conexión e inténtelo de nuevo.",
-            R.drawable.ic_wifi_off,
-            "Intentar de nuevo"
-        )
-    }
-
-    override fun showProfileLayout() {
-        /*
-            Método encargado de mostrar el layout de perfíl del usuario.
-        */
-        layout_profile_user.visibility = View.VISIBLE
-    }
-
-    override fun hideProfileLayout() {
-        /*
-            Método encargado de ocultar el layout de perfíl del usuario.
-        */
-        layout_profile_user.visibility = View.GONE
+        isOnlineDialog(this)
     }
 
     override fun showChangeRoleLayout() {
         /*
             Método encargado de mostrar el layout de cambiar rol de usuario.
         */
-        layout_change_role.visibility = View.VISIBLE
+        btn_show_change_role_layout_profile_user.setOnClickListener {
+            layout_change_role.visibility = View.VISIBLE
+            layout_profile_user.visibility = View.GONE
+        }
+
     }
 
     override fun hideChangeRoleLayout() {
         /*
             Método encargado de ocultar el layout de cambiar rol de usuario.
         */
-        layout_change_role.visibility = View.GONE
+        btn_cancel_change_role.setOnClickListener {
+            layout_change_role.visibility = View.GONE
+            layout_profile_user.visibility = View.VISIBLE
+        }
+
     }
 
     override fun goToMainActivity() {
@@ -386,7 +457,7 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
             Método encargado de controlar el botón positivo del Dialog.
         */
         if (isOnline(requireContext())) {
-            changeRole()
+            fetchData()
         } else {
             showDialog()
         }

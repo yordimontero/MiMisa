@@ -44,9 +44,11 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
 
         fetchIteratorObserver()
 
-        btn_seat_reservation.setOnClickListener {
+        /*btn_seat_reservation.setOnClickListener {
             checkSeatSavedByIdNumberUserObserver()
-        }
+        }*/
+
+        checkSeatSavedByIdNumberUserObserver()
 
     }
 
@@ -56,7 +58,8 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
         */
         if (isOnline(requireContext())){
 
-            seatReservationViewModel.fetchIterator().observe(viewLifecycleOwner, Observer { resultEmitted ->
+            seatReservationViewModel.fetchIterator()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
 
@@ -88,7 +91,8 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
         */
         if (isOnline(requireContext())){
 
-            seatReservationViewModel.fetchSeatLimit().observe(viewLifecycleOwner, Observer { resultEmitted ->
+            seatReservationViewModel.fetchSeatLimit()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
 
@@ -154,8 +158,8 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
         */
         if (isOnline(requireContext())){
 
-            seatReservationViewModel.addIterator(seatNumber.toInt()).observe(viewLifecycleOwner,
-                    Observer { resultEmitted ->
+            seatReservationViewModel.addIterator(seatNumber.toInt())
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                         when (resultEmitted) {
 
@@ -213,12 +217,7 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
         /*
             Método encargado de mostrar un Dialog.
         */
-        isOnlineDialog(this,
-                "¡No hay conexión a Internet!",
-                "Verifique su conexión e inténtelo de nuevo.",
-                R.drawable.ic_wifi_off,
-                "Intentar de nuevo"
-        )
+        isOnlineDialog(this)
 
     }
 
@@ -238,69 +237,81 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
         /*
             Método encargado de verificar si una persona ya tiene reservado un asiento.
         */
-        nameUser = txt_fullname_seat_reservation.text.toString()
-        idNumberUser = txt_id_number_user_seat_reservation.text.toString()
 
-        if (!isOnline(requireContext())) {
-            showDialog()
-            return
+        btn_seat_reservation.setOnClickListener {
+
+            nameUser = txt_fullname_seat_reservation.text.toString()
+            idNumberUser = txt_id_number_user_seat_reservation.text.toString()
+
+            if (!isOnline(requireContext())) {
+                showDialog()
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkEmptyNameUser(nameUser)) {
+                txt_fullname_seat_reservation.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
+                txt_id_number_user_seat_reservation.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
+                txt_id_number_user_seat_reservation.error = "Número de cédula inválido."
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())){
+                showMessage("Ya no hay asientos disponibles.", 2)
+                goToSeatReservationMain()
+                return@setOnClickListener
+            }
+
+            checkSeatSavedByIdNumberUser()
+
         }
-
-        if (seatReservationViewModel.checkEmptyNameUser(nameUser)) {
-            txt_fullname_seat_reservation.error = "Complete los campos."
-            return
-        }
-
-        if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
-            txt_id_number_user_seat_reservation.error = "Complete los campos."
-            return
-        }
-
-        if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
-            txt_id_number_user_seat_reservation.error = "Número de cédula inválido."
-            return
-        }
-
-        if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())){
-            showMessage("Ya no hay asientos disponibles.", 2)
-            goToSeatReservationMain()
-            return
-        }
-
-        checkSeatSavedByIdNumberUser()
 
     }
 
     override fun checkSeatSavedByIdNumberUser() {
+        /*
+            Método encargado de verificar si una persona ya tiene reservado un asiento.
+        */
 
-        seatReservationViewModel.checkSeatSavedByIdNumberUser(idNumberUser)
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-                    when(resultEmitted) {
+            seatReservationViewModel.checkSeatSavedByIdNumberUser(idNumberUser)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                        is Resource.Loading -> { showProgressBar() }
+                        when(resultEmitted) {
 
-                        is Resource.Success -> {
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
 
-                            if (resultEmitted.data) {
+                            is Resource.Success -> {
 
-                                showMessage("El usuario que va a reservar el asiento ya tiene un asiento reservado.", 2)
+                                if (resultEmitted.data) {
+                                    showMessage("El usuario que va a reservar el asiento ya tiene un asiento reservado.", 2)
+                                    hideProgressBar()
+                                } else {
+                                    saveSeatReservedObserver()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
                                 hideProgressBar()
-
-                            } else {
-                                saveSeatReservedObserver()
                             }
 
                         }
 
-                        is Resource.Failure -> {
-                            showMessage(resultEmitted.exception.message.toString(), 2)
-                            hideProgressBar()
-                        }
+                    })
 
-                    }
-
-                })
+        }
 
     }
 

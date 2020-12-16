@@ -47,9 +47,7 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
 
         navController = Navigation.findNavController(view)
 
-        btn_sign_in_user.setOnClickListener {
-            signInUser()
-        }
+        signInUser()
 
         btn_google_sign_in_user.setOnClickListener {
             signInUserWithGoogle()
@@ -87,47 +85,50 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
              Método encargado de registrar un usuario nuevo en el sistema
              y setear el nombre de un usuario nuevo en el sistema.
         */
+        btn_sign_in_user.setOnClickListener {
 
-        fullName = txt_fullname_sign_in_user.text.toString()
-        email = txt_email_sign_in_user.text.toString()
-        password1 = txt_password1_sign_in_user.text.toString()
-        password2 = txt_password2_sign_in_user.text.toString()
+            fullName = txt_fullname_sign_in_user.text.toString()
+            email = txt_email_sign_in_user.text.toString()
+            password1 = txt_password1_sign_in_user.text.toString()
+            password2 = txt_password2_sign_in_user.text.toString()
 
-        if (authViewModel.checkEmptyFieldsForSignIn(fullName, email, password1, password2)) {
-            txt_fullname_sign_in_user.error = "Complete los campos."
-            txt_email_sign_in_user.error = "Complete los campos."
-            txt_password1_sign_in_user.error = "Complete los campos."
-            txt_password2_sign_in_user.error = "Complete los campos."
-            return
+            if (authViewModel.checkEmptyFieldsForSignIn(fullName, email, password1, password2)) {
+                txt_fullname_sign_in_user.error = "Complete los campos."
+                txt_email_sign_in_user.error = "Complete los campos."
+                txt_password1_sign_in_user.error = "Complete los campos."
+                txt_password2_sign_in_user.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkEmptyNameUser(fullName)){
+                txt_fullname_sign_in_user.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkValidEmail(email)) {
+                txt_email_sign_in_user.error = "El e-mail ingresado es incorrecto."
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkValidPassword(password1)) {
+                txt_password1_sign_in_user.error = "La contraseña debe tener al menos 6 caracteres."
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkMatchPasswordsForSignIn(password1, password2)){
+                txt_password1_sign_in_user.error = "Las contraseñas no coinciden."
+                txt_password2_sign_in_user.error = "Las contraseñas no coinciden."
+                return@setOnClickListener
+            }
+
+            if (!isOnline(requireContext())) {
+                showDialog()
+                return@setOnClickListener
+            }
+
+            signInUserObserver()
+
         }
-
-        if (authViewModel.checkEmptyNameUser(fullName)){
-            txt_fullname_sign_in_user.error = "Complete los campos."
-            return
-        }
-
-        if (authViewModel.checkValidEmail(email)) {
-            txt_email_sign_in_user.error = "El e-mail ingresado es incorrecto."
-            return
-        }
-
-        if (authViewModel.checkValidPassword(password1)) {
-            txt_password1_sign_in_user.error = "La contraseña debe tener al menos 6 caracteres."
-            return
-        }
-
-        if (authViewModel.checkMatchPasswordsForSignIn(password1, password2)){
-            txt_password1_sign_in_user.error = "Las contraseñas no coinciden."
-            txt_password2_sign_in_user.error = "Las contraseñas no coinciden."
-            return
-        }
-
-        if (!isOnline(requireContext())) {
-            showDialog()
-            return
-        }
-
-        signInUserObserver()
 
     }
 
@@ -200,10 +201,14 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
         /*
             Método encargado de autenticar por medio de Google.
         */
-        startActivityForResult(
-            authViewModel.intentForGoogleAuth(),
-            authViewModel.getResultCode()
-        )
+        btn_google_sign_in_user.setOnClickListener {
+
+            startActivityForResult(
+                    authViewModel.intentForGoogleAuth(),
+                    authViewModel.getResultCode()
+            )
+
+        }
 
     }
 
@@ -268,12 +273,7 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
         /*
              Método encargado de mostrar un Dialog.
         */
-        isOnlineDialog(this,
-                "¡No hay conexión a Internet!",
-                "Verifique su conexión e inténtelo de nuevo.",
-                R.drawable.ic_wifi_off,
-                "Intentar de nuevo"
-        )
+        isOnlineDialog(this)
 
     }
 

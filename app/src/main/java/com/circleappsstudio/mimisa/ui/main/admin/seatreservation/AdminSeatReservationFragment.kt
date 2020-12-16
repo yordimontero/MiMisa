@@ -19,7 +19,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationV
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_admin_seat_reservation.*
 
-class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation {
+class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation, UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -42,52 +42,80 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation {
 
         setupRecyclerView()
 
+        fetchData()
+
+        updateSeatLimit()
+
+    }
+
+    override fun fetchData() {
+
+        if (!isOnline(requireContext())) {
+            showDialog()
+            showProgressBar()
+            return
+        }
+
         fetchSavedSeats()
 
         fetchSeatLimitObserver()
 
-        updateSeatLimit()
+    }
 
+    override fun setupRecyclerView() {
+        /*
+            Método encargado de hacer el setup del RecyclerView.
+        */
+        rv_admin_seat_reservation.layoutManager = LinearLayoutManager(requireContext())
+        rv_admin_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     override fun fetchSavedSeats() {
         /*
             Método encargado de traer todos los asientos reservados en la base de datos.
         */
-        seatReservationViewModel.fetchAllRegisteredSeats()
-            .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                when(resultEmitted) {
+        if (isOnline(requireContext())) {
 
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
+            seatReservationViewModel.fetchAllRegisteredSeats()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                    is Resource.Success -> {
+                        when(resultEmitted) {
 
-                        if (resultEmitted.data.isNotEmpty()) {
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
 
-                            rv_admin_seat_reservation.adapter = SeatAdapter(requireContext(), resultEmitted.data)
-                            showRecyclerView()
-                            hideProgressBar()
+                            is Resource.Success -> {
 
-                        } else {
+                                if (resultEmitted.data.isNotEmpty()) {
 
-                            hideRecyclerView()
-                            hideProgressBar()
+                                    rv_admin_seat_reservation.adapter = SeatAdapter(
+                                            requireContext(),
+                                            resultEmitted.data
+                                    )
+                                    showRecyclerView()
+                                    hideProgressBar()
+
+                                } else {
+
+                                    hideRecyclerView()
+                                    hideProgressBar()
+
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
 
                         }
 
-                    }
+                    })
 
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
-
-                }
-
-            })
+        }
 
     }
 
@@ -95,29 +123,33 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation {
         /*
             Método encargado de traer el número límite de asientos disponibles.
         */
-        seatReservationViewModel.fetchSeatLimit()
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-                    when(resultEmitted) {
+            seatReservationViewModel.fetchSeatLimit()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                        is Resource.Loading -> {
-                            showProgressBar()
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+                                seatLimit = resultEmitted.data.toString()
+                                txt_seat_limit.setText(seatLimit)
+                                hideProgressBar()
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
                         }
 
-                        is Resource.Success -> {
-                            seatLimit = resultEmitted.data.toString()
-                            txt_seat_limit.setText(seatLimit)
-                            hideProgressBar()
-                        }
+                    })
 
-                        is Resource.Failure -> {
-                            showMessage(resultEmitted.exception.message.toString(), 2)
-                            hideProgressBar()
-                        }
-
-                    }
-
-                })
+        }
 
     }
 
@@ -162,14 +194,6 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation {
 
     }
 
-    override fun setupRecyclerView() {
-        /*
-            Método encargado de hacer el setup del RecyclerView.
-        */
-        rv_admin_seat_reservation.layoutManager = LinearLayoutManager(requireContext())
-        rv_admin_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-    }
-
     override fun showMessage(message: String, duration: Int) {
         /*
             Método encargado de mostrar un Toast.
@@ -203,6 +227,25 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation {
             Método encargado de ocultar un RecyclerView.
         */
         layout_rv_admin_seat_reservation.visibility = View.GONE
+    }
+
+    override fun showDialog() {
+        /*
+            Método encargado de mostrar el Dialog "isOnlineDialog".
+        */
+        isOnlineDialog(this)
+    }
+
+    override fun onPositiveButtonClicked() {
+        /*
+            Método encargado de controlar el botón positivo del Dialog.
+        */
+        if (isOnline(requireContext())) {
+            fetchData()
+        } else {
+            showDialog()
+        }
+
     }
 
 }

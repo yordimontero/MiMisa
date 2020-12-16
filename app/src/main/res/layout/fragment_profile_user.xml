@@ -71,6 +71,30 @@
             android:textSize="20sp"
             tools:text="E-mail" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                android:layout_marginEnd="2dp"
+                android:text="Su rol actual:" />
+
+            <TextView
+                android:id="@+id/txt_role_user_profile_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                tools:text="Rol" />
+
+        </LinearLayout>
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_show_change_role_layout_profile_user"
             android:layout_width="wrap_content"

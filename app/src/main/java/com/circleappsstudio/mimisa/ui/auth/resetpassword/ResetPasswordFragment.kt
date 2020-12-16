@@ -39,9 +39,7 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
 
         navController = Navigation.findNavController(view)
 
-        btn_reset_password_user.setOnClickListener {
-            resetPasswordUser()
-        }
+        resetPasswordUser()
 
     }
 
@@ -71,24 +69,28 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
              Método encargado de mandar un correo de cambio de contraseña a un
              usuario existente en el sistema.
         */
-        email = txt_email_reset_password_user.text.toString()
+        btn_reset_password_user.setOnClickListener {
 
-        if (!isOnline(requireContext())) {
-            showDialog()
-            return
+            email = txt_email_reset_password_user.text.toString()
+
+            if (!isOnline(requireContext())) {
+                showDialog()
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkEmptyFieldsForResetPassword(email)){
+                txt_email_reset_password_user.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (authViewModel.checkValidEmail(email)){
+                txt_email_reset_password_user.error = "El e-mail ingresado es inválido."
+                return@setOnClickListener
+            }
+
+            resetPasswordUserObserver()
+
         }
-
-        if (authViewModel.checkEmptyFieldsForResetPassword(email)){
-            txt_email_reset_password_user.error = "Complete los campos."
-            return
-        }
-
-        if (authViewModel.checkValidEmail(email)){
-            txt_email_reset_password_user.error = "El e-mail ingresado es inválido."
-            return
-        }
-
-        resetPasswordUserObserver()
 
     }
 
@@ -129,12 +131,7 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
         /*
              Método encargado de mostrar un Dialog.
         */
-        isOnlineDialog(this,
-                "¡No hay conexión a Internet!",
-                "Verifique su conexión e inténtelo de nuevo.",
-                R.drawable.ic_wifi_off,
-                "Intentar de nuevo"
-        )
+        isOnlineDialog(this)
 
     }
 
