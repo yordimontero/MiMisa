@@ -147,7 +147,7 @@ class AdminIntentionFragment : BaseFragment(), UI.AdminIntentions, UI.IsOnlineDi
         isOnlineDialog(this)
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
 
         if (isOnline(requireContext())) {
             fetchData()

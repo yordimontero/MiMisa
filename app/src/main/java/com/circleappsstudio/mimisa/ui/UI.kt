@@ -321,11 +321,74 @@ interface UI {
         fun goToMainActivity()
 
         fun goToAdminMainActivity()
+        
+        fun logOut()
+
+        fun goToSignIn()
+
+    }
+
+    interface Home {
+
+        fun fetchIsAvailable()
+
+        fun fetchVersionCode()
+
+        fun showIsOnlineDialog()
+
+        fun showIsAvailableDialog()
+
+        fun showUpdateAppDialog()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+    }
+
+    interface AdminHome {
+
+        fun fetchIsAvailable()
+
+        fun setAvailability()
+
+        fun fetchVersionCode()
+
+        fun showIsOnlineDialog()
+
+        fun showIsAvailableDialog()
+
+        fun showUpdateAppDialog()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun activateToggle()
+
+        fun deactivateToggle()
+
+        fun enableSystem()
+
+        fun disableSystem()
 
     }
 
     interface IsOnlineDialogClickButtonListener {
-        fun onPositiveButtonClicked()
+        fun isOnlineDialogPositiveButtonClicked()
+    }
+
+    interface IsAvailableDialogClickButtonListener {
+        fun isAvailablePositiveButtonClicked()
+    }
+
+    interface UpdateAppDialogClickButtonListener {
+        fun updateAppPositiveButtonClicked()
+        fun updateAppNegativeButtonClicked()
     }
 
 }

@@ -92,7 +92,8 @@ class SeatReservationViewModel(
 
     }
 
-    override fun fetchRegisteredSeatsByNameUser(): LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
+    override fun fetchRegisteredSeatsByNameUser()
+            : LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
         /*
             Método encargado de traer todos los asientos reservados por el usuario leggeado.
         */

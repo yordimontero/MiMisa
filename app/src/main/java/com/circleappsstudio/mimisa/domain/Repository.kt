@@ -83,4 +83,24 @@ interface Repository {
 
     }
 
+    interface Params {
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para
+            la lectura y escritura de los parámetros generales.
+        */
+
+        suspend fun fetchIsAvailable(): Flow<Resource<Boolean>>
+
+        suspend fun setIsAvailable(isAvailable: Boolean)
+
+        suspend fun fetchIterator(): Flow<Resource<Int>>
+
+        suspend fun fetchSeatLimit(): Resource<Int>
+
+        suspend fun updateSeatLimit(seatLimit: Int)
+
+        suspend fun fetchVersionCode(): Flow<Resource<Int>>
+
+    }
+
 }

@@ -208,7 +208,9 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
 
                 when(resultEmitted){
 
-                    is Resource.Loading -> { showProgressBar() }
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
 
                     is Resource.Success -> {
                         seatLimitNumber = resultEmitted.data.toString()
@@ -258,7 +260,7 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
         isOnlineDialog(this)
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
 
         if (isOnline(requireContext())) {
             fetchData()

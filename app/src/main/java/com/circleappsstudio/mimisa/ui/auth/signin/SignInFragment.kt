@@ -49,9 +49,7 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
 
         signInUser()
 
-        btn_google_sign_in_user.setOnClickListener {
-            signInUserWithGoogle()
-        }
+        signInUserWithGoogle()
 
         goToLogin()
 
@@ -277,13 +275,11 @@ class SignInFragment : BaseFragment(), UI.SignInUI, UI.IsOnlineDialogClickButton
 
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
         */
-        if (isOnline(requireContext())){
-            signInUser()
-        } else {
+        if (!isOnline(requireContext())) {
             showDialog()
         }
 

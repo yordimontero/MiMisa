@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiMisa">
-        <activity android:name=".ui.main.admin.AdminMainActivity"></activity>
+        <activity android:name=".ui.splashscreen.LoadingActivity"></activity>
+        <activity android:name=".ui.main.admin.AdminMainActivity" />
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
             android:theme="@style/Theme.SplashScreen">

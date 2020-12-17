@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface MainViewModel {
 
@@ -121,6 +122,28 @@ interface MainViewModel {
         fun fetchSavedIntentionsByNameUser(): LiveData<Resource<List<Intention>>?>
 
         fun fetchAllSavedIntentions(): LiveData<Resource<List<Intention>>?>
+
+    }
+
+    interface Params {
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para
+            la lectura y escritura de los parámetros generales.
+        */
+
+        fun fetchIsAvailable(): LiveData<Resource<Boolean>>
+
+        fun setIsAvailable(isAvailable: Boolean): LiveData<Resource<Boolean>>
+
+        fun fetchIterator(): LiveData<Resource<Int>>
+
+        fun fetchSeatLimit(): Resource<Int>
+
+        fun updateSeatLimit(seatLimit: Int): LiveData<Resource<Boolean>>
+
+        fun fetchVersionCode(): LiveData<Resource<Int>>
+
+        fun checkVersionCode(fetchedVersionCode: Int, currentVersionCode: Int): Boolean
 
     }
 

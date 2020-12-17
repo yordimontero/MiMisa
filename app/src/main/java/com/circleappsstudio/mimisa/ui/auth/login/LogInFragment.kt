@@ -156,13 +156,12 @@ class LogInFragment : BaseFragment(), UI.LogInUI, UI.IsOnlineDialogClickButtonLi
 
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
         */
-        if (isOnline(requireContext())){
-            logInUser()
-        } else {
+
+        if (!isOnline(requireContext())) {
             showDialog()
         }
 

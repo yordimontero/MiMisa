@@ -14,6 +14,7 @@ import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
+import com.circleappsstudio.mimisa.ui.auth.LogInActivity
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.main.admin.AdminMainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
@@ -70,19 +71,7 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
         changeRole()
 
-        /*btn_show_change_role_layout_profile_user.setOnClickListener {
-            hideProfileLayout()
-            showChangeRoleLayout()
-        }*/
-
-        /*btn_change_role.setOnClickListener {
-            changeRole()
-        }*/
-
-        /*btn_cancel_change_role.setOnClickListener {
-            showProfileLayout()
-            hideChangeRoleLayout()
-        }*/
+        logOut()
 
     }
 
@@ -452,7 +441,22 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun logOut() {
+        btn_log_out_profile_user.setOnClickListener {
+            authViewModel.logOutUser()
+            goToSignIn()
+        }
+    }
+
+    override fun goToSignIn() {
+
+        val intent = Intent(requireContext(), LogInActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+
+    }
+
+    override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
         */

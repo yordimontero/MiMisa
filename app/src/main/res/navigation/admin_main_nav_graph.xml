@@ -6,11 +6,6 @@
     app:startDestination="@id/navigation_home_admin">
 
     <fragment
-        android:id="@+id/navigation_home_admin"
-        android:name="com.circleappsstudio.mimisa.ui.main.home.HomeFragment"
-        android:label="Inicio"
-        tools:layout="@layout/fragment_home" />
-    <fragment
         android:id="@+id/navigation_more_admin"
         android:name="com.circleappsstudio.mimisa.ui.main.more.MoreFragment"
         android:label="fragment_more"
@@ -30,4 +25,9 @@
         android:name="com.circleappsstudio.mimisa.ui.main.admin.seatreservation.AdminSeatReservationFragment"
         android:label="fragment_admin_seat_reservation"
         tools:layout="@layout/fragment_admin_seat_reservation" />
+    <fragment
+        android:id="@+id/navigation_home_admin"
+        android:name="com.circleappsstudio.mimisa.ui.main.admin.home.AdminHomeFragment"
+        android:label="fragment_admin_home"
+        tools:layout="@layout/fragment_admin_home" />
 </navigation>

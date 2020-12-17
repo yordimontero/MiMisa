@@ -221,7 +221,7 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
 
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
         */

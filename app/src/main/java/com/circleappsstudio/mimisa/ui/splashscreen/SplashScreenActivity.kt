@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseActivity
-import com.circleappsstudio.mimisa.ui.auth.LogInActivity
 
 class SplashScreenActivity : BaseActivity() {
 
@@ -16,15 +15,15 @@ class SplashScreenActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        goToLogin()
+        goToLoadingActivity()
 
     }
 
-    fun goToLogin() {
+    fun goToLoadingActivity() {
 
         Handler().postDelayed({
 
-            val intent = Intent(this, LogInActivity::class.java)
+            val intent = Intent(this, LoadingActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
 

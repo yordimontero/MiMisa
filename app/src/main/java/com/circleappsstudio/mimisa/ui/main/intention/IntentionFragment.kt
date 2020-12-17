@@ -184,7 +184,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickB
 
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
         */

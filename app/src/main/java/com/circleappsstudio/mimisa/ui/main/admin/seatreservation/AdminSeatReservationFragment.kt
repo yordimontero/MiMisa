@@ -236,7 +236,7 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation, UI
         isOnlineDialog(this)
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
         */

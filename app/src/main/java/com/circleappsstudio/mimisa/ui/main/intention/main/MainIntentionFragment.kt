@@ -84,24 +84,30 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain, UI.IsOnlineDialo
         */
         if (isOnline(requireContext())) {
 
-            intentionViewModel.fetchSavedIntentionsByNameUser().observe(viewLifecycleOwner, Observer { resultEmitted ->
+            intentionViewModel.fetchSavedIntentionsByNameUser()
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
 
-                    is Resource.Loading -> { showProgressBar() }
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
 
                     is Resource.Success -> {
 
                         if (resultEmitted.data.isNotEmpty()) {
 
-                            rv_intentions.adapter = IntentionAdapter(requireContext(), resultEmitted.data)
+                            rv_intentions.adapter = IntentionAdapter(
+                                requireContext(),
+                                resultEmitted.data
+                            )
 
                             hideProgressBar()
                             showRecyclerView()
 
                         } else {
-                            hideProgressBar()
                             hideRecyclerView()
+                            hideProgressBar()
                         }
 
                     }
@@ -158,7 +164,7 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain, UI.IsOnlineDialo
         isOnlineDialog(this)
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
 
         if (isOnline(requireContext())) {
             fetchData()

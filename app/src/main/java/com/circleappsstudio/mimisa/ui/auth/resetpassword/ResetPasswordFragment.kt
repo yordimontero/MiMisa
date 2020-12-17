@@ -135,13 +135,11 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
 
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
         */
-        if (isOnline(requireContext())){
-            resetPasswordUser()
-        } else {
+        if (!isOnline(requireContext())) {
             showDialog()
         }
 

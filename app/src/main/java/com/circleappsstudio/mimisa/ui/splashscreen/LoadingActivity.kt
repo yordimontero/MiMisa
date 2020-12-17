@@ -3,18 +3,16 @@ package com.circleappsstudio.mimisa.ui.splashscreen
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
-import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.base.BaseActivity
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
+import com.circleappsstudio.mimisa.ui.auth.LogInActivity
 import com.circleappsstudio.mimisa.ui.main.MainActivity
 import com.circleappsstudio.mimisa.ui.main.admin.AdminMainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
@@ -22,40 +20,37 @@ import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.vo.Resource
-import kotlinx.android.synthetic.main.fragment_loading.*
+import kotlinx.android.synthetic.main.activity_loading.*
 
-class LoadingFragment : BaseFragment(), UI.SplashScreen, UI.IsOnlineDialogClickButtonListener {
-
-    private lateinit var navController: NavController
+class LoadingActivity : BaseActivity(), UI.SplashScreen, UI.IsOnlineDialogClickButtonListener {
 
     private val authViewModel by lazy {
         ViewModelProvider(
-            this, VMFactoryAuth(
+                this, VMFactoryAuth(
                 AuthRepository(
-                    AuthDataSource()
+                        AuthDataSource()
                 )
-            )
+        )
         ).get(AuthViewModel::class.java)
     }
 
-    private val adminViewModel by activityViewModels<RoleUserViewModel> {
-        VMFactoryAdmin(
-            RoleUserRepository(
-                RoleDataSource()
-            )
+    private val adminViewModel by lazy {
+        ViewModelProvider(
+                this, VMFactoryAdmin(
+                RoleUserRepository(
+                        RoleDataSource()
+                )
         )
+        ).get(RoleUserViewModel::class.java)
+
     }
 
     private val emailUser by lazy { authViewModel.getEmailUser() }
 
-    override fun getLayout(): Int {
-        return R.layout.fragment_loading
-    }
+    override fun getLayout(): Int = R.layout.activity_loading
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        navController = Navigation.findNavController(view)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         checkUserLogged()
 
@@ -66,11 +61,9 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen, UI.IsOnlineDialogClickB
              Método encargado de validar que exista actualmente un usuario loggeado en el sistema.
         */
 
-        if (!isOnline(requireContext())) {
-
+        if (!isOnline(this)) {
             showDialog()
             return
-
         }
 
         if (authViewModel.checkUserLogged()) {
@@ -85,7 +78,9 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen, UI.IsOnlineDialogClickB
         /*
             Método para navegar hacia el fragment de registro de usuarios.
         */
-        navController.navigate(R.id.signInFragment)
+        val intent = Intent(this, LogInActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
 
     }
 
@@ -93,7 +88,7 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen, UI.IsOnlineDialogClickB
         /*
             Método para navegar hacia el menú principal.
         */
-        val intent = Intent(requireContext(), MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
 
@@ -103,11 +98,13 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen, UI.IsOnlineDialogClickB
         /*
             Método para navegar hacia el menú principal en rol de Administrador.
         */
-        val intent = Intent(requireContext(), AdminMainActivity::class.java)
+        val intent = Intent(this, AdminMainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
 
     }
+
+
 
     override fun checkCreatedAdminByEmailUserObserver() {
         /*
@@ -115,10 +112,10 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen, UI.IsOnlineDialogClickB
             para crear el rol de Administrador sea correcto.
         */
 
-        if (isOnline(requireContext())) {
+        if (isOnline(this)) {
 
             adminViewModel.checkCreatedAdminByEmailUser(emailUser)
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+                    .observe(this, Observer { resultEmitted ->
 
                         when(resultEmitted) {
 
@@ -154,35 +151,35 @@ class LoadingFragment : BaseFragment(), UI.SplashScreen, UI.IsOnlineDialogClickB
         /*
             Método encargado de mostrar un ProgressBar.
         */
-        progressbar_loading_fragment.visibility = View.VISIBLE
+        progressbar_loading_activity.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
         /*
             Método encargado de ocultar un ProgressBar.
         */
-        progressbar_loading_fragment.visibility = View.GONE
+        progressbar_loading_activity.visibility = View.GONE
     }
 
     override fun showMessage(message: String, duration: Int) {
         /*
              Método encargado de mostrar un Toast.
         */
-        requireContext().toast(requireContext(), message, duration)
+        this.toast(this, message, duration)
     }
 
     override fun showDialog() {
         /*
              Método encargado de mostrar el Dialog "isOnlineDialog".
         */
-        isOnlineDialog(this)
+        isOnlineDialog(this, this)
     }
 
-    override fun onPositiveButtonClicked() {
+    override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
         */
-        if (isOnline(requireContext())) {
+        if (isOnline(this)) {
             checkUserLogged()
         } else {
             showDialog()

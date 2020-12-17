@@ -29,7 +29,6 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         /*
             Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
         */
-
         val iteratorPath = db.collection("diaconia")
                 .document("la_argentina")
                 .collection("params")
