@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.ui.main.admin.seatreservation
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -19,7 +20,10 @@ import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationV
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_admin_seat_reservation.*
 
-class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation, UI.IsOnlineDialogClickButtonListener {
+class AdminSeatReservationFragment : BaseFragment(),
+        UI.AdminSeatReservation,
+        UI.IsOnlineDialogClickButtonListener,
+        UI.ConfirmDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -51,7 +55,7 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation, UI
     override fun fetchData() {
 
         if (!isOnline(requireContext())) {
-            showDialog()
+            showIsOnlineDialog()
             showProgressBar()
             return
         }
@@ -160,7 +164,7 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation, UI
 
         btn_update_seat_limit.setOnClickListener {
 
-            if (isOnline(requireContext())) {
+            /*if (isOnline(requireContext())) {
 
                 val newSeatLimit = txt_seat_limit.text.toString().toInt()
 
@@ -188,7 +192,9 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation, UI
 
                         })
 
-            }
+            }*/
+
+            showConfirmDialog()
 
         }
 
@@ -229,11 +235,15 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation, UI
         layout_rv_admin_seat_reservation.visibility = View.GONE
     }
 
-    override fun showDialog() {
+    override fun showIsOnlineDialog() {
         /*
             Método encargado de mostrar el Dialog "isOnlineDialog".
         */
         isOnlineDialog(this)
+    }
+
+    override fun showConfirmDialog(): AlertDialog? {
+        return confirmDialog(this, "¿Actualizar el límite de asientos disponibles?")
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
@@ -243,9 +253,47 @@ class AdminSeatReservationFragment : BaseFragment(), UI.AdminSeatReservation, UI
         if (isOnline(requireContext())) {
             fetchData()
         } else {
-            showDialog()
+            showIsOnlineDialog()
         }
 
+    }
+
+    override fun confirmPositiveButtonClicked() {
+
+        if (isOnline(requireContext())) {
+
+            val newSeatLimit = txt_seat_limit.text.toString().toInt()
+
+            seatReservationViewModel.updateSeatLimit(newSeatLimit)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+                                showMessage("El límite de asientos fue actualizado con éxito.", 2)
+                                fetchSeatLimitObserver()
+                                hideProgressBar()
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+    }
+
+    override fun confirmNegativeButtonClicked() {
+        showConfirmDialog()!!.dismiss()
     }
 
 }

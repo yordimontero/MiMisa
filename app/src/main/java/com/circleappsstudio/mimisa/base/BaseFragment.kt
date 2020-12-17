@@ -170,6 +170,43 @@ abstract class BaseFragment() : Fragment() {
 
     }
 
+    fun confirmDialog(
+            buttonListener: UI.ConfirmDialogClickButtonListener,
+            title: String
+    ): AlertDialog? {
+        /*
+            Método encargado de mostrar un Dialog cuando no hay conexión a internet.
+        */
+        val builder: AlertDialog.Builder? = context?.let {
+            AlertDialog.Builder(it)
+        }
+
+        builder!!.setTitle(title)
+        //builder.setMessage("Verifique su conexión e inténtelo de nuevo.")
+
+        builder.setCancelable(true)
+        builder.setIcon(R.drawable.ic_info)
+
+        builder.apply {
+
+            setPositiveButton("Aceptar.") { dialog, id ->
+                buttonListener.confirmPositiveButtonClicked()
+            }
+
+            setNegativeButton("Cancelar.") { dialog, id ->
+                buttonListener.confirmNegativeButtonClicked()
+            }
+
+        }
+
+        val dialog: AlertDialog? = builder.create()
+
+        dialog!!.show()
+
+        return dialog
+
+    }
+
     fun fetchCurrentVersionCode(): Int {
 
         var currentVersionCode = 0

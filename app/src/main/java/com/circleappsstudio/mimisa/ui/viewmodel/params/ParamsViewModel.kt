@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.collect
 
 class ParamsViewModel(private val paramsRepository: Repository.Params): ViewModel(), MainViewModel.Params {
 
+    /*
+        Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+    */
     override fun fetchIsAvailable()
             : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
 
@@ -29,6 +32,9 @@ class ParamsViewModel(private val paramsRepository: Repository.Params): ViewMode
 
     }
 
+    /*
+        Método encargado de bloquear o desbloquear el funcionamiento del app.
+    */
     override fun setIsAvailable(isAvailable: Boolean)
             : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
 
@@ -57,6 +63,9 @@ class ParamsViewModel(private val paramsRepository: Repository.Params): ViewMode
         TODO("Not yet implemented")
     }
 
+    /*
+        Método encargado de escuchar en tiempo real el versionCode en la base de datos.
+    */
     override fun fetchVersionCode()
             : LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
 
@@ -74,6 +83,10 @@ class ParamsViewModel(private val paramsRepository: Repository.Params): ViewMode
 
     }
 
+    /*
+        Método encargado de validar que el versionCode actual
+        sea igual al versionCode traído de la base de datos.
+    */
     override fun checkVersionCode(
         fetchedVersionCode: Int,
         currentVersionCode: Int

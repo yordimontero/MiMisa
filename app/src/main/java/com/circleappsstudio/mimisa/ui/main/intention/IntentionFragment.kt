@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.ui.main.intention
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -21,7 +22,10 @@ import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_intention.*
 
-class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickButtonListener {
+class IntentionFragment : BaseFragment(),
+        UI.Intentions,
+        UI.IsOnlineDialogClickButtonListener,
+        UI.ConfirmDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -97,7 +101,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickB
             intention = txt_intention.text.toString()
 
             if (!isOnline(requireContext())) {
-                showDialog()
+                showIsOnlineDialog()
                 return@setOnClickListener
             }
 
@@ -111,7 +115,7 @@ class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickB
                 return@setOnClickListener
             }
 
-            saveIntention()
+            showConfirmDialog()
 
         }
 
@@ -176,12 +180,16 @@ class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickB
         navController.navigateUp()
     }
 
-    override fun showDialog() {
+    override fun showIsOnlineDialog() {
         /*
             Método encargado de mostrar un Dialog.
         */
         isOnlineDialog(this)
 
+    }
+
+    override fun showConfirmDialog(): AlertDialog? {
+        return confirmDialog(this, "¿Desea registrar esta intención?")
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
@@ -191,9 +199,17 @@ class IntentionFragment : BaseFragment(), UI.Intentions, UI.IsOnlineDialogClickB
         if (isOnline(requireContext())) {
             saveIntentionObserver()
         } else {
-            showDialog()
+            showIsOnlineDialog()
         }
 
+    }
+
+    override fun confirmPositiveButtonClicked() {
+        saveIntention()
+    }
+
+    override fun confirmNegativeButtonClicked() {
+        showConfirmDialog()!!.dismiss()
     }
 
 }

@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.ui
 
+import android.app.AlertDialog
 import com.circleappsstudio.mimisa.data.model.IntentionSpinner
 
 interface UI {
@@ -149,7 +150,9 @@ interface UI {
 
         fun hideProgressBar()
 
-        fun showDialog()
+        fun showIsOnlineDialog()
+
+        fun showConfirmDialog(): AlertDialog?
 
         fun checkSeatSavedByIdNumberUserObserver()
 
@@ -179,7 +182,9 @@ interface UI {
 
         fun hideRecyclerView()
 
-        fun showDialog()
+        fun showIsOnlineDialog()
+
+        fun showConfirmDialog(): AlertDialog?
 
     }
 
@@ -232,7 +237,9 @@ interface UI {
 
         fun gotToSeatReservationMain()
 
-        fun showDialog()
+        fun showIsOnlineDialog()
+
+        fun showConfirmDialog(): AlertDialog?
 
     }
 
@@ -312,7 +319,7 @@ interface UI {
 
         fun hideEditText()
 
-        fun showDialog()
+        fun showIsOnlineDialog()
 
         fun showChangeRoleLayout()
 
@@ -325,6 +332,8 @@ interface UI {
         fun logOut()
 
         fun goToSignIn()
+
+        fun showConfirmDialog(): AlertDialog?
 
     }
 
@@ -362,6 +371,8 @@ interface UI {
 
         fun showUpdateAppDialog()
 
+        fun showConfirmDialog(): AlertDialog?
+
         fun showMessage(message: String, duration: Int)
 
         fun showProgressBar()
@@ -389,6 +400,11 @@ interface UI {
     interface UpdateAppDialogClickButtonListener {
         fun updateAppPositiveButtonClicked()
         fun updateAppNegativeButtonClicked()
+    }
+
+    interface ConfirmDialogClickButtonListener {
+        fun confirmPositiveButtonClicked()
+        fun confirmNegativeButtonClicked()
     }
 
 }

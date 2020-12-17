@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.ui.main.seatreservation
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -16,7 +17,10 @@ import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationV
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_seat_reservation.*
 
-class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineDialogClickButtonListener {
+class SeatReservationFragment : BaseFragment(),
+        UI.SeatReservation,
+        UI.IsOnlineDialogClickButtonListener,
+        UI.ConfirmDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -213,12 +217,16 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
         progressbar_seat_reservation.visibility = View.GONE
     }
 
-    override fun showDialog() {
+    override fun showIsOnlineDialog() {
         /*
             Método encargado de mostrar un Dialog.
         */
         isOnlineDialog(this)
 
+    }
+
+    override fun showConfirmDialog(): AlertDialog? {
+        return confirmDialog(this, "¿Desea reservar el asiento?")
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
@@ -228,9 +236,17 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
         if (isOnline(requireContext())){
             fetchIteratorObserver()
         } else {
-            showDialog()
+            showIsOnlineDialog()
         }
 
+    }
+
+    override fun confirmPositiveButtonClicked() {
+        checkSeatSavedByIdNumberUser()
+    }
+
+    override fun confirmNegativeButtonClicked() {
+        showConfirmDialog()!!.dismiss()
     }
 
     override fun checkSeatSavedByIdNumberUserObserver() {
@@ -244,7 +260,7 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
             idNumberUser = txt_id_number_user_seat_reservation.text.toString()
 
             if (!isOnline(requireContext())) {
-                showDialog()
+                showIsOnlineDialog()
                 return@setOnClickListener
             }
 
@@ -269,7 +285,7 @@ class SeatReservationFragment : BaseFragment(), UI.SeatReservation, UI.IsOnlineD
                 return@setOnClickListener
             }
 
-            checkSeatSavedByIdNumberUser()
+            showConfirmDialog()
 
         }
 

@@ -1,8 +1,5 @@
 package com.circleappsstudio.mimisa.ui.main.home
 
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -52,7 +49,9 @@ class HomeFragment : BaseFragment(),
     }
 
     override fun fetchIsAvailable() {
-
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
         if (isOnline(requireContext())) {
 
             paramsViewModel.fetchIsAvailable()
@@ -89,7 +88,9 @@ class HomeFragment : BaseFragment(),
     }
 
     override fun fetchVersionCode() {
-
+        /*
+            Método encargado de escuchar en tiempo real el versionCode en la base de datos.
+        */
         if (isOnline(requireContext())) {
 
             paramsViewModel.fetchVersionCode()
@@ -136,10 +137,12 @@ class HomeFragment : BaseFragment(),
 
     override fun showProgressBar() {
         progressbar_home.visibility = View.VISIBLE
+        layout_fragment_home.visibility = View.GONE
     }
 
     override fun hideProgressBar() {
         progressbar_home.visibility = View.GONE
+        layout_fragment_home.visibility = View.VISIBLE
     }
 
     override fun showIsOnlineDialog() {

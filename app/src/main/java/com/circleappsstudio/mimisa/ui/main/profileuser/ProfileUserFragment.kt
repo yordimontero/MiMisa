@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.ui.main.profileuser
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -24,7 +25,10 @@ import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_profile_user.*
 
-class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogClickButtonListener {
+class ProfileUserFragment : BaseFragment(),
+        UI.UserProfile,
+        UI.IsOnlineDialogClickButtonListener,
+        UI.ConfirmDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -120,7 +124,7 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
     override fun fetchData() {
 
         if (!isOnline(requireContext())) {
-            showDialog()
+            showIsOnlineDialog()
             showProgressBar()
             return
         }
@@ -211,7 +215,7 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
         */
         btn_change_role.setOnClickListener {
 
-            adminCode = txt_admin_code.text.toString()
+            /*adminCode = txt_admin_code.text.toString()
 
             if (!isOnline(requireContext())) {
                 showDialog()
@@ -236,6 +240,35 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
             if (rd_btn_admin_role.isChecked){
                 checkCreatedAdminByEmailUserObserver()
                 return@setOnClickListener
+            }*/
+
+            adminCode = txt_admin_code.text.toString()
+
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
+            if (rd_btn_user_role.isChecked) {
+                //deleteAdminObserver()
+                //return@setOnClickListener
+                showConfirmDialog()
+            }
+
+            if (adminViewModel.checkEmptyAdminCode(adminCode)) {
+                txt_admin_code.error = "Complete los campos"
+                return@setOnClickListener
+            }
+
+            if (adminViewModel.validateAdminCode(fetchedAdminCode, adminCode)) {
+                txt_admin_code.error = "El código ingresado es incorrecto."
+                return@setOnClickListener
+            }
+
+            if (rd_btn_admin_role.isChecked){
+                //checkCreatedAdminByEmailUserObserver()
+                //return@setOnClickListener
+                showConfirmDialog()
             }
 
         }
@@ -394,13 +427,6 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
         tetx_imput_txt_admin_code.visibility = View.GONE
     }
 
-    override fun showDialog() {
-        /*
-            Método encargado de mostrar un Dialog.
-        */
-        isOnlineDialog(this)
-    }
-
     override fun showChangeRoleLayout() {
         /*
             Método encargado de mostrar el layout de cambiar rol de usuario.
@@ -456,6 +482,17 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
 
     }
 
+    override fun showIsOnlineDialog() {
+        /*
+            Método encargado de mostrar un Dialog.
+        */
+        isOnlineDialog(this)
+    }
+
+    override fun showConfirmDialog(): AlertDialog? {
+        return confirmDialog(this, "¿Desea cambiar su rol?")
+    }
+
     override fun isOnlineDialogPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog.
@@ -463,9 +500,27 @@ class ProfileUserFragment : BaseFragment(), UI.UserProfile, UI.IsOnlineDialogCli
         if (isOnline(requireContext())) {
             fetchData()
         } else {
-            showDialog()
+            showIsOnlineDialog()
         }
 
+    }
+
+    override fun confirmPositiveButtonClicked() {
+
+        if (rd_btn_user_role.isChecked) {
+            deleteAdminObserver()
+            return
+        }
+
+        if (rd_btn_admin_role.isChecked){
+            checkCreatedAdminByEmailUserObserver()
+            return
+        }
+
+    }
+
+    override fun confirmNegativeButtonClicked() {
+        showConfirmDialog()!!.dismiss()
     }
 
 }

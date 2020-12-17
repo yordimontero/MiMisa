@@ -1,8 +1,6 @@
 package com.circleappsstudio.mimisa.ui.main.admin.home
 
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -22,7 +20,8 @@ class AdminHomeFragment: BaseFragment(),
     UI.AdminHome,
     UI.IsOnlineDialogClickButtonListener,
     UI.IsAvailableDialogClickButtonListener,
-    UI.UpdateAppDialogClickButtonListener {
+    UI.UpdateAppDialogClickButtonListener,
+    UI.ConfirmDialogClickButtonListener {
 
     private val paramsViewModel by activityViewModels<ParamsViewModel> {
         VMFactoryParams(
@@ -53,7 +52,9 @@ class AdminHomeFragment: BaseFragment(),
     }
 
     override fun fetchIsAvailable() {
-
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
         if (isOnline(requireContext())) {
 
             paramsViewModel.fetchIsAvailable()
@@ -96,7 +97,7 @@ class AdminHomeFragment: BaseFragment(),
 
         btn_set_availability.setOnClickListener {
 
-            if (isOnline(requireContext())) {
+            /*if (isOnline(requireContext())) {
 
                 if (isAvailable) {
                     disableSystem()
@@ -104,14 +105,18 @@ class AdminHomeFragment: BaseFragment(),
                     enableSystem()
                 }
 
-            }
+            }*/
+
+            showConfirmDialog()
 
         }
 
     }
 
     override fun fetchVersionCode() {
-
+        /*
+            Método encargado de escuchar en tiempo real el versionCode en la base de datos.
+        */
         if (isOnline(requireContext())) {
 
             paramsViewModel.fetchVersionCode()
@@ -176,7 +181,9 @@ class AdminHomeFragment: BaseFragment(),
     }
 
     override fun enableSystem() {
-
+        /*
+            Método encargado de desbloquear el funcionamiento del app.
+        */
         paramsViewModel.setIsAvailable(true)
             .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
@@ -203,7 +210,9 @@ class AdminHomeFragment: BaseFragment(),
     }
 
     override fun disableSystem() {
-
+        /*
+            Método encargado de bloquear el funcionamiento del app.
+        */
         paramsViewModel.setIsAvailable(false)
             .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
@@ -241,6 +250,26 @@ class AdminHomeFragment: BaseFragment(),
         updateAppDialog(this)
     }
 
+    override fun showConfirmDialog(): AlertDialog? {
+
+        if (isAvailable) {
+
+            return confirmDialog(
+                    this,
+                    "¿Deshabilitar el sistema?"
+            )
+
+        } else {
+
+            return confirmDialog(
+                    this,
+                    "¿Habilitar el sistema?"
+            )
+
+        }
+
+    }
+
     override fun isOnlineDialogPositiveButtonClicked() {
 
         if (!isOnline(requireContext())) {
@@ -265,6 +294,24 @@ class AdminHomeFragment: BaseFragment(),
 
         }
 
+    }
+
+    override fun confirmPositiveButtonClicked() {
+
+        if (isOnline(requireContext())) {
+
+            if (isAvailable) {
+                disableSystem()
+            } else {
+                enableSystem()
+            }
+
+        }
+
+    }
+
+    override fun confirmNegativeButtonClicked() {
+        showConfirmDialog()!!.dismiss()
     }
 
     override fun updateAppNegativeButtonClicked() {
