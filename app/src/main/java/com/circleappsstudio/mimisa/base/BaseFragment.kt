@@ -116,15 +116,7 @@ abstract class BaseFragment() : Fragment() {
             AlertDialog.Builder(it)
         }
 
-        builder!!.setTitle("¡El sistema no está disponible!")
-        builder.setMessage(
-            "Horario de disponibilidad:\n\n" +
-                    "Miércoles:" +
-                    "\n9 a.m a 12 m.d." +
-                    "\n1 p.m. a 9 p.m.\n\n" +
-                    "Jueves:\n" +
-                    "7 p.m. a 10 p.m."
-        )
+        builder!!.setMessage("¡La reservación de asientos está deshabilitada en este momento!")
 
         builder.setCancelable(false)
         builder.setIcon(R.drawable.ic_info)

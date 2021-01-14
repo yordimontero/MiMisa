@@ -97,6 +97,8 @@ interface UI {
 
     interface SeatReservationMain {
 
+        fun fetchIsAvailable()
+
         fun fetchData()
 
         fun setUpRecyclerView()
@@ -111,7 +113,19 @@ interface UI {
 
         fun hideProgressBar()
 
-        fun showNoSeatsAvailable()
+        fun showInfoMessage()
+
+        fun hideInfoMessage()
+
+        fun changeTextViewToNoSeatsAvailable()
+
+        fun changeTextViewToDisabledSeatReservation()
+
+        fun showNoRegisteredSeatsYetMessage()
+
+        fun hideNoRegisteredSeatsYetMessage()
+
+        fun showButton()
 
         fun hideButton()
 
@@ -125,7 +139,7 @@ interface UI {
 
         fun hideRecyclerView()
 
-        fun showDialog()
+        fun showIsOnlineDialog()
 
     }
 
@@ -134,6 +148,10 @@ interface UI {
             Interface encargada de controlar los métodos de la base de datos Firestore para
             la reservación de asientos.
         */
+        fun fetchData()
+
+        fun fetchIsAvailable()
+
         fun fetchIteratorObserver()
 
         fun fetchSeatLimitObserver()
@@ -151,6 +169,8 @@ interface UI {
         fun hideProgressBar()
 
         fun showIsOnlineDialog()
+
+        fun showIsAvailableDialog()
 
         fun showConfirmDialog(): AlertDialog?
 
@@ -367,13 +387,11 @@ interface UI {
 
     interface Home {
 
-        fun fetchIsAvailable()
+        fun fetchData()
 
         fun fetchVersionCode()
 
         fun showIsOnlineDialog()
-
-        fun showIsAvailableDialog()
 
         fun showUpdateAppDialog()
 

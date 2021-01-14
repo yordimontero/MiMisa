@@ -9,10 +9,14 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.data.datasource.params.ParamsDataSource
 import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
+import com.circleappsstudio.mimisa.domain.params.ParamsRepository
 import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryParams
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
+import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_seat_reservation.*
@@ -20,7 +24,8 @@ import kotlinx.android.synthetic.main.fragment_seat_reservation.*
 class SeatReservationFragment : BaseFragment(),
         UI.SeatReservation,
         UI.IsOnlineDialogClickButtonListener,
-        UI.ConfirmDialogClickButtonListener {
+        UI.ConfirmDialogClickButtonListener,
+        UI.IsAvailableDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -31,6 +36,16 @@ class SeatReservationFragment : BaseFragment(),
                 )
         )
     }
+
+    private val paramsViewModel by activityViewModels<ParamsViewModel> {
+        VMFactoryParams(
+                ParamsRepository(
+                        ParamsDataSource()
+                )
+        )
+    }
+
+    private var isAvailable = true
 
     private lateinit var seatNumber: String
     private lateinit var nameUser: String
@@ -46,13 +61,60 @@ class SeatReservationFragment : BaseFragment(),
 
         navController = Navigation.findNavController(view)
 
-        fetchIteratorObserver()
-
-        /*btn_seat_reservation.setOnClickListener {
-            checkSeatSavedByIdNumberUserObserver()
-        }*/
+        fetchData()
 
         checkSeatSavedByIdNumberUserObserver()
+
+    }
+
+    override fun fetchData() {
+
+        if (!isOnline(requireContext())) {
+            showIsOnlineDialog()
+            return
+        }
+
+        fetchIteratorObserver()
+
+        fetchIsAvailable()
+
+    }
+
+    override fun fetchIsAvailable() {
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
+        if (isOnline(requireContext())) {
+
+            paramsViewModel.fetchIsAvailable()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                isAvailable = resultEmitted.data
+
+                                if (!isAvailable){
+                                    showIsAvailableDialog()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
 
     }
 
@@ -225,6 +287,10 @@ class SeatReservationFragment : BaseFragment(),
 
     }
 
+    override fun showIsAvailableDialog() {
+        isAvailableDialog(this)
+    }
+
     override fun showConfirmDialog(): AlertDialog? {
         return confirmDialog(this, "¿Desea reservar el asiento?")
     }
@@ -247,6 +313,10 @@ class SeatReservationFragment : BaseFragment(),
 
     override fun confirmNegativeButtonClicked() {
         showConfirmDialog()!!.dismiss()
+    }
+
+    override fun isAvailablePositiveButtonClicked() {
+        navController.navigateUp()
     }
 
     override fun checkSeatSavedByIdNumberUserObserver() {

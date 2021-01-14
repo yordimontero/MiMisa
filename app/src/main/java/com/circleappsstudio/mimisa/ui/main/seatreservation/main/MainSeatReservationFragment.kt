@@ -10,16 +10,22 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.data.datasource.params.ParamsDataSource
 import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
+import com.circleappsstudio.mimisa.domain.params.ParamsRepository
 import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.adapter.SeatAdapter
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryParams
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
+import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_main_seat_reservation.*
 
-class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.IsOnlineDialogClickButtonListener {
+class MainSeatReservationFragment : BaseFragment(),
+        UI.SeatReservationMain,
+        UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -31,12 +37,20 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
         )
     }
 
+    private val paramsViewModel by activityViewModels<ParamsViewModel> {
+        VMFactoryParams(
+                ParamsRepository(
+                        ParamsDataSource()
+                )
+        )
+    }
+
     private lateinit var seatNumber: String
     private lateinit var seatLimitNumber: String
 
-    override fun getLayout(): Int {
-        return R.layout.fragment_main_seat_reservation
-    }
+    private var isAvailable = true
+
+    override fun getLayout(): Int = R.layout.fragment_main_seat_reservation
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,14 +68,62 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
     override fun fetchData() {
 
         if (!isOnline(requireContext())) {
-            showDialog()
-            showProgressBar()
+            showIsOnlineDialog()
             return
         }
 
         fetchRegisteredSeatsByUserNameObserver()
 
         fetchIteratorObserver()
+
+        fetchIsAvailable()
+
+    }
+
+    override fun fetchIsAvailable() {
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
+        if (isOnline(requireContext())) {
+
+            paramsViewModel.fetchIsAvailable()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                isAvailable = resultEmitted.data
+
+                                if (!isAvailable) {
+
+                                    showInfoMessage()
+                                    changeTextViewToDisabledSeatReservation()
+                                    hideButton()
+
+                                } else {
+
+                                    hideInfoMessage()
+                                    showButton()
+
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
 
     }
 
@@ -97,12 +159,17 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
                                             requireContext(),
                                             resultEmitted.data
                                     )
+
+                                    hideNoRegisteredSeatsYetMessage()
                                     hideProgressBar()
                                     showRecyclerView()
 
                                 } else {
+
+                                    showNoRegisteredSeatsYetMessage()
                                     hideRecyclerView()
                                     hideProgressBar()
+
                                 }
 
                             }
@@ -150,11 +217,36 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
         progressbar_main_seat_reservation.visibility = View.GONE
     }
 
-    override fun showNoSeatsAvailable() {
+    override fun showInfoMessage() {
         /*
              Método encargado de mostrar el layout de que no hay asientos disponibles.
         */
-        layout_no_seats_available.visibility = View.VISIBLE
+        layout_show_info_message.visibility = View.VISIBLE
+    }
+
+    override fun hideInfoMessage() {
+        layout_show_info_message.visibility = View.GONE
+    }
+
+    override fun changeTextViewToNoSeatsAvailable() {
+        txt_info_message.text = "¡No hay asientos disponibles!"
+    }
+
+    override fun changeTextViewToDisabledSeatReservation() {
+        //txt_info_message.text = "¡La reservación de asientos está deshabilitada en este momento!"
+        txt_info_message.text = "¡La reservación de asientos se encuentra deshabilitada en este momento!"
+    }
+
+    override fun showNoRegisteredSeatsYetMessage() {
+        layout_no_registered_seats_yet.visibility = View.VISIBLE
+    }
+
+    override fun hideNoRegisteredSeatsYetMessage() {
+        layout_no_registered_seats_yet.visibility = View.GONE
+    }
+
+    override fun showButton() {
+        btn_go_to_seat_reservation.visibility = View.VISIBLE
     }
 
     override fun hideButton() {
@@ -235,9 +327,12 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
         /*
             Método encargado de verificar si hay asientos disponibles.
         */
-        if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())){
-            showNoSeatsAvailable()
+        if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())) {
+
+            showInfoMessage()
+            changeTextViewToNoSeatsAvailable()
             hideButton()
+
         }
 
     }
@@ -256,7 +351,7 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
         layout_rv_seat_reservation.visibility = View.GONE
     }
 
-    override fun showDialog() {
+    override fun showIsOnlineDialog() {
         isOnlineDialog(this)
     }
 
@@ -265,7 +360,7 @@ class MainSeatReservationFragment : BaseFragment(), UI.SeatReservationMain, UI.I
         if (isOnline(requireContext())) {
             fetchData()
         } else {
-            showDialog()
+            showIsOnlineDialog()
         }
 
     }

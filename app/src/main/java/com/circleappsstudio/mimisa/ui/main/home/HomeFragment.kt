@@ -17,73 +17,39 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : BaseFragment(),
         UI.Home,
         UI.IsOnlineDialogClickButtonListener,
-        UI.IsAvailableDialogClickButtonListener,
         UI.UpdateAppDialogClickButtonListener {
 
     private val paramsViewModel by activityViewModels<ParamsViewModel> {
         VMFactoryParams(
-            ParamsRepository(
-                ParamsDataSource()
-            )
+                ParamsRepository(
+                        ParamsDataSource()
+                )
         )
     }
 
     private val currentVersionCode by lazy {
         fetchCurrentVersionCode()
     }
+
     private lateinit var fetchedVersionCode: String
 
-    private var isAvailable = true
-
-    override fun getLayout(): Int {
-        return R.layout.fragment_home
-    }
+    override fun getLayout(): Int = R.layout.fragment_home
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fetchIsAvailable()
-
-        fetchVersionCode()
+        fetchData()
 
     }
 
-    override fun fetchIsAvailable() {
-        /*
-            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
-        */
-        if (isOnline(requireContext())) {
+    override fun fetchData() {
 
-            paramsViewModel.fetchIsAvailable()
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                    when(resultEmitted) {
-
-                        is Resource.Loading -> {
-                            showProgressBar()
-                        }
-
-                        is Resource.Success -> {
-
-                            isAvailable = resultEmitted.data
-
-                            if (!isAvailable){
-                                showIsAvailableDialog()
-                                showProgressBar()
-                            }
-
-                        }
-
-                        is Resource.Failure -> {
-                            showMessage(resultEmitted.exception.message.toString(), 2)
-                            hideProgressBar()
-                        }
-
-                    }
-
-                })
-
+        if (!isOnline(requireContext())) {
+            showIsOnlineDialog()
+            return
         }
+
+        fetchVersionCode()
 
     }
 
@@ -149,24 +115,18 @@ class HomeFragment : BaseFragment(),
         isOnlineDialog(this)
     }
 
-    override fun showIsAvailableDialog() {
-        isAvailableDialog(this)
-    }
-
     override fun showUpdateAppDialog() {
         updateAppDialog(this)
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
 
-        if (!isOnline(requireContext())) {
+        if (isOnline(requireContext())) {
+            fetchData()
+        } else {
             showIsOnlineDialog()
         }
 
-    }
-
-    override fun isAvailablePositiveButtonClicked() {
-        requireActivity().finish()
     }
 
     override fun updateAppPositiveButtonClicked() {

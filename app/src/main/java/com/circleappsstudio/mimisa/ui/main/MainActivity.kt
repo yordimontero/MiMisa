@@ -16,9 +16,7 @@ class MainActivity : BaseActivity() {
 
     private lateinit var navController: NavController
 
-    override fun getLayout(): Int {
-        return R.layout.activity_main
-    }
+    override fun getLayout(): Int = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +43,7 @@ class MainActivity : BaseActivity() {
         return navController.navigateUp()
     }
 
-    fun setNavViewVisibility(){
+    private fun setNavViewVisibility(){
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
 
@@ -64,11 +62,11 @@ class MainActivity : BaseActivity() {
 
     }
 
-    fun showNavView(){
+    private fun showNavView(){
         nav_view.visibility = View.VISIBLE
     }
 
-    fun hideNavView(){
+    private fun hideNavView(){
         nav_view.visibility = View.GONE
     }
 
