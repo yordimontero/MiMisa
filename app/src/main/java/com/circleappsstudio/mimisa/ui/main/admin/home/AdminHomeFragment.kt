@@ -53,7 +53,7 @@ class AdminHomeFragment: BaseFragment(),
 
     override fun fetchIsAvailable() {
         /*
-            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+
         */
         if (isOnline(requireContext())) {
 
@@ -170,12 +170,13 @@ class AdminHomeFragment: BaseFragment(),
     }
 
     override fun activateToggle() {
+        txt_enable_or_disable_seat_reservation.text = "Deshabilitar la reservación de asientos."
         btn_set_availability.setImageResource(R.drawable.ic_toggle_on)
         btn_set_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-
     }
 
     override fun deactivateToggle() {
+        txt_enable_or_disable_seat_reservation.text = "Habilitar la reservación de asientos."
         btn_set_availability.setImageResource(R.drawable.ic_toggle_off)
         btn_set_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
     }
@@ -194,7 +195,7 @@ class AdminHomeFragment: BaseFragment(),
                     }
 
                     is Resource.Success -> {
-                        showMessage("El sistema está habilitado", 1)
+                        showMessage("La reservación de asientos está habilitada.", 1)
                         hideProgressBar()
                     }
 
@@ -223,7 +224,7 @@ class AdminHomeFragment: BaseFragment(),
                     }
 
                     is Resource.Success -> {
-                        showMessage("El sistema está deshabilitado", 1)
+                        showMessage("La reservación de asientos está deshabilitada.", 1)
                         hideProgressBar()
                     }
 
@@ -256,14 +257,14 @@ class AdminHomeFragment: BaseFragment(),
 
             return confirmDialog(
                     this,
-                    "¿Deshabilitar el sistema?"
+                    "¿Desea deshabilitar la reservación de asientos?"
             )
 
         } else {
 
             return confirmDialog(
                     this,
-                    "¿Habilitar el sistema?"
+                    "¿Desea habilitar la reservación de asientos?"
             )
 
         }

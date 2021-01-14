@@ -2,11 +2,13 @@
 
 package com.circleappsstudio.mimisa.base
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.circleappsstudio.mimisa.R
@@ -93,6 +95,15 @@ abstract class BaseActivity : AppCompatActivity() {
         val dialog: AlertDialog? = builder.create()
 
         dialog!!.show()
+
+    }
+
+    fun hideKeyboard(){
+        /*
+            Método encargado de ocultar el teclado de la pantalla.
+        */
+        val imm: InputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
 
     }
 

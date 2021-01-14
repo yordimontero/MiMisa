@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseViewHolder
@@ -44,7 +45,7 @@ class IntentionAdapter(
             itemView.txt_date_intention_row.text = item.dateRegistered
             itemView.txt_intention_registered_by_intention_row.text = item.intentionRegisteredBy
 
-            when (item.category) {
+            /*when (item.category) {
 
                 "thanksgiving" -> {
                     itemView.img_intention_intention_row.setImageDrawable(context.getDrawable(R.drawable.ic_thumb_up))
@@ -54,6 +55,20 @@ class IntentionAdapter(
                 }
                 "birthday" -> {
                     itemView.img_intention_intention_row.setImageDrawable(context.getDrawable(R.drawable.ic_cake))
+                }
+
+            }*/
+
+            when (item.category) {
+
+                "Acción de Gracias" -> {
+                    itemView.img_intention_intention_row.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_thumb_up))
+                }
+                "Difuntos" -> {
+                    itemView.img_intention_intention_row.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_deceased))
+                }
+                "Cumpleaños" -> {
+                    itemView.img_intention_intention_row.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_cake))
                 }
 
             }

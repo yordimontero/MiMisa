@@ -125,6 +125,42 @@ class SeatReservationViewModel(
 
     }
 
+    override fun fetchRegisteredSeatByRegisteredPerson(registeredPerson: String)
+            : LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer el asiento reservado por el nombre de la persona.
+        */
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepository.fetchRegisteredSeatByRegisteredPerson(registeredPerson))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun fetchRegisteredSeatBySeatNumber(seatNumber: Int)
+            : LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer el asiento reservado por número de asiento.
+        */
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepository.fetchRegisteredSeatBySeatNumber(seatNumber))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
     /*
         Método encargado de validar que el nombre no sea vacío.
     */

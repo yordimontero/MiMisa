@@ -19,7 +19,7 @@ class SplashScreenActivity : BaseActivity() {
 
     }
 
-    fun goToLoadingActivity() {
+    private fun goToLoadingActivity() {
 
         Handler().postDelayed({
 

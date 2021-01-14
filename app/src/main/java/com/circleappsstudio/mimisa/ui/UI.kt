@@ -162,15 +162,21 @@ interface UI {
 
     interface AdminSeatReservation {
 
+        fun goToOptionAdminSeatReservation()
+
         fun fetchData()
 
         fun fetchSavedSeats()
 
-        fun fetchSeatLimitObserver()
+        fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String)
 
-        fun updateSeatLimit()
+        fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: Int)
+
+        fun addListenerRadioButtons()
 
         fun setupRecyclerView()
+
+        fun setupSearchView()
 
         fun showMessage(message: String, duration: Int)
 
@@ -181,6 +187,28 @@ interface UI {
         fun showRecyclerView()
 
         fun hideRecyclerView()
+
+        fun showNotSeatFoundedMessage()
+
+        fun hideNotSeatFoundedMessage()
+
+        fun showIsOnlineDialog()
+
+    }
+
+    interface OptionsAdminSeatReservation {
+
+        fun fetchData()
+
+        fun fetchSeatLimitObserver()
+
+        fun updateSeatLimit()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
 
         fun showIsOnlineDialog()
 

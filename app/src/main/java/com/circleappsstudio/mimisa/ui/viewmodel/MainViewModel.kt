@@ -94,6 +94,10 @@ interface MainViewModel {
 
         fun fetchAllRegisteredSeats(): LiveData<Resource<List<Seat>>?>
 
+        fun fetchRegisteredSeatByRegisteredPerson(registeredPerson: String): LiveData<Resource<List<Seat>>?>
+
+        fun fetchRegisteredSeatBySeatNumber(seatNumber: Int): LiveData<Resource<List<Seat>>?>
+
         fun checkEmptyNameUser(nameUser: String): Boolean
 
         fun checkEmptyIdNumberUser(idNumberUser: String): Boolean

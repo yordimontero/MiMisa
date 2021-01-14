@@ -34,6 +34,7 @@ class MainActivity : BaseActivity() {
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
 
         setNavViewVisibility()

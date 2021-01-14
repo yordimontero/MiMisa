@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_intention_admin"
-        android:icon="@drawable/ic_intentions"
+        android:icon="@drawable/ic_article"
         android:title="Intenciones" />
 
     <item

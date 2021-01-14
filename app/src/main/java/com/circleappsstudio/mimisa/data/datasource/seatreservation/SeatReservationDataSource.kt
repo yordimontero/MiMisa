@@ -204,6 +204,89 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
+    override suspend fun fetchRegisteredSeatByRegisteredPerson(registeredPerson: String): Resource<List<Seat>>? {
+        /*
+            Método encargado de traer el asiento reservado por el nombre de la persona.
+        */
+
+        var seat: Seat
+        val seatList = arrayListOf<Seat>()
+
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .whereEqualTo("nameUser", registeredPerson)
+                .orderBy("seatNumber", Query.Direction.DESCENDING)
+                .get().addOnSuccessListener { documents ->
+
+                    seatList.clear()
+
+                    for (document in documents.documents) {
+
+                        if (document.exists()) {
+
+                            seat = Seat(
+                                    document.data!!["seatNumber"].toString().toInt(),
+                                    document.data!!["nameUser"].toString(),
+                                    document.data!!["idNumberUser"].toString(),
+                                    document.data!!["dateRegistered"].toString()
+                            )
+
+                            seatList.add(seat)
+
+                        }
+
+                    }
+
+                }.await()
+
+        return Resource.Success(seatList)
+
+    }
+
+    override suspend fun fetchRegisteredSeatBySeatNumber(seatNumber: Int): Resource<List<Seat>>? {
+        /*
+            Método encargado de traer el asiento reservado por número de asiento.
+        */
+
+        var seat: Seat
+        val seatList = arrayListOf<Seat>()
+
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .whereEqualTo("seatNumber", seatNumber)
+                .get().addOnSuccessListener { documents ->
+
+                    seatList.clear()
+
+                    for (document in documents.documents) {
+
+                        if (document.exists()) {
+
+                            seat = Seat(
+                                    document.data!!["seatNumber"].toString().toInt(),
+                                    document.data!!["nameUser"].toString(),
+                                    document.data!!["idNumberUser"].toString(),
+                                    document.data!!["dateRegistered"].toString()
+                            )
+
+                            seatList.add(seat)
+
+                        }
+
+                    }
+
+                }.await()
+
+        return Resource.Success(seatList)
+
+    }
+
     override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean> {
         /*
             Método encargado de verificar si una persona ya tiene reservado un asiento.
