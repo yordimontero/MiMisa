@@ -79,4 +79,21 @@ class IntentionViewModel(
 
     }
 
+    override fun fetchSavedIntentionsByCategory(category: String)
+            : LiveData<Resource<List<Intention>>?> =  liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer las intenciones guardadas por categoría.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            emit(intentionRepository.fetchSavedIntentionsByCategory(category))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
 }

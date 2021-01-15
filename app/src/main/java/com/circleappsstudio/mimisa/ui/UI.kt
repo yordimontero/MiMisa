@@ -293,9 +293,13 @@ interface UI {
 
     interface AdminIntentions {
 
+        fun fetchSavedIntentionsByCategory()
+
         fun fetchData()
 
         fun fetchSavedIntentions()
+
+        fun fetchSavedIntentionsByCategoryObserver(category: String)
 
         fun setupRecyclerView()
 
@@ -309,7 +313,7 @@ interface UI {
 
         fun hideRecyclerView()
 
-        fun showDialog()
+        fun showIsOnlineDialog()
 
     }
 
@@ -382,24 +386,6 @@ interface UI {
         fun goToSignIn()
 
         fun showConfirmDialog(): AlertDialog?
-
-    }
-
-    interface Home {
-
-        fun fetchData()
-
-        fun fetchVersionCode()
-
-        fun showIsOnlineDialog()
-
-        fun showUpdateAppDialog()
-
-        fun showMessage(message: String, duration: Int)
-
-        fun showProgressBar()
-
-        fun hideProgressBar()
 
     }
 

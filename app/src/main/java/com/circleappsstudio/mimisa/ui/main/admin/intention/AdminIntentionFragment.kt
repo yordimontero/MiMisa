@@ -19,7 +19,9 @@ import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_admin_intention.*
 
-class AdminIntentionFragment : BaseFragment(), UI.AdminIntentions, UI.IsOnlineDialogClickButtonListener {
+class AdminIntentionFragment : BaseFragment(),
+        UI.AdminIntentions,
+        UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -42,17 +44,75 @@ class AdminIntentionFragment : BaseFragment(), UI.AdminIntentions, UI.IsOnlineDi
 
         fetchData()
 
+        fetchSavedIntentionsByCategory()
+
     }
 
     override fun fetchData() {
 
         if (!isOnline(requireContext())) {
-            showDialog()
+            showIsOnlineDialog()
             showProgressBar()
             return
         }
 
         fetchSavedIntentions()
+
+    }
+
+    override fun fetchSavedIntentionsByCategory() {
+
+        btn_search_saved_intentions.setOnClickListener {
+
+            var category = ""
+
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
+            if (
+                    !rd_btn_search_thanksgiving_category.isChecked &&
+                    !rd_btn_search_deceased_category.isChecked &&
+                    !rd_btn_search_birthday_category.isChecked &&
+                    !rd_btn_search_all_intentions.isChecked
+            ) {
+                showMessage("Seleccione el filtro de búsqueda.", 2)
+                return@setOnClickListener
+            }
+
+            if (rd_btn_search_thanksgiving_category.isChecked) {
+
+                category = "Acción de Gracias"
+                fetchSavedIntentionsByCategoryObserver(category)
+                return@setOnClickListener
+
+            }
+
+            if (rd_btn_search_deceased_category.isChecked) {
+
+                category = "Difuntos"
+                fetchSavedIntentionsByCategoryObserver(category)
+                return@setOnClickListener
+
+            }
+
+            if (rd_btn_search_birthday_category.isChecked) {
+
+                category = "Cumpleaños"
+                fetchSavedIntentionsByCategoryObserver(category)
+                return@setOnClickListener
+
+            }
+
+            if (rd_btn_search_all_intentions.isChecked) {
+
+                fetchSavedIntentions()
+                return@setOnClickListener
+
+            }
+
+        }
 
     }
 
@@ -81,6 +141,50 @@ class AdminIntentionFragment : BaseFragment(), UI.AdminIntentions, UI.IsOnlineDi
 
                                 } else {
                                     hideProgressBar()
+                                    hideProgressBar()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+    }
+
+    override fun fetchSavedIntentionsByCategoryObserver(category: String) {
+        /*
+            Método encargado de traer todas las intenciones guardadas en la base de datos.
+        */
+        if (isOnline(requireContext())) {
+
+            intentionViewModel.fetchSavedIntentionsByCategory(category)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when (resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                if (resultEmitted.data.isNotEmpty()) {
+
+                                    rv_admin_intentions.adapter = IntentionAdapter(
+                                            requireContext(), resultEmitted.data
+                                    )
+                                    hideProgressBar()
+                                    showRecyclerView()
+
+                                } else {
                                     hideProgressBar()
                                 }
 
@@ -143,7 +247,7 @@ class AdminIntentionFragment : BaseFragment(), UI.AdminIntentions, UI.IsOnlineDi
         layout_rv_admin_intentions.visibility = View.GONE
     }
 
-    override fun showDialog() {
+    override fun showIsOnlineDialog() {
         isOnlineDialog(this)
     }
 
@@ -152,7 +256,7 @@ class AdminIntentionFragment : BaseFragment(), UI.AdminIntentions, UI.IsOnlineDi
         if (isOnline(requireContext())) {
             fetchData()
         } else {
-            showDialog()
+            showIsOnlineDialog()
         }
 
     }

@@ -1,7 +1,6 @@
 package com.circleappsstudio.mimisa.ui.main.admin.seatreservation.main
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
@@ -58,7 +57,7 @@ class AdminSeatReservationFragment : BaseFragment(),
         /*
             Método encargado de escuchar cuál RadioButton está seleccionado.
         */
-        radiogroup_search.setOnCheckedChangeListener { radioGroup, i ->
+        radiogroup_search_reserved_seat.setOnCheckedChangeListener { radioGroup, i ->
 
             when(i){
 

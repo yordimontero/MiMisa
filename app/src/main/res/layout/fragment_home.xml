@@ -8,216 +8,176 @@
     android:orientation="vertical"
     tools:context=".ui.main.home.HomeFragment">
 
-    <LinearLayout
-        android:id="@+id/progressbar_home"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:visibility="gone">
+        android:layout_height="260dp">
 
-        <androidx.cardview.widget.CardView
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/templo_la_argentina"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:indeterminateTint="@color/light_green"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_fragment_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="260dp">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="8dp"
+            android:layout_marginTop="8dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/templo_la_argentina"
-                android:scaleType="fitXY" />
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/mimisa_png"/>
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:padding="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-light"
+                android:text="MiMisa"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:src="@drawable/mimisa_png"/>
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-light"
-                    android:text="MiMisa"
-                    android:textColor="@color/white"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+    </RelativeLayout>
 
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Ermita San Cipriano, La Argetina de Grecia."
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="Detalles a tener en cuenta para asistir a misa:"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Ermita San Cipriano, La Argetina de Grecia."
-                android:textSize="18sp"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:text="Detalles a tener en cuenta para asistir a misa:"
-                android:textSize="20sp" />
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:cardCornerRadius="10dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
 
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="8dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true">
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_mask" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        android:text="Recuerde llevar su tapabocas, este es de uso obligatorio."
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/ic_mask" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
-                            android:gravity="center"
-                            android:text="Recuerde llevar su tapabocas, este es de uso obligatorio."
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                </LinearLayout>
 
 
-                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="8dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true">
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_wash_hands"
+                        app:tint="@color/aqua_green" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        android:text="Lave y desinfecte sus manos al ingresar al templo."
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/ic_wash_hands"
-                            app:tint="@color/aqua_green" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
-                            android:gravity="center"
-                            android:text="Lave y desinfecte sus manos al ingresar al templo."
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                </LinearLayout>
 
 
-                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="8dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true">
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_campaign"
+                        app:tint="@color/red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        android:text="Debe informar en la lista el número de asiento que le corresponde antes de ingresar al templo."
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/ic_campaign"
-                            app:tint="@color/red" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
-                            android:gravity="center"
-                            android:text="Debe informar en la lista el número de asiento que le corresponde antes de ingresar al templo."
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                </LinearLayout>
 
 
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

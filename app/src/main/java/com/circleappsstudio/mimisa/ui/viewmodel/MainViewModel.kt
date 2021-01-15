@@ -127,6 +127,8 @@ interface MainViewModel {
 
         fun fetchAllSavedIntentions(): LiveData<Resource<List<Intention>>?>
 
+        fun fetchSavedIntentionsByCategory(category: String): LiveData<Resource<List<Intention>>?>
+
     }
 
     interface Params {

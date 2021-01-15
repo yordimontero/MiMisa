@@ -85,6 +85,8 @@ interface Repository {
 
         suspend fun fetchAllSavedIntentions(): Resource<List<Intention>>?
 
+        suspend fun fetchSavedIntentionsByCategory(category: String): Resource<List<Intention>>?
+
     }
 
     interface Params {

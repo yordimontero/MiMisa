@@ -5,8 +5,11 @@ package com.circleappsstudio.mimisa.base
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -95,6 +98,74 @@ abstract class BaseActivity : AppCompatActivity() {
         val dialog: AlertDialog? = builder.create()
 
         dialog!!.show()
+
+    }
+
+    fun updateAppDialog(buttonListener: UI.UpdateAppDialogClickButtonListener): AlertDialog? {
+        /*
+            Método encargado de mostrar un Dialog cuando no hay conexión a internet.
+        */
+        val builder: AlertDialog.Builder? = this.let {
+            AlertDialog.Builder(it)
+        }
+
+        builder!!.setTitle("¡Hay una nueva actualización disponible!")
+
+        builder.setCancelable(false)
+        builder.setIcon(R.drawable.ic_new_releases)
+
+        builder.apply {
+
+            setPositiveButton("Actualizar ahora") { dialog, id ->
+                buttonListener.updateAppPositiveButtonClicked()
+            }
+
+            setNegativeButton("No, gracias") { dialog, id ->
+                buttonListener.updateAppNegativeButtonClicked()
+            }
+
+        }
+
+        val dialog: AlertDialog? = builder.create()
+
+        dialog!!.show()
+
+        return dialog
+
+    }
+
+    fun fetchCurrentVersionCode(): Int {
+
+        var currentVersionCode = 0
+
+        try {
+
+            val packageInfo = this.packageManager.getPackageInfo(this.packageName, 0)
+
+            currentVersionCode = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                packageInfo.longVersionCode.toInt()
+            } else {
+                packageInfo.versionCode
+            }
+
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+
+        return currentVersionCode
+
+    }
+
+    fun goToPlayStore() {
+
+        val packageName: String = this.packageName
+
+        val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+        )
+
+        this.startActivity(intent)
 
     }
 

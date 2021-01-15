@@ -53,7 +53,7 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
@@ -82,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView">
 
             <RadioGroup
-                android:id="@+id/radiogroup_search"
+                android:id="@+id/radiogroup_search_reserved_seat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
