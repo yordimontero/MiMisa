@@ -128,6 +128,7 @@ class AdminIntentionFragment : BaseFragment(),
                         when (resultEmitted) {
 
                             is Resource.Loading -> {
+                                hideMainLayout()
                                 showProgressBar()
                             }
 
@@ -135,20 +136,29 @@ class AdminIntentionFragment : BaseFragment(),
 
                                 if (resultEmitted.data.isNotEmpty()) {
 
-                                    rv_admin_intentions.adapter = IntentionAdapter(requireContext(), resultEmitted.data)
+                                    rv_admin_intentions.adapter = IntentionAdapter(
+                                            requireContext(), resultEmitted.data
+                                    )
+
+                                    showMainLayout()
                                     hideProgressBar()
                                     showRecyclerView()
 
                                 } else {
+
+                                    showMainLayout()
                                     hideProgressBar()
-                                    hideProgressBar()
+
                                 }
 
                             }
 
                             is Resource.Failure -> {
+
                                 showMessage(resultEmitted.exception.message.toString(), 2)
+                                showMainLayout()
                                 hideProgressBar()
+
                             }
 
                         }
@@ -171,6 +181,7 @@ class AdminIntentionFragment : BaseFragment(),
                         when (resultEmitted) {
 
                             is Resource.Loading -> {
+                                hideMainLayout()
                                 showProgressBar()
                             }
 
@@ -181,18 +192,26 @@ class AdminIntentionFragment : BaseFragment(),
                                     rv_admin_intentions.adapter = IntentionAdapter(
                                             requireContext(), resultEmitted.data
                                     )
+
+                                    showMainLayout()
                                     hideProgressBar()
                                     showRecyclerView()
 
                                 } else {
+
+                                    showMainLayout()
                                     hideProgressBar()
+
                                 }
 
                             }
 
                             is Resource.Failure -> {
+
                                 showMessage(resultEmitted.exception.message.toString(), 2)
+                                showMainLayout()
                                 hideProgressBar()
+
                             }
 
                         }
@@ -245,6 +264,14 @@ class AdminIntentionFragment : BaseFragment(),
             Método encargado de ocultar un RecyclerView.
         */
         layout_rv_admin_intentions.visibility = View.GONE
+    }
+
+    override fun showMainLayout() {
+        layout_admin_intention.visibility = View.VISIBLE
+    }
+
+    override fun hideMainLayout() {
+        layout_admin_intention.visibility = View.GONE
     }
 
     override fun showIsOnlineDialog() {

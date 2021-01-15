@@ -218,6 +218,18 @@ interface UI {
 
     interface OptionsAdminSeatReservation {
 
+        fun fetchIsAvailable()
+
+        fun setAvailability()
+
+        fun activateToggle()
+
+        fun deactivateToggle()
+
+        fun enableSystem()
+
+        fun disableSystem()
+
         fun fetchData()
 
         fun fetchSeatLimitObserver()
@@ -309,6 +321,10 @@ interface UI {
 
         fun hideProgressBar()
 
+        fun showMainLayout()
+
+        fun hideMainLayout()
+
         fun showRecyclerView()
 
         fun hideRecyclerView()
@@ -386,38 +402,6 @@ interface UI {
         fun goToSignIn()
 
         fun showConfirmDialog(): AlertDialog?
-
-    }
-
-    interface AdminHome {
-
-        fun fetchIsAvailable()
-
-        fun setAvailability()
-
-        fun fetchVersionCode()
-
-        fun showIsOnlineDialog()
-
-        fun showIsAvailableDialog()
-
-        fun showUpdateAppDialog()
-
-        fun showConfirmDialog(): AlertDialog?
-
-        fun showMessage(message: String, duration: Int)
-
-        fun showProgressBar()
-
-        fun hideProgressBar()
-
-        fun activateToggle()
-
-        fun deactivateToggle()
-
-        fun enableSystem()
-
-        fun disableSystem()
 
     }
 

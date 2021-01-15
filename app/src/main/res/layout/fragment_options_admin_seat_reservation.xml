@@ -59,6 +59,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/txt_enable_or_disable_seat_reservation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    tools:text="Habilitar | Deshabilitar la reserva de asientos"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/btn_set_availability"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_toggle_off" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="8dp"
                 android:gravity="center">
 
@@ -67,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="Actualizar el número máximo de asientos disponibles."
+                    android:text="Actualizar el número límite de asientos disponibles."
                     android:textSize="20sp"
                     android:textStyle="bold"/>
 
@@ -76,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:hint="Número límite de asientos"
+                    android:hint="Límite de asientos"
                     app:boxStrokeColor="@color/light_green"
                     app:hintTextColor="@color/light_green">
 
@@ -113,8 +149,8 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
                                 android:src="@drawable/ic_info" />
 
                             <TextView
