@@ -56,9 +56,7 @@ class ProfileUserFragment : BaseFragment(),
 
     private var isAdmin = false
 
-    override fun getLayout(): Int {
-        return R.layout.fragment_profile_user
-    }
+    override fun getLayout(): Int = R.layout.fragment_profile_user
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -215,32 +213,7 @@ class ProfileUserFragment : BaseFragment(),
         */
         btn_change_role.setOnClickListener {
 
-            /*adminCode = txt_admin_code.text.toString()
-
-            if (!isOnline(requireContext())) {
-                showDialog()
-                return@setOnClickListener
-            }
-
-            if (rd_btn_user_role.isChecked) {
-                deleteAdminObserver()
-                return@setOnClickListener
-            }
-
-            if (adminViewModel.checkEmptyAdminCode(adminCode)) {
-                txt_admin_code.error = "Complete los campos"
-                return@setOnClickListener
-            }
-
-            if (adminViewModel.validateAdminCode(fetchedAdminCode, adminCode)) {
-                txt_admin_code.error = "El código ingresado es incorrecto."
-                return@setOnClickListener
-            }
-
-            if (rd_btn_admin_role.isChecked){
-                checkCreatedAdminByEmailUserObserver()
-                return@setOnClickListener
-            }*/
+            hideKeyboard()
 
             adminCode = txt_admin_code.text.toString()
 
@@ -250,8 +223,6 @@ class ProfileUserFragment : BaseFragment(),
             }
 
             if (rd_btn_user_role.isChecked) {
-                //deleteAdminObserver()
-                //return@setOnClickListener
                 showConfirmDialog()
             }
 
@@ -266,8 +237,6 @@ class ProfileUserFragment : BaseFragment(),
             }
 
             if (rd_btn_admin_role.isChecked){
-                //checkCreatedAdminByEmailUserObserver()
-                //return@setOnClickListener
                 showConfirmDialog()
             }
 
@@ -432,8 +401,10 @@ class ProfileUserFragment : BaseFragment(),
             Método encargado de mostrar el layout de cambiar rol de usuario.
         */
         btn_show_change_role_layout_profile_user.setOnClickListener {
+
             layout_change_role.visibility = View.VISIBLE
             layout_profile_user.visibility = View.GONE
+
         }
 
     }
@@ -443,8 +414,12 @@ class ProfileUserFragment : BaseFragment(),
             Método encargado de ocultar el layout de cambiar rol de usuario.
         */
         btn_cancel_change_role.setOnClickListener {
+
+            hideKeyboard()
+
             layout_change_role.visibility = View.GONE
             layout_profile_user.visibility = View.VISIBLE
+
         }
 
     }

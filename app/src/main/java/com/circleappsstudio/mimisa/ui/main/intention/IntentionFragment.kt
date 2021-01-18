@@ -51,10 +51,6 @@ class IntentionFragment : BaseFragment(),
 
         setUpSpinner()
 
-        /*btn_save_intention.setOnClickListener {
-            saveIntentionObserver()
-        }*/
-
         saveIntentionObserver()
 
     }
@@ -97,6 +93,8 @@ class IntentionFragment : BaseFragment(),
             Método encargado de guardar una intención en la base de datos.
         */
         btn_save_intention.setOnClickListener {
+
+            hideKeyboard()
 
             intention = txt_intention.text.toString()
 

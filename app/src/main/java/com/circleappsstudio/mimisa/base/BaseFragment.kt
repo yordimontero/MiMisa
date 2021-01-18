@@ -184,11 +184,11 @@ abstract class BaseFragment() : Fragment() {
 
         builder.apply {
 
-            setPositiveButton("Aceptar.") { dialog, id ->
+            setPositiveButton("Aceptar") { dialog, id ->
                 buttonListener.confirmPositiveButtonClicked()
             }
 
-            setNegativeButton("Cancelar.") { dialog, id ->
+            setNegativeButton("Cancelar") { dialog, id ->
                 buttonListener.confirmNegativeButtonClicked()
             }
 

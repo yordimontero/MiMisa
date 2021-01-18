@@ -19,7 +19,9 @@ import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_main_intention.*
 
-class MainIntentionFragment : BaseFragment(), UI.IntentionMain, UI.IsOnlineDialogClickButtonListener {
+class MainIntentionFragment : BaseFragment(),
+        UI.IntentionMain,
+        UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -31,9 +33,7 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain, UI.IsOnlineDialo
         )
     }
 
-    override fun getLayout(): Int {
-        return R.layout.fragment_main_intention
-    }
+    override fun getLayout(): Int = R.layout.fragment_main_intention
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -102,12 +102,16 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain, UI.IsOnlineDialo
                                 resultEmitted.data
                             )
 
+                            hideNoRegisteredSeatsYetMessage()
                             hideProgressBar()
                             showRecyclerView()
 
                         } else {
+
+                            showNoRegisteredSeatsYetMessage()
                             hideRecyclerView()
                             hideProgressBar()
+
                         }
 
                     }
@@ -158,6 +162,14 @@ class MainIntentionFragment : BaseFragment(), UI.IntentionMain, UI.IsOnlineDialo
             Método encargado de ocultar un RecyclerView.
         */
         layout_rv_intentions.visibility = View.GONE
+    }
+
+    override fun showNoRegisteredSeatsYetMessage() {
+        layout_no_registered_intentions_yet.visibility = View.VISIBLE
+    }
+
+    override fun hideNoRegisteredSeatsYetMessage() {
+        layout_no_registered_intentions_yet.visibility = View.GONE
     }
 
     override fun showDialog() {

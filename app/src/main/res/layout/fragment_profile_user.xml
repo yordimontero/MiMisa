@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -79,10 +80,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:textSize="20sp"
                 android:layout_marginEnd="2dp"
-                android:text="Su rol actual:" />
+                android:fontFamily="sans-serif-light"
+                android:text="Rol actual:"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/txt_role_user_profile_user"
@@ -99,7 +100,7 @@
             android:id="@+id/btn_show_change_role_layout_profile_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -112,15 +113,16 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="35dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="2dp"
                     android:src="@drawable/ic_admin" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Cambiar rol."
+                    android:text="Cambiar rol"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -131,7 +133,7 @@
             android:id="@+id/btn_log_out_profile_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -144,15 +146,16 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="35dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="2dp"
                     android:src="@drawable/ic_exit" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Cerrar sesión."
+                    android:text="Cerrar sesión"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -202,7 +205,7 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/light_green"
                         android:checked="true"
-                        android:drawableRight="@drawable/ic_person_pin"
+                        android:drawableEnd="@drawable/ic_person"
                         android:drawableTint="@color/light_green"
                         android:fontFamily="sans-serif-light"
                         android:text="Usuario"
@@ -213,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/light_green"
-                        android:drawableRight="@drawable/ic_person_pin"
+                        android:drawableRight="@drawable/ic_settings"
                         android:drawableTint="@color/light_green"
                         android:fontFamily="sans-serif-light"
                         android:text="Administrador"
@@ -226,8 +229,10 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:hint="Código"
+                    android:hint="Código de verificación"
                     android:visibility="gone"
                     app:boxStrokeColor="@color/light_green"
                     app:hintTextColor="@color/light_green">
@@ -239,7 +244,7 @@
                         android:fontFamily="sans-serif-light"
                         android:inputType="text"
                         android:textSize="18sp"
-                        android:visibility="visible" />
+                        android:maxLength="100"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,7 +252,7 @@
                     android:id="@+id/btn_change_role"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="8dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
@@ -260,15 +265,16 @@
                         android:padding="8dp">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="35dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="2dp"
                             android:src="@drawable/ic_info" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:text="Confirmar cambio."
+                            android:text="Confirmar cambio"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -279,7 +285,7 @@
                     android:id="@+id/btn_cancel_change_role"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="8dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
@@ -292,15 +298,16 @@
                         android:padding="8dp">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="35dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="2dp"
                             android:src="@drawable/ic_cancel" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:text="Cancelar."
+                            android:text="Cancelar"
                             android:textSize="18sp" />
 
                     </LinearLayout>

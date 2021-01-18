@@ -42,9 +42,7 @@ class AdminMainActivity : BaseActivity(),
 
     private lateinit var fetchedVersionCode: String
 
-    override fun getLayout(): Int {
-        return R.layout.activity_admin_main
-    }
+    override fun getLayout(): Int = R.layout.activity_admin_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,12 +79,12 @@ class AdminMainActivity : BaseActivity(),
 
             when(destination.id){
 
-                /*R.id.navigation_home -> showNavView()
-                R.id.navigation_seat_reservation -> showNavView()
-                R.id.navigation_intention -> showNavView()
-                R.id.navigation_more -> showNavView()
+                R.id.navigation_home_admin -> showNavView()
+                R.id.navigation_seat_reservation_admin -> showNavView()
+                R.id.navigation_intention_admin -> showNavView()
+                R.id.navigation_more_admin -> showNavView()
 
-                else -> hideNavView()*/
+                else -> hideNavView()
 
             }
 

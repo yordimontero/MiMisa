@@ -52,9 +52,7 @@ class SeatReservationFragment : BaseFragment(),
     private lateinit var idNumberUser: String
     private lateinit var seatLimitNumber: String
 
-    override fun getLayout(): Int {
-        return R.layout.fragment_seat_reservation
-    }
+    override fun getLayout(): Int = R.layout.fragment_seat_reservation
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -325,6 +323,8 @@ class SeatReservationFragment : BaseFragment(),
         */
 
         btn_seat_reservation.setOnClickListener {
+
+            hideKeyboard()
 
             nameUser = txt_fullname_seat_reservation.text.toString()
             idNumberUser = txt_id_number_user_seat_reservation.text.toString()

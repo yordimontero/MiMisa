@@ -272,6 +272,10 @@ interface UI {
 
         fun hideRecyclerView()
 
+        fun showNoRegisteredSeatsYetMessage()
+
+        fun hideNoRegisteredSeatsYetMessage()
+
         fun showDialog()
 
     }
@@ -328,6 +332,10 @@ interface UI {
         fun showRecyclerView()
 
         fun hideRecyclerView()
+
+        fun showNotSeatFoundedMessage()
+
+        fun hideNotSeatFoundedMessage()
 
         fun showIsOnlineDialog()
 

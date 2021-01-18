@@ -72,13 +72,35 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
                         app:boxStrokeColor="@color/light_green"
                         app:hintTextColor="@color/light_green"
-                        android:hint="Nombre Completo">
+                        android:hint="Nombre"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_fullname_seat_reservation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="textPersonName"
+                            android:maxLength="200" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxStrokeColor="@color/light_green"
+                        app:hintTextColor="@color/light_green"
+                        android:hint="Apellido"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -93,7 +115,10 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:boxStrokeColor="@color/light_green"
                         app:hintTextColor="@color/light_green"
-                        android:hint="Número de Cédula">
+                        android:hint="Número de Cédula"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="8dp">
 
                         <br.com.sapereaude.maskedEditText.MaskedEditText
                             android:id="@+id/txt_id_number_user_seat_reservation"
@@ -118,7 +143,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:cardBackgroundColor="@color/light_green"
-                            app:cardCornerRadius="20dp"
+                            app:cardCornerRadius="10dp"
                             app:cardElevation="8dp"
                             app:cardPreventCornerOverlap="true"
                             app:cardUseCompatPadding="true">
@@ -126,21 +151,21 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:orientation="horizontal"
                                 android:layout_margin="8dp"
-                                android:gravity="center">
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
                                 <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_person_add" />
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_check_circle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif-light"
                                     android:gravity="center"
-                                    android:text="Reservar asiento."
+                                    android:text="Confirmar reservación"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 

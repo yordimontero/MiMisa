@@ -18,7 +18,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -60,8 +60,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayout4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +112,7 @@
                             android:buttonTint="@color/light_green"
                             android:checked="false"
                             android:fontFamily="sans-serif-light"
-                            android:text="Acción de Gracias"
+                            android:text="Búsqueda por categoría de acción de gracias"
                             android:textSize="18sp" />
 
                         <RadioButton
@@ -122,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/light_green"
                             android:fontFamily="sans-serif-light"
-                            android:text="Difuntos"
+                            android:text="Búsqueda por categoría de difuntos"
                             android:textSize="18sp" />
 
                         <RadioButton
@@ -131,7 +130,7 @@
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/light_green"
                             android:fontFamily="sans-serif-light"
-                            android:text="Cumpleaños"
+                            android:text="Búsqueda por categoría de cumpleaños"
                             android:textSize="18sp" />
 
                         <RadioButton
@@ -139,38 +138,63 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/light_green"
+                            android:checked="true"
                             android:fontFamily="sans-serif-light"
-                            android:text="Todas"
+                            android:text="Todas las intenciones registradas"
                             android:textSize="18sp" />
 
                     </RadioGroup>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_rv_admin_intentions"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="8dp"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="sans-serif-light"
-                        android:text="Intenciones Registradas:"
-                        android:textSize="20sp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_admin_intentions"
+                    <LinearLayout
+                        android:id="@+id/layout_rv_admin_intentions"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="Intenciones Registradas:"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_admin_intentions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_not_registered_intention_founded"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="8dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:src="@drawable/ic_info" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="No se encontraron resultados."
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

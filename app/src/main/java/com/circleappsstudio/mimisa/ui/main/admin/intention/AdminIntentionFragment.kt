@@ -142,12 +142,15 @@ class AdminIntentionFragment : BaseFragment(),
 
                                     showMainLayout()
                                     hideProgressBar()
+                                    hideNotSeatFoundedMessage()
                                     showRecyclerView()
 
                                 } else {
 
                                     showMainLayout()
                                     hideProgressBar()
+                                    hideRecyclerView()
+                                    showNotSeatFoundedMessage()
 
                                 }
 
@@ -195,12 +198,15 @@ class AdminIntentionFragment : BaseFragment(),
 
                                     showMainLayout()
                                     hideProgressBar()
+                                    hideNotSeatFoundedMessage()
                                     showRecyclerView()
 
                                 } else {
 
                                     showMainLayout()
                                     hideProgressBar()
+                                    hideRecyclerView()
+                                    showNotSeatFoundedMessage()
 
                                 }
 
@@ -272,6 +278,14 @@ class AdminIntentionFragment : BaseFragment(),
 
     override fun hideMainLayout() {
         layout_admin_intention.visibility = View.GONE
+    }
+
+    override fun showNotSeatFoundedMessage() {
+        layout_not_registered_intention_founded.visibility = View.VISIBLE
+    }
+
+    override fun hideNotSeatFoundedMessage() {
+        layout_not_registered_intention_founded.visibility = View.GONE
     }
 
     override fun showIsOnlineDialog() {
