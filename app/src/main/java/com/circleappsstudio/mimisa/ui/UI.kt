@@ -382,19 +382,27 @@ interface UI {
 
         fun setCheckedRadioButton()
 
-        fun addListenerRadioButtons()
+        fun showUserInfo(resultEmitted: Boolean)
 
         fun fetchAdminCodeObserver()
 
-        fun showUserInfo(resultEmitted: Boolean)
-
         fun changeRole()
-
-        fun deleteAdminObserver()
 
         fun checkCreatedAdminByEmailUserObserver()
 
         fun createAdminObserver()
+
+        fun deleteAdminObserver()
+
+        fun addListenerRadioButtons()
+
+        fun logOut()
+
+        fun goToMainActivity()
+
+        fun goToAdminMainActivity()
+
+        fun goToSignIn()
 
         fun showMessage(message: String, duration: Int)
 
@@ -406,19 +414,11 @@ interface UI {
 
         fun hideEditText()
 
-        fun showIsOnlineDialog()
-
         fun showChangeRoleLayout()
 
         fun hideChangeRoleLayout()
 
-        fun goToMainActivity()
-
-        fun goToAdminMainActivity()
-        
-        fun logOut()
-
-        fun goToSignIn()
+        fun showIsOnlineDialog()
 
         fun showConfirmDialog(): AlertDialog?
 
