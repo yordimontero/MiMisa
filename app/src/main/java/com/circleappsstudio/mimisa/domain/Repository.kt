@@ -52,25 +52,17 @@ interface Repository {
             Interface encargada de controlar los métodos de la base de datos Firestore para
             la reservación de asientos.
         */
-        suspend fun fetchIterator() : Flow<Resource<Int>>
-
-        suspend fun fetchSeatLimit(): Resource<Int>
-
         suspend fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String)
 
-        suspend fun addIterator(seatNumber: Int)
+        suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>?
 
         suspend fun fetchRegisteredSeatsByNameUser(): Resource<List<Seat>>?
-
-        suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>?
 
         suspend fun fetchRegisteredSeatByRegisteredPerson(registeredPerson: String): Resource<List<Seat>>?
 
         suspend fun fetchRegisteredSeatBySeatNumber(seatNumber: Int): Resource<List<Seat>>?
 
         suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
-
-        suspend fun updateSeatLimit(seatLimit: Int)
 
     }
 
@@ -81,9 +73,9 @@ interface Repository {
         */
         suspend fun saveIntention(category: String, intention: String)
 
-        suspend fun fetchSavedIntentionsByNameUser(): Resource<List<Intention>>?
-
         suspend fun fetchAllSavedIntentions(): Resource<List<Intention>>?
+
+        suspend fun fetchSavedIntentionsByNameUser(): Resource<List<Intention>>?
 
         suspend fun fetchSavedIntentionsByCategory(category: String): Resource<List<Intention>>?
 
@@ -94,12 +86,13 @@ interface Repository {
             Interface encargada de controlar los métodos de la base de datos Firestore para
             la lectura y escritura de los parámetros generales.
         */
+        suspend fun fetchIsSeatReservationAvailable(): Flow<Resource<Boolean>>
 
-        suspend fun fetchIsAvailable(): Flow<Resource<Boolean>>
-
-        suspend fun setIsAvailable(isAvailable: Boolean)
+        suspend fun setIsSeatReservationAvailable(isSeatReservationAvailable: Boolean)
 
         suspend fun fetchIterator(): Flow<Resource<Int>>
+
+        suspend fun addIterator(seatNumber: Int)
 
         suspend fun fetchSeatLimit(): Resource<Int>
 

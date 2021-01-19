@@ -108,7 +108,7 @@ abstract class BaseFragment() : Fragment() {
 
     }
 
-    fun isAvailableDialog(buttonListener: UI.IsAvailableDialogClickButtonListener) {
+    fun isSeatReservationAvailableDialog(buttonListenerSeatReservation: UI.IsSeatReservationAvailableDialogClickButtonListener) {
         /*
             Método encargado de mostrar un Dialog cuando no hay conexión a internet.
         */
@@ -123,7 +123,7 @@ abstract class BaseFragment() : Fragment() {
 
         builder.apply {
             setPositiveButton("Aceptar") { dialog, id ->
-                buttonListener.isAvailablePositiveButtonClicked()
+                buttonListenerSeatReservation.isSeatReservationAvailablePositiveButtonClicked()
             }
         }
 
@@ -167,7 +167,7 @@ abstract class BaseFragment() : Fragment() {
 
     fun confirmDialog(
             buttonListener: UI.ConfirmDialogClickButtonListener,
-            title: String
+            message: String
     ): AlertDialog? {
         /*
             Método encargado de mostrar un Dialog cuando no hay conexión a internet.
@@ -176,8 +176,7 @@ abstract class BaseFragment() : Fragment() {
             AlertDialog.Builder(it)
         }
 
-        builder!!.setTitle(title)
-        //builder.setMessage("Verifique su conexión e inténtelo de nuevo.")
+        builder!!.setMessage(message)
 
         builder.setCancelable(true)
         builder.setIcon(R.drawable.ic_info)

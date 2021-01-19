@@ -11,32 +11,19 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.params.ParamsDataSource
-import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
 import com.circleappsstudio.mimisa.domain.params.ParamsRepository
-import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryParams
-import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
-import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_options_admin_seat_reservation.*
 
 class OptionsAdminSeatReservationFragment : BaseFragment(),
         UI.OptionsAdminSeatReservation,
         UI.IsOnlineDialogClickButtonListener,
-        UI.ConfirmDialogClickButtonListener,
-        UI.IsAvailableDialogClickButtonListener {
+        UI.ConfirmDialogClickButtonListener {
 
     private lateinit var navController: NavController
-
-    private val seatReservationViewModel by activityViewModels<SeatReservationViewModel> {
-        VMFactorySeatReservation(
-                SeatReservationRepository(
-                        SeatReservationDataSource()
-                )
-        )
-    }
 
     private val paramsViewModel by activityViewModels<ParamsViewModel> {
         VMFactoryParams(
@@ -71,23 +58,23 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
         if (!isOnline(requireContext())) {
             showIsOnlineDialog()
-            showProgressBar()
             return
         }
 
-        fetchSeatLimitObserver()
+        fetchIsSeatReservationAvailableObserver()
 
-        fetchIsAvailable()
+        fetchSeatLimitObserver()
 
     }
 
-    override fun fetchIsAvailable() {
+    override fun fetchIsSeatReservationAvailableObserver() {
         /*
-
+            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
+            o deshabilitada.
         */
         if (isOnline(requireContext())) {
 
-            paramsViewModel.fetchIsAvailable()
+            paramsViewModel.fetchIsSeatReservationAvailable()
                     .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                         when (resultEmitted) {
@@ -134,23 +121,11 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
     }
 
-    override fun activateToggle() {
-        txt_enable_or_disable_seat_reservation.text = "Deshabilitar la reservación de asientos."
-        btn_set_availability.setImageResource(R.drawable.ic_toggle_on)
-        btn_set_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-    }
-
-    override fun deactivateToggle() {
-        txt_enable_or_disable_seat_reservation.text = "Habilitar la reservación de asientos."
-        btn_set_availability.setImageResource(R.drawable.ic_toggle_off)
-        btn_set_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
-    }
-
-    override fun enableSystem() {
+    override fun enableSeatReservation() {
         /*
-            Método encargado de desbloquear el funcionamiento del app.
+            Método encargado de habilitar la reservación de asientos.
         */
-        paramsViewModel.setIsAvailable(true)
+        paramsViewModel.setIsSeatReservationAvailable(true)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                     when (resultEmitted) {
@@ -175,11 +150,11 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
     }
 
-    override fun disableSystem() {
+    override fun disableSeatReservation() {
         /*
-            Método encargado de bloquear el funcionamiento del app.
+            Método encargado de habilitar la reservación de asientos.
         */
-        paramsViewModel.setIsAvailable(false)
+        paramsViewModel.setIsSeatReservationAvailable(false)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                     when (resultEmitted) {
@@ -204,13 +179,15 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
     }
 
+
+
     override fun fetchSeatLimitObserver() {
         /*
             Método encargado de traer el número límite de asientos disponibles.
         */
         if (isOnline(requireContext())) {
 
-            seatReservationViewModel.fetchSeatLimit()
+            paramsViewModel.fetchSeatLimit()
                     .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                         when (resultEmitted) {
@@ -238,15 +215,60 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
     }
 
-    override fun updateSeatLimit() {
+    override fun updateSeatLimitObserver() {
         /*
             Método encargado de actualizar el número máximo de asientos disponibles.
         */
+        if (isOnline(requireContext())) {
+
+            val newSeatLimit = txt_seat_limit.text.toString().toInt()
+
+            paramsViewModel.updateSeatLimit(newSeatLimit)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when (resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+                                showMessage("El límite de asientos fue actualizado con éxito.", 2)
+                                fetchSeatLimitObserver()
+                                hideProgressBar()
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+
+    }
+
+    override fun updateSeatLimit() {
 
         btn_update_seat_limit.setOnClickListener {
 
-            selectedButton = "btn_update_seat_limit"
             hideKeyboard()
+
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
+            if (paramsViewModel.checkEmptySeatLimit(txt_seat_limit.text.toString())) {
+                txt_seat_limit.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            selectedButton = "btn_update_seat_limit"
             showConfirmDialog()
 
         }
@@ -274,6 +296,25 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
         progressbar_options_admin_seat_reservation.visibility = View.GONE
     }
 
+    override fun activateToggle() {
+        /*
+            Método encargado de activar un Toggle.
+        */
+        txt_enable_or_disable_seat_reservation.text = "Deshabilitar la reservación de asientos."
+        btn_set_availability.setImageResource(R.drawable.ic_toggle_on)
+        btn_set_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
+    }
+
+    override fun deactivateToggle() {
+        /*
+            Método encargado de desactivar un Toggle.
+        */
+        txt_enable_or_disable_seat_reservation.text = "Habilitar la reservación de asientos."
+        btn_set_availability.setImageResource(R.drawable.ic_toggle_off)
+        btn_set_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
+    }
+
+
     override fun showIsOnlineDialog() {
         /*
             Método encargado de mostrar el Dialog "isOnlineDialog".
@@ -281,8 +322,22 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
         isOnlineDialog(this)
     }
 
-    override fun showConfirmDialog(): AlertDialog? {
+    override fun isOnlineDialogPositiveButtonClicked() {
+        /*
+            Método encargado de controlar el botón positivo del Dialog "isOnlineDialog".
+        */
+        if (isOnline(requireContext())) {
+            fetchData()
+        } else {
+            showIsOnlineDialog()
+        }
 
+    }
+
+    override fun showConfirmDialog(): AlertDialog? {
+        /*
+            Método encargado de mostrar el Dialog "ConfirmDialog".
+        */
         var message = ""
 
         when {
@@ -307,66 +362,22 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
     }
 
-    override fun isOnlineDialogPositiveButtonClicked() {
-        /*
-            Método encargado de controlar el botón positivo del Dialog.
-        */
-        if (isOnline(requireContext())) {
-            fetchData()
-        } else {
-            showIsOnlineDialog()
-        }
-
-    }
-
-    override fun isAvailablePositiveButtonClicked() {
-        requireActivity().finish()
-    }
-
     override fun confirmPositiveButtonClicked() {
-
+        /*
+            Método encargado de controlar el botón positivo del Dialog "ConfirmDialog".
+        */
         when {
 
             selectedButton.contains("btn_update_seat_limit") -> {
-
-                if (isOnline(requireContext())) {
-
-                    val newSeatLimit = txt_seat_limit.text.toString().toInt()
-
-                    seatReservationViewModel.updateSeatLimit(newSeatLimit)
-                            .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                                when (resultEmitted) {
-
-                                    is Resource.Loading -> {
-                                        showProgressBar()
-                                    }
-
-                                    is Resource.Success -> {
-                                        showMessage("El límite de asientos fue actualizado con éxito.", 2)
-                                        fetchSeatLimitObserver()
-                                        hideProgressBar()
-                                    }
-
-                                    is Resource.Failure -> {
-                                        showMessage(resultEmitted.exception.message.toString(), 2)
-                                        hideProgressBar()
-                                    }
-
-                                }
-
-                            })
-
-                }
-
+                updateSeatLimitObserver()
             }
 
             selectedButton.contains("btn_set_availability") -> {
 
                 if (isAvailable) {
-                    disableSystem()
+                    disableSeatReservation()
                 } else {
-                    enableSystem()
+                    enableSeatReservation()
                 }
 
             }
@@ -376,6 +387,9 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
     }
 
     override fun confirmNegativeButtonClicked() {
+        /*
+            Método encargado de controlar el botón negativo del Dialog "isOnlineDialog".
+        */
         showConfirmDialog()!!.dismiss()
     }
 

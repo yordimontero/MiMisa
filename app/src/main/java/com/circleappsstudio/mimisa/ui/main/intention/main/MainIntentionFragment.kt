@@ -42,40 +42,21 @@ class MainIntentionFragment : BaseFragment(),
 
         setUpRecyclerView()
 
-        goToIntention()
-
         fetchData()
+
+        goToIntention()
 
     }
 
     override fun fetchData() {
 
         if (!isOnline(requireContext())) {
-            showDialog()
-            showProgressBar()
+            showIsOnlineDialog()
             return
         }
 
         fetchSavedIntentionsByNameUserObserver()
 
-    }
-
-    override fun goToIntention() {
-        /*
-            Método encargado de navegar hacia el fragment de registro de intenciones.
-        */
-        btn_go_to_intention.setOnClickListener {
-            navController.navigate(R.id.intentionFragment)
-        }
-
-    }
-
-    override fun setUpRecyclerView() {
-        /*
-            Método encargado de hacer el setup del RecyclerView.
-        */
-        rv_intentions.layoutManager = LinearLayoutManager(requireContext())
-        rv_intentions.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     override fun fetchSavedIntentionsByNameUserObserver() {
@@ -85,46 +66,56 @@ class MainIntentionFragment : BaseFragment(),
         if (isOnline(requireContext())) {
 
             intentionViewModel.fetchSavedIntentionsByNameUser()
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                when (resultEmitted) {
+                        when (resultEmitted) {
 
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
 
-                    is Resource.Success -> {
+                            is Resource.Success -> {
 
-                        if (resultEmitted.data.isNotEmpty()) {
+                                if (resultEmitted.data.isNotEmpty()) {
 
-                            rv_intentions.adapter = IntentionAdapter(
-                                requireContext(),
-                                resultEmitted.data
-                            )
+                                    rv_intentions.adapter = IntentionAdapter(
+                                            requireContext(),
+                                            resultEmitted.data
+                                    )
 
-                            hideNoRegisteredSeatsYetMessage()
-                            hideProgressBar()
-                            showRecyclerView()
+                                    hideNoRegisteredSeatsYetMessage()
+                                    hideProgressBar()
+                                    showRecyclerView()
 
-                        } else {
+                                } else {
 
-                            showNoRegisteredSeatsYetMessage()
-                            hideRecyclerView()
-                            hideProgressBar()
+                                    showNoRegisteredSeatsYetMessage()
+                                    hideRecyclerView()
+                                    hideProgressBar()
+
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
 
                         }
 
-                    }
+                    })
 
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
+        }
 
-                }
+    }
 
-            })
-
+    override fun goToIntention() {
+        /*
+            Método encargado de navegar hacia el fragment de registro de intenciones.
+        */
+        btn_go_to_intention.setOnClickListener {
+            navController.navigate(R.id.intentionFragment)
         }
 
     }
@@ -150,6 +141,14 @@ class MainIntentionFragment : BaseFragment(),
         progressbar_main_intention.visibility = View.GONE
     }
 
+    override fun setUpRecyclerView() {
+        /*
+            Método encargado de hacer el setup del RecyclerView.
+        */
+        rv_intentions.layoutManager = LinearLayoutManager(requireContext())
+        rv_intentions.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+    }
+
     override fun showRecyclerView() {
         /*
             Método encargado de mostrar un RecyclerView.
@@ -165,23 +164,34 @@ class MainIntentionFragment : BaseFragment(),
     }
 
     override fun showNoRegisteredSeatsYetMessage() {
+        /*
+            Método encargado de mostrar un mensaje cuando aún no hay asientos registrados.
+        */
         layout_no_registered_intentions_yet.visibility = View.VISIBLE
     }
 
     override fun hideNoRegisteredSeatsYetMessage() {
+        /*
+            Método encargado de ocultar un mensaje cuando aún no hay asientos registrados.
+        */
         layout_no_registered_intentions_yet.visibility = View.GONE
     }
 
-    override fun showDialog() {
+    override fun showIsOnlineDialog() {
+        /*
+            Método encargado de mostrar el Dialog "isOnlineDialog".
+        */
         isOnlineDialog(this)
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
-
+        /*
+            Método encargado de controlar el botón positivo del Dialog "isOnlineDialog".
+        */
         if (isOnline(requireContext())) {
             fetchData()
         } else {
-            showDialog()
+            showIsOnlineDialog()
         }
 
     }

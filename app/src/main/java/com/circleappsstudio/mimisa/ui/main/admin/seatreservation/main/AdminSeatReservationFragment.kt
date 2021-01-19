@@ -41,33 +41,13 @@ class AdminSeatReservationFragment : BaseFragment(),
 
         navController = Navigation.findNavController(view)
 
-        setupRecyclerView()
-
         setupSearchView()
+
+        setupRecyclerView()
 
         fetchData()
 
         goToOptionAdminSeatReservation()
-
-        addListenerRadioButtons()
-
-    }
-
-    override fun addListenerRadioButtons() {
-        /*
-            Método encargado de escuchar cuál RadioButton está seleccionado.
-        */
-        radiogroup_search_reserved_seat.setOnCheckedChangeListener { radioGroup, i ->
-
-            when(i){
-
-                R.id.rd_btn_search_by_name -> {}
-
-                R.id.rd_btn_search_by_seat_number -> {}
-
-            }
-
-        }
 
     }
 
@@ -75,67 +55,69 @@ class AdminSeatReservationFragment : BaseFragment(),
 
         if (!isOnline(requireContext())) {
             showIsOnlineDialog()
-            showProgressBar()
             return
         }
 
-        fetchSavedSeats()
+        fetchAllRegisteredSeatsObserver()
 
     }
 
-    override fun setupSearchView() {
+    override fun fetchAllRegisteredSeatsObserver() {
+        /*
+            Método encargado de traer todos los asientos reservados en la base de datos.
+        */
+        if (isOnline(requireContext())) {
 
-        searchview.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            seatReservationViewModel.fetchAllRegisteredSeats()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-            override fun onQueryTextSubmit(p0: String?): Boolean {
+                        when(resultEmitted) {
 
-                hideKeyboard()
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
 
-                if (!rd_btn_search_by_name.isChecked && !rd_btn_search_by_seat_number.isChecked){
-                    showMessage("Seleccione el filtro de búsqueda.", 2)
-                }
+                            is Resource.Success -> {
 
-                if (rd_btn_search_by_name.isChecked){
-                    fetchRegisteredSeatByRegisteredPersonObserver(p0.toString())
-                }
+                                if (resultEmitted.data.isNotEmpty()) {
 
-                if (rd_btn_search_by_seat_number.isChecked){
+                                    rv_admin_seat_reservation.adapter = SeatAdapter(
+                                            requireContext(),
+                                            resultEmitted.data
+                                    )
 
-                    if (!checkIfIsLetter(p0.toString())) {
-                        fetchRegisteredSeatBySeatNumberObserver(p0.toString().toInt())
-                    } else {
-                        showMessage("Error de búsqueda.", 2)
-                    }
+                                    hideNotSeatFoundedMessage()
+                                    showRecyclerView()
+                                    hideProgressBar()
 
-                }
+                                } else {
 
-                return false
+                                    showNotSeatFoundedMessage()
+                                    hideRecyclerView()
+                                    hideProgressBar()
 
-            }
+                                }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
+                            }
 
-                if (p0.toString().isEmpty()) {
-                    fetchData()
-                }
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
 
-                return false
-            }
+                        }
 
-        })
+                    })
 
-    }
-
-    override fun goToOptionAdminSeatReservation() {
-
-        btn_go_to_options_admin_seat_reservation.setOnClickListener {
-            navController.navigate(R.id.navigation_options_admin_seat_reservation)
         }
 
     }
 
     override fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String) {
-
+        /*
+            Método encargado de traer el asiento reservado por el nombre de la
+            persona a la que está reservado.
+        */
         if (isOnline(requireContext())) {
 
             seatReservationViewModel.fetchRegisteredSeatByRegisteredPerson(registeredPerson)
@@ -184,7 +166,9 @@ class AdminSeatReservationFragment : BaseFragment(),
     }
 
     override fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: Int) {
-
+        /*
+            Método encargado de traer el asiento reservado por el número de asiento.
+        */
         if (isOnline(requireContext())) {
 
             seatReservationViewModel.fetchRegisteredSeatBySeatNumber(seatNumber)
@@ -232,63 +216,12 @@ class AdminSeatReservationFragment : BaseFragment(),
 
     }
 
-    override fun setupRecyclerView() {
+    override fun goToOptionAdminSeatReservation() {
         /*
-            Método encargado de hacer el setup del RecyclerView.
+            Método encargado de navegar hacia el fragment "OptionsAdminSeatReservation".
         */
-        rv_admin_seat_reservation.layoutManager = LinearLayoutManager(requireContext())
-        rv_admin_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-        rv_admin_seat_reservation.setHasFixedSize(true)
-    }
-
-    override fun fetchSavedSeats() {
-        /*
-            Método encargado de traer todos los asientos reservados en la base de datos.
-        */
-
-        if (isOnline(requireContext())) {
-
-            seatReservationViewModel.fetchAllRegisteredSeats()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when(resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-
-                                if (resultEmitted.data.isNotEmpty()) {
-
-                                    rv_admin_seat_reservation.adapter = SeatAdapter(
-                                            requireContext(),
-                                            resultEmitted.data
-                                    )
-
-                                    hideNotSeatFoundedMessage()
-                                    showRecyclerView()
-                                    hideProgressBar()
-
-                                } else {
-
-                                    showNotSeatFoundedMessage()
-                                    hideRecyclerView()
-                                    hideProgressBar()
-
-                                }
-
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
+        btn_go_to_options_admin_seat_reservation.setOnClickListener {
+            navController.navigate(R.id.navigation_options_admin_seat_reservation)
         }
 
     }
@@ -328,6 +261,60 @@ class AdminSeatReservationFragment : BaseFragment(),
         layout_rv_admin_seat_reservation.visibility = View.GONE
     }
 
+    override fun setupSearchView() {
+        /*
+            Método encargado de hacer el setup del SearchView.
+        */
+        searchview.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+
+                hideKeyboard()
+
+                if (!rd_btn_search_by_name.isChecked && !rd_btn_search_by_seat_number.isChecked){
+                    showMessage("Seleccione el filtro de búsqueda.", 2)
+                }
+
+                if (rd_btn_search_by_name.isChecked){
+                    fetchRegisteredSeatByRegisteredPersonObserver(p0.toString().trim())
+                }
+
+                if (rd_btn_search_by_seat_number.isChecked){
+
+                    if (!checkIfIsLetter(p0.toString())) {
+                        fetchRegisteredSeatBySeatNumberObserver(p0.toString().trim().toInt())
+                    } else {
+                        showMessage("Error de búsqueda.", 2)
+                    }
+
+                }
+
+                return false
+
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+
+                if (p0.toString().isEmpty()) {
+                    fetchData()
+                }
+
+                return false
+            }
+
+        })
+
+    }
+
+    override fun setupRecyclerView() {
+        /*
+            Método encargado de hacer el setup del RecyclerView.
+        */
+        rv_admin_seat_reservation.layoutManager = LinearLayoutManager(requireContext())
+        rv_admin_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        rv_admin_seat_reservation.setHasFixedSize(true)
+    }
+
     override fun showNotSeatFoundedMessage() {
         /*
             Método encargado de mostrar un mensaje cuando no se encontró ningún asiento.
@@ -351,7 +338,7 @@ class AdminSeatReservationFragment : BaseFragment(),
 
     override fun isOnlineDialogPositiveButtonClicked() {
         /*
-            Método encargado de controlar el botón positivo del Dialog.
+            Método encargado de controlar el botón positivo del Dialog "IsOnlineDialog".
         */
         if (isOnline(requireContext())) {
             fetchData()

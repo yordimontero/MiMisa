@@ -9,16 +9,13 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.ui.UI
-import com.circleappsstudio.mimisa.ui.auth.LogInActivity
 import kotlinx.android.synthetic.main.fragment_more.*
 
 class MoreFragment : BaseFragment(), UI.More {
 
     private lateinit var navController: NavController
 
-    override fun getLayout(): Int {
-        return R.layout.fragment_more
-    }
+    override fun getLayout(): Int = R.layout.fragment_more
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,7 +40,9 @@ class MoreFragment : BaseFragment(), UI.More {
     }
 
     override fun goToProfile() {
-
+        /*
+            Método encargado de navegar hacia el fragment "ProfileUser".
+        */
         btn_go_to_profile.setOnClickListener {
             navController.navigate(R.id.navigation_profile_user)
         }
@@ -52,7 +51,7 @@ class MoreFragment : BaseFragment(), UI.More {
 
     override fun goToFacebook() {
         /*
-            Método para navegar hacia la URL del Facebook de Circle Apps Studio.
+            Método encargado de navegar hacia la URL del Facebook de Circle Apps Studio.
         */
         btn_facebook.setOnClickListener {
             val intent = Intent(
@@ -66,7 +65,7 @@ class MoreFragment : BaseFragment(), UI.More {
 
     override fun goToTwitter() {
         /*
-            Método para navegar hacia la URL del Twitter de Circle Apps Studio.
+            Método encargado de navegar hacia la URL del Twitter de Circle Apps Studio.
         */
 
         btn_twitter.setOnClickListener {
@@ -81,7 +80,7 @@ class MoreFragment : BaseFragment(), UI.More {
 
     override fun goToWebPage() {
         /*
-            Método para navegar hacia la URL de la página web de Circle Apps Studio.
+            Método encargado de navegar hacia la URL de la página web de Circle Apps Studio.
         */
 
         btn_web_page.setOnClickListener {
@@ -96,7 +95,7 @@ class MoreFragment : BaseFragment(), UI.More {
 
     override fun goToPrivacyPolicy() {
         /*
-            Método para navegar hacia la URL de la política de privacidad de Circle Apps Studio.
+            Método encargado de navegar hacia la URL de la política de privacidad de Circle Apps Studio.
         */
 
         btn_privacy_policy.setOnClickListener {
@@ -111,7 +110,7 @@ class MoreFragment : BaseFragment(), UI.More {
 
     override fun rateApp() {
         /*
-            Método para navegar hacia la ficha de @packagename en Google Play Store.
+            Método encargado de navegar hacia la ficha de @packagename en Google Play Store.
         */
 
         btn_rate_app.setOnClickListener {
@@ -127,7 +126,7 @@ class MoreFragment : BaseFragment(), UI.More {
 
     override fun goToPlayStoreMoreApps() {
         /*
-            Método para navegar hacia la página principal de Circle Apps Studio en Google Play Store.
+            Método encargado de navegar hacia la página principal de Circle Apps Studio en Google Play Store.
         */
 
         btn_more_apps.setOnClickListener {

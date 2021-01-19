@@ -10,19 +10,21 @@ import com.google.firebase.FirebaseException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 
-class ParamsViewModel(private val paramsRepository: Repository.Params): ViewModel(), MainViewModel.Params {
+class ParamsViewModel(
+        private val paramsRepository: Repository.Params
+): ViewModel(), MainViewModel.Params {
 
-    /*
-        Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
-    */
-    override fun fetchIsAvailable()
+    override fun fetchIsSeatReservationAvailable()
             : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
-
+        /*
+            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
+            o deshabilitada.
+        */
         emit(Resource.Loading())
 
         try {
 
-            paramsRepository.fetchIsAvailable().collect { isAvailable ->
+            paramsRepository.fetchIsSeatReservationAvailable().collect { isAvailable ->
                 emit(isAvailable)
             }
 
@@ -32,17 +34,16 @@ class ParamsViewModel(private val paramsRepository: Repository.Params): ViewMode
 
     }
 
-    /*
-        Método encargado de bloquear o desbloquear el funcionamiento del app.
-    */
-    override fun setIsAvailable(isAvailable: Boolean)
+    override fun setIsSeatReservationAvailable(isAvailable: Boolean)
             : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
-
+        /*
+            Método encargado de habilitar o deshabilitar la reservación de asientos.
+        */
         emit(Resource.Loading())
 
         try {
 
-            paramsRepository.setIsAvailable(isAvailable)
+            paramsRepository.setIsSeatReservationAvailable(isAvailable)
             emit(Resource.Success(true))
 
         } catch (e: FirebaseException) {
@@ -51,24 +52,87 @@ class ParamsViewModel(private val paramsRepository: Repository.Params): ViewMode
 
     }
 
-    override fun fetchIterator(): LiveData<Resource<Int>> {
-        TODO("Not yet implemented")
+    override fun fetchIterator()
+            : LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            paramsRepository.fetchIterator().collect { iterator ->
+                /*
+                    ".collect" colecta lo que está dentro del Flow
+                    (en este caso el iterador en la base de datos).
+                */
+                emit(iterator)
+            }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
     }
 
-    override fun fetchSeatLimit(): Resource<Int> {
-        TODO("Not yet implemented")
+    override fun addIterator(seatNumber: Int)
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de aumentar el iterador al reservar un asiento.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            paramsRepository.addIterator(seatNumber)
+            emit(Resource.Success(true))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
     }
 
-    override fun updateSeatLimit(seatLimit: Int): LiveData<Resource<Boolean>> {
-        TODO("Not yet implemented")
+    override fun fetchSeatLimit()
+            : LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer el número límite de asientos disponibles.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            emit(paramsRepository.fetchSeatLimit())
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
     }
 
-    /*
-        Método encargado de escuchar en tiempo real el versionCode en la base de datos.
-    */
+    override fun updateSeatLimit(seatLimit: Int)
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de actualizar el número máximo de asientos disponibles.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            paramsRepository.updateSeatLimit(seatLimit)
+            emit(Resource.Success(true))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
     override fun fetchVersionCode()
             : LiveData<Resource<Int>> = liveData(Dispatchers.IO) {
-
+        /*
+            Método encargado de escuchar en tiempo real el versionCode.
+        */
         emit(Resource.Loading())
 
         try {
@@ -84,9 +148,15 @@ class ParamsViewModel(private val paramsRepository: Repository.Params): ViewMode
     }
 
     /*
-        Método encargado de validar que el versionCode actual
-        sea igual al versionCode traído de la base de datos.
+        Método encargado de validar que el límite de asientos no sea nulo.
     */
+    override fun checkEmptySeatLimit(seatLimit: String)
+            : Boolean = seatLimit.isEmpty()
+
+    /*
+            Método encargado de validar que el versionCode actual
+            sea igual al versionCode traido de la base de datos.
+        */
     override fun checkVersionCode(
         fetchedVersionCode: Int,
         currentVersionCode: Int

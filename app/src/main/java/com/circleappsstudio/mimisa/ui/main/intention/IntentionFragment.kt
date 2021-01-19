@@ -31,9 +31,9 @@ class IntentionFragment : BaseFragment(),
 
     private val intentionViewModel by activityViewModels<IntentionViewModel> {
         VMFactoryIntention(
-            IntentionRepository(
-                IntentionDataSource()
-            )
+                IntentionRepository(
+                        IntentionDataSource()
+                )
         )
     }
 
@@ -51,7 +51,67 @@ class IntentionFragment : BaseFragment(),
 
         setUpSpinner()
 
-        saveIntentionObserver()
+        saveIntention()
+
+    }
+
+    override fun saveIntention() {
+
+        btn_save_intention.setOnClickListener {
+
+            hideKeyboard()
+
+            intention = txt_intention.text.toString()
+
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
+            if (intentionViewModel.checkValidIntentionCategory(intentionCategory)) {
+                showMessage("Seleccione la categoría de su intención.", 2)
+                return@setOnClickListener
+            }
+
+            if (intentionViewModel.checkEmptyIntention(intention)) {
+                txt_intention.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            showConfirmDialog()
+
+        }
+
+    }
+
+    override fun saveIntentionObserver() {
+        /*
+            Método encargado de guardar una intención.
+        */
+        if (isOnline(requireContext())) {
+
+            intentionViewModel.saveIntention(intentionCategory, intention)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted){
+
+                            is Resource.Loading -> { showProgressBar() }
+
+                            is Resource.Success -> {
+                                showMessage("Intención guardada con éxito.", 1)
+                                gotToSeatReservationMain()
+                            }
+
+                            is Resource.Failure -> {
+                                requireContext().toast(requireContext(), resultEmitted.exception.message.toString())
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
 
     }
 
@@ -88,66 +148,11 @@ class IntentionFragment : BaseFragment(),
 
     }
 
-    override fun saveIntentionObserver() {
+    override fun gotToSeatReservationMain() {
         /*
-            Método encargado de guardar una intención en la base de datos.
+            Método encargado de navegar hacia el fragment "MainIntentionFragment".
         */
-        btn_save_intention.setOnClickListener {
-
-            hideKeyboard()
-
-            intention = txt_intention.text.toString()
-
-            if (!isOnline(requireContext())) {
-                showIsOnlineDialog()
-                return@setOnClickListener
-            }
-
-            if (intentionViewModel.checkValidIntentionCategory(intentionCategory)){
-                showMessage("Seleccione la categoría de su intención.", 2)
-                return@setOnClickListener
-            }
-
-            if (intentionViewModel.checkEmptyIntention(intention)){
-                txt_intention.error = "Complete los campos."
-                return@setOnClickListener
-            }
-
-            showConfirmDialog()
-
-        }
-
-    }
-
-    override fun saveIntention() {
-        /*
-            Método encargado de guardar una intención en la base de datos.
-        */
-        if (isOnline(requireContext())) {
-
-            intentionViewModel.saveIntention(intentionCategory, intention)
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                when(resultEmitted){
-
-                    is Resource.Loading -> { showProgressBar() }
-
-                    is Resource.Success -> {
-                        showMessage("Intención guardada con éxito.", 1)
-                        gotToSeatReservationMain()
-                    }
-
-                    is Resource.Failure -> {
-                        requireContext().toast(requireContext(), resultEmitted.exception.message.toString())
-                        hideProgressBar()
-                    }
-
-                }
-
-            })
-
-        }
-
+        navController.navigateUp()
     }
 
     override fun showMessage(message: String, duration: Int) {
@@ -171,42 +176,42 @@ class IntentionFragment : BaseFragment(),
         progressbar_intention.visibility = View.GONE
     }
 
-    override fun gotToSeatReservationMain() {
-        /*
-            Método encargado de navegar hacia el fragment inicio de registro de intenciones.
-        */
-        navController.navigateUp()
-    }
-
     override fun showIsOnlineDialog() {
         /*
-            Método encargado de mostrar un Dialog.
+            Método encargado de mostrar el Dialog "isOnlineDialog".
         */
         isOnlineDialog(this)
 
     }
 
-    override fun showConfirmDialog(): AlertDialog? {
-        return confirmDialog(this, "¿Desea registrar esta intención?")
-    }
-
     override fun isOnlineDialogPositiveButtonClicked() {
         /*
-            Método encargado de controlar el botón positivo del Dialog.
+            Método encargado de controlar el botón positivo del Dialog "isOnlineDialog".
         */
-        if (isOnline(requireContext())) {
-            saveIntentionObserver()
-        } else {
+        if (!isOnline(requireContext())) {
             showIsOnlineDialog()
         }
 
     }
 
+    override fun showConfirmDialog(): AlertDialog? {
+        /*
+            Método encargado de mostrar el Dialog "confirmDialog".
+        */
+        return confirmDialog(this, "¿Desea registrar esta intención?")
+    }
+
     override fun confirmPositiveButtonClicked() {
-        saveIntention()
+        /*
+            Método encargado de controlar el botón positivo del Dialog "confirmDialog".
+        */
+        saveIntentionObserver()
     }
 
     override fun confirmNegativeButtonClicked() {
+        /*
+            Método encargado de controlar el botón negativo del Dialog "confirmDialog".
+        */
         showConfirmDialog()!!.dismiss()
     }
 

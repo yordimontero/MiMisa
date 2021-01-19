@@ -82,13 +82,8 @@ interface MainViewModel {
             Interface encargada de controlar los métodos de la base de datos Firestore para
             la reservación de asientos.
         */
-        fun fetchIterator(): LiveData<Resource<Int>>
-
-        fun fetchSeatLimit(): LiveData<Resource<Int>>
 
         fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String): LiveData<Resource<Boolean>>
-
-        fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>>
 
         fun fetchRegisteredSeatsByNameUser(): LiveData<Resource<List<Seat>>?>
 
@@ -98,6 +93,8 @@ interface MainViewModel {
 
         fun fetchRegisteredSeatBySeatNumber(seatNumber: Int): LiveData<Resource<List<Seat>>?>
 
+        fun checkSeatSavedByIdNumberUser(idNumberUser: String): LiveData<Resource<Boolean>>
+
         fun checkEmptyNameUser(nameUser: String): Boolean
 
         fun checkEmptyIdNumberUser(idNumberUser: String): Boolean
@@ -105,10 +102,6 @@ interface MainViewModel {
         fun checkValidIdNumberUser(idNumberUser: String): Boolean
 
         fun checkSeatLimit(seatNumber: Int, seatLimit: Int): Boolean
-
-        fun checkSeatSavedByIdNumberUser(idNumberUser: String): LiveData<Resource<Boolean>>
-
-        fun updateSeatLimit(seatLimit: Int): LiveData<Resource<Boolean>>
 
     }
 
@@ -119,15 +112,15 @@ interface MainViewModel {
         */
         fun saveIntention(category: String, intention: String): LiveData<Resource<Boolean>>
 
-        fun checkValidIntentionCategory(category: String): Boolean
-
-        fun checkEmptyIntention(intention: String): Boolean
+        fun fetchAllSavedIntentions(): LiveData<Resource<List<Intention>>?>
 
         fun fetchSavedIntentionsByNameUser(): LiveData<Resource<List<Intention>>?>
 
-        fun fetchAllSavedIntentions(): LiveData<Resource<List<Intention>>?>
-
         fun fetchSavedIntentionsByCategory(category: String): LiveData<Resource<List<Intention>>?>
+
+        fun checkEmptyIntention(intention: String): Boolean
+
+        fun checkValidIntentionCategory(category: String): Boolean
 
     }
 
@@ -136,18 +129,21 @@ interface MainViewModel {
             Interface encargada de controlar los métodos de la base de datos Firestore para
             la lectura y escritura de los parámetros generales.
         */
+        fun fetchIsSeatReservationAvailable(): LiveData<Resource<Boolean>>
 
-        fun fetchIsAvailable(): LiveData<Resource<Boolean>>
-
-        fun setIsAvailable(isAvailable: Boolean): LiveData<Resource<Boolean>>
+        fun setIsSeatReservationAvailable(isAvailable: Boolean): LiveData<Resource<Boolean>>
 
         fun fetchIterator(): LiveData<Resource<Int>>
 
-        fun fetchSeatLimit(): Resource<Int>
+        fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>>
+
+        fun fetchSeatLimit(): LiveData<Resource<Int>>
 
         fun updateSeatLimit(seatLimit: Int): LiveData<Resource<Boolean>>
 
         fun fetchVersionCode(): LiveData<Resource<Int>>
+
+        fun checkEmptySeatLimit(seatLimit: String): Boolean
 
         fun checkVersionCode(fetchedVersionCode: Int, currentVersionCode: Int): Boolean
 

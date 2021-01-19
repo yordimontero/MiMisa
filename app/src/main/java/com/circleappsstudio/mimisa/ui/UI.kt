@@ -96,14 +96,21 @@ interface UI {
     }
 
     interface SeatReservationMain {
-
-        fun fetchIsAvailable()
-
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para
+            la reservación de asientos.
+        */
         fun fetchData()
 
-        fun setUpRecyclerView()
-
         fun fetchRegisteredSeatsByUserNameObserver()
+
+        fun fetchIteratorObserver()
+
+        fun fetchIsSeatReservationAvailable()
+
+        fun fetchSeatLimitObserver()
+
+        fun checkAvailableSeats()
 
         fun goToSeatReservation()
 
@@ -112,6 +119,12 @@ interface UI {
         fun showProgressBar()
 
         fun hideProgressBar()
+
+        fun setUpRecyclerView()
+
+        fun showRecyclerView()
+
+        fun hideRecyclerView()
 
         fun showInfoMessage()
 
@@ -129,16 +142,6 @@ interface UI {
 
         fun hideButton()
 
-        fun fetchIteratorObserver()
-
-        fun fetchSeatLimitObserver()
-
-        fun checkAvailableSeats()
-
-        fun showRecyclerView()
-
-        fun hideRecyclerView()
-
         fun showIsOnlineDialog()
 
     }
@@ -150,17 +153,21 @@ interface UI {
         */
         fun fetchData()
 
-        fun fetchIsAvailable()
+        fun fetchIsSeatReservationAvailable()
 
         fun fetchIteratorObserver()
 
         fun fetchSeatLimitObserver()
+
+        fun saveSeatReserved()
 
         fun saveSeatReservedObserver()
 
         fun addIteratorObserver()
 
         fun goToSeatReservationMain()
+
+        fun checkSeatSavedByIdNumberUserObserver()
 
         fun showMessage(message: String, duration: Int)
 
@@ -170,33 +177,26 @@ interface UI {
 
         fun showIsOnlineDialog()
 
-        fun showIsAvailableDialog()
+        fun showIsSeatReservationAvailableDialog()
 
         fun showConfirmDialog(): AlertDialog?
-
-        fun checkSeatSavedByIdNumberUserObserver()
-
-        fun checkSeatSavedByIdNumberUser()
 
     }
 
     interface AdminSeatReservation {
-
-        fun goToOptionAdminSeatReservation()
-
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para
+            la reservación de asientos en el rol de Administrador.
+        */
         fun fetchData()
 
-        fun fetchSavedSeats()
+        fun fetchAllRegisteredSeatsObserver()
 
         fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String)
 
         fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: Int)
 
-        fun addListenerRadioButtons()
-
-        fun setupRecyclerView()
-
-        fun setupSearchView()
+        fun goToOptionAdminSeatReservation()
 
         fun showMessage(message: String, duration: Int)
 
@@ -208,6 +208,10 @@ interface UI {
 
         fun hideRecyclerView()
 
+        fun setupSearchView()
+
+        fun setupRecyclerView()
+
         fun showNotSeatFoundedMessage()
 
         fun hideNotSeatFoundedMessage()
@@ -217,30 +221,35 @@ interface UI {
     }
 
     interface OptionsAdminSeatReservation {
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para
+            la reservación de asientos en el rol de Administrador.
+        */
+        fun fetchData()
 
-        fun fetchIsAvailable()
+        fun fetchIsSeatReservationAvailableObserver()
 
         fun setAvailability()
 
-        fun activateToggle()
+        fun enableSeatReservation()
 
-        fun deactivateToggle()
-
-        fun enableSystem()
-
-        fun disableSystem()
-
-        fun fetchData()
+        fun disableSeatReservation()
 
         fun fetchSeatLimitObserver()
 
         fun updateSeatLimit()
+
+        fun updateSeatLimitObserver()
 
         fun showMessage(message: String, duration: Int)
 
         fun showProgressBar()
 
         fun hideProgressBar()
+
+        fun activateToggle()
+
+        fun deactivateToggle()
 
         fun showIsOnlineDialog()
 
@@ -253,20 +262,19 @@ interface UI {
             Interface encargada de controlar los métodos de la base de datos Firestore para el
             registro de intenciones.
         */
-
         fun fetchData()
 
-        fun goToIntention()
-
-        fun setUpRecyclerView()
-
         fun fetchSavedIntentionsByNameUserObserver()
+
+        fun goToIntention()
 
         fun showMessage(message: String, duration: Int)
 
         fun showProgressBar()
 
         fun hideProgressBar()
+
+        fun setUpRecyclerView()
 
         fun showRecyclerView()
 
@@ -276,7 +284,7 @@ interface UI {
 
         fun hideNoRegisteredSeatsYetMessage()
 
-        fun showDialog()
+        fun showIsOnlineDialog()
 
     }
 
@@ -285,21 +293,21 @@ interface UI {
             Interface encargada de controlar los métodos de la base de datos Firestore para el
             registro de intenciones.
         */
+        fun saveIntention()
+
+        fun saveIntentionObserver()
+
         fun setUpSpinner()
 
         fun getSelectedCategoryFromSpinner(intentionSpinnerAdapter: IntentionSpinner)
 
-        fun saveIntentionObserver()
-
-        fun saveIntention()
+        fun gotToSeatReservationMain()
 
         fun showMessage(message: String, duration: Int)
 
         fun showProgressBar()
 
         fun hideProgressBar()
-
-        fun gotToSeatReservationMain()
 
         fun showIsOnlineDialog()
 
@@ -308,16 +316,17 @@ interface UI {
     }
 
     interface AdminIntentions {
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para el
+            registro de intenciones en el rol de Administrador.
+        */
+        fun fetchData()
+
+        fun fetchAllSavedIntentionsObserver()
 
         fun fetchSavedIntentionsByCategory()
 
-        fun fetchData()
-
-        fun fetchSavedIntentions()
-
         fun fetchSavedIntentionsByCategoryObserver(category: String)
-
-        fun setupRecyclerView()
 
         fun showMessage(message: String, duration: Int)
 
@@ -325,17 +334,19 @@ interface UI {
 
         fun hideProgressBar()
 
-        fun showMainLayout()
-
-        fun hideMainLayout()
+        fun setupRecyclerView()
 
         fun showRecyclerView()
 
         fun hideRecyclerView()
 
-        fun showNotSeatFoundedMessage()
+        fun showMainLayout()
 
-        fun hideNotSeatFoundedMessage()
+        fun hideMainLayout()
+
+        fun showNotIntentionFoundedMessage()
+
+        fun hideNotIntentionFoundedMessage()
 
         fun showIsOnlineDialog()
 
@@ -417,8 +428,8 @@ interface UI {
         fun isOnlineDialogPositiveButtonClicked()
     }
 
-    interface IsAvailableDialogClickButtonListener {
-        fun isAvailablePositiveButtonClicked()
+    interface IsSeatReservationAvailableDialogClickButtonListener {
+        fun isSeatReservationAvailablePositiveButtonClicked()
     }
 
     interface UpdateAppDialogClickButtonListener {

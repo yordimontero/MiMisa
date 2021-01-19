@@ -25,7 +25,7 @@ class SeatReservationFragment : BaseFragment(),
         UI.SeatReservation,
         UI.IsOnlineDialogClickButtonListener,
         UI.ConfirmDialogClickButtonListener,
-        UI.IsAvailableDialogClickButtonListener {
+        UI.IsSeatReservationAvailableDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -61,7 +61,7 @@ class SeatReservationFragment : BaseFragment(),
 
         fetchData()
 
-        checkSeatSavedByIdNumberUserObserver()
+        saveSeatReserved()
 
     }
 
@@ -72,19 +72,20 @@ class SeatReservationFragment : BaseFragment(),
             return
         }
 
-        fetchIteratorObserver()
+        fetchIsSeatReservationAvailable()
 
-        fetchIsAvailable()
+        fetchIteratorObserver()
 
     }
 
-    override fun fetchIsAvailable() {
+    override fun fetchIsSeatReservationAvailable() {
         /*
-            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
+            o deshabilitada.
         */
         if (isOnline(requireContext())) {
 
-            paramsViewModel.fetchIsAvailable()
+            paramsViewModel.fetchIsSeatReservationAvailable()
                     .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                         when(resultEmitted) {
@@ -98,7 +99,7 @@ class SeatReservationFragment : BaseFragment(),
                                 isAvailable = resultEmitted.data
 
                                 if (!isAvailable){
-                                    showIsAvailableDialog()
+                                    showIsSeatReservationAvailableDialog()
                                 }
 
                             }
@@ -122,7 +123,7 @@ class SeatReservationFragment : BaseFragment(),
         */
         if (isOnline(requireContext())){
 
-            seatReservationViewModel.fetchIterator()
+            paramsViewModel.fetchIterator()
                     .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
@@ -155,7 +156,7 @@ class SeatReservationFragment : BaseFragment(),
         */
         if (isOnline(requireContext())){
 
-            seatReservationViewModel.fetchSeatLimit()
+            paramsViewModel.fetchSeatLimit()
                     .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
@@ -177,6 +178,47 @@ class SeatReservationFragment : BaseFragment(),
                 }
 
             })
+
+        }
+
+    }
+
+    override fun saveSeatReserved() {
+
+        btn_seat_reservation.setOnClickListener {
+
+            hideKeyboard()
+
+            nameUser = txt_fullname_seat_reservation.text.toString()
+            idNumberUser = txt_id_number_user_seat_reservation.text.toString()
+
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkEmptyNameUser(nameUser)) {
+                txt_fullname_seat_reservation.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
+                txt_id_number_user_seat_reservation.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
+                txt_id_number_user_seat_reservation.error = "Número de cédula inválido."
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())){
+                showMessage("Ya no hay asientos disponibles.", 2)
+                goToSeatReservationMain()
+                return@setOnClickListener
+            }
+
+            showConfirmDialog()
 
         }
 
@@ -222,7 +264,7 @@ class SeatReservationFragment : BaseFragment(),
         */
         if (isOnline(requireContext())){
 
-            seatReservationViewModel.addIterator(seatNumber.toInt())
+            paramsViewModel.addIterator(seatNumber.toInt())
                     .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                         when (resultEmitted) {
@@ -251,69 +293,8 @@ class SeatReservationFragment : BaseFragment(),
 
     override fun goToSeatReservationMain() {
         /*
-            Método encargado de navegar hacia el fragment inicio de reservación de asientos.
+            Método encargado de navegar hacia el fragment "MainSeatReservation".
         */
-        navController.navigateUp()
-    }
-
-    override fun showMessage(message: String, duration: Int) {
-        /*
-            Método encargado de mostrar un Toast.
-        */
-        requireContext().toast(requireContext(), message, duration)
-    }
-
-    override fun showProgressBar() {
-        /*
-            Método encargado de mostrar un ProgressBar.
-        */
-        progressbar_seat_reservation.visibility = View.VISIBLE
-    }
-
-    override fun hideProgressBar() {
-        /*
-            Método encargado de ocultar un ProgressBar.
-        */
-        progressbar_seat_reservation.visibility = View.GONE
-    }
-
-    override fun showIsOnlineDialog() {
-        /*
-            Método encargado de mostrar un Dialog.
-        */
-        isOnlineDialog(this)
-
-    }
-
-    override fun showIsAvailableDialog() {
-        isAvailableDialog(this)
-    }
-
-    override fun showConfirmDialog(): AlertDialog? {
-        return confirmDialog(this, "¿Desea reservar el asiento?")
-    }
-
-    override fun isOnlineDialogPositiveButtonClicked() {
-        /*
-            Método encargado de controlar el botón positivo del Dialog.
-        */
-        if (isOnline(requireContext())){
-            fetchIteratorObserver()
-        } else {
-            showIsOnlineDialog()
-        }
-
-    }
-
-    override fun confirmPositiveButtonClicked() {
-        checkSeatSavedByIdNumberUser()
-    }
-
-    override fun confirmNegativeButtonClicked() {
-        showConfirmDialog()!!.dismiss()
-    }
-
-    override fun isAvailablePositiveButtonClicked() {
         navController.navigateUp()
     }
 
@@ -321,51 +302,6 @@ class SeatReservationFragment : BaseFragment(),
         /*
             Método encargado de verificar si una persona ya tiene reservado un asiento.
         */
-
-        btn_seat_reservation.setOnClickListener {
-
-            hideKeyboard()
-
-            nameUser = txt_fullname_seat_reservation.text.toString()
-            idNumberUser = txt_id_number_user_seat_reservation.text.toString()
-
-            if (!isOnline(requireContext())) {
-                showIsOnlineDialog()
-                return@setOnClickListener
-            }
-
-            if (seatReservationViewModel.checkEmptyNameUser(nameUser)) {
-                txt_fullname_seat_reservation.error = "Complete los campos."
-                return@setOnClickListener
-            }
-
-            if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
-                txt_id_number_user_seat_reservation.error = "Complete los campos."
-                return@setOnClickListener
-            }
-
-            if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
-                txt_id_number_user_seat_reservation.error = "Número de cédula inválido."
-                return@setOnClickListener
-            }
-
-            if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())){
-                showMessage("Ya no hay asientos disponibles.", 2)
-                goToSeatReservationMain()
-                return@setOnClickListener
-            }
-
-            showConfirmDialog()
-
-        }
-
-    }
-
-    override fun checkSeatSavedByIdNumberUser() {
-        /*
-            Método encargado de verificar si una persona ya tiene reservado un asiento.
-        */
-
         if (isOnline(requireContext())) {
 
             seatReservationViewModel.checkSeatSavedByIdNumberUser(idNumberUser)
@@ -399,6 +335,82 @@ class SeatReservationFragment : BaseFragment(),
 
         }
 
+    }
+
+    override fun showMessage(message: String, duration: Int) {
+        /*
+            Método encargado de mostrar un Toast.
+        */
+        requireContext().toast(requireContext(), message, duration)
+    }
+
+    override fun showProgressBar() {
+        /*
+            Método encargado de mostrar un ProgressBar.
+        */
+        progressbar_seat_reservation.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        /*
+            Método encargado de ocultar un ProgressBar.
+        */
+        progressbar_seat_reservation.visibility = View.GONE
+    }
+
+    override fun showIsOnlineDialog() {
+        /*
+            Método encargado de mostrar el Dialog "IsOnlineDialog".
+        */
+        isOnlineDialog(this)
+
+    }
+
+    override fun isOnlineDialogPositiveButtonClicked() {
+        /*
+            Método encargado de controlar el botón positivo del Dialog "IsOnlineDialog".
+        */
+        if (isOnline(requireContext())){
+            fetchData()
+        } else {
+            showIsOnlineDialog()
+        }
+
+    }
+
+    override fun showIsSeatReservationAvailableDialog() {
+        /*
+            Método encargado de mostrar el Dialog "isSeatReservationAvailableDialog".
+        */
+        isSeatReservationAvailableDialog(this)
+    }
+
+    override fun isSeatReservationAvailablePositiveButtonClicked() {
+        /*
+            Método encargado de controlar el botón positivo del Dialog "isSeatReservationAvailableDialog".
+        */
+        navController.navigateUp()
+    }
+
+    override fun showConfirmDialog(): AlertDialog? {
+        /*
+            Método encargado de mostrar el Dialog "confirmDialog".
+        */
+        return confirmDialog(this, "¿Desea reservar el asiento?")
+    }
+
+    override fun confirmPositiveButtonClicked() {
+        /*
+            Método encargado de controlar el botón positivo del Dialog "confirmDialog".
+        */
+        checkSeatSavedByIdNumberUserObserver()
+    }
+
+    override fun confirmNegativeButtonClicked() {
+        /*
+            Método encargado de controlar el botón negativo del Dialog "confirmDialog".
+        */
+        showConfirmDialog()!!.dismiss()
     }
 
 }

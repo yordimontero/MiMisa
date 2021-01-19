@@ -52,11 +52,66 @@ class AdminIntentionFragment : BaseFragment(),
 
         if (!isOnline(requireContext())) {
             showIsOnlineDialog()
-            showProgressBar()
             return
         }
 
-        fetchSavedIntentions()
+        fetchAllSavedIntentionsObserver()
+
+    }
+
+    override fun fetchAllSavedIntentionsObserver() {
+        /*
+            Método encargado de traer todas las intenciones guardadas en la base de datos.
+        */
+        if (isOnline(requireContext())) {
+
+            intentionViewModel.fetchAllSavedIntentions()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when (resultEmitted) {
+
+                            is Resource.Loading -> {
+                                hideMainLayout()
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                if (resultEmitted.data.isNotEmpty()) {
+
+                                    rv_admin_intentions.adapter = IntentionAdapter(
+                                            requireContext(), resultEmitted.data
+                                    )
+
+                                    showMainLayout()
+                                    hideProgressBar()
+                                    hideNotIntentionFoundedMessage()
+                                    showRecyclerView()
+
+                                } else {
+
+                                    showMainLayout()
+                                    hideProgressBar()
+                                    hideRecyclerView()
+                                    showNotIntentionFoundedMessage()
+
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                showMainLayout()
+                                hideProgressBar()
+
+                            }
+
+                        }
+
+                    })
+
+        }
 
     }
 
@@ -107,7 +162,7 @@ class AdminIntentionFragment : BaseFragment(),
 
             if (rd_btn_search_all_intentions.isChecked) {
 
-                fetchSavedIntentions()
+                fetchAllSavedIntentionsObserver()
                 return@setOnClickListener
 
             }
@@ -116,65 +171,9 @@ class AdminIntentionFragment : BaseFragment(),
 
     }
 
-    override fun fetchSavedIntentions() {
-        /*
-            Método encargado de traer todas las intenciones guardadas en la base de datos.
-        */
-        if (isOnline(requireContext())) {
-
-            intentionViewModel.fetchAllSavedIntentions()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when (resultEmitted) {
-
-                            is Resource.Loading -> {
-                                hideMainLayout()
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-
-                                if (resultEmitted.data.isNotEmpty()) {
-
-                                    rv_admin_intentions.adapter = IntentionAdapter(
-                                            requireContext(), resultEmitted.data
-                                    )
-
-                                    showMainLayout()
-                                    hideProgressBar()
-                                    hideNotSeatFoundedMessage()
-                                    showRecyclerView()
-
-                                } else {
-
-                                    showMainLayout()
-                                    hideProgressBar()
-                                    hideRecyclerView()
-                                    showNotSeatFoundedMessage()
-
-                                }
-
-                            }
-
-                            is Resource.Failure -> {
-
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                showMainLayout()
-                                hideProgressBar()
-
-                            }
-
-                        }
-
-                    })
-
-        }
-
-    }
-
     override fun fetchSavedIntentionsByCategoryObserver(category: String) {
         /*
-            Método encargado de traer todas las intenciones guardadas en la base de datos.
+            Método encargado de traer las intenciones guardadas por categoría.
         */
         if (isOnline(requireContext())) {
 
@@ -198,7 +197,7 @@ class AdminIntentionFragment : BaseFragment(),
 
                                     showMainLayout()
                                     hideProgressBar()
-                                    hideNotSeatFoundedMessage()
+                                    hideNotIntentionFoundedMessage()
                                     showRecyclerView()
 
                                 } else {
@@ -206,7 +205,7 @@ class AdminIntentionFragment : BaseFragment(),
                                     showMainLayout()
                                     hideProgressBar()
                                     hideRecyclerView()
-                                    showNotSeatFoundedMessage()
+                                    showNotIntentionFoundedMessage()
 
                                 }
 
@@ -225,15 +224,6 @@ class AdminIntentionFragment : BaseFragment(),
                     })
 
         }
-
-    }
-
-    override fun setupRecyclerView() {
-        /*
-            Método encargado de hacer el setup del RecyclerView.
-        */
-        rv_admin_intentions.layoutManager = LinearLayoutManager(requireContext())
-        rv_admin_intentions.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
 
     }
 
@@ -258,6 +248,15 @@ class AdminIntentionFragment : BaseFragment(),
         progressbar_admin_intention.visibility = View.GONE
     }
 
+    override fun setupRecyclerView() {
+        /*
+            Método encargado de hacer el setup del RecyclerView.
+        */
+        rv_admin_intentions.layoutManager = LinearLayoutManager(requireContext())
+        rv_admin_intentions.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+
+    }
+
     override fun showRecyclerView() {
         /*
             Método encargado de mostrar un RecyclerView.
@@ -273,27 +272,44 @@ class AdminIntentionFragment : BaseFragment(),
     }
 
     override fun showMainLayout() {
+        /*
+            Método encargado de mostrar el layout principal.
+        */
         layout_admin_intention.visibility = View.VISIBLE
     }
 
     override fun hideMainLayout() {
+        /*
+            Método encargado de ocultar el layout principal.
+        */
         layout_admin_intention.visibility = View.GONE
     }
 
-    override fun showNotSeatFoundedMessage() {
+    override fun showNotIntentionFoundedMessage() {
+        /*
+            Método encargado de mostrar un mensaje cuando no se encontraron intenciones.
+        */
         layout_not_registered_intention_founded.visibility = View.VISIBLE
     }
 
-    override fun hideNotSeatFoundedMessage() {
+    override fun hideNotIntentionFoundedMessage() {
+        /*
+            Método encargado de ocultar un mensaje cuando no se encontraron intenciones.
+        */
         layout_not_registered_intention_founded.visibility = View.GONE
     }
 
     override fun showIsOnlineDialog() {
+        /*
+            Método encargado de mostrar el Dialog "IsOnlineDialog".
+        */
         isOnlineDialog(this)
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
-
+        /*
+            Método encargado de controlar el botón positivo del Dialog "IsOnlineDialog".
+        */
         if (isOnline(requireContext())) {
             fetchData()
         } else {

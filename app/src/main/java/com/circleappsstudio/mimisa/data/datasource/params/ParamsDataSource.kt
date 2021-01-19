@@ -14,24 +14,26 @@ class ParamsDataSource: DataSource.Params {
     private val db by lazy { FirebaseFirestore.getInstance() }
 
     @ExperimentalCoroutinesApi
-    override suspend fun fetchIsAvailable()
+    override suspend fun fetchIsSeatReservationAvailable()
             : Flow<Resource<Boolean>> = callbackFlow {
         /*
-            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
+            o deshabilitada.
         */
         val isAvailablePath = db.collection("diaconia")
             .document("la_argentina")
             .collection("params")
             .document("data")
 
-        val subscription = isAvailablePath.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+        val subscription = isAvailablePath.addSnapshotListener { documentSnapshot,
+                                                                 firebaseFirestoreException ->
             /*
-                "subscription" va a estar siempre escuchando en tiempo real el valor del iterador
-                y va a estar ofreciendo el valor de dicho iterador por medio del offer(Resource.Success(iterator)).
+                "subscription" va a estar siempre escuchando en tiempo real el valor de "is_available",
+                y va a estar ofreciendo su valor por medio del offer(Resource.Success(isAvailable)).
             */
             if (documentSnapshot!!.exists()) {
 
-                val isAvailable = documentSnapshot.getBoolean("is_available")!!
+                val isAvailable = documentSnapshot.getBoolean("is_seat_reservation_available")!!
 
                 offer(Resource.Success(isAvailable))
 
@@ -41,49 +43,130 @@ class ParamsDataSource: DataSource.Params {
 
         }
         /*
-            Si no existe nada en el ViewModel que no esté haciendo ".collect", entonces cancela la suscripción
-            y cierra el canal con el awaitClose.
+            Si no existe nada en el ViewModel que no esté haciendo ".collect",
+            entonces cancela la suscripción y cierra el canal con el awaitClose.
             Esto pasa cuando la activity que conecta con el dicho ViewModel se cierra.
         */
         awaitClose { subscription.remove() }
 
     }
 
-    override suspend fun setIsAvailable(isAvailable: Boolean) {
+    override suspend fun setIsSeatReservationAvailable(isSeatReservationAvailable: Boolean) {
         /*
-            Método encargado de bloquear o desbloquear el funcionamiento del app.
+            Método encargado de habilitar o deshabilitar la reservación de asientos.
         */
         db.collection("diaconia")
             .document("la_argentina")
             .collection("params")
             .document("data")
-            .update("is_available", isAvailable)
+            .update("is_seat_reservation_available", isSeatReservationAvailable)
             .await()
 
     }
 
-    override suspend fun fetchIterator(): Flow<Resource<Int>> {
-        TODO("Not yet implemented")
+    @ExperimentalCoroutinesApi
+    override suspend fun fetchIterator(): Flow<Resource<Int>> = callbackFlow {
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
+        val iteratorPath = db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+
+        val subscription = iteratorPath.addSnapshotListener { documentSnapshot,
+                                                              firebaseFirestoreException ->
+            /*
+                "subscription" va a estar siempre escuchando en tiempo real el valor del iterador
+                y va a estar ofreciendo el valor de dicho iterador por medio del
+                offer(Resource.Success(iterator)).
+            */
+            if (documentSnapshot!!.exists()) {
+
+                val iterator = documentSnapshot.getLong("iterator")!!.toInt()
+
+                offer(Resource.Success(iterator))
+
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
+            }
+
+        }
+        /*
+            Si no existe nada en el ViewModel que no esté haciendo ".collect",
+            entonces cancela la suscripción y cierra el canal con el awaitClose.
+            Esto pasa cuando la activity que conecta con el dicho ViewModel se cierra.
+        */
+        awaitClose { subscription.remove() }
+
+    }
+
+    override suspend fun addIterator(seatNumber: Int) {
+        /*
+            Método encargado de aumentar el iterador al reservar un asiento.
+        */
+        val addIterator = seatNumber + 1
+
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+                .update("iterator", addIterator)
+                .await()
+
     }
 
     override suspend fun fetchSeatLimit(): Resource<Int> {
-        TODO("Not yet implemented")
+        /*
+            Método encargado de traer el número límite de asientos disponibles.
+        */
+        var seatLimit = 0
+
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+                .get().addOnSuccessListener { document ->
+
+                    if (document.exists()) {
+                        seatLimit = document.data!!["seat_limit"].toString().toInt()
+                    }
+
+                }.await()
+
+        return Resource.Success(seatLimit)
+
     }
 
     override suspend fun updateSeatLimit(seatLimit: Int) {
-        TODO("Not yet implemented")
+        /*
+            Método encargado de actualizar el número máximo de asientos disponibles.
+        */
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+                .update("seat_limit", seatLimit)
+                .await()
+
     }
 
     @ExperimentalCoroutinesApi
     override suspend fun fetchVersionCode()
             : Flow<Resource<Int>> = callbackFlow {
         /*
-            Método encargado de escuchar en tiempo real el versionCode en la base de datos.
+            Método encargado de escuchar en tiempo real el versionCode.
         */
         val versionCodePath = db.collection("general_params")
             .document("data")
 
-        val subscription = versionCodePath.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+        val subscription = versionCodePath.addSnapshotListener { documentSnapshot,
+                                                                 firebaseFirestoreException ->
+            /*
+                "subscription" va a estar siempre escuchando en tiempo real el valor del versionCode
+                y va a estar ofreciendo su valor por medio del
+                offer(Resource.Success(versionCode)).
+            */
 
             if (documentSnapshot!!.exists()) {
 
@@ -97,6 +180,11 @@ class ParamsDataSource: DataSource.Params {
 
         }
 
+        /*
+            Si no existe nada en el ViewModel que no esté haciendo ".collect",
+            entonces cancela la suscripción y cierra el canal con el awaitClose.
+            Esto pasa cuando la activity que conecta con el dicho ViewModel se cierra.
+        */
         awaitClose { subscription.remove() }
 
     }

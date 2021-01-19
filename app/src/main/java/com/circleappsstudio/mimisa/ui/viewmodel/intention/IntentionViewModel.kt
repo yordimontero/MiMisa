@@ -19,7 +19,7 @@ class IntentionViewModel(
             intention: String
     ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
         /*
-            Método encargado de guardar una intención en la base de datos.
+            Método encargado de guardar una intención.
         */
         emit(Resource.Loading())
 
@@ -27,34 +27,6 @@ class IntentionViewModel(
 
             intentionRepository.saveIntention(category, intention)
             emit(Resource.Success(true))
-
-        } catch (e: FirebaseException) {
-            emit(Resource.Failure(e))
-        }
-
-    }
-
-    /*
-        Método encargado de verificar si la categoría de la intención es válida.
-    */
-    override fun checkValidIntentionCategory(category: String)
-            : Boolean = category == "Seleccione una categoría"
-
-    /*
-        Método encargado de verificar si la intención es vacía.
-    */
-    override fun checkEmptyIntention(intention: String): Boolean = intention.isEmpty()
-
-    override fun fetchSavedIntentionsByNameUser()
-            : LiveData<Resource<List<Intention>>?> = liveData(Dispatchers.IO) {
-        /*
-            Método encargado de traer todas las intenciones guardadas por el usuario autenticado actual.
-        */
-        emit(Resource.Loading())
-
-        try {
-
-            emit(intentionRepository.fetchSavedIntentionsByNameUser())
 
         } catch (e: FirebaseException) {
             emit(Resource.Failure(e))
@@ -79,6 +51,23 @@ class IntentionViewModel(
 
     }
 
+    override fun fetchSavedIntentionsByNameUser()
+            : LiveData<Resource<List<Intention>>?> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de traer todas las intenciones guardadas por el usuario actual registrado.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            emit(intentionRepository.fetchSavedIntentionsByNameUser())
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
     override fun fetchSavedIntentionsByCategory(category: String)
             : LiveData<Resource<List<Intention>>?> =  liveData(Dispatchers.IO) {
         /*
@@ -95,5 +84,16 @@ class IntentionViewModel(
         }
 
     }
+
+    /*
+        Método encargado de verificar si la intención no es vacía.
+    */
+    override fun checkEmptyIntention(intention: String): Boolean = intention.isEmpty()
+
+    /*
+        Método encargado de verificar si la categoría de la intención es válida.
+    */
+    override fun checkValidIntentionCategory(category: String)
+            : Boolean = category == "Seleccione una categoría"
 
 }

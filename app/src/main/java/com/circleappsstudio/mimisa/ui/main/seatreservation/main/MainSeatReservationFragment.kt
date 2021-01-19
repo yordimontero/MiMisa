@@ -76,69 +76,13 @@ class MainSeatReservationFragment : BaseFragment(),
 
         fetchIteratorObserver()
 
-        fetchIsAvailable()
-
-    }
-
-    override fun fetchIsAvailable() {
-        /*
-            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
-        */
-        if (isOnline(requireContext())) {
-
-            paramsViewModel.fetchIsAvailable()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when(resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-
-                                isAvailable = resultEmitted.data
-
-                                if (!isAvailable) {
-
-                                    showInfoMessage()
-                                    changeTextViewToDisabledSeatReservation()
-                                    hideButton()
-
-                                } else {
-
-                                    hideInfoMessage()
-                                    showButton()
-
-                                }
-
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-        }
-
-    }
-
-    override fun setUpRecyclerView() {
-        /*
-            Método encargado de hacer el setup del RecyclerView.
-        */
-        rv_seat_reservation.layoutManager = LinearLayoutManager(requireContext())
-        rv_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        fetchIsSeatReservationAvailable()
 
     }
 
     override fun fetchRegisteredSeatsByUserNameObserver() {
         /*
-            Método encargado de traer todos los asientos reservados por el usuario leggeado.
+            Método encargado de traer todos los asientos reservados por el usuario actual registrado.
         */
         if (isOnline(requireContext())) {
 
@@ -187,9 +131,138 @@ class MainSeatReservationFragment : BaseFragment(),
 
     }
 
+    override fun fetchIteratorObserver() {
+        /*
+            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
+        */
+        if (isOnline(requireContext())) {
+
+            paramsViewModel.fetchIterator()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted){
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+                                seatNumber = resultEmitted.data.toString()
+                                fetchSeatLimitObserver()
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+    }
+
+    override fun fetchIsSeatReservationAvailable() {
+        /*
+            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
+            o deshabilitada.
+        */
+        if (isOnline(requireContext())) {
+
+            paramsViewModel.fetchIsSeatReservationAvailable()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                isAvailable = resultEmitted.data
+
+                                if (!isAvailable) {
+
+                                    showInfoMessage()
+                                    changeTextViewToDisabledSeatReservation()
+                                    hideButton()
+
+                                } else {
+
+                                    hideInfoMessage()
+                                    showButton()
+
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+    }
+
+    override fun fetchSeatLimitObserver() {
+        /*
+            Método encargado de traer el número límite de asientos disponibles.
+        */
+        if (isOnline(requireContext())) {
+
+            paramsViewModel.fetchSeatLimit()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted){
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+                                seatLimitNumber = resultEmitted.data.toString()
+                                checkAvailableSeats()
+                                hideProgressBar()
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+    }
+
+    override fun checkAvailableSeats() {
+        /*
+            Método encargado de verificar si hay asientos disponibles.
+        */
+        if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())) {
+
+            showInfoMessage()
+            changeTextViewToNoSeatsAvailable()
+            hideButton()
+
+        }
+
+    }
+
     override fun goToSeatReservation() {
         /*
-            Método encargado de navegar hacia el fragment de reservación de asientos.
+            Método encargado de navegar hacia el fragment "SeatReservation".
         */
         btn_go_to_seat_reservation.setOnClickListener {
             navController.navigate(R.id.fragmentSeatReservation)
@@ -217,123 +290,12 @@ class MainSeatReservationFragment : BaseFragment(),
         progressbar_main_seat_reservation.visibility = View.GONE
     }
 
-    override fun showInfoMessage() {
+    override fun setUpRecyclerView() {
         /*
-             Método encargado de mostrar el layout de que no hay asientos disponibles.
+            Método encargado de hacer el setup del RecyclerView.
         */
-        layout_show_info_message.visibility = View.VISIBLE
-    }
-
-    override fun hideInfoMessage() {
-        layout_show_info_message.visibility = View.GONE
-    }
-
-    override fun changeTextViewToNoSeatsAvailable() {
-        txt_info_message.text = "¡No hay asientos disponibles!"
-    }
-
-    override fun changeTextViewToDisabledSeatReservation() {
-        //txt_info_message.text = "¡La reservación de asientos está deshabilitada en este momento!"
-        txt_info_message.text = "¡La reservación de asientos se encuentra deshabilitada en este momento!"
-    }
-
-    override fun showNoRegisteredSeatsYetMessage() {
-        layout_no_registered_seats_yet.visibility = View.VISIBLE
-    }
-
-    override fun hideNoRegisteredSeatsYetMessage() {
-        layout_no_registered_seats_yet.visibility = View.GONE
-    }
-
-    override fun showButton() {
-        btn_go_to_seat_reservation.visibility = View.VISIBLE
-    }
-
-    override fun hideButton() {
-        /*
-             Método encargado de ocultar un Button.
-        */
-        btn_go_to_seat_reservation.visibility = View.GONE
-    }
-
-    override fun fetchIteratorObserver() {
-        /*
-            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
-        */
-        if (isOnline(requireContext())) {
-
-            seatReservationViewModel.fetchIterator()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                when(resultEmitted){
-
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
-
-                    is Resource.Success -> {
-                        seatNumber = resultEmitted.data.toString()
-                        fetchSeatLimitObserver()
-                    }
-
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
-
-                }
-
-            })
-
-        }
-
-    }
-
-    override fun fetchSeatLimitObserver() {
-        /*
-            Método encargado de traer el número límite de asientos disponibles.
-        */
-        if (isOnline(requireContext())) {
-
-            seatReservationViewModel.fetchSeatLimit()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                when(resultEmitted){
-
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
-
-                    is Resource.Success -> {
-                        seatLimitNumber = resultEmitted.data.toString()
-                        checkAvailableSeats()
-                        hideProgressBar()
-                    }
-
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
-
-                }
-
-            })
-
-        }
-
-    }
-
-    override fun checkAvailableSeats() {
-        /*
-            Método encargado de verificar si hay asientos disponibles.
-        */
-        if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())) {
-
-            showInfoMessage()
-            changeTextViewToNoSeatsAvailable()
-            hideButton()
-
-        }
+        rv_seat_reservation.layoutManager = LinearLayoutManager(requireContext())
+        rv_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
 
     }
 
@@ -351,12 +313,74 @@ class MainSeatReservationFragment : BaseFragment(),
         layout_rv_seat_reservation.visibility = View.GONE
     }
 
+    override fun showInfoMessage() {
+        /*
+             Método encargado de mostrar un mensaje de informción.
+        */
+        layout_show_info_message.visibility = View.VISIBLE
+    }
+
+    override fun hideInfoMessage() {
+        /*
+             Método encargado de ocultar un mensaje de informción.
+        */
+        layout_show_info_message.visibility = View.GONE
+    }
+
+    override fun changeTextViewToNoSeatsAvailable() {
+        /*
+             Método encargado de cambiar el texto de un TextView cuando no hay asientos disponibles.
+        */
+        txt_info_message.text = "¡No hay asientos disponibles!"
+    }
+
+    override fun changeTextViewToDisabledSeatReservation() {
+        /*
+             Método encargado de cambiar el texto de un TextView cuando
+             la reservación de asientos está deshabilitada.
+        */
+        txt_info_message.text = "¡La reservación de asientos se encuentra deshabilitada en este momento!"
+    }
+
+    override fun showNoRegisteredSeatsYetMessage() {
+        /*
+             Método encargado de mostrar un mensaje cuando no se ha registrado ningún asiento.
+        */
+        layout_no_registered_seats_yet.visibility = View.VISIBLE
+    }
+
+    override fun hideNoRegisteredSeatsYetMessage() {
+        /*
+             Método encargado de ocultar un mensaje cuando no se ha registrado ningún asiento.
+        */
+        layout_no_registered_seats_yet.visibility = View.GONE
+    }
+
+    override fun showButton() {
+        /*
+             Método encargado de mostrar un Button.
+        */
+        btn_go_to_seat_reservation.visibility = View.VISIBLE
+    }
+
+    override fun hideButton() {
+        /*
+             Método encargado de ocultar un Button.
+        */
+        btn_go_to_seat_reservation.visibility = View.GONE
+    }
+
     override fun showIsOnlineDialog() {
+        /*
+             Método encargado de mostrar el Dialog "IsOnlineDialog".
+        */
         isOnlineDialog(this)
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
-
+        /*
+             Método encargado de controlar el botón positivo del Dialog "IsOnlineDialog".
+        */
         if (isOnline(requireContext())) {
             fetchData()
         } else {
