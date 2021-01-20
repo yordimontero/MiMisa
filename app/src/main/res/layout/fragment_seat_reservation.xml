@@ -80,7 +80,7 @@
                         android:layout_marginBottom="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_fullname_seat_reservation"
+                            android:id="@+id/txt_name_seat_reservation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -101,6 +101,7 @@
                         android:layout_marginBottom="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_lastname_seat_reservation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"

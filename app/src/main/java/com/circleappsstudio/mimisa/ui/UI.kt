@@ -29,21 +29,17 @@ interface UI {
 
     }
 
-    interface SignInUI {
+    interface SignIn {
         /*
             Interface encargada de controlar los métodos del fragment de registro de usuarios.
         */
-        fun showMessage(message: String, duration: Int)
-
-        fun showProgressBar()
-
-        fun hideProgressBar()
-
         fun signInUser()
 
         fun signInUserObserver()
 
         fun updateUserProfileObserver()
+
+        fun checkCreatedAdminByEmailUserObserver(email: String)
 
         fun signInUserWithGoogle()
 
@@ -53,27 +49,39 @@ interface UI {
 
         fun goToMainActivity()
 
-        fun showDialog()
+        fun goToAdminMainActivity()
 
-    }
-
-    interface LogInUI {
-        /*
-            Interface encargada de controlar los métodos del fragment de loggeo de usuarios.
-        */
         fun showMessage(message: String, duration: Int)
 
         fun showProgressBar()
 
         fun hideProgressBar()
 
+        fun showIsOnlineDialog()
+
+    }
+
+    interface LogIn {
+        /*
+            Interface encargada de controlar los métodos del fragment de loggeo de usuarios.
+        */
         fun logInUser()
 
         fun logInUserObserver()
 
+        fun checkCreatedAdminByEmailUserObserver(email: String)
+
         fun goToMainActivity()
 
-        fun showDialog()
+        fun goToAdminMainActivity()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showIsOnlineDialog()
 
     }
 
@@ -81,17 +89,17 @@ interface UI {
         /*
             Interface encargada de controlar los métodos del fragment de cambio de contraseña de usuarios.
         */
+        fun resetPasswordUser()
+
+        fun resetPasswordUserObserver()
+
         fun showMessage(message: String, duration: Int)
 
         fun showProgressBar()
 
         fun hideProgressBar()
 
-        fun resetPasswordUser()
-
-        fun resetPasswordUserObserver()
-
-        fun showDialog()
+        fun showIsOnlineDialog()
 
     }
 

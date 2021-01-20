@@ -1,5 +1,3 @@
-// ViewModel encargado de interactuar con el Repo "AuthRepo".
-
 package com.circleappsstudio.mimisa.ui.viewmodel.auth
 
 import android.content.Intent
@@ -11,12 +9,13 @@ import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 
-class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), MainViewModel.Auth {
+class AuthViewModel(
+        private val authRepository: Repository.Auth
+) : ViewModel(), MainViewModel.Auth {
 
-    private val currentUser by lazy { FirebaseAuth.getInstance().currentUser }
+    //private val currentUser by lazy { FirebaseAuth.getInstance().currentUser }
 
     override fun signInUser(
         email: String,
@@ -31,7 +30,7 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
 
             try {
 
-                authRepository.signInUserRepo(email, password)
+                authRepository.signInUser(email, password)
                 emit(Resource.Success(true))
 
             } catch (e: FirebaseException){
@@ -53,7 +52,7 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
 
             try {
 
-                authRepository.updateUserProfileRepo(fullName)
+                authRepository.updateUserProfile(fullName)
                 emit(Resource.Success(true))
 
             } catch (e: FirebaseException){
@@ -63,20 +62,27 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
         }
 
     /*
-        Método encargado de validar que los campos de texto en la pantalla
-        de registrar usuario no sean vacíos.
-    */
-    override fun checkEmptyFieldsForSignIn(
-        fullName: String,
-        email: String,
-        password1: String,
-        password2: String
-    ): Boolean = email.isEmpty() && password1.isEmpty() && password2.isEmpty()
-
-    /*
         Método encargado de validar que el nombre no sea vacío.
     */
     override fun checkEmptyNameUser(nameUser: String): Boolean = nameUser.isEmpty()
+
+    /*
+        Método encargado de validar que el e-mail no sea vacío.
+    */
+    override fun checkEmptyEmailUser(email: String)
+            : Boolean = email.isEmpty()
+
+    /*
+        Método encargado de validar que la contraseña 1 no sea vacía.
+    */
+    override fun checkEmptyPassword1User(password1: String)
+            : Boolean = password1.isEmpty()
+
+    /*
+        Método encargado de validar que la contraseña 2 no sea vacía.
+    */
+    override fun checkEmptyPassword2User(password2: String)
+            : Boolean = password2.isEmpty()
 
     /*
         Método encargado de validar que las contraseñas ingresadas sean iguales.
@@ -96,7 +102,7 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
 
             try {
 
-                authRepository.logInUserRepo(email, password)
+                authRepository.logInUser(email, password)
                 emit(Resource.Success(true))
 
             } catch (e: FirebaseException){
@@ -106,16 +112,14 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
         }
 
     /*
-        Método encargado de validar que los campos de texto en la pantalla de
-        loggear usuario no sean vacíos.
+        Método encargado de validar que exista actualmente un usuario loggeado en el sistema.
     */
-    override fun checkEmptyFieldsForLogIn(email: String, password: String)
-            : Boolean = email.isEmpty() && password.isEmpty()
+    //override fun checkUserLogged(): Boolean = currentUser == null
 
     /*
         Método encargado de validar que exista actualmente un usuario loggeado en el sistema.
     */
-    override fun checkUserLogged(): Boolean = currentUser == null
+    override fun checkUserLogged(): Boolean = authRepository.getInstanceUser() == null
 
     override fun resetPasswordUser(email: String): LiveData<Resource<Boolean>> =
         /*
@@ -128,7 +132,7 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
 
             try {
 
-                authRepository.resetPasswordUserRepo(email)
+                authRepository.resetPasswordUser(email)
                 emit(Resource.Success(true))
 
             } catch (e: FirebaseException){
@@ -136,13 +140,6 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
             }
 
         }
-
-    /*
-        Método encargado de validar que los campos de texto en la pantalla de
-        cambiar contraseña del usuario no sean vacíos.
-    */
-    override fun checkEmptyFieldsForResetPassword(email: String)
-            : Boolean = email.isEmpty()
 
     /*
         Método encargado de validar que el correo ingresado sea válido.
@@ -159,12 +156,12 @@ class AuthViewModel(private val authRepository: Repository.Auth) : ViewModel(), 
     /*
         Método encargado de cerrar la sesión de un usuario existente en el sistema.
     */
-    override fun logOutUser() = authRepository.logOutUserRepo()
+    override fun logOutUser() = authRepository.logOutUser()
 
     /*
         Método encargado de obtener el nombre del actual usuario autenticado.
     */
-    override fun getUserName(): String = authRepository.getUserName()
+    override fun getUserName(): String = authRepository.getNameUser()
 
     override fun getEmailUser(): String = authRepository.getEmailUser()
 

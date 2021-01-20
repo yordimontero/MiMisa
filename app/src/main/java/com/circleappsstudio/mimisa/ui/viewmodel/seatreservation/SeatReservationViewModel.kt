@@ -18,6 +18,7 @@ class SeatReservationViewModel(
     override fun saveSeatReserved(
         seatNumber: Int,
         nameUser: String,
+        lastNameUser: String,
         idNumberUser: String
     ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
         /*
@@ -27,7 +28,7 @@ class SeatReservationViewModel(
 
         try {
 
-            seatReservationRepository.saveSeatReserved(seatNumber, nameUser, idNumberUser)
+            seatReservationRepository.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser)
             emit(Resource.Success(true))
 
         } catch (e: FirebaseException){
@@ -127,6 +128,11 @@ class SeatReservationViewModel(
         Método encargado de validar que el nombre no sea vacío.
     */
     override fun checkEmptyNameUser(nameUser: String): Boolean = nameUser.isEmpty()
+
+    /*
+        Método encargado de validar que el apellido no sea vacío.
+    */
+    override fun checkEmptyLastNameUser(lastNameUser: String): Boolean = lastNameUser.isEmpty()
 
     /*
         Método encargado de validar que el número de cédula no sea vacío.

@@ -39,6 +39,7 @@ class SeatAdapter(private val context: Context,
 
             itemView.txt_seat_number_row.text = item.seatNumber.toString()
             itemView.txt_name_user_row.text = item.nameUser
+            itemView.txt_lastname_user_row.text = item.lastNameUser
             itemView.txt_id_number_row.text = item.idNumberUser
             itemView.txt_date_seat_row.text = item.dateRegistered
 

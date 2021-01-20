@@ -20,13 +20,18 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         SimpleDateFormat("dd-MM-yyyy", Locale.US).format(Calendar.getInstance().time)
     }
 
-    override suspend fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String) {
+    override suspend fun saveSeatReserved(
+            seatNumber: Int,
+            nameUser: String,
+            lastNameUser: String,
+            idNumberUser: String) {
         /*
             Método encargado de reservar un asiento.
         */
         val reservedSeat = hashMapOf(
                 "seatNumber" to seatNumber,
                 "nameUser" to nameUser,
+                "lastNameUser" to lastNameUser,
                 "idNumberUser" to idNumberUser,
                 "dateRegistered" to date,
                 "seatRegisteredBy" to currentNameUser
@@ -66,6 +71,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                             seat = Seat(
                                     document.data!!["seatNumber"].toString().toInt(),
                                     document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
                                     document.data!!["idNumberUser"].toString(),
                                     document.data!!["dateRegistered"].toString(),
                                     document.data!!["seatRegisteredBy"].toString()
@@ -108,6 +114,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                             seat = Seat(
                                     document.data!!["seatNumber"].toString().toInt(),
                                     document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
                                     document.data!!["idNumberUser"].toString(),
                                     document.data!!["dateRegistered"].toString()
                             )
@@ -150,6 +157,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                             seat = Seat(
                                     document.data!!["seatNumber"].toString().toInt(),
                                     document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
                                     document.data!!["idNumberUser"].toString(),
                                     document.data!!["dateRegistered"].toString()
                             )
@@ -190,6 +198,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                             seat = Seat(
                                     document.data!!["seatNumber"].toString().toInt(),
                                     document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
                                     document.data!!["idNumberUser"].toString(),
                                     document.data!!["dateRegistered"].toString()
                             )

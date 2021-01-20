@@ -16,7 +16,9 @@ import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_reset_password.*
 
-class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialogClickButtonListener {
+class ResetPasswordFragment : BaseFragment(),
+        UI.ResetPassword,
+        UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -30,9 +32,7 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
 
     private lateinit var email: String
 
-    override fun getLayout(): Int {
-        return R.layout.fragment_reset_password
-    }
+    override fun getLayout(): Int = R.layout.fragment_reset_password
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,42 +43,20 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
 
     }
 
-    override fun showMessage(message: String, duration: Int) {
-        /*
-            Método encargado de mostrar un Toast.
-        */
-        requireContext().toast(requireContext(), message, duration)
-    }
-
-    override fun showProgressBar() {
-        /*
-            Método encargado de mostrar un progress bar.
-        */
-        progressbar_reset_password_user.visibility = View.VISIBLE
-    }
-
-    override fun hideProgressBar() {
-        /*
-            Método encargado de ocultar un progress bar.
-        */
-        progressbar_reset_password_user.visibility = View.GONE
-    }
-
     override fun resetPasswordUser() {
-        /*
-             Método encargado de mandar un correo de cambio de contraseña a un
-             usuario existente en el sistema.
-        */
+
         btn_reset_password_user.setOnClickListener {
 
-            email = txt_email_reset_password_user.text.toString()
+            hideKeyboard()
+
+            email = txt_email_reset_password_user.text.toString().trim()
 
             if (!isOnline(requireContext())) {
-                showDialog()
+                showIsOnlineDialog()
                 return@setOnClickListener
             }
 
-            if (authViewModel.checkEmptyFieldsForResetPassword(email)){
+            if (authViewModel.checkEmptyEmailUser(email)){
                 txt_email_reset_password_user.error = "Complete los campos."
                 return@setOnClickListener
             }
@@ -101,7 +79,8 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
         */
         if (isOnline(requireContext())) {
 
-            authViewModel.resetPasswordUser(email).observe(viewLifecycleOwner, Observer { resultEmitted ->
+            authViewModel.resetPasswordUser(email)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when(resultEmitted){
 
@@ -127,9 +106,30 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
 
     }
 
-    override fun showDialog() {
+    override fun showMessage(message: String, duration: Int) {
         /*
-             Método encargado de mostrar un Dialog.
+            Método encargado de mostrar un Toast.
+        */
+        requireContext().toast(requireContext(), message, duration)
+    }
+
+    override fun showProgressBar() {
+        /*
+            Método encargado de mostrar un ProgressBar.
+        */
+        progressbar_reset_password_user.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        /*
+            Método encargado de ocultar un ProgressBar.
+        */
+        progressbar_reset_password_user.visibility = View.GONE
+    }
+
+    override fun showIsOnlineDialog() {
+        /*
+             Método encargado de mostrar el Dialog "isOnlineDialog".
         */
         isOnlineDialog(this)
 
@@ -137,10 +137,10 @@ class ResetPasswordFragment : BaseFragment(), UI.ResetPassword, UI.IsOnlineDialo
 
     override fun isOnlineDialogPositiveButtonClicked() {
         /*
-            Método encargado de controlar el botón positivo del Dialog.
+            Método encargado de controlar el botón positivo del Dialog "isOnlineDialog".
         */
         if (!isOnline(requireContext())) {
-            showDialog()
+            showIsOnlineDialog()
         }
 
     }

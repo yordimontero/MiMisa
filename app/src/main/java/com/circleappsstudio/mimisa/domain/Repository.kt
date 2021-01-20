@@ -5,6 +5,7 @@ import android.content.Intent
 import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 interface Repository {
@@ -13,17 +14,19 @@ interface Repository {
         /*
             Interface encargada de controlar los métodos de autenticación de Firebase.
         */
-        suspend fun signInUserRepo(email: String, password: String)
+        suspend fun signInUser(email: String, password: String)
 
-        suspend fun updateUserProfileRepo(fullName: String)
+        suspend fun updateUserProfile(fullName: String)
 
-        suspend fun logInUserRepo(email: String, password: String)
+        suspend fun logInUser(email: String, password: String)
 
-        suspend fun resetPasswordUserRepo(email: String)
+        suspend fun resetPasswordUser(email: String)
 
-        fun logOutUserRepo()
+        fun logOutUser()
 
-        fun getUserName(): String
+        fun getInstanceUser(): FirebaseUser?
+
+        fun getNameUser(): String
 
         fun getEmailUser(): String
 
@@ -52,7 +55,12 @@ interface Repository {
             Interface encargada de controlar los métodos de la base de datos Firestore para
             la reservación de asientos.
         */
-        suspend fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String)
+        suspend fun saveSeatReserved(
+                seatNumber: Int,
+                nameUser: String,
+                lastNameUser: String,
+                idNumberUser: String
+        )
 
         suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>?
 

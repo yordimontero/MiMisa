@@ -39,13 +39,15 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun isOnline(context: Context?): Boolean {
         /*
-            Método encargado de detectar la conexión a internet dentro de los fragments.
+            Método encargado de detectar la conexión a internet dentro de las activities.
         */
-        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE)
+                as ConnectivityManager
 
         if (connectivityManager != null) {
 
-            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            val capabilities = connectivityManager
+                    .getNetworkCapabilities(connectivityManager.activeNetwork)
 
             if (capabilities != null) {
 
@@ -75,7 +77,10 @@ abstract class BaseActivity : AppCompatActivity() {
         return false
     }
 
-    fun isOnlineDialog(buttonListener: UI.IsOnlineDialogClickButtonListener, context: Context) {
+    fun isOnlineDialog(
+            buttonListener: UI.IsOnlineDialogClickButtonListener,
+            context: Context
+    ) {
         /*
             Método encargado de mostrar un Dialog cuando no hay conexión a internet.
         */
@@ -120,7 +125,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 buttonListener.updateAppPositiveButtonClicked()
             }
 
-            setNegativeButton("No, gracias") { dialog, id ->
+            setNegativeButton("Actualizar después") { dialog, id ->
                 buttonListener.updateAppNegativeButtonClicked()
             }
 
@@ -142,7 +147,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
             val packageInfo = this.packageManager.getPackageInfo(this.packageName, 0)
 
-            currentVersionCode = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            currentVersionCode = if (
+                    android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P
+            ) {
                 packageInfo.longVersionCode.toInt()
             } else {
                 packageInfo.versionCode
@@ -173,7 +180,8 @@ abstract class BaseActivity : AppCompatActivity() {
         /*
             Método encargado de ocultar el teclado de la pantalla.
         */
-        val imm: InputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm: InputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE)
+                as InputMethodManager
         imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
 
     }

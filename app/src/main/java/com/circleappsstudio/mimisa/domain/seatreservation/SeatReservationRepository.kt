@@ -15,8 +15,9 @@ class SeatReservationRepository(
     override suspend fun saveSeatReserved(
             seatNumber: Int,
             nameUser: String,
+            lastNameUser: String,
             idNumberUser: String
-    ) = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, idNumberUser)
+    ) = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser)
 
     /*
         Método encargado de traer todos los asientos reservados de la base datos.

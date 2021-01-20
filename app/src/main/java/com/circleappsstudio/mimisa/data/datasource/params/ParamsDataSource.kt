@@ -8,6 +8,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 
 class ParamsDataSource: DataSource.Params {
 
@@ -151,12 +152,13 @@ class ParamsDataSource: DataSource.Params {
 
     }
 
-    @ExperimentalCoroutinesApi
+    /*@ExperimentalCoroutinesApi
     override suspend fun fetchVersionCode()
             : Flow<Resource<Int>> = callbackFlow {
         /*
             Método encargado de escuchar en tiempo real el versionCode.
         */
+
         val versionCodePath = db.collection("general_params")
             .document("data")
 
@@ -185,6 +187,39 @@ class ParamsDataSource: DataSource.Params {
             entonces cancela la suscripción y cierra el canal con el awaitClose.
             Esto pasa cuando la activity que conecta con el dicho ViewModel se cierra.
         */
+        awaitClose { subscription.remove() }
+
+    }*/
+
+    @ExperimentalCoroutinesApi
+    override suspend fun fetchVersionCode()
+            : Flow<Resource<Int>> = callbackFlow {
+        /*
+            Método encargado de escuchar en tiempo real el versionCode.
+        */
+
+        val versionCodePath = db.collection("general_params")
+                .document("data")
+
+        val subscription = versionCodePath.addSnapshotListener { documentSnapshot,
+                                                                 firebaseFirestoreException ->
+
+            try {
+
+                if (documentSnapshot!!.exists()) {
+
+                    val versionCode = documentSnapshot.getLong("version_code")!!.toInt()
+
+                    offer(Resource.Success(versionCode))
+
+                } else {
+                    channel.close(firebaseFirestoreException?.cause)
+                }
+
+            } catch (e: Exception){}
+
+        }
+
         awaitClose { subscription.remove() }
 
     }

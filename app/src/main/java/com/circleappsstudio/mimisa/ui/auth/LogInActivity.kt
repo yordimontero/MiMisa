@@ -11,9 +11,7 @@ class LogInActivity : BaseActivity() {
 
     private lateinit var navController: NavController
 
-    override fun getLayout(): Int {
-        return R.layout.activity_login
-    }
+    override fun getLayout(): Int = R.layout.activity_login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,22 +1,24 @@
-// DataSource encargado de interactuar con la autenticación de Firebase.
-
 package com.circleappsstudio.mimisa.data.datasource.auth
 
 import android.content.Intent
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.tasks.await
 
 class AuthDataSource : DataSource.Auth {
 
+    private var user: FirebaseAuth = FirebaseAuth.getInstance()
+
     companion object{
-        //Constante para hacer a verificación con el RequestCode lanzado con el onActivityResult.
+        /*
+            Constante para hacer la verificación con el RequestCode
+            lanzado con el onActivityResult.
+        */
         private const val RC_SIGN_IN = 423
     }
-
-    private var user: FirebaseAuth = FirebaseAuth.getInstance()
 
     override suspend fun signInUser(email: String, password: String) {
         /*
@@ -59,10 +61,18 @@ class AuthDataSource : DataSource.Auth {
     }
 
     /*
+        Método encargado de retornar la instancia del usuario.
+    */
+    override fun getInstanceUser(): FirebaseUser? = user.currentUser
+
+    /*
         Método encargado de obtener el nombre del actual usuario autenticado.
     */
     override fun getNameUser(): String = user.currentUser?.displayName.toString()
 
+    /*
+        Método encargado de obtener el e-mail del actual usuario autenticado.
+    */
     override fun getEmailUser(): String = user.currentUser?.email.toString()
 
     override fun intentForGoogleAuth(): Intent {

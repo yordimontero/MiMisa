@@ -49,6 +49,7 @@ class SeatReservationFragment : BaseFragment(),
 
     private lateinit var seatNumber: String
     private lateinit var nameUser: String
+    private lateinit var lastNameUser: String
     private lateinit var idNumberUser: String
     private lateinit var seatLimitNumber: String
 
@@ -189,7 +190,8 @@ class SeatReservationFragment : BaseFragment(),
 
             hideKeyboard()
 
-            nameUser = txt_fullname_seat_reservation.text.toString()
+            nameUser = txt_name_seat_reservation.text.toString()
+            lastNameUser = txt_lastname_seat_reservation.text.toString().trim()
             idNumberUser = txt_id_number_user_seat_reservation.text.toString()
 
             if (!isOnline(requireContext())) {
@@ -198,7 +200,12 @@ class SeatReservationFragment : BaseFragment(),
             }
 
             if (seatReservationViewModel.checkEmptyNameUser(nameUser)) {
-                txt_fullname_seat_reservation.error = "Complete los campos."
+                txt_name_seat_reservation.error = "Complete los campos."
+                return@setOnClickListener
+            }
+
+            if (seatReservationViewModel.checkEmptyLastNameUser(lastNameUser)) {
+                txt_lastname_seat_reservation.error = "Complete los campos."
                 return@setOnClickListener
             }
 
@@ -233,6 +240,7 @@ class SeatReservationFragment : BaseFragment(),
             seatReservationViewModel.saveSeatReserved(
                     seatNumber.toInt(),
                     nameUser,
+                    lastNameUser,
                     idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {

@@ -1,10 +1,10 @@
 package com.circleappsstudio.mimisa.data.datasource
 
-import android.app.Activity
 import android.content.Intent
 import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 interface DataSource {
@@ -22,6 +22,8 @@ interface DataSource {
         suspend fun resetPasswordUser(email: String)
 
         fun logOutUser()
+
+        fun getInstanceUser(): FirebaseUser?
 
         fun getNameUser(): String
 
@@ -52,7 +54,12 @@ interface DataSource {
             Interface encargada de controlar los métodos de la base de datos Firestore para
             la reservación de asientos.
         */
-        suspend fun saveSeatReserved(seatNumber: Int, nameUser: String, idNumberUser: String)
+        suspend fun saveSeatReserved(
+                seatNumber: Int,
+                nameUser: String,
+                lastNameUser: String,
+                idNumberUser: String
+        )
 
         suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>?
 

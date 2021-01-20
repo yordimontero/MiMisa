@@ -48,7 +48,8 @@ abstract class BaseFragment() : Fragment() {
         /*
             Método encargado de detectar la conexión a internet dentro de los fragments.
         */
-        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE)
+                as ConnectivityManager
 
         if (connectivityManager != null) {
 
@@ -108,7 +109,8 @@ abstract class BaseFragment() : Fragment() {
 
     }
 
-    fun isSeatReservationAvailableDialog(buttonListenerSeatReservation: UI.IsSeatReservationAvailableDialogClickButtonListener) {
+    fun isSeatReservationAvailableDialog(buttonListenerSeatReservation:
+                                         UI.IsSeatReservationAvailableDialogClickButtonListener) {
         /*
             Método encargado de mostrar un Dialog cuando no hay conexión a internet.
         */
@@ -125,38 +127,6 @@ abstract class BaseFragment() : Fragment() {
             setPositiveButton("Aceptar") { dialog, id ->
                 buttonListenerSeatReservation.isSeatReservationAvailablePositiveButtonClicked()
             }
-        }
-
-        val dialog: AlertDialog? = builder.create()
-
-        dialog!!.show()
-
-    }
-
-    fun updateAppDialog(buttonListener: UI.UpdateAppDialogClickButtonListener) {
-        /*
-            Método encargado de mostrar un Dialog cuando no hay conexión a internet.
-        */
-        val builder: AlertDialog.Builder? = context?.let {
-            AlertDialog.Builder(it)
-        }
-
-        builder!!.setTitle("¡Hay una nueva actualización disponible!")
-        //builder.setMessage("Verifique su conexión e inténtelo de nuevo.")
-
-        builder.setCancelable(false)
-        builder.setIcon(R.drawable.ic_new_releases)
-
-        builder.apply {
-
-            setPositiveButton("Actualizar ahora.") { dialog, id ->
-                buttonListener.updateAppPositiveButtonClicked()
-            }
-
-            setNegativeButton("No, gracias.") { dialog, id ->
-                buttonListener.updateAppNegativeButtonClicked()
-            }
-
         }
 
         val dialog: AlertDialog? = builder.create()
@@ -198,41 +168,6 @@ abstract class BaseFragment() : Fragment() {
         dialog!!.show()
 
         return dialog
-
-    }
-
-    fun fetchCurrentVersionCode(): Int {
-
-        var currentVersionCode = 0
-
-        try {
-
-            val packageInfo = requireContext().packageManager.getPackageInfo(requireActivity().packageName, 0)
-
-            currentVersionCode = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                packageInfo.longVersionCode.toInt()
-            } else {
-                packageInfo.versionCode
-            }
-
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-
-        return currentVersionCode
-
-    }
-
-    fun goToPlayStore() {
-
-        val packageName: String = requireContext().packageName
-
-        val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
-        )
-
-        requireContext().startActivity(intent)
 
     }
 
