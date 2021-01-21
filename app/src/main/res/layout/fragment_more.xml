@@ -38,9 +38,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
                     android:gravity="center"
-                    android:text="Mi Perfíl."/>
+                    android:text="@string/my_profile"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -71,9 +71,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
                     android:gravity="center"
-                    android:text="¡Búscanos en Facebook!"/>
+                    android:text="@string/facebook"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -103,9 +103,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
                     android:gravity="center"
-                    android:text="¡Síguenos en Twitter!"/>
+                    android:text="@string/twitter"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -135,9 +135,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
                     android:gravity="center"
-                    android:text="¡Visita nuestra página web!"/>
+                    android:text="@string/web_page"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -168,9 +168,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
                     android:gravity="center"
-                    android:text="Política de privacidad."/>
+                    android:text="@string/privacy_policy"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -201,9 +201,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
                     android:gravity="center"
-                    android:text="¡Valora esta aplicación!"/>
+                    android:text="@string/rate_app"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -233,9 +233,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
                     android:gravity="center"
-                    android:text="¡Mira otras de nuestras apps!"/>
+                    android:text="@string/look_out_other_apps"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

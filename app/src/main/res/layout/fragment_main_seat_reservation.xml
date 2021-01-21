@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Sus asientos reservados:"
+                        android:text="@string/your_reserved_seats"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -112,13 +112,15 @@
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif-light"
                             android:gravity="center"
-                            android:text="Aún no tiene asientos registrados."
+                            android:text="@string/do_not_have_reserved_seats_yet"
                             android:textSize="18sp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
+
         </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
@@ -137,7 +139,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -154,7 +157,7 @@
                     android:gravity="center"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    tools:text="¡La reservación de asientos está deshabilitada en este momento!" />
+                    tools:text="@string/seat_reservation_is_disabled" />
 
             </LinearLayout>
 
@@ -186,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Reservar asiento"
+                        android:text="@string/to_reserve_seat"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 

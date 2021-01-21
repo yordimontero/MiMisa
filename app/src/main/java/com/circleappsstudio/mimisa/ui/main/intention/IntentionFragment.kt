@@ -40,9 +40,7 @@ class IntentionFragment : BaseFragment(),
     private lateinit var intentionCategory: String
     private lateinit var intention: String
 
-    override fun getLayout(): Int {
-        return R.layout.fragment_intention
-    }
+    override fun getLayout(): Int = R.layout.fragment_intention
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,12 +67,12 @@ class IntentionFragment : BaseFragment(),
             }
 
             if (intentionViewModel.checkValidIntentionCategory(intentionCategory)) {
-                showMessage("Seleccione la categoría de su intención.", 2)
+                showMessage(getString(R.string.select_intention_category), 2)
                 return@setOnClickListener
             }
 
             if (intentionViewModel.checkEmptyIntention(intention)) {
-                txt_intention.error = "Complete los campos."
+                txt_intention.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
@@ -98,7 +96,7 @@ class IntentionFragment : BaseFragment(),
                             is Resource.Loading -> { showProgressBar() }
 
                             is Resource.Success -> {
-                                showMessage("Intención guardada con éxito.", 1)
+                                showMessage(getString(R.string.intention_saved_successfully), 2)
                                 gotToSeatReservationMain()
                             }
 
@@ -198,7 +196,7 @@ class IntentionFragment : BaseFragment(),
         /*
             Método encargado de mostrar el Dialog "confirmDialog".
         */
-        return confirmDialog(this, "¿Desea registrar esta intención?")
+        return confirmDialog(this, getString(R.string.do_you_want_to_register_intention))
     }
 
     override fun confirmPositiveButtonClicked() {

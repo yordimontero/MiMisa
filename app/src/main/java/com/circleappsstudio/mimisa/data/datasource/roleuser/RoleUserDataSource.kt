@@ -1,5 +1,3 @@
-// DataSource encargado de interactuar con Cloud Firestore para la gestión de roles.
-
 package com.circleappsstudio.mimisa.data.datasource.roleuser
 
 import com.circleappsstudio.mimisa.data.datasource.DataSource
@@ -7,7 +5,7 @@ import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class RoleDataSource: DataSource.RoleUser {
+class RoleUserDataSource: DataSource.RoleUser {
 
     private val db by lazy { FirebaseFirestore.getInstance() }
 

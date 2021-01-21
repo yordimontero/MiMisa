@@ -15,7 +15,7 @@ object Intentions {
 
     private val categories = arrayOf(
         "Seleccione una categoría",
-        "Acción de Gracias",
+        "Acción de gracias",
         "Difuntos",
         "Cumpleaños"
     )

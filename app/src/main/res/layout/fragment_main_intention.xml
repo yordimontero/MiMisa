@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Sus intenciones:"
+                        android:text="@string/your_intentions"
                         android:textSize="20sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -110,7 +110,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif-light"
                             android:gravity="center"
-                            android:text="Aún no tiene intenciones registradas."
+                            android:text="@string/do_not_have_registered_intentions_yet"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Registrar intención"
+                        android:text="@string/to_register_intention"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 

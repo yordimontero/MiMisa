@@ -331,7 +331,7 @@ class MainSeatReservationFragment : BaseFragment(),
         /*
              Método encargado de cambiar el texto de un TextView cuando no hay asientos disponibles.
         */
-        txt_info_message.text = "¡No hay asientos disponibles!"
+        txt_info_message.text = getString(R.string.there_are_not_available_seats)
     }
 
     override fun changeTextViewToDisabledSeatReservation() {
@@ -339,7 +339,7 @@ class MainSeatReservationFragment : BaseFragment(),
              Método encargado de cambiar el texto de un TextView cuando
              la reservación de asientos está deshabilitada.
         */
-        txt_info_message.text = "¡La reservación de asientos se encuentra deshabilitada en este momento!"
+        txt_info_message.text = getString(R.string.seat_reservation_is_disabled)
     }
 
     override fun showNoRegisteredSeatsYetMessage() {

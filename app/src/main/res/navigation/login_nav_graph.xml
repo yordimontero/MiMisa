@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.circleappsstudio.mimisa.ui.auth.signin.SignInFragment"
-        android:label="Crear Cuenta"
+        android:label="@string/to_sign_in_login_nav_graph"
         tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_logInFragment"
@@ -20,11 +20,11 @@
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.circleappsstudio.mimisa.ui.auth.login.LogInFragment"
-        android:label="Iniciar Sesión"
+        android:label="@string/to_log_in_login_nav_graph"
         tools:layout="@layout/fragment_log_in" />
     <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.circleappsstudio.mimisa.ui.auth.resetpassword.ResetPasswordFragment"
-        android:label="@string/change_password"
+        android:label="@string/to_reset_password_login_nav_graph"
         tools:layout="@layout/fragment_reset_password" />
 </navigation>

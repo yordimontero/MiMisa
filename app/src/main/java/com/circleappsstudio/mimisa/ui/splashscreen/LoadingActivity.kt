@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseActivity
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
-import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleDataSource
+import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleUserDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.auth.LogInActivity
+import com.circleappsstudio.mimisa.ui.auth.checkadmincode.CheckAdminCodeActivity
 import com.circleappsstudio.mimisa.ui.main.MainActivity
-import com.circleappsstudio.mimisa.ui.main.admin.AdminMainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
@@ -22,25 +22,27 @@ import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.activity_loading.*
 
-class LoadingActivity : BaseActivity(), UI.SplashScreen, UI.IsOnlineDialogClickButtonListener {
+class LoadingActivity : BaseActivity(),
+    UI.SplashScreen,
+    UI.IsOnlineDialogClickButtonListener {
 
     private val authViewModel by lazy {
         ViewModelProvider(
-                this, VMFactoryAuth(
+            this, VMFactoryAuth(
                 AuthRepository(
-                        AuthDataSource()
+                    AuthDataSource()
                 )
-        )
+            )
         ).get(AuthViewModel::class.java)
     }
 
     private val adminViewModel by lazy {
         ViewModelProvider(
-                this, VMFactoryAdmin(
+            this, VMFactoryAdmin(
                 RoleUserRepository(
-                        RoleDataSource()
+                    RoleUserDataSource()
                 )
-        )
+            )
         ).get(RoleUserViewModel::class.java)
 
     }
@@ -62,7 +64,7 @@ class LoadingActivity : BaseActivity(), UI.SplashScreen, UI.IsOnlineDialogClickB
         */
 
         if (!isOnline(this)) {
-            showDialog()
+            showIsOnlineDialog()
             return
         }
 
@@ -74,9 +76,59 @@ class LoadingActivity : BaseActivity(), UI.SplashScreen, UI.IsOnlineDialogClickB
 
     }
 
+    override fun checkCreatedAdminByEmailUserObserver() {
+        /*
+            Método encargado de verificar si el usuario registrado tiene el rol de Administrador.
+        */
+
+        if (isOnline(this)) {
+
+            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
+                .observe(this, Observer { resultEmitted ->
+
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+
+                            if (resultEmitted.data) {
+                                goToCheckAdminCodeActivity()
+                            } else {
+                                goToMainActivity()
+                            }
+
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
+                    }
+
+                })
+
+
+        }
+
+    }
+
+    override fun goToCheckAdminCodeActivity() {
+        /*
+            Método para navegar hacia el Activity "CheckAdminCodeActivity".
+        */
+        val intent = Intent(this, CheckAdminCodeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+
+    }
+
     override fun goToSignIn() {
         /*
-            Método para navegar hacia el fragment de registro de usuarios.
+            Método para navegar hacia el Activity "LogInActivity".
         */
         val intent = Intent(this, LogInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -86,64 +138,11 @@ class LoadingActivity : BaseActivity(), UI.SplashScreen, UI.IsOnlineDialogClickB
 
     override fun goToMainActivity() {
         /*
-            Método para navegar hacia el menú principal.
+            Método para navegar hacia el Activity "MainActivity".
         */
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-
-    }
-
-    override fun goToAdminMainActivity() {
-        /*
-            Método para navegar hacia el menú principal en rol de Administrador.
-        */
-        val intent = Intent(this, AdminMainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-
-    }
-
-
-
-    override fun checkCreatedAdminByEmailUserObserver() {
-        /*
-            Método encargado de verificar que el código de verificación
-            para crear el rol de Administrador sea correcto.
-        */
-
-        if (isOnline(this)) {
-
-            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
-                    .observe(this, Observer { resultEmitted ->
-
-                        when(resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-
-                                if (resultEmitted.data) {
-                                    goToAdminMainActivity()
-                                } else {
-                                    goToMainActivity()
-                                }
-
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-
-        }
 
     }
 
@@ -168,7 +167,7 @@ class LoadingActivity : BaseActivity(), UI.SplashScreen, UI.IsOnlineDialogClickB
         this.toast(this, message, duration)
     }
 
-    override fun showDialog() {
+    override fun showIsOnlineDialog() {
         /*
              Método encargado de mostrar el Dialog "isOnlineDialog".
         */
@@ -177,12 +176,12 @@ class LoadingActivity : BaseActivity(), UI.SplashScreen, UI.IsOnlineDialogClickB
 
     override fun isOnlineDialogPositiveButtonClicked() {
         /*
-            Método encargado de controlar el botón positivo del Dialog.
+            Método encargado de controlar el botón positivo del Dialog "isOnlineDialog".
         */
         if (isOnline(this)) {
             checkUserLogged()
         } else {
-            showDialog()
+            showIsOnlineDialog()
         }
 
     }

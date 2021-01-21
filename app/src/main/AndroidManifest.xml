@@ -13,9 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiMisa">
 
-        <activity android:name=".ui.splashscreen.LoadingActivity"></activity>
+        <activity
+            android:name=".ui.auth.checkadmincode.CheckAdminCodeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:label="@string/secure_verify">
+        </activity>
 
-        <activity android:name=".ui.main.admin.AdminMainActivity"
+        <activity android:name=".ui.splashscreen.LoadingActivity" />
+
+        <activity
+            android:name=".ui.main.admin.AdminMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>

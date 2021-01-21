@@ -79,20 +79,41 @@
                     android:fontFamily="sans-serif-light"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    tools:text="Papillo"
+                    tools:text="Nombre"
                     android:layout_marginEnd="4dp"/>
 
-                <TextView
-                    android:id="@+id/txt_lastname_user_row"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Papillo"/>
-
-
             </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_person"
+                app:tint="@color/light_green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Apellido:"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_lastname_user_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Apellido"/>
+
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

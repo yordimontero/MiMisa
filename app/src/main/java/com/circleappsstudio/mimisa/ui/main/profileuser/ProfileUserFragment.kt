@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
-import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleDataSource
+import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleUserDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
@@ -35,7 +35,7 @@ class ProfileUserFragment : BaseFragment(),
     private val adminViewModel by activityViewModels<RoleUserViewModel> {
         VMFactoryAdmin(
             RoleUserRepository(
-                RoleDataSource()
+                RoleUserDataSource()
             )
         )
     }
@@ -143,9 +143,9 @@ class ProfileUserFragment : BaseFragment(),
         txt_email_user_profile_user.text = emailUser
 
         if (resultEmitted) {
-            txt_role_user_profile_user.text = "Administrador"
+            txt_role_user_profile_user.text = getString(R.string.admin)
         } else {
-            txt_role_user_profile_user.text = "Usuario"
+            txt_role_user_profile_user.text = getString(R.string.user)
         }
 
     }
@@ -204,12 +204,12 @@ class ProfileUserFragment : BaseFragment(),
             }
 
             if (adminViewModel.checkEmptyAdminCode(adminCode)) {
-                txt_admin_code.error = "Complete los campos"
+                txt_admin_code.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (adminViewModel.validateAdminCode(fetchedAdminCode, adminCode)) {
-                txt_admin_code.error = "El código ingresado es incorrecto."
+                txt_admin_code.error = getString(R.string.wrong_admin_code)
                 return@setOnClickListener
             }
 
@@ -239,7 +239,7 @@ class ProfileUserFragment : BaseFragment(),
                             is Resource.Success -> {
 
                                 if (resultEmitted.data) {
-                                    showMessage("Ya eres un Administrador.", 1)
+                                    showMessage(getString(R.string.you_are_an_admin), 2)
                                     hideProgressBar()
                                 } else {
                                     createAdminObserver()
@@ -276,7 +276,7 @@ class ProfileUserFragment : BaseFragment(),
                             }
 
                             is Resource.Success -> {
-                                showMessage("Ahora eres Administrador.", 2)
+                                showMessage(getString(R.string.now_you_are_an_admin), 2)
                                 hideProgressBar()
                                 goToAdminMainActivity()
                             }
@@ -312,7 +312,7 @@ class ProfileUserFragment : BaseFragment(),
                                 }
 
                                 is Resource.Success -> {
-                                    showMessage("Ahora eres Usuario.", 2)
+                                    showMessage(getString(R.string.now_you_are_an_user), 2)
                                     hideProgressBar()
                                     goToMainActivity()
                                 }
@@ -327,7 +327,7 @@ class ProfileUserFragment : BaseFragment(),
                         })
 
             } else {
-                showMessage("Ya eres un Usuario", 1)
+                showMessage(getString(R.string.you_are_an_user), 2)
             }
 
         }

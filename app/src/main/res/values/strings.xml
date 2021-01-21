@@ -1,29 +1,157 @@
 <resources>
+
     <string name="app_name">MiMisa</string>
+
+    <!-- Base -->
+    <string name="title_activity_main">Test</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="code">Código</string>
+    <string name="options">Opciones</string>
+    <string name="apply_changes">Aplicar cambios</string>
+    <string name="to_accept">Aceptar</string>
+    <string name="to_cancel">Cancelar</string>
+    <string name="no_internet">¡No hay conexión a Internet!</string>
+    <string name="verify_internet">Verifique su conexión e inténtelo de nuevo.</string>
+    <string name="try_again">Intentar de nuevo</string>
+    <string name="there_are_a_new_update">¡Hay una nueva actualización disponible!</string>
+    <string name="update_now">Actualizar ahora</string>
+    <string name="update_later">Actualizar más tarde</string>
+    <string name="complete_fields">Complete los campos.</string>
+    <string name="wrong_email">El correo electrónico ingresado es inválido.</string>
+    <string name="wrong_password">Contraseña incorrecta.</string>
 
-    <!-- Login Fragment -->
+
+    <!-- login_nav_graph -->
+    <string name="to_sign_in_login_nav_graph">Registrarse</string>
+    <string name="to_log_in_login_nav_graph">Iniciar Sesión</string>
+    <string name="to_reset_password_login_nav_graph">Restablecer Contraseña</string>
 
 
-    <!-- Reset Password Fragment -->
-    <string name="change_password">Cambiar Contraseña</string>
+    <!-- main_nav_graph -->
+    <string name="home">Inicio</string>
+    <string name="seat_reservation">Reservación de Asientos</string>
+    <string name="intention_register">Registro de Intenciones</string>
+    <string name="more">Más</string>
+
+    
+    <!-- CheckAdminCodeActivity -->
+    <string name="secure_verify">Verificación de Seguridad</string>
+    <string name="enter_security_code">Ingrese el código de seguridad.</string>
+    <string name="wrong_admin_code">El código ingresado es incorrecto.</string>
+    <string name="to_verify">Verificar</string>
 
 
-    <string name="intention_category_init">Seleccione una categoría</string>
-    <string name="thanksgiving">Acción de Gracias</string>
+    <!-- SignInFragment -->
+    <string name="hi">Hola,</string>
+    <string name="sign_up">¡Regístrate!</string>
+    <string name="fullname">Nombre completo</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="repeat_password">Repita su contraseña</string>
+    <string name="to_register">Registrarse</string>
+    <string name="google_sign_up">Registrarse con Google</string>
+    <string name="do_you_have_account">¿Ya tienes una cuenta?</string>
+    <string name="txt_sign_in">Inicia sesión</string>
+    <string name="password_must_be_6_characters">La contraseña debe tener al menos 6 caracteres.</string>
+    <string name="passwords_do_not_matches">Las contraseñas no coinciden.</string>
+    <string name="user_created_successfully">Usuario registrado con éxito.</string>
+
+
+    <!-- ResetPasswordFragment -->
+    <string name="welcome_again">Bienvenido de nuevo,</string>
+    <string name="reset_password">¡Restablece tu Contraseña!</string>
+    <string name="to_reset_password">Restablecer contraseña</string>
+    <string name="a_email_has_been_sent_for_reset_password">Se ha enviado un correo electrónico a su buzón para restablecer su contraseña.</string>
+
+
+    <!-- LogInFragment -->
+    <string name="sign_in">¡Inicia Sesión!</string>
+    <string name="to_sign_in">Iniciar sesión</string>
+    <string name="do_you_forgot_your_password">¿Olvidaste tu contraseña?</string>
+    <string name="to_reset">¡Restablécela!</string>
+
+
+    <!-- HomeFragment -->
+    <string name="church_info">Ermita San Cipriano, La Argetina de Grecia.</string>
+    <string name="health_protocol">Protocolo de salud para asistir a misa:</string>
+    <string name="mask">Recuerde llevar su tapabocas, este es de uso obligatorio.</string>
+    <string name="distancing">Mantenga el distanciamiento.</string>
+    <string name="say_seat_number">Informe en la lista el número de asiento que le corresponde.</string>
+    <string name="wash_hands">Lave y desinfecte sus manos al ingresar al templo.</string>
+
+
+    <!-- MainSeatReservationFragment -->
+    <string name="your_reserved_seats">Sus asientos reservados:</string>
+    <string name="do_not_have_reserved_seats_yet">Aún no tiene asientos registrados.</string>
+    <string name="seat_reservation_is_disabled">¡La reservación de asientos se encuentra deshabilitada en este momento!</string>
+    <string name="to_reserve_seat">Reservar asiento</string>
+    <string name="there_are_not_available_seats">¡No hay asientos disponibles!</string>
+
+
+    <!-- SeatReservationFragment -->
+    <string name="name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="id_number">Número de cédula</string>
+    <string name="confirm_reservation">Confirmar reservación</string>
+    <string name="invalid_id_number">Número de cédula inválido.</string>
+    <string name="seat_reserved_successfully">Asiento reservado con éxito.</string>
+    <string name="user_has_a_reserved_seat">La persona que se le asignará el asiento ya tiene un asiento reservado.</string>
+    <string name="do_you_want_to_reserve_seat">¿Desea reservar el asiento?</string>
+
+
+    <!-- MainIntentionFragment -->
+    <string name="your_intentions">Sus intenciones:</string>
+    <string name="do_not_have_registered_intentions_yet">Aún no tiene intenciones registradas.</string>
+    <string name="to_register_intention">Registrar intención</string>
+
+
+    <!-- IntentionFragment -->
+    <string name="intention">Intención</string>
+    <string name="to_confirm_intention">Confirmar intención</string>
+    <string name="select_intention_category">Seleccione la categoría de su intención.</string>
+    <string name="intention_saved_successfully">Intención guardada con éxito.</string>
+    <string name="do_you_want_to_register_intention">¿Desea registrar esta intención?</string>
+
+
+    <!-- MoreFragment -->
+    <string name="my_profile">Mi Perfil</string>
+    <string name="facebook">¡Búscanos en Facebook!</string>
+    <string name="twitter">¡Síguenos en Twitter!</string>
+    <string name="web_page">¡Visita nuestra página web!</string>
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="rate_app">¡Valora esta aplicación!</string>
+    <string name="look_out_other_apps">¡Mira otras de nuestras apps!</string>
+
+
+    <!-- MyProfileFragment -->
+    <string name="actual_role">Rol actual:</string>
+    <string name="change_role">Cambiar rol</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="role">Rol.</string>
+    <string name="user">Usuario</string>
+    <string name="admin">Administrador</string>
+    <string name="verify_code">Código de verificación</string>
+    <string name="confirm_change">Confirmar cambio</string>
+    <string name="you_are_an_admin">Ya tienes el rol de Administrador.</string>
+    <string name="now_you_are_an_admin">Ahora tienes el rol de Administrador.</string>
+    <string name="you_are_an_user">Ya tienes el rol de Usuario.</string>
+    <string name="now_you_are_an_user">Ahora tienes el rol de Usuario.</string>
+
+
+
+    <!-- IntentionAdapter -->
+    <string name="thanksgiving">Acción de gracias</string>
     <string name="deceased">Difuntos</string>
     <string name="birthday">Cumpleaños</string>
 
-    <string-array name="intention_category_array">
-        <item>Seleccione la categoría de su Intención</item>
-        <item>Acción de Gracias</item>
-        <item>Difuntos</item>
-        <item>Cumpleaños</item>
-    </string-array>
+
+    <!-- App Rate -->
+    <string name="rate_dialog_title">¡Valora esta aplicación!</string>
+    <string name="rate_dialog_message">Si estás disfrutando de esta app, ¿te importaría tomar un momento para valorarla? No tomará más de un minuto. ¡Gracias por su apoyo!</string>
+    <string name="rate_dialog_ok">¡Valorar ahora!</string>
+    <string name="rate_dialog_cancel">No, gracias.</string>
+    <string name="rate_dialog_no">Recuérdamelo más tarde.</string>
 
 </resources>

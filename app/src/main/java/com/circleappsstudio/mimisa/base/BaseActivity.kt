@@ -88,14 +88,14 @@ abstract class BaseActivity : AppCompatActivity() {
             AlertDialog.Builder(it)
         }
 
-        builder!!.setTitle("¡No hay conexión a Internet!")
-        builder.setMessage("Verifique su conexión e inténtelo de nuevo.")
+        builder!!.setTitle(getString(R.string.no_internet))
+        builder.setMessage(getString(R.string.verify_internet))
 
         builder.setCancelable(false)
         builder.setIcon(R.drawable.ic_wifi_off)
 
         builder.apply {
-            setPositiveButton("Intentar de nuevo") { dialog, id ->
+            setPositiveButton(getString(R.string.try_again)) { dialog, id ->
                 buttonListener.isOnlineDialogPositiveButtonClicked()
             }
         }
@@ -114,18 +114,18 @@ abstract class BaseActivity : AppCompatActivity() {
             AlertDialog.Builder(it)
         }
 
-        builder!!.setTitle("¡Hay una nueva actualización disponible!")
+        builder!!.setTitle(getString(R.string.there_are_a_new_update))
 
         builder.setCancelable(false)
         builder.setIcon(R.drawable.ic_new_releases)
 
         builder.apply {
 
-            setPositiveButton("Actualizar ahora") { dialog, id ->
+            setPositiveButton(getString(R.string.update_now)) { dialog, id ->
                 buttonListener.updateAppPositiveButtonClicked()
             }
 
-            setNegativeButton("Actualizar después") { dialog, id ->
+            setNegativeButton(getString(R.string.update_later)) { dialog, id ->
                 buttonListener.updateAppNegativeButtonClicked()
             }
 

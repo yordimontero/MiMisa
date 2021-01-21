@@ -10,12 +10,12 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
-import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleDataSource
+import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleUserDataSource
 import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
+import com.circleappsstudio.mimisa.ui.auth.checkadmincode.CheckAdminCodeActivity
 import com.circleappsstudio.mimisa.ui.main.MainActivity
-import com.circleappsstudio.mimisa.ui.main.admin.AdminMainActivity
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
@@ -40,7 +40,7 @@ class LogInFragment : BaseFragment(),
     private val adminViewModel by activityViewModels<RoleUserViewModel> {
         VMFactoryAdmin(
                 RoleUserRepository(
-                        RoleDataSource()
+                        RoleUserDataSource()
                 )
         )
     }
@@ -56,6 +56,8 @@ class LogInFragment : BaseFragment(),
         navController = Navigation.findNavController(view)
 
         logInUser()
+
+        goToResetPassword()
 
     }
 
@@ -74,22 +76,22 @@ class LogInFragment : BaseFragment(),
             }
 
             if (authViewModel.checkEmptyEmailUser(email)){
-                txt_email_log_in_user.error = "Complete los campos."
+                txt_email_log_in_user.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (authViewModel.checkEmptyPassword1User(password)){
-                txt_password_log_in_user.error = "Complete los campos."
+                txt_password_log_in_user.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (authViewModel.checkValidEmail(email)){
-                txt_email_log_in_user.error = "El e-mail ingresado es incorrecto."
+                txt_email_log_in_user.error = getString(R.string.wrong_email)
                 return@setOnClickListener
             }
 
             if (authViewModel.checkValidPassword(password)){
-                txt_password_log_in_user.error = "Contraseña incorrecta."
+                txt_password_log_in_user.error = getString(R.string.wrong_password)
                 return@setOnClickListener
             }
 
@@ -133,10 +135,8 @@ class LogInFragment : BaseFragment(),
 
     override fun checkCreatedAdminByEmailUserObserver(email: String) {
         /*
-            Método encargado de verificar que el código de verificación
-            para crear el rol de Administrador sea correcto.
+            Método encargado de verificar si el usuario registrado tiene el rol de Administrador.
         */
-
         if (isOnline(requireContext())) {
 
             adminViewModel.checkCreatedAdminByEmailUser(email)
@@ -151,7 +151,7 @@ class LogInFragment : BaseFragment(),
                             is Resource.Success -> {
 
                                 if (resultEmitted.data) {
-                                    goToAdminMainActivity()
+                                    goToCheckAdminCodeActivity()
                                 } else {
                                     goToMainActivity()
                                 }
@@ -187,11 +187,21 @@ class LogInFragment : BaseFragment(),
 
     }
 
-    override fun goToAdminMainActivity() {
+    override fun goToResetPassword() {
         /*
-            Método para navegar hacia el menú principal en rol de Administrador.
+             Método encargado de navegar hacia el Fragment "ResetPasswordFragment".
         */
-        val intent = Intent(requireContext(), AdminMainActivity::class.java)
+        btn_go_to_reset_password.setOnClickListener {
+            navController.navigate(R.id.resetPasswordFragment)
+        }
+    }
+
+
+    override fun goToCheckAdminCodeActivity() {
+        /*
+            Método para navegar hacia el Activity "CheckAdminCodeActivity".
+        */
+        val intent = Intent(requireContext(), CheckAdminCodeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
 

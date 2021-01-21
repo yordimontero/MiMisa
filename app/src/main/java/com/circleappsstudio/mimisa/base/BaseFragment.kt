@@ -91,14 +91,14 @@ abstract class BaseFragment() : Fragment() {
             AlertDialog.Builder(it)
         }
 
-        builder!!.setTitle("¡No hay conexión a Internet!")
-        builder.setMessage("Verifique su conexión e inténtelo de nuevo.")
+        builder!!.setTitle(getString(R.string.no_internet))
+        builder.setMessage(getString(R.string.verify_internet))
 
         builder.setCancelable(false)
         builder.setIcon(R.drawable.ic_wifi_off)
 
         builder.apply {
-            setPositiveButton("Intentar de nuevo") { dialog, id ->
+            setPositiveButton(getString(R.string.try_again)) { dialog, id ->
                 buttonListener.isOnlineDialogPositiveButtonClicked()
             }
         }
@@ -118,13 +118,13 @@ abstract class BaseFragment() : Fragment() {
             AlertDialog.Builder(it)
         }
 
-        builder!!.setMessage("¡La reservación de asientos está deshabilitada en este momento!")
+        builder!!.setMessage(getString(R.string.seat_reservation_is_disabled))
 
         builder.setCancelable(false)
         builder.setIcon(R.drawable.ic_info)
 
         builder.apply {
-            setPositiveButton("Aceptar") { dialog, id ->
+            setPositiveButton(getString(R.string.to_accept)) { dialog, id ->
                 buttonListenerSeatReservation.isSeatReservationAvailablePositiveButtonClicked()
             }
         }
@@ -153,11 +153,11 @@ abstract class BaseFragment() : Fragment() {
 
         builder.apply {
 
-            setPositiveButton("Aceptar") { dialog, id ->
+            setPositiveButton(getString(R.string.to_accept)) { dialog, id ->
                 buttonListener.confirmPositiveButtonClicked()
             }
 
-            setNegativeButton("Cancelar") { dialog, id ->
+            setNegativeButton(getString(R.string.to_cancel)) { dialog, id ->
                 buttonListener.confirmNegativeButtonClicked()
             }
 
@@ -175,7 +175,8 @@ abstract class BaseFragment() : Fragment() {
         /*
             Método encargado de ocultar el teclado de la pantalla.
         */
-        val imm: InputMethodManager = requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm: InputMethodManager = requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE)
+                as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().windowToken, 0)
 
     }

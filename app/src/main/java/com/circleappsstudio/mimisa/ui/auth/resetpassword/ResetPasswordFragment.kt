@@ -57,12 +57,12 @@ class ResetPasswordFragment : BaseFragment(),
             }
 
             if (authViewModel.checkEmptyEmailUser(email)){
-                txt_email_reset_password_user.error = "Complete los campos."
+                txt_email_reset_password_user.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (authViewModel.checkValidEmail(email)){
-                txt_email_reset_password_user.error = "El e-mail ingresado es inválido."
+                txt_email_reset_password_user.error = getString(R.string.wrong_email)
                 return@setOnClickListener
             }
 
@@ -89,7 +89,8 @@ class ResetPasswordFragment : BaseFragment(),
                     }
 
                     is Resource.Success -> {
-                        showMessage("Se ha enviado un correo electrónico a su buzón para el cambio de contraseña.", 2)
+                        showMessage(getString(R.string.a_email_has_been_sent_for_reset_password), 2)
+                        goToLogIn()
                         hideProgressBar()
                     }
 
@@ -104,6 +105,13 @@ class ResetPasswordFragment : BaseFragment(),
 
         }
 
+    }
+
+    override fun goToLogIn() {
+        /*
+             Método encargado de navegar hacia el Fragment "SignInFragment".
+        */
+        navController.navigateUp()
     }
 
     override fun showMessage(message: String, duration: Int) {

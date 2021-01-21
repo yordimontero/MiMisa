@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         app:boxStrokeColor="@color/light_green"
                         app:hintTextColor="@color/light_green"
-                        android:hint="Nombre"
+                        android:hint="@string/name"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp">
@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content"
                         app:boxStrokeColor="@color/light_green"
                         app:hintTextColor="@color/light_green"
-                        android:hint="Apellido"
+                        android:hint="@string/last_name"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp">
@@ -116,7 +116,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:boxStrokeColor="@color/light_green"
                         app:hintTextColor="@color/light_green"
-                        android:hint="Número de Cédula"
+                        android:hint="@string/id_number"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="8dp">
@@ -166,7 +166,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif-light"
                                     android:gravity="center"
-                                    android:text="Confirmar reservación"
+                                    android:text="@string/confirm_reservation"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 

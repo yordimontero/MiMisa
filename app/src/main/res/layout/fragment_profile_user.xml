@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
                 android:fontFamily="sans-serif-light"
-                android:text="Rol actual:"
+                android:text="@string/actual_role"
                 android:textSize="20sp" />
 
             <TextView
@@ -122,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Cambiar rol"
+                    android:text="@string/change_role"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Cerrar sesión"
+                    android:text="@string/logout"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -191,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Rol:"
+                    android:text="@string/role"
                     android:textSize="20sp" />
 
                 <RadioGroup
@@ -208,7 +208,7 @@
                         android:drawableEnd="@drawable/ic_person"
                         android:drawableTint="@color/light_green"
                         android:fontFamily="sans-serif-light"
-                        android:text="Usuario"
+                        android:text="@string/user"
                         android:textSize="18sp" />
 
                     <RadioButton
@@ -219,7 +219,7 @@
                         android:drawableRight="@drawable/ic_settings"
                         android:drawableTint="@color/light_green"
                         android:fontFamily="sans-serif-light"
-                        android:text="Administrador"
+                        android:text="@string/admin"
                         android:textSize="18sp" />
 
                 </RadioGroup>
@@ -232,7 +232,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:hint="Código de verificación"
+                    android:hint="@string/verify_code"
                     android:visibility="gone"
                     app:boxStrokeColor="@color/light_green"
                     app:hintTextColor="@color/light_green">
@@ -274,7 +274,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:text="Confirmar cambio"
+                            android:text="@string/confirm_change"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -307,7 +307,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:text="Cancelar"
+                            android:text="@string/to_cancel"
                             android:textSize="18sp" />
 
                     </LinearLayout>

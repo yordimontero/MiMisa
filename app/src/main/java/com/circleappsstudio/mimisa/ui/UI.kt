@@ -11,13 +11,13 @@ interface UI {
         */
         fun checkUserLogged()
 
+        fun checkCreatedAdminByEmailUserObserver()
+
+        fun goToCheckAdminCodeActivity()
+
         fun goToSignIn()
 
         fun goToMainActivity()
-
-        fun goToAdminMainActivity()
-
-        fun checkCreatedAdminByEmailUserObserver()
 
         fun showProgressBar()
 
@@ -25,7 +25,7 @@ interface UI {
 
         fun showMessage(message: String, duration: Int)
 
-        fun showDialog()
+        fun showIsOnlineDialog()
 
     }
 
@@ -45,11 +45,9 @@ interface UI {
 
         fun goToLogin()
 
-        fun goToResetPassword()
-
         fun goToMainActivity()
 
-        fun goToAdminMainActivity()
+        fun goToCheckAdminCodeActivity()
 
         fun showMessage(message: String, duration: Int)
 
@@ -73,7 +71,9 @@ interface UI {
 
         fun goToMainActivity()
 
-        fun goToAdminMainActivity()
+        fun goToResetPassword()
+
+        fun goToCheckAdminCodeActivity()
 
         fun showMessage(message: String, duration: Int)
 
@@ -93,6 +93,8 @@ interface UI {
 
         fun resetPasswordUserObserver()
 
+        fun goToLogIn()
+
         fun showMessage(message: String, duration: Int)
 
         fun showProgressBar()
@@ -102,6 +104,52 @@ interface UI {
         fun showIsOnlineDialog()
 
     }
+
+    interface CheckAdminCode {
+        /*
+            Interface encargada de controlar los métodos del fragment
+            de verificación del código de seguridad.
+        */
+        fun fetchData()
+
+        fun fetchAdminCodeObserver()
+
+        fun verifyAdminCode()
+
+        fun goToAdminMainActivity()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showIsOnlineDialog()
+
+    }
+
+    interface MainActivity {
+        /*
+            Interface encargada de controlar los métodos de MainActivity.
+        */
+        fun setNavViewVisibility()
+
+        fun showNavView()
+
+        fun hideNavView()
+
+        fun fetchData()
+
+        fun fetchVersionCode()
+
+        fun initAppRate()
+
+        fun showIsOnlineDialog()
+
+        fun showUpdateAppDialog()
+
+    }
+
 
     interface SeatReservationMain {
         /*

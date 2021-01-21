@@ -200,27 +200,27 @@ class SeatReservationFragment : BaseFragment(),
             }
 
             if (seatReservationViewModel.checkEmptyNameUser(nameUser)) {
-                txt_name_seat_reservation.error = "Complete los campos."
+                txt_name_seat_reservation.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkEmptyLastNameUser(lastNameUser)) {
-                txt_lastname_seat_reservation.error = "Complete los campos."
+                txt_lastname_seat_reservation.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
-                txt_id_number_user_seat_reservation.error = "Complete los campos."
+                txt_id_number_user_seat_reservation.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
-                txt_id_number_user_seat_reservation.error = "Número de cédula inválido."
+                txt_id_number_user_seat_reservation.error = getString(R.string.invalid_id_number)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())){
-                showMessage("Ya no hay asientos disponibles.", 2)
+                showMessage(getString(R.string.there_are_not_available_seats), 2)
                 goToSeatReservationMain()
                 return@setOnClickListener
             }
@@ -282,7 +282,7 @@ class SeatReservationFragment : BaseFragment(),
                             }
 
                             is Resource.Success -> {
-                                showMessage("Asiento reservado con éxito.", 1)
+                                showMessage(getString(R.string.seat_reserved_successfully), 2)
                                 goToSeatReservationMain()
                             }
 
@@ -324,7 +324,7 @@ class SeatReservationFragment : BaseFragment(),
                             is Resource.Success -> {
 
                                 if (resultEmitted.data) {
-                                    showMessage("El usuario que va a reservar el asiento ya tiene un asiento reservado.", 2)
+                                    showMessage(getString(R.string.user_has_a_reserved_seat), 2)
                                     hideProgressBar()
                                 } else {
                                     saveSeatReservedObserver()
@@ -404,7 +404,7 @@ class SeatReservationFragment : BaseFragment(),
         /*
             Método encargado de mostrar el Dialog "confirmDialog".
         */
-        return confirmDialog(this, "¿Desea reservar el asiento?")
+        return confirmDialog(this, getString(R.string.do_you_want_to_reserve_seat))
     }
 
     override fun confirmPositiveButtonClicked() {

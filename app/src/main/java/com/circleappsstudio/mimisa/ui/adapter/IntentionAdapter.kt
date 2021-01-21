@@ -13,22 +13,22 @@ import kotlinx.android.synthetic.main.intention_row.view.*
 import java.lang.IllegalArgumentException
 
 class IntentionAdapter(
-        private val context: Context,
-        private val intentionList: List<Intention>
-): RecyclerView.Adapter<BaseViewHolder<*>>() {
+    private val context: Context,
+    private val intentionList: List<Intention>
+) : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
 
         return MainIntentionViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.intention_row, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.intention_row, parent, false)
         )
 
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
 
-        when(holder){
-            is  MainIntentionViewHolder -> holder.bind(intentionList[position], position)
+        when (holder) {
+            is MainIntentionViewHolder -> holder.bind(intentionList[position], position)
             else -> throw IllegalArgumentException("Error on bind.")
         }
 
@@ -36,7 +36,7 @@ class IntentionAdapter(
 
     override fun getItemCount(): Int = intentionList.size
 
-    inner class MainIntentionViewHolder(itemView: View): BaseViewHolder<Intention>(itemView){
+    inner class MainIntentionViewHolder(itemView: View) : BaseViewHolder<Intention>(itemView) {
 
         override fun bind(item: Intention, position: Int) {
 
@@ -45,35 +45,38 @@ class IntentionAdapter(
             itemView.txt_date_intention_row.text = item.dateRegistered
             itemView.txt_intention_registered_by_intention_row.text = item.intentionRegisteredBy
 
-            /*when (item.category) {
-
-                "thanksgiving" -> {
-                    itemView.img_intention_intention_row.setImageDrawable(context.getDrawable(R.drawable.ic_thumb_up))
-                }
-                "deceased" -> {
-                    itemView.img_intention_intention_row.setImageDrawable(context.getDrawable(R.drawable.ic_deceased))
-                }
-                "birthday" -> {
-                    itemView.img_intention_intention_row.setImageDrawable(context.getDrawable(R.drawable.ic_cake))
-                }
-
-            }*/
-
             when (item.category) {
 
-                "Acción de Gracias" -> {
-                    itemView.img_intention_intention_row.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_thumb_up))
+                context.getString(R.string.thanksgiving) -> {
+                    itemView.img_intention_intention_row.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            R.drawable.ic_thumb_up
+                        )
+                    )
                 }
-                "Difuntos" -> {
-                    itemView.img_intention_intention_row.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_deceased))
+
+                context.getString(R.string.deceased) -> {
+                    itemView.img_intention_intention_row.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            R.drawable.ic_deceased
+                        )
+                    )
                 }
-                "Cumpleaños" -> {
-                    itemView.img_intention_intention_row.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_cake))
+
+                context.getString(R.string.birthday) -> {
+                    itemView.img_intention_intention_row.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            R.drawable.ic_cake
+                        )
+                    )
                 }
 
             }
 
-            if (item.intentionRegisteredBy.isEmpty()){
+            if (item.intentionRegisteredBy.isEmpty()) {
                 itemView.layout_intention_registered_by_intention_row.visibility = View.GONE
             } else {
                 itemView.layout_intention_registered_by_intention_row.visibility = View.VISIBLE

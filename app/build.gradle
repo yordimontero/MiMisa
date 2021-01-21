@@ -9,7 +9,6 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
-    //buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.circleappsstudio.mimisa"
@@ -77,9 +76,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.2'
 
 
-    // Glide:
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    // AppRate:
+    implementation 'com.github.hotchemi:android-rate:1.0.1'
+
+
+    // Cloud Messaging:
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
 
     implementation 'com.google.firebase:firebase-firestore:21.4.3'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
