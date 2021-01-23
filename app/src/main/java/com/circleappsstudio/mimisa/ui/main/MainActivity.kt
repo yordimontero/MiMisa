@@ -1,6 +1,5 @@
 package com.circleappsstudio.mimisa.ui.main
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer

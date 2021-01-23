@@ -150,6 +150,32 @@ interface UI {
 
     }
 
+    interface AdminMainActivity {
+        /*
+            Interface encargada de controlar los métodos de AdminMainActivity.
+        */
+
+        //...
+
+        fun setNavViewVisibility()
+
+        fun showNavView()
+
+        fun hideNavView()
+
+        fun fetchData()
+
+        fun fetchVersionCode()
+
+        fun initAppRate()
+
+        fun showIsOnlineDialog()
+
+        fun showUpdateAppDialog()
+
+    }
+
+
 
     interface SeatReservationMain {
         /*

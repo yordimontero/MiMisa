@@ -16,11 +16,13 @@ import com.circleappsstudio.mimisa.domain.params.ParamsRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryParams
 import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
+import com.circleappsstudio.mimisa.utils.AppRate
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_admin_main.*
 
 class AdminMainActivity : BaseActivity(),
+        UI.AdminMainActivity,
         UI.IsOnlineDialogClickButtonListener,
         UI.UpdateAppDialogClickButtonListener {
 
@@ -67,13 +69,15 @@ class AdminMainActivity : BaseActivity(),
 
         fetchData()
 
+        initAppRate()
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
     }
 
-    private fun setNavViewVisibility(){
+    override fun setNavViewVisibility() {
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
 
@@ -92,15 +96,15 @@ class AdminMainActivity : BaseActivity(),
 
     }
 
-    private fun showNavView(){
+    override fun showNavView() {
         nav_view_admin_activity.visibility = View.VISIBLE
     }
 
-    private fun hideNavView(){
+    override fun hideNavView() {
         nav_view_admin_activity.visibility = View.GONE
     }
 
-    private fun fetchData() {
+    override fun fetchData() {
 
         if (!isOnline(this)) {
             showIsOnlineDialog()
@@ -111,7 +115,7 @@ class AdminMainActivity : BaseActivity(),
 
     }
 
-    private fun fetchVersionCode() {
+    override fun fetchVersionCode() {
         /*
             Método encargado de escuchar en tiempo real el versionCode en la base de datos.
         */
@@ -150,11 +154,15 @@ class AdminMainActivity : BaseActivity(),
 
     }
 
-    private fun showUpdateAppDialog() {
+    override fun initAppRate() {
+        AppRate().initAppRate(this, this)
+    }
+
+    override fun showUpdateAppDialog() {
         updateAppDialog(this)
     }
 
-    private fun showIsOnlineDialog(){
+    override fun showIsOnlineDialog() {
         isOnlineDialog(this, this)
     }
 

@@ -140,7 +140,7 @@ class AdminIntentionFragment : BaseFragment(),
 
             if (rd_btn_search_thanksgiving_category.isChecked) {
 
-                category = "Acción de Gracias"
+                category = "Acción de gracias"
                 fetchSavedIntentionsByCategoryObserver(category)
                 return@setOnClickListener
 

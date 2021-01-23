@@ -150,6 +150,7 @@
     <string name="search">Buscar…</string>
     <string name="search_by_name">Búsqueda por nombre</string>
     <string name="search_by_seat_number">Búsqueda por número de asiento</string>
+    <string name="reserved_seats">Asientos reservados:</string>
     <string name="no_result_found">No se encontraron resultados.</string>
     <string name="select_search_filter">Seleccione el filtro de búsqueda.</string>
     <string name="search_error">Error de búsqueda.</string>
@@ -168,7 +169,7 @@
     <string name="do_you_want_to_disable_seat_reservation">¿Desea deshabilitar la reservación de asientos?</string>
 
 
-    <!-- AdminSeatReservationFragment -->
+    <!-- AdminIntentionFragment -->
     <string name="search_by_thanksgiving_category">Búsqueda por categoría de acción de gracias</string>
     <string name="search_by_deceased_category">Búsqueda por categoría de difuntos</string>
     <string name="search_by_birthday_category">Búsqueda por categoría de cumpleaños</string>
