@@ -135,6 +135,33 @@ abstract class BaseFragment() : Fragment() {
 
     }
 
+    fun isRegisterIntentionAvailableDialog(buttonListenerRegisterIntention:
+                                         UI.IsRegisterIntentionAvailableDialogClickButtonListener) {
+        /*
+            Método encargado de mostrar un Dialog cuando no hay conexión a internet.
+        */
+        val builder: AlertDialog.Builder? = context?.let {
+            AlertDialog.Builder(it)
+        }
+
+        builder!!.setMessage(getString(R.string.register_intention_is_disabled))
+
+        builder.setCancelable(false)
+        builder.setIcon(R.drawable.ic_info)
+
+        builder.apply {
+            setPositiveButton(getString(R.string.to_accept)) { dialog, id ->
+                buttonListenerRegisterIntention.isRegisterIntentionAvailablePositiveButtonClicked()
+            }
+        }
+
+        val dialog: AlertDialog? = builder.create()
+
+        dialog!!.show()
+
+    }
+
+
     fun confirmDialog(
             buttonListener: UI.ConfirmDialogClickButtonListener,
             message: String
@@ -180,7 +207,5 @@ abstract class BaseFragment() : Fragment() {
         imm.hideSoftInputFromWindow(requireView().windowToken, 0)
 
     }
-
-    fun checkIfIsLetter(text: String): Boolean = Pattern.matches("[a-zA-Z]+", text)
 
 }

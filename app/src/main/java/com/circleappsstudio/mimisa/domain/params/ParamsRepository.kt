@@ -52,4 +52,17 @@ class ParamsRepository(
     override suspend fun fetchVersionCode()
             : Flow<Resource<Int>> = paramsDataSource.fetchVersionCode()
 
+    /*
+        Método encargado de escuchar en tiempo real si el registro de intenciones esta habilitado
+        o deshabilitado.
+    */
+    override suspend fun fetchIsRegisterIntentionAvailable()
+            : Flow<Resource<Boolean>> = paramsDataSource.fetchIsRegisterIntentionAvailable()
+
+    /*
+        Método encargado de habilitar o deshabilitar el registro de intenciones.
+    */
+    override suspend fun setIsRegisterIntentionAvailable(isRegisterIntentionAvailable: Boolean) =
+            paramsDataSource.setIsRegisterIntentionAvailable(isRegisterIntentionAvailable)
+
 }

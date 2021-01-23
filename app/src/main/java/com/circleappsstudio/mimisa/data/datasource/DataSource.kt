@@ -107,6 +107,10 @@ interface DataSource {
 
         suspend fun fetchVersionCode(): Flow<Resource<Int>>
 
+        suspend fun fetchIsRegisterIntentionAvailable(): Flow<Resource<Boolean>>
+
+        suspend fun setIsRegisterIntentionAvailable(isRegisterIntentionAvailable: Boolean)
+
     }
 
 }

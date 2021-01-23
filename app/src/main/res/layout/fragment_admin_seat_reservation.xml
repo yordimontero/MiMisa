@@ -74,7 +74,8 @@
                         android:layout_height="50dp"
                         android:iconifiedByDefault="false"
                         android:queryBackground="@android:color/transparent"
-                        android:queryHint="Buscar..." />
+                        android:queryHint="@string/search"
+                        android:inputType="textPersonName"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -91,7 +92,7 @@
                         android:buttonTint="@color/light_green"
                         android:checked="false"
                         android:fontFamily="sans-serif-light"
-                        android:text="Búsqueda por nombre"
+                        android:text="@string/search_by_name"
                         android:textSize="18sp" />
 
                     <RadioButton
@@ -101,7 +102,7 @@
                         android:layout_gravity="center"
                         android:buttonTint="@color/light_green"
                         android:fontFamily="sans-serif-light"
-                        android:text="Búsqueda por número de asiento"
+                        android:text="@string/search_by_seat_number"
                         android:textSize="18sp" />
 
                 </RadioGroup>
@@ -148,7 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="No se encontraron resultados."
+                        android:text="@string/no_result_found"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -195,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Opciones."
+                        android:text="@string/options"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 

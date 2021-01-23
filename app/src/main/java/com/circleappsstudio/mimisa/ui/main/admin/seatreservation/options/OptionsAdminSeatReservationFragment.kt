@@ -35,7 +35,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
     private lateinit var seatLimit: String
 
-    private var isAvailable = true
+    private var isSeatReservationAvailable = true
 
     private lateinit var selectedButton: String
 
@@ -85,9 +85,9 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
                             is Resource.Success -> {
 
-                                isAvailable = resultEmitted.data
+                                isSeatReservationAvailable = resultEmitted.data
 
-                                if (isAvailable) {
+                                if (isSeatReservationAvailable) {
                                     activateToggle()
                                 } else {
                                     deactivateToggle()
@@ -112,7 +112,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
     override fun setAvailability() {
 
-        btn_set_availability.setOnClickListener {
+        btn_set_seat_reservation_availability.setOnClickListener {
 
             selectedButton = "btn_set_availability"
             showConfirmDialog()
@@ -135,7 +135,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
                         }
 
                         is Resource.Success -> {
-                            showMessage("La reservación de asientos está habilitada.", 1)
+                            showMessage(getString(R.string.seat_reservation_has_been_enabled), 2)
                             hideProgressBar()
                         }
 
@@ -164,7 +164,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
                         }
 
                         is Resource.Success -> {
-                            showMessage("La reservación de asientos está deshabilitada.", 1)
+                            showMessage(getString(R.string.seat_reservation_has_been_disabled), 2)
                             hideProgressBar()
                         }
 
@@ -178,8 +178,6 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
                 })
 
     }
-
-
 
     override fun fetchSeatLimitObserver() {
         /*
@@ -233,7 +231,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
                             }
 
                             is Resource.Success -> {
-                                showMessage("El límite de asientos fue actualizado con éxito.", 2)
+                                showMessage(getString(R.string.seat_limit_has_been_updated_successfully), 2)
                                 fetchSeatLimitObserver()
                                 hideProgressBar()
                             }
@@ -264,7 +262,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
             }
 
             if (paramsViewModel.checkEmptySeatLimit(txt_seat_limit.text.toString())) {
-                txt_seat_limit.error = "Complete los campos."
+                txt_seat_limit.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
@@ -300,18 +298,18 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
         /*
             Método encargado de activar un Toggle.
         */
-        txt_enable_or_disable_seat_reservation.text = "Deshabilitar la reservación de asientos."
-        btn_set_availability.setImageResource(R.drawable.ic_toggle_on)
-        btn_set_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
+        txt_enable_or_disable_seat_reservation.text = getString(R.string.disable_seat_reservation)
+        btn_set_seat_reservation_availability.setImageResource(R.drawable.ic_toggle_on)
+        btn_set_seat_reservation_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
     }
 
     override fun deactivateToggle() {
         /*
             Método encargado de desactivar un Toggle.
         */
-        txt_enable_or_disable_seat_reservation.text = "Habilitar la reservación de asientos."
-        btn_set_availability.setImageResource(R.drawable.ic_toggle_off)
-        btn_set_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
+        txt_enable_or_disable_seat_reservation.text = getString(R.string.enable_seat_reservation)
+        btn_set_seat_reservation_availability.setImageResource(R.drawable.ic_toggle_off)
+        btn_set_seat_reservation_availability.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
     }
 
 
@@ -343,15 +341,15 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
         when {
 
             selectedButton.contains("btn_update_seat_limit") -> {
-                message = "¿Actualizar el límite de asientos disponibles?"
+                message = getString(R.string.do_you_want_to_update_seat_limit)
             }
 
             selectedButton.contains("btn_set_availability") -> {
 
-                message = if (isAvailable) {
-                    "¿Deshabilitar la reservación de asientos?"
+                message = if (isSeatReservationAvailable) {
+                    getString(R.string.do_you_want_to_disable_seat_reservation)
                 } else {
-                    "¿Habilitar la reservación de asientos?"
+                    getString(R.string.do_you_want_to_enable_seat_reservation)
                 }
 
             }
@@ -374,7 +372,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
             selectedButton.contains("btn_set_availability") -> {
 
-                if (isAvailable) {
+                if (isSeatReservationAvailable) {
                     disableSeatReservation()
                 } else {
                     enableSeatReservation()

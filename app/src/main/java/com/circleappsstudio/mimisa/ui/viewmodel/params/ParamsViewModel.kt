@@ -147,9 +147,47 @@ class ParamsViewModel(
 
     }
 
+    override fun fetchIsRegisterIntentionAvailable()
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
+            o deshabilitada.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            paramsRepository.fetchIsRegisterIntentionAvailable().collect { isAvailable ->
+                emit(isAvailable)
+            }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun setIsRegisterIntentionAvailable(isRegisterIntentionAvailable: Boolean)
+            : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de habilitar o deshabilitar la reservación de asientos.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            paramsRepository.setIsRegisterIntentionAvailable(isRegisterIntentionAvailable)
+            emit(Resource.Success(true))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
     /*
-        Método encargado de validar que el límite de asientos no sea nulo.
-    */
+            Método encargado de validar que el límite de asientos no sea nulo.
+        */
     override fun checkEmptySeatLimit(seatLimit: String)
             : Boolean = seatLimit.isEmpty()
 

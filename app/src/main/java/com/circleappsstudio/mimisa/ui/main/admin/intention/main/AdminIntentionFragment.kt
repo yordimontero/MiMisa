@@ -1,4 +1,4 @@
-package com.circleappsstudio.mimisa.ui.main.admin.intention
+package com.circleappsstudio.mimisa.ui.main.admin.intention.main
 
 import android.os.Bundle
 import android.view.View
@@ -45,6 +45,8 @@ class AdminIntentionFragment : BaseFragment(),
         fetchData()
 
         fetchSavedIntentionsByCategory()
+
+        goToOptionAdminIntention()
 
     }
 
@@ -132,7 +134,7 @@ class AdminIntentionFragment : BaseFragment(),
                     !rd_btn_search_birthday_category.isChecked &&
                     !rd_btn_search_all_intentions.isChecked
             ) {
-                showMessage("Seleccione el filtro de búsqueda.", 2)
+                showMessage(getString(R.string.select_search_filter), 2)
                 return@setOnClickListener
             }
 
@@ -223,6 +225,16 @@ class AdminIntentionFragment : BaseFragment(),
 
                     })
 
+        }
+
+    }
+
+    override fun goToOptionAdminIntention() {
+        /*
+            Método encargado de navegar hacia el fragment "OptionsAdminSeatReservation".
+        */
+        btn_go_to_options_admin_intention.setOnClickListener {
+            navController.navigate(R.id.optionsAdminIntentionFragment)
         }
 
     }

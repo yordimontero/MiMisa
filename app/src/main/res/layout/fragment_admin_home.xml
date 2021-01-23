@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-light"
-                android:text="MiMisa"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:text="Ermita San Cipriano, La Argetina de Grecia."
+                android:text="@string/church_info"
                 android:textSize="18sp"
                 android:textStyle="italic" />
 
@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Estás en modo Administrador."
+                        android:text="@string/you_are_in_admin_mode"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 

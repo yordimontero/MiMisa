@@ -33,6 +33,7 @@ class MoreFragment : BaseFragment(), UI.More {
         goToFacebook()
         goToTwitter()
         goToWebPage()
+        sendEmail()
         goToPrivacyPolicy()
         rateApp()
         goToPlayStoreMoreApps()
@@ -89,6 +90,19 @@ class MoreFragment : BaseFragment(), UI.More {
                     Uri.parse("https://circleappsstudio.com")
             )
             requireContext().startActivity(intent)
+        }
+
+    }
+
+    override fun sendEmail() {
+        /*
+            Método encargado de crear un mensaje al correo electrónico "soporte.circleappsstudio@gmail.com".
+        */
+        btn_send_email.setOnClickListener {
+
+            val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:soporte.circleappsstudio@gmail.com"))
+            startActivity(Intent.createChooser(emailIntent, "Chooser title"))
+
         }
 
     }

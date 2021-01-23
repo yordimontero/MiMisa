@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.main.admin.intention.AdminIntentionFragment">
+    tools:context=".ui.main.admin.intention.main.AdminIntentionFragment">
 
     <LinearLayout
         android:id="@+id/progressbar_admin_intention"
@@ -41,167 +41,206 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_admin_intention"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:id="@+id/layout_admin_intention"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout4"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_search_saved_intentions"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/btn_search_saved_intentions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="8dp"
-                        app:cardPreventCornerOverlap="true"
-                        app:cardUseCompatPadding="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:padding="14dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginEnd="10dp"
-                                android:src="@drawable/ic_search" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-light"
-                                android:gravity="center"
-                                android:text="Buscar..."
-                                android:textSize="18sp" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <RadioGroup
-                        android:id="@+id/radiogroup_search_saved_intentions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RadioButton
-                            android:id="@+id/rd_btn_search_thanksgiving_category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/light_green"
-                            android:checked="false"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Búsqueda por categoría de acción de gracias"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rd_btn_search_deceased_category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/light_green"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Búsqueda por categoría de difuntos"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rd_btn_search_birthday_category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/light_green"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Búsqueda por categoría de cumpleaños"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rd_btn_search_all_intentions"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/light_green"
-                            android:checked="true"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Todas las intenciones registradas"
-                            android:textSize="18sp" />
-
-                    </RadioGroup>
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="8dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
-                        android:id="@+id/layout_rv_admin_intentions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="8dp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Intenciones Registradas:"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_admin_intentions"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layout_not_registered_intention_founded"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:orientation="horizontal"
-                        android:padding="8dp"
-                        android:visibility="gone">
+                        android:padding="14dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="2dp"
-                            android:src="@drawable/ic_info" />
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_search" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:text="No se encontraron resultados."
-                            android:textSize="20sp" />
+                            android:gravity="center"
+                            android:text="@string/search"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <RadioGroup
+                    android:id="@+id/radiogroup_search_saved_intentions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/rd_btn_search_thanksgiving_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/light_green"
+                        android:checked="false"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/search_by_thanksgiving_category"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/rd_btn_search_deceased_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/light_green"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/search_by_deceased_category"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/rd_btn_search_birthday_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/light_green"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/search_by_birthday_category"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/rd_btn_search_all_intentions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/light_green"
+                        android:checked="true"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/search_all_intentions"
+                        android:textSize="18sp" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/layout_rv_admin_intentions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/registered_intentions"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_admin_intentions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_not_registered_intention_founded"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
+                        android:src="@drawable/ic_info" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/no_result_found"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
 
             </LinearLayout>
-
         </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_go_to_options_admin_intention"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/light_green"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="2dp"
+                        android:src="@drawable/ic_options" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+                        android:text="@string/options"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

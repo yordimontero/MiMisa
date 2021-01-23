@@ -29,7 +29,7 @@ class ParamsDataSource: DataSource.Params {
         val subscription = isAvailablePath.addSnapshotListener { documentSnapshot,
                                                                  firebaseFirestoreException ->
             /*
-                "subscription" va a estar siempre escuchando en tiempo real el valor de "is_available",
+                "subscription" va a estar siempre escuchando en tiempo real el valor de "is_seat_reservation_available",
                 y va a estar ofreciendo su valor por medio del offer(Resource.Success(isAvailable)).
             */
             if (documentSnapshot!!.exists()) {
@@ -221,6 +221,57 @@ class ParamsDataSource: DataSource.Params {
         }
 
         awaitClose { subscription.remove() }
+
+    }
+
+    @ExperimentalCoroutinesApi
+    override suspend fun fetchIsRegisterIntentionAvailable()
+            : Flow<Resource<Boolean>> = callbackFlow {
+        /*
+            Método encargado de escuchar en tiempo real si el registro de intenciones esta habilitado
+            o deshabilitado.
+        */
+        val isAvailablePath = db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+
+        val subscription = isAvailablePath.addSnapshotListener { documentSnapshot,
+                                                                 firebaseFirestoreException ->
+            /*
+                "subscription" va a estar siempre escuchando en tiempo real el valor de "is_register_intention_available",
+                y va a estar ofreciendo su valor por medio del offer(Resource.Success(isAvailable)).
+            */
+            if (documentSnapshot!!.exists()) {
+
+                val isAvailable = documentSnapshot.getBoolean("is_register_intention_available")!!
+
+                offer(Resource.Success(isAvailable))
+
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
+            }
+
+        }
+        /*
+            Si no existe nada en el ViewModel que no esté haciendo ".collect",
+            entonces cancela la suscripción y cierra el canal con el awaitClose.
+            Esto pasa cuando la activity que conecta con el dicho ViewModel se cierra.
+        */
+        awaitClose { subscription.remove() }
+
+    }
+
+    override suspend fun setIsRegisterIntentionAvailable(isRegisterIntentionAvailable: Boolean) {
+        /*
+            Método encargado de habilitar o deshabilitar el registro de intenciones.
+        */
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("params")
+                .document("data")
+                .update("is_register_intention_available", isRegisterIntentionAvailable)
+                .await()
 
     }
 

@@ -142,6 +142,10 @@ interface MainViewModel {
 
         fun checkVersionCode(fetchedVersionCode: Int, currentVersionCode: Int): Boolean
 
+        fun fetchIsRegisterIntentionAvailable(): LiveData<Resource<Boolean>>
+
+        fun setIsRegisterIntentionAvailable(isRegisterIntentionAvailable: Boolean): LiveData<Resource<Boolean>>
+
     }
 
 }

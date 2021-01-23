@@ -320,6 +320,8 @@ interface UI {
         */
         fun fetchData()
 
+        fun fetchIsRegisterIntentionAvailable()
+
         fun fetchSavedIntentionsByNameUserObserver()
 
         fun goToIntention()
@@ -339,6 +341,16 @@ interface UI {
         fun showNoRegisteredSeatsYetMessage()
 
         fun hideNoRegisteredSeatsYetMessage()
+
+        fun showInfoMessage()
+
+        fun hideInfoMessage()
+
+        fun changeTextViewToDisabledSeatReservation()
+
+        fun showButton()
+
+        fun hideButton()
 
         fun showIsOnlineDialog()
 
@@ -384,6 +396,8 @@ interface UI {
 
         fun fetchSavedIntentionsByCategoryObserver(category: String)
 
+        fun goToOptionAdminIntention()
+
         fun showMessage(message: String, duration: Int)
 
         fun showProgressBar()
@@ -408,6 +422,37 @@ interface UI {
 
     }
 
+    interface OptionsAdminIntentions {
+        /*
+            Interface encargada de controlar los métodos de la base de datos Firestore para el
+            registro de intenciones en el rol de Administrador.
+        */
+        fun fetchData()
+
+        fun fetchIsRegisterIntentionAvailableObserver()
+
+        fun setAvailability()
+
+        fun enableRegisterIntention()
+
+        fun disableRegisterIntention()
+
+        fun activateToggle()
+
+        fun deactivateToggle()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showIsOnlineDialog()
+
+        fun showConfirmDialog(): AlertDialog?
+
+    }
+
     interface More {
         /*
             Interface encargada de controlar los métodos del fragment "MoreFragment".
@@ -423,6 +468,8 @@ interface UI {
         fun goToWebPage()
 
         fun goToPrivacyPolicy()
+
+        fun sendEmail()
 
         fun rateApp()
 
@@ -486,6 +533,10 @@ interface UI {
 
     interface IsSeatReservationAvailableDialogClickButtonListener {
         fun isSeatReservationAvailablePositiveButtonClicked()
+    }
+
+    interface IsRegisterIntentionAvailableDialogClickButtonListener {
+        fun isRegisterIntentionAvailablePositiveButtonClicked()
     }
 
     interface UpdateAppDialogClickButtonListener {

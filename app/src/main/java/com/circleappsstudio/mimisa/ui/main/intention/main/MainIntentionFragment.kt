@@ -11,11 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.intention.IntentionDataSource
+import com.circleappsstudio.mimisa.data.datasource.params.ParamsDataSource
 import com.circleappsstudio.mimisa.domain.intention.IntentionRepository
+import com.circleappsstudio.mimisa.domain.params.ParamsRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.adapter.IntentionAdapter
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryIntention
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryParams
 import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_main_intention.*
 
@@ -32,6 +36,16 @@ class MainIntentionFragment : BaseFragment(),
                 )
         )
     }
+
+    private val paramsViewModel by activityViewModels<ParamsViewModel> {
+        VMFactoryParams(
+                ParamsRepository(
+                        ParamsDataSource()
+                )
+        )
+    }
+
+    private var isRegisterIntentionAvailable = true
 
     override fun getLayout(): Int = R.layout.fragment_main_intention
 
@@ -55,7 +69,57 @@ class MainIntentionFragment : BaseFragment(),
             return
         }
 
+        fetchIsRegisterIntentionAvailable()
+
         fetchSavedIntentionsByNameUserObserver()
+
+    }
+
+    override fun fetchIsRegisterIntentionAvailable() {
+        /*
+            Método encargado de escuchar en tiempo real si el registro de intenciones esta habilitado
+            o deshabilitado.
+        */
+        if (isOnline(requireContext())) {
+
+            paramsViewModel.fetchIsRegisterIntentionAvailable()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                isRegisterIntentionAvailable = resultEmitted.data
+
+                                if (!isRegisterIntentionAvailable) {
+
+                                    showInfoMessage()
+                                    changeTextViewToDisabledSeatReservation()
+                                    hideButton()
+
+                                } else {
+
+                                    hideInfoMessage()
+                                    showButton()
+
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
 
     }
 
@@ -175,6 +239,42 @@ class MainIntentionFragment : BaseFragment(),
             Método encargado de ocultar un mensaje cuando aún no hay asientos registrados.
         */
         layout_no_registered_intentions_yet.visibility = View.GONE
+    }
+
+    override fun showInfoMessage() {
+        /*
+             Método encargado de mostrar un mensaje de informción.
+        */
+        layout_show_info_message_main_intention.visibility = View.VISIBLE
+    }
+
+    override fun hideInfoMessage() {
+        /*
+             Método encargado de ocultar un mensaje de informción.
+        */
+        layout_show_info_message_main_intention.visibility = View.GONE
+    }
+
+    override fun changeTextViewToDisabledSeatReservation() {
+        /*
+             Método encargado de cambiar el texto de un TextView cuando
+             la reservación de asientos está deshabilitada.
+        */
+        txt_info_message_main_intention.text = getString(R.string.register_intention_is_disabled)
+    }
+
+    override fun showButton() {
+        /*
+             Método encargado de mostrar un Button.
+        */
+        btn_go_to_intention.visibility = View.VISIBLE
+    }
+
+    override fun hideButton() {
+        /*
+             Método encargado de ocultar un Button.
+        */
+        btn_go_to_intention.visibility = View.GONE
     }
 
     override fun showIsOnlineDialog() {

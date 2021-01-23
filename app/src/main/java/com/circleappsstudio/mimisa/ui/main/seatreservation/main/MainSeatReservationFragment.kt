@@ -48,7 +48,7 @@ class MainSeatReservationFragment : BaseFragment(),
     private lateinit var seatNumber: String
     private lateinit var seatLimitNumber: String
 
-    private var isAvailable = true
+    private var isSeatReservationAvailable = true
 
     override fun getLayout(): Int = R.layout.fragment_main_seat_reservation
 
@@ -182,9 +182,9 @@ class MainSeatReservationFragment : BaseFragment(),
 
                             is Resource.Success -> {
 
-                                isAvailable = resultEmitted.data
+                                isSeatReservationAvailable = resultEmitted.data
 
-                                if (!isAvailable) {
+                                if (!isSeatReservationAvailable) {
 
                                     showInfoMessage()
                                     changeTextViewToDisabledSeatReservation()
@@ -317,21 +317,21 @@ class MainSeatReservationFragment : BaseFragment(),
         /*
              Método encargado de mostrar un mensaje de informción.
         */
-        layout_show_info_message.visibility = View.VISIBLE
+        layout_show_info_message_main_seat_reservation.visibility = View.VISIBLE
     }
 
     override fun hideInfoMessage() {
         /*
              Método encargado de ocultar un mensaje de informción.
         */
-        layout_show_info_message.visibility = View.GONE
+        layout_show_info_message_main_seat_reservation.visibility = View.GONE
     }
 
     override fun changeTextViewToNoSeatsAvailable() {
         /*
              Método encargado de cambiar el texto de un TextView cuando no hay asientos disponibles.
         */
-        txt_info_message.text = getString(R.string.there_are_not_available_seats)
+        txt_info_message_main_seat_reservation.text = getString(R.string.there_are_not_available_seats)
     }
 
     override fun changeTextViewToDisabledSeatReservation() {
@@ -339,7 +339,7 @@ class MainSeatReservationFragment : BaseFragment(),
              Método encargado de cambiar el texto de un TextView cuando
              la reservación de asientos está deshabilitada.
         */
-        txt_info_message.text = getString(R.string.seat_reservation_is_disabled)
+        txt_info_message_main_seat_reservation.text = getString(R.string.seat_reservation_is_disabled)
     }
 
     override fun showNoRegisteredSeatsYetMessage() {

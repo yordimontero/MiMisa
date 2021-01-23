@@ -131,6 +131,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <LinearLayout
+                android:id="@+id/layout_show_info_message_main_intention"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_info"
+                    app:tint="@color/dark_red" />
+
+                <TextView
+                    android:id="@+id/txt_info_message_main_intention"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="@string/register_intention_is_disabled" />
+
+            </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/btn_go_to_intention"
                 android:layout_width="wrap_content"

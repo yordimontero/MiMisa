@@ -35,7 +35,7 @@
     <string name="intention_register">Registro de Intenciones</string>
     <string name="more">Más</string>
 
-    
+
     <!-- CheckAdminCodeActivity -->
     <string name="secure_verify">Verificación de Seguridad</string>
     <string name="enter_security_code">Ingrese el código de seguridad.</string>
@@ -104,6 +104,7 @@
     <!-- MainIntentionFragment -->
     <string name="your_intentions">Sus intenciones:</string>
     <string name="do_not_have_registered_intentions_yet">Aún no tiene intenciones registradas.</string>
+    <string name="register_intention_is_disabled">¡El registro de intenciones se encuentra deshabilitado en este momento!</string>
     <string name="to_register_intention">Registrar intención</string>
 
 
@@ -120,6 +121,7 @@
     <string name="facebook">¡Búscanos en Facebook!</string>
     <string name="twitter">¡Síguenos en Twitter!</string>
     <string name="web_page">¡Visita nuestra página web!</string>
+    <string name="send_email">¿Tienes alguna duda o sugerencia? Contáctanos</string>
     <string name="privacy_policy">Política de privacidad</string>
     <string name="rate_app">¡Valora esta aplicación!</string>
     <string name="look_out_other_apps">¡Mira otras de nuestras apps!</string>
@@ -138,6 +140,49 @@
     <string name="now_you_are_an_admin">Ahora tienes el rol de Administrador.</string>
     <string name="you_are_an_user">Ya tienes el rol de Usuario.</string>
     <string name="now_you_are_an_user">Ahora tienes el rol de Usuario.</string>
+
+
+    <!-- AdminHomeFragment -->
+    <string name="you_are_in_admin_mode">Estás en modo Administrador.</string>
+
+
+    <!-- AdminSeatReservationFragment -->
+    <string name="search">Buscar…</string>
+    <string name="search_by_name">Búsqueda por nombre</string>
+    <string name="search_by_seat_number">Búsqueda por número de asiento</string>
+    <string name="no_result_found">No se encontraron resultados.</string>
+    <string name="select_search_filter">Seleccione el filtro de búsqueda.</string>
+    <string name="search_error">Error de búsqueda.</string>
+
+
+    <!-- OptionsAdminSeatReservationFragment -->
+    <string name="update_seat_limit">Actualizar el número límite de asientos disponibles.</string>
+    <string name="seat_limit">Límite de asientos</string>
+    <string name="seat_reservation_has_been_enabled">La reservación de asientos ha sido habilitada.</string>
+    <string name="seat_reservation_has_been_disabled">La reservación de asientos ha sido deshabilitada.</string>
+    <string name="seat_limit_has_been_updated_successfully">El límite de asientos disponibles ha sido actualizado con éxito.</string>
+    <string name="enable_seat_reservation">Habilitar la reservación de asientos.</string>
+    <string name="disable_seat_reservation">Deshabilitar la reservación de asientos.</string>
+    <string name="do_you_want_to_update_seat_limit">¿Desea actualizar el límite de asientos disponibles?</string>
+    <string name="do_you_want_to_enable_seat_reservation">¿Desea habilitar la reservación de asientos?</string>
+    <string name="do_you_want_to_disable_seat_reservation">¿Desea deshabilitar la reservación de asientos?</string>
+
+
+    <!-- AdminSeatReservationFragment -->
+    <string name="search_by_thanksgiving_category">Búsqueda por categoría de acción de gracias</string>
+    <string name="search_by_deceased_category">Búsqueda por categoría de difuntos</string>
+    <string name="search_by_birthday_category">Búsqueda por categoría de cumpleaños</string>
+    <string name="search_all_intentions">Todas las intenciones registradas</string>
+    <string name="registered_intentions">Intenciones registradas:</string>
+
+
+    <!-- OptionsAdminIntentionFragment -->
+    <string name="register_intention_has_been_enabled">El registro de intenciones ha sido habilitado.</string>
+    <string name="register_intention_has_been_disabled">El registro de intenciones ha sido deshabilitado.</string>
+    <string name="enable_register_intention">Habilitar el registro de intenciones.</string>
+    <string name="disable_register_intention">Deshabilitar el registro de intenciones.</string>
+    <string name="do_you_want_to_enable_register_intention">¿Desea habilitar el registro de intenciones?</string>
+    <string name="do_you_want_to_disable_register_intention">¿Desea deshabilitar el registro de intenciones?</string>
 
 
 

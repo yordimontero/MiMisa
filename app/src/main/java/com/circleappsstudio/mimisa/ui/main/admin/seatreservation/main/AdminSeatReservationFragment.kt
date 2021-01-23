@@ -1,6 +1,7 @@
 package com.circleappsstudio.mimisa.ui.main.admin.seatreservation.main
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
@@ -272,19 +273,23 @@ class AdminSeatReservationFragment : BaseFragment(),
                 hideKeyboard()
 
                 if (!rd_btn_search_by_name.isChecked && !rd_btn_search_by_seat_number.isChecked){
-                    showMessage("Seleccione el filtro de búsqueda.", 2)
+                    showMessage(getString(R.string.select_search_filter), 2)
                 }
 
                 if (rd_btn_search_by_name.isChecked){
+
                     fetchRegisteredSeatByRegisteredPersonObserver(p0.toString().trim())
                 }
 
                 if (rd_btn_search_by_seat_number.isChecked){
 
-                    if (!checkIfIsLetter(p0.toString())) {
-                        fetchRegisteredSeatBySeatNumberObserver(p0.toString().trim().toInt())
-                    } else {
-                        showMessage("Error de búsqueda.", 2)
+                    try {
+
+                        val seatNumber = p0.toString().trim().toInt()
+                        fetchRegisteredSeatBySeatNumberObserver(seatNumber)
+
+                    } catch (e: Exception) {
+                        showMessage(getString(R.string.search_error), 2)
                     }
 
                 }
