@@ -24,7 +24,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -41,21 +42,29 @@
                     android:text="@string/txt_seat"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_seat_number_row"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="20" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_seat_number_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="20" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -72,22 +81,30 @@
                     android:text="@string/txt_name"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_name_user_row"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Nombre"
-                    android:layout_marginEnd="4dp"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_name_user_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Nombre"
+                        android:layout_marginEnd="4dp"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -104,21 +121,29 @@
                 android:text="@string/txt_last_name"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/txt_lastname_user_row"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="Apellido"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_lastname_user_row"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Apellido"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -135,21 +160,29 @@
                     android:text="@string/txt_id_number"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_id_number_row"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="2-0000-1111" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_id_number_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="2-0000-1111" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -166,21 +199,30 @@
                     android:text="@string/txt_date"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_date_seat_row"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Fecha" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_date_seat_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Fecha" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_seat_registered_by"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -197,14 +239,21 @@
                     android:text="@string/txt_registered_by"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_seat_registered_by_row"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Tester" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_seat_registered_by_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Tester" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

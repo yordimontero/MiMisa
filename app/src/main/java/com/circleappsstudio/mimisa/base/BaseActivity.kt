@@ -7,10 +7,12 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -183,6 +185,25 @@ abstract class BaseActivity : AppCompatActivity() {
         val imm: InputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE)
                 as InputMethodManager
         imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
+
+    }
+
+    fun isDarkModeActivated(context: Context): Boolean {
+        /*
+            Método encargado de comprobar si el Modo Oscuro está activo.
+        */
+        when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                // Night mode is not active, we're using the light theme
+                return false
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                // Night mode is active, we're using dark theme
+                return true
+            }
+        }
+
+        return false
 
     }
 

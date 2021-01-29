@@ -102,6 +102,11 @@ class OptionsAdminIntentionFragment : BaseFragment(),
 
         btn_set_register_intention_availability.setOnClickListener {
 
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
             selectedButton = "btn_set_availability"
             showConfirmDialog()
 

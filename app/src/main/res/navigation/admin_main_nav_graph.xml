@@ -9,7 +9,11 @@
         android:id="@+id/navigation_more_admin"
         android:name="com.circleappsstudio.mimisa.ui.main.more.MoreFragment"
         android:label="@string/more"
-        tools:layout="@layout/fragment_more" />
+        tools:layout="@layout/fragment_more" >
+        <action
+            android:id="@+id/action_go_to_profile_user_fragment_from_admin_more_fragment"
+            app:destination="@id/navigation_profile_user" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_profile_user"
         android:name="com.circleappsstudio.mimisa.ui.main.profileuser.ProfileUserFragment"

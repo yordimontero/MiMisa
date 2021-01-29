@@ -152,45 +152,6 @@ class ParamsDataSource: DataSource.Params {
 
     }
 
-    /*@ExperimentalCoroutinesApi
-    override suspend fun fetchVersionCode()
-            : Flow<Resource<Int>> = callbackFlow {
-        /*
-            Método encargado de escuchar en tiempo real el versionCode.
-        */
-
-        val versionCodePath = db.collection("general_params")
-            .document("data")
-
-        val subscription = versionCodePath.addSnapshotListener { documentSnapshot,
-                                                                 firebaseFirestoreException ->
-            /*
-                "subscription" va a estar siempre escuchando en tiempo real el valor del versionCode
-                y va a estar ofreciendo su valor por medio del
-                offer(Resource.Success(versionCode)).
-            */
-
-            if (documentSnapshot!!.exists()) {
-
-                val versionCode = documentSnapshot.getLong("version_code")!!.toInt()
-
-                offer(Resource.Success(versionCode))
-
-            } else {
-                channel.close(firebaseFirestoreException?.cause)
-            }
-
-        }
-
-        /*
-            Si no existe nada en el ViewModel que no esté haciendo ".collect",
-            entonces cancela la suscripción y cierra el canal con el awaitClose.
-            Esto pasa cuando la activity que conecta con el dicho ViewModel se cierra.
-        */
-        awaitClose { subscription.remove() }
-
-    }*/
-
     @ExperimentalCoroutinesApi
     override suspend fun fetchVersionCode()
             : Flow<Resource<Int>> = callbackFlow {
@@ -216,7 +177,9 @@ class ParamsDataSource: DataSource.Params {
                     channel.close(firebaseFirestoreException?.cause)
                 }
 
-            } catch (e: Exception){}
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
 
         }
 

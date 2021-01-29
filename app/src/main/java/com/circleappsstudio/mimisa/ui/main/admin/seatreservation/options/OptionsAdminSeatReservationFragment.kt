@@ -114,6 +114,11 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
         btn_set_seat_reservation_availability.setOnClickListener {
 
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
             selectedButton = "btn_set_availability"
             showConfirmDialog()
 

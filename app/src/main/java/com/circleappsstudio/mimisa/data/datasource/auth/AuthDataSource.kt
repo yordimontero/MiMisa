@@ -84,7 +84,7 @@ class AuthDataSource : DataSource.Auth {
         return AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            .setIsSmartLockEnabled(true)
+            .setIsSmartLockEnabled(false)
             .build()
 
     }

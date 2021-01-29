@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/layout_splash_screen"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,6 +11,7 @@
     tools:context=".ui.splashscreen.SplashScreenActivity">
 
     <ImageView
+        android:id="@+id/image_view_splash_screen"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:src="@drawable/circle_apps_studio_logo"/>

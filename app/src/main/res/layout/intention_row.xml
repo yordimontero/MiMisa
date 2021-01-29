@@ -25,7 +25,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/img_intention_intention_row"
@@ -43,14 +44,21 @@
                     android:text="@string/txt_category"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_category_intention_row"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Texto de la Categoría" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_category_intention_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Texto de la Categoría" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -96,7 +104,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -113,14 +122,22 @@
                     android:text="@string/txt_date"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_date_intention_row"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Fecha" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_date_intention_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Fecha" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
 
@@ -128,7 +145,8 @@
                 android:id="@+id/layout_intention_registered_by_intention_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -145,14 +163,21 @@
                     android:text="@string/txt_registered_by"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txt_intention_registered_by_intention_row"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Nombre del Usuario" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_intention_registered_by_intention_row"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Nombre del Usuario" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -35,6 +35,12 @@
     <string name="intention_register">Registro de Intenciones</string>
     <string name="more">Más</string>
 
+    <!-- bottom_nav_menu -->
+    <string name="txt_seats">Asientos</string>
+    <string name="txt_intentions">Intenciones</string>
+    <string name="txt_more"></string>
+
+
 
     <!-- CheckAdminCodeActivity -->
     <string name="secure_verify">Verificación de Seguridad</string>
