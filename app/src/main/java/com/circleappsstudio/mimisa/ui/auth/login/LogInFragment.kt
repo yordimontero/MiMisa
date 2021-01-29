@@ -192,7 +192,7 @@ class LogInFragment : BaseFragment(),
              Método encargado de navegar hacia el Fragment "ResetPasswordFragment".
         */
         btn_go_to_reset_password.setOnClickListener {
-            navController.navigate(R.id.resetPasswordFragment)
+            navController.navigate(R.id.action_go_to_reset_password_fragment_from_log_in_fragment)
         }
     }
 

@@ -114,7 +114,7 @@ class AdminSeatReservationFragment : BaseFragment(),
 
     }
 
-    override fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String) {
+    /*override fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String) {
         /*
             Método encargado de traer el asiento reservado por el nombre de la
             persona a la que está reservado.
@@ -164,7 +164,7 @@ class AdminSeatReservationFragment : BaseFragment(),
 
         }
 
-    }
+    }*/
 
     override fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: Int) {
         /*
@@ -222,7 +222,7 @@ class AdminSeatReservationFragment : BaseFragment(),
             Método encargado de navegar hacia el fragment "OptionsAdminSeatReservation".
         */
         btn_go_to_options_admin_seat_reservation.setOnClickListener {
-            navController.navigate(R.id.navigation_options_admin_seat_reservation)
+            navController.navigate(R.id.action_go_to_admin_options_seat_reservation_fragment_from_admin_main_seat_reservation_fragment)
         }
 
     }
@@ -272,16 +272,16 @@ class AdminSeatReservationFragment : BaseFragment(),
 
                 hideKeyboard()
 
-                if (!rd_btn_search_by_name.isChecked && !rd_btn_search_by_seat_number.isChecked){
+                /*if (!rd_btn_search_by_name.isChecked && !rd_btn_search_by_seat_number.isChecked){
                     showMessage(getString(R.string.select_search_filter), 2)
-                }
+                }*/
 
-                if (rd_btn_search_by_name.isChecked){
+                /*if (rd_btn_search_by_name.isChecked){
 
                     fetchRegisteredSeatByRegisteredPersonObserver(p0.toString().trim())
-                }
+                }*/
 
-                if (rd_btn_search_by_seat_number.isChecked){
+                /*if (rd_btn_search_by_seat_number.isChecked){
 
                     try {
 
@@ -292,6 +292,15 @@ class AdminSeatReservationFragment : BaseFragment(),
                         showMessage(getString(R.string.search_error), 2)
                     }
 
+                }*/
+
+                try {
+
+                    val seatNumber = p0.toString().trim().toInt()
+                    fetchRegisteredSeatBySeatNumberObserver(seatNumber)
+
+                } catch (e: Exception) {
+                    showMessage(getString(R.string.search_error), 2)
                 }
 
                 return false

@@ -234,7 +234,7 @@ class AdminIntentionFragment : BaseFragment(),
             Método encargado de navegar hacia el fragment "OptionsAdminSeatReservation".
         */
         btn_go_to_options_admin_intention.setOnClickListener {
-            navController.navigate(R.id.optionsAdminIntentionFragment)
+            navController.navigate(R.id.action_go_to_admin_options_intention_fragment_from_admin_main_intention_fragment)
         }
 
     }

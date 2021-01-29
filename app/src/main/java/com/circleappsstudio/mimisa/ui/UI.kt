@@ -274,7 +274,7 @@ interface UI {
 
         fun fetchAllRegisteredSeatsObserver()
 
-        fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String)
+        //fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String)
 
         fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: Int)
 
@@ -492,6 +492,8 @@ interface UI {
         fun goToTwitter()
 
         fun goToWebPage()
+
+        fun goToUserManual()
 
         fun goToPrivacyPolicy()
 

@@ -20,7 +20,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         SimpleDateFormat("dd-MM-yyyy", Locale.US).format(Calendar.getInstance().time)
     }
 
-    override suspend fun saveSeatReserved(
+    /*override suspend fun saveSeatReserved(
             seatNumber: Int,
             nameUser: String,
             lastNameUser: String,
@@ -44,6 +44,57 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 .collection("registered_seats")
                 .add(reservedSeat)
                 .await()
+
+    }*/
+
+    override suspend fun saveSeatReserved(
+            seatNumber: Int,
+            nameUser: String,
+            lastNameUser: String,
+            idNumberUser: String
+    ): Resource<Boolean> {
+        /*
+            Método encargado de reservar un asiento.
+        */
+        val reservedSeat = hashMapOf(
+                "seatNumber" to seatNumber,
+                "nameUser" to nameUser,
+                "lastNameUser" to lastNameUser,
+                "idNumberUser" to idNumberUser,
+                "dateRegistered" to date,
+                "seatRegisteredBy" to currentNameUser
+        )
+
+        var isSeatReserved = false
+
+        val path = db.collection("diaconia")
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .document(seatNumber.toString())
+
+        db.runTransaction { transaction ->
+
+            val snapshot = transaction.get(path)
+
+            if (!snapshot.exists()) {
+
+                db.collection("diaconia")
+                        .document("la_argentina")
+                        .collection("seat")
+                        .document("data")
+                        .collection("registered_seats")
+                        .document(seatNumber.toString())
+                        .set(reservedSeat)
+
+                isSeatReserved = true
+
+            }
+
+        }.await()
+
+        return Resource.Success(isSeatReserved)
 
     }
 

@@ -265,7 +265,7 @@ class MainSeatReservationFragment : BaseFragment(),
             Método encargado de navegar hacia el fragment "SeatReservation".
         */
         btn_go_to_seat_reservation.setOnClickListener {
-            navController.navigate(R.id.fragmentSeatReservation)
+            navController.navigate(R.id.action_go_to_seat_reservation_fragment_from_main_seat_reservation_fragment)
         }
     }
 

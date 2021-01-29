@@ -74,38 +74,10 @@
                         android:layout_height="50dp"
                         android:iconifiedByDefault="false"
                         android:queryBackground="@android:color/transparent"
-                        android:queryHint="@string/search"
-                        android:inputType="textPersonName"/>
+                        android:queryHint="@string/search_by_seat_number"
+                        android:inputType="number" />
 
                 </androidx.cardview.widget.CardView>
-
-                <RadioGroup
-                    android:id="@+id/radiogroup_search_reserved_seat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RadioButton
-                        android:id="@+id/rd_btn_search_by_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/light_green"
-                        android:checked="false"
-                        android:fontFamily="sans-serif-light"
-                        android:text="@string/search_by_name"
-                        android:textSize="18sp" />
-
-                    <RadioButton
-                        android:id="@+id/rd_btn_search_by_seat_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:buttonTint="@color/light_green"
-                        android:fontFamily="sans-serif-light"
-                        android:text="@string/search_by_seat_number"
-                        android:textSize="18sp" />
-
-                </RadioGroup>
 
                 <LinearLayout
                     android:id="@+id/layout_rv_admin_seat_reservation"

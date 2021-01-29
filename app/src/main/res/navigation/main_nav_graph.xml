@@ -18,8 +18,12 @@
         android:label="@string/intention_register"
         tools:layout="@layout/fragment_main_intention">
         <action
-            android:id="@+id/action_navigation_intention_to_intentionFragment"
-            app:destination="@id/intentionFragment" />
+            android:id="@+id/action_go_to_intention_fragment_from_main_intention_fragment"
+            app:destination="@id/intentionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSeatReservation"
@@ -32,8 +36,12 @@
         android:label="@string/seat_reservation"
         tools:layout="@layout/fragment_main_seat_reservation">
         <action
-            android:id="@+id/action_mainSeatReservationFragment_to_navigation_seat_reservation"
-            app:destination="@id/fragmentSeatReservation" />
+            android:id="@+id/action_go_to_seat_reservation_fragment_from_main_seat_reservation_fragment"
+            app:destination="@id/fragmentSeatReservation"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/intentionFragment"
@@ -46,8 +54,12 @@
         android:label="@string/more"
         tools:layout="@layout/fragment_more">
         <action
-            android:id="@+id/action_navigation_more_to_profileUserFragment"
-            app:destination="@id/navigation_profile_user" />
+            android:id="@+id/action_go_to_profile_user_fragment_from_more_fragment"
+            app:destination="@id/navigation_profile_user"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile_user"

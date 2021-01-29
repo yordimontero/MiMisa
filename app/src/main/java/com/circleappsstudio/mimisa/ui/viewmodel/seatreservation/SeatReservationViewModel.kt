@@ -9,13 +9,12 @@ import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.FirebaseException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 
 class SeatReservationViewModel(
         private val seatReservationRepository: Repository.SeatReservation
 ) : ViewModel(), MainViewModel.SeatReservation {
 
-    override fun saveSeatReserved(
+    /*override fun saveSeatReserved(
         seatNumber: Int,
         nameUser: String,
         lastNameUser: String,
@@ -35,9 +34,31 @@ class SeatReservationViewModel(
             emit(Resource.Failure(e))
         }
 
+    }*/
+
+    override fun saveSeatReserved(
+            seatNumber: Int,
+            nameUser: String,
+            lastNameUser: String,
+            idNumberUser: String
+    ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+        /*
+            Método encargado de reservar un asiento.
+        */
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepository.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser))
+
+        } catch (e: FirebaseException){
+            emit(Resource.Failure(e))
+        }
+
     }
 
-    override fun fetchAllRegisteredSeats(): LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
+    override fun fetchAllRegisteredSeats()
+            : LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
         /*
             Método encargado de traer todos los asientos reservados en la base de datos.
         */

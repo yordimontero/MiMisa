@@ -33,6 +33,7 @@ class MoreFragment : BaseFragment(), UI.More {
         goToFacebook()
         goToTwitter()
         goToWebPage()
+        goToUserManual()
         sendEmail()
         goToPrivacyPolicy()
         rateApp()
@@ -45,7 +46,7 @@ class MoreFragment : BaseFragment(), UI.More {
             Método encargado de navegar hacia el fragment "ProfileUser".
         */
         btn_go_to_profile.setOnClickListener {
-            navController.navigate(R.id.navigation_profile_user)
+            navController.navigate(R.id.action_go_to_profile_user_fragment_from_more_fragment)
         }
 
     }
@@ -85,6 +86,21 @@ class MoreFragment : BaseFragment(), UI.More {
         */
 
         btn_web_page.setOnClickListener {
+            val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://circleappsstudio.com")
+            )
+            requireContext().startActivity(intent)
+        }
+
+    }
+
+    override fun goToUserManual() {
+        /*
+            Método encargado de navegar hacia la URL del manual de usuario del sistema.
+        */
+
+        btn_user_manual.setOnClickListener {
             val intent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse("https://circleappsstudio.com")

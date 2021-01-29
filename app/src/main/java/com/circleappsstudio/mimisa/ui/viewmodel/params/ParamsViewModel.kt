@@ -186,8 +186,8 @@ class ParamsViewModel(
     }
 
     /*
-            Método encargado de validar que el límite de asientos no sea nulo.
-        */
+        Método encargado de validar que el límite de asientos no sea nulo.
+    */
     override fun checkEmptySeatLimit(seatLimit: String)
             : Boolean = seatLimit.isEmpty()
 

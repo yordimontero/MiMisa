@@ -68,7 +68,7 @@
                     android:layout_marginBottom="10dp"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
-                    android:text="@string/enter_security_code"
+                    android:text="@string/enter_verify_code"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -79,7 +79,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:hint="@string/code"
+                    android:hint="@string/verify_code"
                     app:boxStrokeColor="@color/light_green"
                     app:hintTextColor="@color/light_green">
 

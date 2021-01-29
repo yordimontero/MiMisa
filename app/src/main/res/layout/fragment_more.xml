@@ -31,15 +31,17 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_person_pin"
                     app:tint="@color/light_green" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
                     android:text="@string/my_profile"
+                    android:layout_gravity="center"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -65,13 +67,15 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/facebook_icon"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="@string/facebook"
                     android:textSize="18sp" />
 
@@ -97,13 +101,15 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/twitter_icon"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="@string/twitter"
                     android:textSize="18sp" />
 
@@ -129,19 +135,56 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/circle_apps_studio_icon"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="@string/web_page"
                     android:textSize="18sp" />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_user_manual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_user_manual"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="@string/user_manual"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_send_email"
@@ -161,6 +204,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_campaign"
                     app:tint="@color/orange"/>
 
@@ -169,6 +213,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="@string/send_email"
                     android:textSize="18sp" />
 
@@ -195,13 +240,15 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp"
                     app:tint="@color/aqua_green"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_policy" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="@string/privacy_policy"
                     android:textSize="18sp" />
 
@@ -227,14 +274,16 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:layout_gravity="center"
                     app:tint="@color/orange"
                     android:src="@drawable/ic_star"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="@string/rate_app"
                     android:textSize="18sp" />
 
@@ -260,13 +309,15 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/google_play_store_icon"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:text="@string/look_out_other_apps"
                     android:textSize="18sp" />
 

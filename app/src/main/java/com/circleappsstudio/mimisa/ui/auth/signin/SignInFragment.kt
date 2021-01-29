@@ -274,7 +274,7 @@ class SignInFragment : BaseFragment(),
              Método encargado de navegar hacia el Fragment "LogInFragment".
         */
         btn_go_to_login.setOnClickListener {
-            navController.navigate(R.id.action_signInFragment_to_logInFragment)
+            navController.navigate(R.id.action_go_to_log_in_fragment_from_sign_in_fragment)
         }
 
     }

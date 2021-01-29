@@ -6,7 +6,6 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.params.ParamsDataSource
@@ -21,8 +20,6 @@ class OptionsAdminIntentionFragment : BaseFragment(),
             UI.OptionsAdminIntentions,
             UI.IsOnlineDialogClickButtonListener,
             UI.ConfirmDialogClickButtonListener {
-
-    private lateinit var navController: NavController
 
     private val paramsViewModel by activityViewModels<ParamsViewModel> {
         VMFactoryParams(

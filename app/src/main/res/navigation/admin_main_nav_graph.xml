@@ -21,8 +21,12 @@
         android:label="@string/intention_register"
         tools:layout="@layout/fragment_admin_intention">
         <action
-            android:id="@+id/action_navigation_intention_admin_to_optionsAdminIntentionFragment"
-            app:destination="@id/optionsAdminIntentionFragment" />
+            android:id="@+id/action_go_to_admin_options_intention_fragment_from_admin_main_intention_fragment"
+            app:destination="@id/optionsAdminIntentionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/navigation_seat_reservation_admin"
@@ -30,8 +34,12 @@
         android:label="@string/seat_reservation"
         tools:layout="@layout/fragment_admin_seat_reservation">
         <action
-            android:id="@+id/action_navigation_seat_reservation_admin_to_optionsAdminSeatReservationFragment"
-            app:destination="@id/navigation_options_admin_seat_reservation" />
+            android:id="@+id/action_go_to_admin_options_seat_reservation_fragment_from_admin_main_seat_reservation_fragment"
+            app:destination="@id/navigation_options_admin_seat_reservation"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/navigation_home_admin"

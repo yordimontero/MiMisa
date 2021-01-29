@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="Categoría:"
+                    android:text="@string/txt_category"
                     android:textSize="18sp" />
 
                 <TextView
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="Intención:"
+                    android:text="@string/txt_intention"
                     android:textSize="18sp" />
 
                 <LinearLayout
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="Fecha de registro:"
+                    android:text="@string/txt_date"
                     android:textSize="18sp" />
 
                 <TextView
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="Registrado por:"
+                    android:text="@string/txt_registered_by"
                     android:textSize="18sp" />
 
                 <TextView

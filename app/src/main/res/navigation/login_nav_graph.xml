@@ -11,17 +11,26 @@
         android:label="@string/to_sign_in_login_nav_graph"
         tools:layout="@layout/fragment_sign_in">
         <action
-            android:id="@+id/action_signInFragment_to_logInFragment"
-            app:destination="@id/logInFragment" />
-        <action
-            android:id="@+id/action_signInFragment_to_resetPasswordFragment"
-            app:destination="@id/resetPasswordFragment" />
+            android:id="@+id/action_go_to_log_in_fragment_from_sign_in_fragment"
+            app:destination="@id/logInFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.circleappsstudio.mimisa.ui.auth.login.LogInFragment"
         android:label="@string/to_log_in_login_nav_graph"
-        tools:layout="@layout/fragment_log_in" />
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_go_to_reset_password_fragment_from_log_in_fragment"
+            app:destination="@id/resetPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.circleappsstudio.mimisa.ui.auth.resetpassword.ResetPasswordFragment"

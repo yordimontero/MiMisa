@@ -38,7 +38,7 @@
 
     <!-- CheckAdminCodeActivity -->
     <string name="secure_verify">Verificación de Seguridad</string>
-    <string name="enter_security_code">Ingrese el código de seguridad.</string>
+    <string name="enter_verify_code">Ingrese el código de verificación.</string>
     <string name="wrong_admin_code">El código ingresado es incorrecto.</string>
     <string name="to_verify">Verificar</string>
 
@@ -97,6 +97,7 @@
     <string name="confirm_reservation">Confirmar reservación</string>
     <string name="invalid_id_number">Número de cédula inválido.</string>
     <string name="seat_reserved_successfully">Asiento reservado con éxito.</string>
+    <string name="seat_reserved_error">Se produjo un error al reservar el asiento.</string>
     <string name="user_has_a_reserved_seat">La persona que se le asignará el asiento ya tiene un asiento reservado.</string>
     <string name="do_you_want_to_reserve_seat">¿Desea reservar el asiento?</string>
 
@@ -121,6 +122,7 @@
     <string name="facebook">¡Búscanos en Facebook!</string>
     <string name="twitter">¡Síguenos en Twitter!</string>
     <string name="web_page">¡Visita nuestra página web!</string>
+    <string name="user_manual">Descarga el manual de usuario</string>
     <string name="send_email">¿Tienes alguna duda o sugerencia? Contáctanos</string>
     <string name="privacy_policy">Política de privacidad</string>
     <string name="rate_app">¡Valora esta aplicación!</string>
@@ -148,8 +150,8 @@
 
     <!-- AdminSeatReservationFragment -->
     <string name="search">Buscar…</string>
-    <string name="search_by_name">Búsqueda por nombre</string>
-    <string name="search_by_seat_number">Búsqueda por número de asiento</string>
+    <string name="enter_seat_number">Ingrese el número de asiento.</string>
+    <string name="search_by_seat_number">Buscar por número de asiento…</string>
     <string name="reserved_seats">Asientos reservados:</string>
     <string name="no_result_found">No se encontraron resultados.</string>
     <string name="select_search_filter">Seleccione el filtro de búsqueda.</string>
@@ -191,6 +193,22 @@
     <string name="thanksgiving">Acción de gracias</string>
     <string name="deceased">Difuntos</string>
     <string name="birthday">Cumpleaños</string>
+
+
+    <!-- seat_row -->
+    <string name="txt_seat">Asiento:</string>
+    <string name="txt_name">Nombre:</string>
+    <string name="txt_last_name">Apellido:</string>
+    <string name="txt_id_number">Número de cédula:</string>
+    <string name="txt_date">Fecha de registro:</string>
+    <string name="txt_registered_by">Registrado por:</string>
+
+
+    <!-- intention_row -->
+    <string name="txt_category">Categoría:</string>
+    <string name="txt_intention">Intención:</string>
+
+
 
 
     <!-- App Rate -->

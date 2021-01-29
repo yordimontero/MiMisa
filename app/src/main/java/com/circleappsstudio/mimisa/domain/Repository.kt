@@ -60,7 +60,7 @@ interface Repository {
                 nameUser: String,
                 lastNameUser: String,
                 idNumberUser: String
-        )
+        ): Resource<Boolean>
 
         suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>?
 

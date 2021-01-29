@@ -12,16 +12,23 @@ class SeatReservationRepository(
     /*
         Método encargado de reservar un asiento.
     */
+    /*override suspend fun saveSeatReserved(
+            seatNumber: Int,
+            nameUser: String,
+            lastNameUser: String,
+            idNumberUser: String
+    ) = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser)*/
+
     override suspend fun saveSeatReserved(
             seatNumber: Int,
             nameUser: String,
             lastNameUser: String,
             idNumberUser: String
-    ) = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser)
+    ): Resource<Boolean> = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser)
 
     /*
-        Método encargado de traer todos los asientos reservados de la base datos.
-    */
+            Método encargado de traer todos los asientos reservados de la base datos.
+        */
     override suspend fun fetchAllRegisteredSeats()
             : Resource<List<Seat>>? = seatReservationDataSource.fetchAllRegisteredSeats()
 

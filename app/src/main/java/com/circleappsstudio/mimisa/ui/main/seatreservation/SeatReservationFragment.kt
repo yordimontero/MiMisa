@@ -231,7 +231,7 @@ class SeatReservationFragment : BaseFragment(),
 
     }
 
-    override fun saveSeatReservedObserver() {
+    /*override fun saveSeatReservedObserver() {
         /*
             Método encargado de reservar un asiento.
         */
@@ -251,6 +251,48 @@ class SeatReservationFragment : BaseFragment(),
 
                     is Resource.Success -> {
                         addIteratorObserver()
+                    }
+
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
+                    }
+
+                }
+
+            })
+
+        }
+
+    }*/
+
+    override fun saveSeatReservedObserver() {
+        /*
+            Método encargado de reservar un asiento.
+        */
+        if (isOnline(requireContext())){
+
+            seatReservationViewModel.saveSeatReserved(
+                    seatNumber.toInt(),
+                    nameUser,
+                    lastNameUser,
+                    idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                when (resultEmitted) {
+
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
+
+                    is Resource.Success -> {
+
+                        if (resultEmitted.data) {
+                            addIteratorObserver()
+                        } else {
+                            showMessage(getString(R.string.seat_reserved_error), 2)
+                            hideProgressBar()
+                        }
+
                     }
 
                     is Resource.Failure -> {

@@ -54,12 +54,19 @@ interface DataSource {
             Interface encargada de controlar los métodos de la base de datos Firestore para
             la reservación de asientos.
         */
+        /*suspend fun saveSeatReserved(
+                seatNumber: Int,
+                nameUser: String,
+                lastNameUser: String,
+                idNumberUser: String
+        )*/
+
         suspend fun saveSeatReserved(
                 seatNumber: Int,
                 nameUser: String,
                 lastNameUser: String,
                 idNumberUser: String
-        )
+        ): Resource<Boolean>
 
         suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>?
 
