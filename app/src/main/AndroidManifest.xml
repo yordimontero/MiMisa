@@ -17,6 +17,7 @@
             android:name=".ui.auth.checkadmincode.CheckAdminCodeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"
             android:label="@string/secure_verify">
         </activity>
 
@@ -25,12 +26,14 @@
         <activity
             android:name=".ui.main.admin.AdminMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
-            android:theme="@style/Theme.SplashScreen">
+            android:theme="@style/Theme.SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,13 +44,15 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_main"
-            android:windowSoftInputMode="adjustResize" />
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.auth.LogInActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"/>
 
     </application>
 
