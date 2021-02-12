@@ -18,12 +18,8 @@
         android:label="@string/intention_register"
         tools:layout="@layout/fragment_main_intention">
         <action
-            android:id="@+id/action_go_to_intention_fragment_from_main_intention_fragment"
-            app:destination="@id/intentionFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            android:id="@+id/action_navigation_intention_to_seatCategoryFragment"
+            app:destination="@id/navigation_seat_category_fragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSeatReservation"
@@ -66,4 +62,23 @@
         android:name="com.circleappsstudio.mimisa.ui.main.profileuser.ProfileUserFragment"
         android:label="@string/my_profile"
         tools:layout="@layout/fragment_profile_user" />
+    <fragment
+        android:id="@+id/navigation_seat_category_fragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.SeatCategoryFragment"
+        android:label="fragment_seat_category"
+        tools:layout="@layout/fragment_seat_category" >
+        <action
+            android:id="@+id/action_navigationSeatCategoryFragment_to_coupleSeatCategoryFragment"
+            app:destination="@id/navigation_couple_seat_category_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_couple_seat_category_fragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple.CoupleSeatCategoryFragment"
+        android:label="fragment_couple_seat_category"
+        tools:layout="@layout/fragment_couple_seat_category" />
+    <fragment
+        android:id="@+id/allSeatCouplesFragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple.AllSeatCouplesFragment"
+        android:label="fragment_all_seat_couples"
+        tools:layout="@layout/fragment_all_seat_couples" />
 </navigation>

@@ -155,8 +155,6 @@ interface UI {
             Interface encargada de controlar los métodos de AdminMainActivity.
         */
 
-        //...
-
         fun setNavViewVisibility()
 
         fun showNavView()
@@ -225,6 +223,16 @@ interface UI {
         fun hideButton()
 
         fun showIsOnlineDialog()
+
+    }
+
+    interface SeatCategory {
+
+        fun goToCoupleSeat()
+
+        fun goToThreesomeSeat()
+
+        fun goToBubbleSeat()
 
     }
 

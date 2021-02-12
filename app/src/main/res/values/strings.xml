@@ -41,7 +41,6 @@
     <string name="txt_more"></string>
 
 
-
     <!-- CheckAdminCodeActivity -->
     <string name="secure_verify">Verificación de Seguridad</string>
     <string name="enter_verify_code">Ingrese el código de verificación.</string>
@@ -194,7 +193,6 @@
     <string name="do_you_want_to_disable_register_intention">¿Desea deshabilitar el registro de intenciones?</string>
 
 
-
     <!-- IntentionAdapter -->
     <string name="thanksgiving">Acción de gracias</string>
     <string name="deceased">Difuntos</string>
@@ -213,8 +211,6 @@
     <!-- intention_row -->
     <string name="txt_category">Categoría:</string>
     <string name="txt_intention">Intención:</string>
-
-
 
 
     <!-- App Rate -->

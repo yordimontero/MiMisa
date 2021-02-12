@@ -179,7 +179,8 @@ class MainIntentionFragment : BaseFragment(),
             Método encargado de navegar hacia el fragment de registro de intenciones.
         */
         btn_go_to_intention.setOnClickListener {
-            navController.navigate(R.id.action_go_to_intention_fragment_from_main_intention_fragment)
+            //navController.navigate(R.id.action_go_to_intention_fragment_from_main_intention_fragment)
+            navController.navigate(R.id.intentionFragment)
         }
 
     }
