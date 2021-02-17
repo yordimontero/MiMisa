@@ -98,6 +98,8 @@ interface MainViewModel {
 
         fun checkSeatLimit(seatNumber: Int, seatLimit: Int): Boolean
 
+        fun checkCouples(coupleNumber: String): LiveData<Resource<Boolean>>
+
     }
 
     interface Intentions {

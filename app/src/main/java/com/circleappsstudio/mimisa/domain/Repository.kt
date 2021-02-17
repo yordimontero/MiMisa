@@ -72,6 +72,8 @@ interface Repository {
 
         suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
 
+        suspend fun checkCouples(coupleNumber: String): Flow<Resource<Boolean>>
+
     }
 
     interface Intentions {

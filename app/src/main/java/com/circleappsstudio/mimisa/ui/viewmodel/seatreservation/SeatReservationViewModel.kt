@@ -9,32 +9,11 @@ import com.circleappsstudio.mimisa.ui.viewmodel.MainViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.FirebaseException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 
 class SeatReservationViewModel(
         private val seatReservationRepository: Repository.SeatReservation
 ) : ViewModel(), MainViewModel.SeatReservation {
-
-    /*override fun saveSeatReserved(
-        seatNumber: Int,
-        nameUser: String,
-        lastNameUser: String,
-        idNumberUser: String
-    ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
-        /*
-            Método encargado de reservar un asiento.
-        */
-        emit(Resource.Loading())
-
-        try {
-
-            seatReservationRepository.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser)
-            emit(Resource.Success(true))
-
-        } catch (e: FirebaseException){
-            emit(Resource.Failure(e))
-        }
-
-    }*/
 
     override fun saveSeatReserved(
             seatNumber: Int,
@@ -171,5 +150,22 @@ class SeatReservationViewModel(
     */
     override fun checkSeatLimit(seatNumber: Int, seatLimit: Int)
             : Boolean = seatNumber > seatLimit
+
+    override fun checkCouples(coupleNumber: String)
+    : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.checkCouples(coupleNumber).collect { documentId ->
+                emit(documentId)
+            }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
 
 }

@@ -2,10 +2,18 @@ package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
+import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
+import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
+import com.circleappsstudio.mimisa.vo.Resource
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_all_seat_couples.*
 
@@ -15,7 +23,15 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     private lateinit var bundle: Bundle
 
+    private lateinit var coupleNumber: String
 
+    private val seatReservationViewModel by activityViewModels<SeatReservationViewModel> {
+        VMFactorySeatReservation(
+                SeatReservationRepository(
+                        SeatReservationDataSource()
+                )
+        )
+    }
 
     private val db by lazy { FirebaseFirestore.getInstance() }
 
@@ -30,7 +46,7 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         callAllToGo()
 
-        checkCouples()
+        //checkCouples()
 
     }
 
@@ -64,7 +80,45 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun checkCouples() {
 
-       db.collection("diaconia")
+        seatReservationViewModel.checkCouples(coupleNumber)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            Toast.makeText(requireContext(),
+                                    "Loading...",
+                                    Toast.LENGTH_SHORT)
+                                    .show()
+                        }
+
+                        is Resource.Success -> {
+
+                            if (resultEmitted.data) {
+
+                                navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+
+                            } else {
+                                Toast.makeText(requireContext(),
+                                        "La pareja seleccionada no está disponible.",
+                                        Toast.LENGTH_SHORT)
+                                        .show()
+                            }
+
+                        }
+
+                        is Resource.Failure -> {
+                            Toast.makeText(requireContext(),
+                                    resultEmitted.exception.message.toString(),
+                                    Toast.LENGTH_SHORT)
+                                    .show()
+                        }
+
+                    }
+
+                })
+
+       /*db.collection("diaconia")
                 .document("la_argentina")
                 .collection("seat")
                 .document("data")
@@ -179,7 +233,7 @@ class AllSeatCouplesFragment : BaseFragment() {
 
                     }
 
-                }
+                }*/
 
     }
 
@@ -189,8 +243,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_1.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_1", "19", "20"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_1"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "19", "20"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -202,8 +259,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_2.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_2", "21", "22"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_2"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "21", "22"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -215,8 +275,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_3.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_3", "26", "27"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_3"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "26", "27"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -228,8 +291,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_4.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_4", "28", "29"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_4"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "28", "29"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -241,8 +307,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_5.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_5", "33", "34"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_5"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "33", "34"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -254,8 +323,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_6.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_6", "35", "36"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_6"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "35", "36"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -267,8 +339,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_7.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_7", "40", "41"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_7"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "40", "41"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -280,8 +355,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_8.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_8", "42", "43"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_8"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "42", "43"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -293,8 +371,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_9.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_9", "44", "45"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_9"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "44", "45"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -306,8 +387,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_10.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_10", "46", "47"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_10"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "46", "47"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -319,8 +403,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_11.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_11", "51", "52"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_11"
+
+            bundle.putStringArrayList(coupleNumber, arrayListOf("couple_11", "51", "52"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -332,8 +419,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_12.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_12", "53", "54"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_12"
+
+            bundle.putStringArrayList(coupleNumber, arrayListOf("couple_12", "53", "54"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -345,8 +435,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_13.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_13", "58", "59"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_13"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "58", "59"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -358,8 +451,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_14.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_14", "60", "61"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_14"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "60", "61"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -371,8 +467,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_15.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_15", "65", "66"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_15"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "65", "66"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -384,8 +483,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_16.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_16", "67", "68"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_16"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "67", "68"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -397,8 +499,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_17.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_17", "72", "73"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_17"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "72", "73"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -410,8 +515,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_18.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_18", "74", "75"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_18"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "74", "75"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -423,8 +531,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_19.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_19", "79", "80"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_19"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "79", "80"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -436,8 +547,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_20.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_20", "81", "82"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_20"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "81", "82"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -449,8 +563,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_21.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_21", "86", "87"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_21"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "86", "87"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -462,8 +579,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_22.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_22", "88", "89"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_22"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "88", "89"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 
@@ -475,8 +595,11 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         btn_couple_23.setOnClickListener {
 
-            bundle.putStringArrayList("coupleSeats", arrayListOf("couple_23", "93", "94"))
-            navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            coupleNumber = "couple_23"
+
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "93", "94"))
+            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+            checkCouples()
 
         }
 

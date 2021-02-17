@@ -4,6 +4,7 @@ import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.domain.Repository
 import com.circleappsstudio.mimisa.vo.Resource
+import kotlinx.coroutines.flow.Flow
 
 class SeatReservationRepository(
         private val seatReservationDataSource: DataSource.SeatReservation
@@ -57,5 +58,8 @@ class SeatReservationRepository(
     */
     override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String)
             : Resource<Boolean> = seatReservationDataSource.checkSeatSavedByIdNumberUser(idNumberUser)
+
+    override suspend fun checkCouples(coupleNumber: String)
+    : Flow<Resource<Boolean>> = seatReservationDataSource.checkCouples(coupleNumber)
 
 }
