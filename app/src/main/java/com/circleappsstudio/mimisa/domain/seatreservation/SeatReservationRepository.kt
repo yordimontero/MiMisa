@@ -59,7 +59,13 @@ class SeatReservationRepository(
     override suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String)
             : Resource<Boolean> = seatReservationDataSource.checkSeatSavedByIdNumberUser(idNumberUser)
 
+    /*override suspend fun checkCouples(coupleNumber: String)
+    : Flow<Resource<Boolean>> = seatReservationDataSource.checkCouples(coupleNumber)*/
+
     override suspend fun checkCouples(coupleNumber: String)
-    : Flow<Resource<Boolean>> = seatReservationDataSource.checkCouples(coupleNumber)
+    : Resource<Boolean> = seatReservationDataSource.checkCouples(coupleNumber)
+
+    override suspend fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean) =
+            seatReservationDataSource.updateIsCoupleAvailable(coupleNumber, isAvailable)
 
 }

@@ -1,6 +1,5 @@
 package com.circleappsstudio.mimisa.data.datasource.seatreservation
 
-import android.util.Log
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
@@ -268,38 +267,43 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
+    override suspend fun checkCouples(coupleNumber: String): Resource<Boolean> {
 
-    /*@ExperimentalCoroutinesApi
-    override suspend fun checkCouples()
-    : Flow<Resource<String>> = callbackFlow {
+        var isAvailable = false
 
-        val isCoupleAvailablePath = db.collection("diaconia")
+        db.collection("diaconia")
                 .document("la_argentina")
                 .collection("seat")
-                .document("data")
-                .collection("couples")
+                .document("couples")
+                .collection("data")
+                .document(coupleNumber)
+                .get()
+                .addOnSuccessListener { document ->
 
-        val subscription = isCoupleAvailablePath.addSnapshotListener { documentSnapshot,
-                                                                 firebaseFirestoreException ->
-            /*
-                "subscription" va a estar siempre escuchando en tiempo real el valor de "is_seat_reservation_available",
-                y va a estar ofreciendo su valor por medio del offer(Resource.Success(isAvailable)).
-            */
-            if (documentSnapshot!!.exists()) {
+                    if (document.exists()) {
+                        isAvailable = document.getBoolean("is_available")!!
+                    }
 
-                val isAvailable = documentSnapshot.getBoolean("is_seat_reservation_available")!!
+                }.await()
 
-                offer(Resource.Success(isAvailable))
+        return Resource.Success(isAvailable)
 
-            } else {
-                channel.close(firebaseFirestoreException?.cause)
-            }
+    }
 
-        }
+    override suspend fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean) {
 
+        db.collection("diaconia")
+                .document("la_argentina")
+                .collection("seat")
+                .document("couples")
+                .collection("data")
+                .document(coupleNumber)
+                .update("is_available", isAvailable)
+                .await()
 
-    }*/
+    }
 
+    /*
     @ExperimentalCoroutinesApi
     override suspend fun checkCouples(coupleNumber: String)
             : Flow<Resource<Boolean>> = callbackFlow {
@@ -335,6 +339,8 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         */
         awaitClose { subscription.remove() }
 
-    }
+    }*/
+
+
 
 }

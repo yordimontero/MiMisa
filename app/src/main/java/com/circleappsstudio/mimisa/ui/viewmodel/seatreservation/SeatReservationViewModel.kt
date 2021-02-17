@@ -151,7 +151,7 @@ class SeatReservationViewModel(
     override fun checkSeatLimit(seatNumber: Int, seatLimit: Int)
             : Boolean = seatNumber > seatLimit
 
-    override fun checkCouples(coupleNumber: String)
+    /*override fun checkCouples(coupleNumber: String)
     : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
 
         emit(Resource.Loading())
@@ -161,6 +161,36 @@ class SeatReservationViewModel(
             seatReservationRepository.checkCouples(coupleNumber).collect { documentId ->
                 emit(documentId)
             }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }*/
+
+    override fun checkCouples(coupleNumber: String): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepository.checkCouples(coupleNumber))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean)
+    : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.updateIsCoupleAvailable(coupleNumber, isAvailable)
+            emit(Resource.Success(true))
 
         } catch (e: FirebaseException) {
             emit(Resource.Failure(e))

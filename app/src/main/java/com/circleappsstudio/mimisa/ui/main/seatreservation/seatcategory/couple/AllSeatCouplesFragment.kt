@@ -14,16 +14,11 @@ import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationReposit
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_all_seat_couples.*
 
 class AllSeatCouplesFragment : BaseFragment() {
 
     private lateinit var navController: NavController
-
-    private lateinit var bundle: Bundle
-
-    private lateinit var coupleNumber: String
 
     private val seatReservationViewModel by activityViewModels<SeatReservationViewModel> {
         VMFactorySeatReservation(
@@ -33,9 +28,9 @@ class AllSeatCouplesFragment : BaseFragment() {
         )
     }
 
-    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val bundle by lazy { Bundle() }
 
-
+    private lateinit var coupleNumber: String
 
     override fun getLayout(): Int = R.layout.fragment_all_seat_couples
 
@@ -45,8 +40,6 @@ class AllSeatCouplesFragment : BaseFragment() {
         navController = Navigation.findNavController(view)
 
         callAllToGo()
-
-        //checkCouples()
 
     }
 
@@ -86,10 +79,12 @@ class AllSeatCouplesFragment : BaseFragment() {
                     when (resultEmitted) {
 
                         is Resource.Loading -> {
+
                             Toast.makeText(requireContext(),
                                     "Loading...",
                                     Toast.LENGTH_SHORT)
                                     .show()
+
                         }
 
                         is Resource.Success -> {
@@ -99,19 +94,23 @@ class AllSeatCouplesFragment : BaseFragment() {
                                 navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
 
                             } else {
+
                                 Toast.makeText(requireContext(),
                                         "La pareja seleccionada no está disponible.",
                                         Toast.LENGTH_SHORT)
                                         .show()
+
                             }
 
                         }
 
                         is Resource.Failure -> {
+
                             Toast.makeText(requireContext(),
                                     resultEmitted.exception.message.toString(),
                                     Toast.LENGTH_SHORT)
                                     .show()
+
                         }
 
                     }
@@ -239,14 +238,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple1() {
 
-        bundle = Bundle()
-
         btn_couple_1.setOnClickListener {
 
             coupleNumber = "couple_1"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "19", "20"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -255,14 +250,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple2() {
 
-        bundle = Bundle()
-
         btn_couple_2.setOnClickListener {
 
             coupleNumber = "couple_2"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "21", "22"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -271,14 +262,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple3() {
 
-        bundle = Bundle()
-
         btn_couple_3.setOnClickListener {
 
             coupleNumber = "couple_3"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "26", "27"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -287,14 +274,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple4() {
 
-        bundle = Bundle()
-
         btn_couple_4.setOnClickListener {
 
             coupleNumber = "couple_4"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "28", "29"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -303,14 +286,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple5() {
 
-        bundle = Bundle()
-
         btn_couple_5.setOnClickListener {
 
             coupleNumber = "couple_5"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "33", "34"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -319,14 +298,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple6() {
 
-        bundle = Bundle()
-
         btn_couple_6.setOnClickListener {
 
             coupleNumber = "couple_6"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "35", "36"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -335,14 +310,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple7() {
 
-        bundle = Bundle()
-
         btn_couple_7.setOnClickListener {
 
             coupleNumber = "couple_7"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "40", "41"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -351,14 +322,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple8() {
 
-        bundle = Bundle()
-
         btn_couple_8.setOnClickListener {
 
             coupleNumber = "couple_8"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "42", "43"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -367,14 +334,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple9() {
 
-        bundle = Bundle()
-
         btn_couple_9.setOnClickListener {
 
             coupleNumber = "couple_9"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "44", "45"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -383,14 +346,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple10() {
 
-        bundle = Bundle()
-
         btn_couple_10.setOnClickListener {
 
             coupleNumber = "couple_10"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "46", "47"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -399,14 +358,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple11() {
 
-        bundle = Bundle()
-
         btn_couple_11.setOnClickListener {
 
             coupleNumber = "couple_11"
-
             bundle.putStringArrayList(coupleNumber, arrayListOf("couple_11", "51", "52"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -415,14 +370,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple12() {
 
-        bundle = Bundle()
-
         btn_couple_12.setOnClickListener {
 
             coupleNumber = "couple_12"
-
             bundle.putStringArrayList(coupleNumber, arrayListOf("couple_12", "53", "54"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -431,14 +382,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple13() {
 
-        bundle = Bundle()
-
         btn_couple_13.setOnClickListener {
 
             coupleNumber = "couple_13"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "58", "59"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -447,14 +394,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple14() {
 
-        bundle = Bundle()
-
         btn_couple_14.setOnClickListener {
 
             coupleNumber = "couple_14"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "60", "61"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -463,14 +406,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple15() {
 
-        bundle = Bundle()
-
         btn_couple_15.setOnClickListener {
 
             coupleNumber = "couple_15"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "65", "66"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -479,14 +418,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple16() {
 
-        bundle = Bundle()
-
         btn_couple_16.setOnClickListener {
 
             coupleNumber = "couple_16"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "67", "68"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -495,14 +430,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple17() {
 
-        bundle = Bundle()
-
         btn_couple_17.setOnClickListener {
 
             coupleNumber = "couple_17"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "72", "73"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -511,14 +442,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple18() {
 
-        bundle = Bundle()
-
         btn_couple_18.setOnClickListener {
 
             coupleNumber = "couple_18"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "74", "75"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -527,14 +454,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple19() {
 
-        bundle = Bundle()
-
         btn_couple_19.setOnClickListener {
 
             coupleNumber = "couple_19"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "79", "80"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -543,14 +466,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple20() {
 
-        bundle = Bundle()
-
         btn_couple_20.setOnClickListener {
 
             coupleNumber = "couple_20"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "81", "82"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -559,14 +478,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple21() {
 
-        bundle = Bundle()
-
         btn_couple_21.setOnClickListener {
 
             coupleNumber = "couple_21"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "86", "87"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -575,14 +490,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple22() {
 
-        bundle = Bundle()
-
         btn_couple_22.setOnClickListener {
 
             coupleNumber = "couple_22"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "88", "89"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }
@@ -591,14 +502,10 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     fun goToCouple23() {
 
-        bundle = Bundle()
-
         btn_couple_23.setOnClickListener {
 
             coupleNumber = "couple_23"
-
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "93", "94"))
-            //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
             checkCouples()
 
         }

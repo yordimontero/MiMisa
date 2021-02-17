@@ -3,6 +3,7 @@ package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -81,14 +82,18 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             seat2 = getSeats[2].toInt()
         }
 
+        setIsNotAvailable()
+
         saveSeatReserved()
 
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    override fun onPause() {
+        super.onPause()
 
-        showMessage("onDetach", 1)
+        if (!isAnySeatReserved) {
+            setIsAvailable()
+        }
 
     }
 
@@ -103,15 +108,54 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
     }
 
-    fun updateIsAvailable() {
+    fun setIsAvailable() {
 
-        db.collection("diaconia")
-                .document("la_argentina")
-                .collection("seat")
-                .document("data")
-                .collection("couples")
-                .document(coupleNumber)
-                .update("isAvailable", false)
+        seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, true)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when(resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                        }
+
+                    }
+
+                })
+
+    }
+
+    fun setIsNotAvailable() {
+
+        seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, false)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when(resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                        }
+
+                    }
+
+                })
+
 
     }
 

@@ -100,6 +100,8 @@ interface MainViewModel {
 
         fun checkCouples(coupleNumber: String): LiveData<Resource<Boolean>>
 
+        fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean): LiveData<Resource<Boolean>>
+
     }
 
     interface Intentions {
