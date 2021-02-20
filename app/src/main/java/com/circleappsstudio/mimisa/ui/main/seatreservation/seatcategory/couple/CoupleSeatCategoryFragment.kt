@@ -2,6 +2,7 @@ package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_couple_seat_category.*
 class CoupleSeatCategoryFragment : BaseFragment(),
         UI.IsOnlineDialogClickButtonListener,
         UI.ConfirmDialogClickButtonListener,
+        UI.ReserveSeatDialogClickButtonListener,
         UI.IsSeatReservationAvailableDialogClickButtonListener {
 
     private lateinit var navController: NavController
@@ -48,25 +50,16 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
     private lateinit var getSeats: ArrayList<String>
     private lateinit var coupleNumber: String
-    //private lateinit var seat1: String
-    //private lateinit var seat2: String
     private var seat1: Int = 0
     private var seat2: Int = 0
 
     private lateinit var nameUser: String
     private lateinit var lastNameUser: String
     private lateinit var idNumberUser: String
-    private lateinit var seatLimitNumber: String
 
     private var isAvailable = true
 
     private var isAnySeatReserved = false
-
-
-
-    private val db by lazy { FirebaseFirestore.getInstance() }
-
-
 
     override fun getLayout(): Int = R.layout.fragment_couple_seat_category
 
@@ -75,12 +68,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         navController = Navigation.findNavController(view)
 
-        requireArguments().let {
-            getSeats = it.getStringArrayList("coupleSeats")!!
-            coupleNumber = getSeats[0]
-            seat1 = getSeats[1].toInt()
-            seat2 = getSeats[2].toInt()
-        }
+        fetchData()
 
         setIsNotAvailable()
 
@@ -104,96 +92,19 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             return
         }
 
+        getBundle()
+
         fetchIsSeatReservationAvailable()
 
     }
 
-    fun setIsAvailable() {
+    fun getBundle() {
 
-        seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, true)
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                    when(resultEmitted) {
-
-                        is Resource.Loading -> {
-                            showProgressBar()
-                        }
-
-                        is Resource.Success -> {
-                            hideProgressBar()
-                        }
-
-                        is Resource.Failure -> {
-                            showMessage(resultEmitted.exception.message.toString(), 2)
-                        }
-
-                    }
-
-                })
-
-    }
-
-    fun setIsNotAvailable() {
-
-        seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, false)
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                    when(resultEmitted) {
-
-                        is Resource.Loading -> {
-                            showProgressBar()
-                        }
-
-                        is Resource.Success -> {
-                            hideProgressBar()
-                        }
-
-                        is Resource.Failure -> {
-                            showMessage(resultEmitted.exception.message.toString(), 2)
-                        }
-
-                    }
-
-                })
-
-
-    }
-
-    fun fetchIsSeatReservationAvailable() {
-        /*
-            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
-            o deshabilitada.
-        */
-        if (isOnline(requireContext())) {
-
-            paramsViewModel.fetchIsSeatReservationAvailable()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when(resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-
-                                isAvailable = resultEmitted.data
-
-                                if (!isAvailable){
-                                    showIsSeatReservationAvailableDialog()
-                                }
-
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
+        requireArguments().let {
+            getSeats = it.getStringArrayList("coupleSeats")!!
+            coupleNumber = getSeats[0]
+            seat1 = getSeats[1].toInt()
+            seat2 = getSeats[2].toInt()
         }
 
     }
@@ -211,7 +122,6 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             idNumberUser = txt_id_number_user_2_seat_reservation_couple_seat_category.text.toString()
 
             showConfirmDialog()
-
 
 
             /*if (!isOnline(requireContext())) {
@@ -249,7 +159,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         /*
             Método encargado de reservar un asiento.
         */
-        if (isOnline(requireContext())){
+        if (isOnline(requireContext())) {
 
             seatReservationViewModel.saveSeatReserved(
                     seat1,
@@ -269,14 +179,161 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
                             isAnySeatReserved = true
 
-                            ++seat1
                             clearFields()
+
+                            showMessage("Asiento número $seat1 reservado", 2)
+                            ++seat1
+
+                            hideProgressBar()
+
+                            if (seat1 > seat2) {
+                                goToSeatReservationMain()
+                            } else {
+                                 showReserveSeatDialog()
+                            }
+
+
+                        }
+
+                    }
+
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
+                    }
+
+                }
+
+            })
+
+        }
+
+    }
+
+
+
+
+    fun setIsAvailable() {
+
+        seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, true)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                        }
+
+                    }
+
+                })
+
+    }
+
+    fun setIsNotAvailable() {
+
+        seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, false)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                        }
+
+                    }
+
+                })
+
+
+    }
+
+    fun fetchIsSeatReservationAvailable() {
+        /*
+            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
+            o deshabilitada.
+        */
+        if (isOnline(requireContext())) {
+
+            paramsViewModel.fetchIsSeatReservationAvailable()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when (resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                isAvailable = resultEmitted.data
+
+                                if (!isAvailable) {
+                                    showIsSeatReservationAvailableDialog()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+    }
+
+    /*fun saveSeatReservedObserver() {
+        /*
+            Método encargado de reservar un asiento.
+        */
+        if (isOnline(requireContext())) {
+
+            seatReservationViewModel.saveSeatReserved(
+                    seat1,
+                    nameUser,
+                    lastNameUser,
+                    idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                when (resultEmitted) {
+
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
+
+                    is Resource.Success -> {
+
+                        if (resultEmitted.data) {
+
+                            isAnySeatReserved = true
+                            clearFields()
+
+                            ++seat1
+
                             showMessage("Asiento reservado", 2)
                             hideProgressBar()
 
                         } else {
-                            //showMessage(getString(R.string.seat_reserved_error), 2)
-                            //hideProgressBar()
 
                             seatReservationViewModel.saveSeatReserved(
                                     seat2,
@@ -330,7 +387,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         }
 
-    }
+    }*/
 
     fun goToSeatReservationMain() {
         /*
@@ -348,7 +405,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             seatReservationViewModel.checkSeatSavedByIdNumberUser(idNumberUser)
                     .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                        when(resultEmitted) {
+                        when (resultEmitted) {
 
                             is Resource.Loading -> {
                                 showProgressBar()
@@ -365,6 +422,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
                                         saveSeatReservedObserver()
                                     } else {
                                         showMessage("Error", 2)
+                                        hideProgressBar()
                                     }
 
                                 }
@@ -429,7 +487,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         /*
             Método encargado de controlar el botón positivo del Dialog "IsOnlineDialog".
         */
-        if (isOnline(requireContext())){
+        if (isOnline(requireContext())) {
             fetchData()
         } else {
             showIsOnlineDialog()
@@ -458,6 +516,8 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         return confirmDialog(this, getString(R.string.do_you_want_to_reserve_seat))
     }
 
+    fun showReserveSeatDialog(): AlertDialog? = reserveSeatDialog(this, "¿Reservar otro asiento?")
+
     override fun confirmPositiveButtonClicked() {
         /*
             Método encargado de controlar el botón positivo del Dialog "confirmDialog".
@@ -470,6 +530,14 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             Método encargado de controlar el botón negativo del Dialog "confirmDialog".
         */
         showConfirmDialog()!!.dismiss()
+    }
+
+    override fun reserveSeatPositiveButtonClicked() {
+        showReserveSeatDialog()!!.dismiss()
+    }
+
+    override fun reserveSeatNegativeButtonClicked() {
+        goToSeatReservationMain()
     }
 
 }

@@ -585,4 +585,10 @@ interface UI {
         fun confirmNegativeButtonClicked()
     }
 
+    interface ReserveSeatDialogClickButtonListener {
+        fun reserveSeatPositiveButtonClicked()
+        fun reserveSeatNegativeButtonClicked()
+    }
+
+
 }

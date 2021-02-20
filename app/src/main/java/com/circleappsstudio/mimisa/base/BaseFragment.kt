@@ -198,6 +198,42 @@ abstract class BaseFragment() : Fragment() {
 
     }
 
+    fun reserveSeatDialog(
+            buttonListener: UI.ReserveSeatDialogClickButtonListener,
+            message: String
+    ): AlertDialog? {
+        /*
+            Método encargado de mostrar un Dialog cuando no hay conexión a internet.
+        */
+        val builder: AlertDialog.Builder? = context?.let {
+            AlertDialog.Builder(it)
+        }
+
+        builder!!.setMessage(message)
+
+        builder.setCancelable(true)
+        builder.setIcon(R.drawable.ic_info)
+
+        builder.apply {
+
+            setPositiveButton("Sí") { dialog, id ->
+                buttonListener.reserveSeatPositiveButtonClicked()
+            }
+
+            setNegativeButton("No") { dialog, id ->
+                buttonListener.reserveSeatNegativeButtonClicked()
+            }
+
+        }
+
+        val dialog: AlertDialog? = builder.create()
+
+        dialog!!.show()
+
+        return dialog
+
+    }
+
     fun hideKeyboard(){
         /*
             Método encargado de ocultar el teclado de la pantalla.
