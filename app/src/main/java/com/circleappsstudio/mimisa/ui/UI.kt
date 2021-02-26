@@ -154,7 +154,6 @@ interface UI {
         /*
             Interface encargada de controlar los métodos de AdminMainActivity.
         */
-
         fun setNavViewVisibility()
 
         fun showNavView()
@@ -233,6 +232,44 @@ interface UI {
         fun goToThreesomeSeat()
 
         fun goToBubbleSeat()
+
+    }
+
+    interface CoupleSeatCategory {
+
+        fun fetchData()
+
+        fun getBundle()
+
+        fun fetchIsSeatReservationAvailableObserver()
+
+        fun saveSeatReserved()
+
+        fun checkSeatSavedByIdNumberUserObserver()
+
+        fun saveSeatReservedObserver()
+
+        fun setIsCoupleAvailable()
+
+        fun setIsNotCoupleAvailable()
+
+        fun clearFields()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun goTo()
+
+        fun showIsOnlineDialog()
+
+        fun showIsSeatReservationAvailableDialog()
+
+        fun showConfirmDialog(): AlertDialog?
+
+        fun showReserveSeatDialog(): AlertDialog?
 
     }
 

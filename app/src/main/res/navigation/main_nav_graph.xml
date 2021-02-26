@@ -75,7 +75,13 @@
         android:id="@+id/navigation_couple_seat_category_fragment"
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple.CoupleSeatCategoryFragment"
         android:label="fragment_couple_seat_category"
-        tools:layout="@layout/fragment_couple_seat_category" />
+        tools:layout="@layout/fragment_couple_seat_category" >
+        <action
+            android:id="@+id/action_go_to_seat_reservation_main_fragment_from_couple_seat_category_fragment"
+            app:destination="@id/navigation_seat_reservation"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/allSeatCouplesFragment"
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple.AllSeatCouplesFragment"

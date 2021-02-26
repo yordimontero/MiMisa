@@ -2,9 +2,7 @@ package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -21,10 +19,10 @@ import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_couple_seat_category.*
 
 class CoupleSeatCategoryFragment : BaseFragment(),
+        UI.CoupleSeatCategory,
         UI.IsOnlineDialogClickButtonListener,
         UI.ConfirmDialogClickButtonListener,
         UI.ReserveSeatDialogClickButtonListener,
@@ -48,6 +46,9 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         )
     }
 
+    private var isAvailable = true
+    private var isAnySeatReserved = false
+
     private lateinit var getSeats: ArrayList<String>
     private lateinit var coupleNumber: String
     private var seat1: Int = 0
@@ -56,10 +57,6 @@ class CoupleSeatCategoryFragment : BaseFragment(),
     private lateinit var nameUser: String
     private lateinit var lastNameUser: String
     private lateinit var idNumberUser: String
-
-    private var isAvailable = true
-
-    private var isAnySeatReserved = false
 
     override fun getLayout(): Int = R.layout.fragment_couple_seat_category
 
@@ -70,22 +67,13 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         fetchData()
 
-        setIsNotAvailable()
+        setIsNotCoupleAvailable()
 
         saveSeatReserved()
 
     }
 
-    override fun onPause() {
-        super.onPause()
-
-        if (!isAnySeatReserved) {
-            setIsAvailable()
-        }
-
-    }
-
-    fun fetchData() {
+    override fun fetchData() {
 
         if (!isOnline(requireContext())) {
             showIsOnlineDialog()
@@ -94,68 +82,145 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         getBundle()
 
-        fetchIsSeatReservationAvailable()
+        fetchIsSeatReservationAvailableObserver()
 
     }
 
-    fun getBundle() {
+    override fun getBundle() {
 
         requireArguments().let {
+
             getSeats = it.getStringArrayList("coupleSeats")!!
             coupleNumber = getSeats[0]
             seat1 = getSeats[1].toInt()
             seat2 = getSeats[2].toInt()
+
         }
 
     }
 
-    fun saveSeatReserved() {
+    override fun fetchIsSeatReservationAvailableObserver() {
+        /*
+            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
+            o deshabilitada.
+        */
+        if (isOnline(requireContext())) {
+
+            paramsViewModel.fetchIsSeatReservationAvailable()
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+
+                            isAvailable = resultEmitted.data
+
+                            if (!isAvailable) {
+                                showIsSeatReservationAvailableDialog()
+                            }
+
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
+                    }
+
+                })
+
+        }
+
+    }
+
+    override fun saveSeatReserved() {
 
         btn_seat_reservation.setOnClickListener {
 
             hideKeyboard()
 
-            nameUser = txt_name_2_seat_reservation_couple_seat_category.text.toString().trim()
+            nameUser = txt_name_seat_reservation_couple_seat_category.text.toString().trim()
+            lastNameUser = txt_lastname_seat_reservation_couple_seat_category.text.toString().trim()
+            idNumberUser = txt_id_number_user_seat_reservation_couple_seat_category.text.toString()
 
-            lastNameUser = txt_lastname_2_seat_reservation_couple_seat_category.text.toString().trim()
-
-            idNumberUser = txt_id_number_user_2_seat_reservation_couple_seat_category.text.toString()
-
-            showConfirmDialog()
-
-
-            /*if (!isOnline(requireContext())) {
+            if (!isOnline(requireContext())) {
                 showIsOnlineDialog()
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkEmptyNameUser(nameUser)) {
-                txt_name_1_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
+                txt_name_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkEmptyLastNameUser(lastNameUser)) {
-                txt_lastname_1_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
+                txt_lastname_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
-                txt_id_number_user_1_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
+                txt_id_number_user_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
-                txt_id_number_user_1_seat_reservation_couple_seat_category.error = getString(R.string.invalid_id_number)
+                txt_id_number_user_seat_reservation_couple_seat_category.error = getString(R.string.invalid_id_number)
                 return@setOnClickListener
             }
 
-            showConfirmDialog()*/
+            showConfirmDialog()
 
         }
 
     }
 
-    fun saveSeatReservedObserver() {
+    override fun checkSeatSavedByIdNumberUserObserver() {
+        /*
+            Método encargado de verificar si una persona ya tiene reservado un asiento.
+        */
+        if (isOnline(requireContext())) {
+
+            seatReservationViewModel.checkSeatSavedByIdNumberUser(idNumberUser)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+
+                            if (resultEmitted.data) {
+
+                                showMessage(getString(R.string.user_has_a_reserved_seat), 2)
+                                hideProgressBar()
+
+                            } else {
+                                saveSeatReservedObserver()
+                            }
+
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
+                    }
+
+                })
+
+        }
+
+    }
+
+    override fun saveSeatReservedObserver() {
         /*
             Método encargado de reservar un asiento.
         */
@@ -178,20 +243,17 @@ class CoupleSeatCategoryFragment : BaseFragment(),
                         if (resultEmitted.data) {
 
                             isAnySeatReserved = true
-
-                            clearFields()
-
-                            showMessage("Asiento número $seat1 reservado", 2)
                             ++seat1
 
+                            showMessage("Asiento reservado con éxito.", 2)
+                            clearFields()
                             hideProgressBar()
 
                             if (seat1 > seat2) {
-                                goToSeatReservationMain()
+                                goTo()
                             } else {
                                  showReserveSeatDialog()
                             }
-
 
                         }
 
@@ -211,9 +273,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
     }
 
 
-
-
-    fun setIsAvailable() {
+    override fun setIsCoupleAvailable() {
 
         seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, true)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
@@ -230,6 +290,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
                         is Resource.Failure -> {
                             showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
                         }
 
                     }
@@ -238,7 +299,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
     }
 
-    fun setIsNotAvailable() {
+    override fun setIsNotCoupleAvailable() {
 
         seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, false)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
@@ -255,6 +316,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
                         is Resource.Failure -> {
                             showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
                         }
 
                     }
@@ -264,218 +326,57 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
     }
 
-    fun fetchIsSeatReservationAvailable() {
-        /*
-            Método encargado de escuchar en tiempo real si la reservación de asientos esta habilitada
-            o deshabilitada.
-        */
-        if (isOnline(requireContext())) {
+    override fun clearFields() {
 
-            paramsViewModel.fetchIsSeatReservationAvailable()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+        txt_name_seat_reservation_couple_seat_category.setText("")
 
-                        when (resultEmitted) {
+        txt_lastname_seat_reservation_couple_seat_category.setText("")
 
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
+        txt_id_number_user_seat_reservation_couple_seat_category.setText("")
 
-                            is Resource.Success -> {
-
-                                isAvailable = resultEmitted.data
-
-                                if (!isAvailable) {
-                                    showIsSeatReservationAvailableDialog()
-                                }
-
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-        }
+        txt_name_seat_reservation_couple_seat_category.requestFocus()
 
     }
 
-    /*fun saveSeatReservedObserver() {
-        /*
-            Método encargado de reservar un asiento.
-        */
-        if (isOnline(requireContext())) {
-
-            seatReservationViewModel.saveSeatReserved(
-                    seat1,
-                    nameUser,
-                    lastNameUser,
-                    idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                when (resultEmitted) {
-
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
-
-                    is Resource.Success -> {
-
-                        if (resultEmitted.data) {
-
-                            isAnySeatReserved = true
-                            clearFields()
-
-                            ++seat1
-
-                            showMessage("Asiento reservado", 2)
-                            hideProgressBar()
-
-                        } else {
-
-                            seatReservationViewModel.saveSeatReserved(
-                                    seat2,
-                                    nameUser,
-                                    lastNameUser,
-                                    idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted2 ->
-
-                                when (resultEmitted2) {
-
-                                    is Resource.Loading -> {
-                                        showProgressBar()
-                                    }
-
-                                    is Resource.Success -> {
-
-                                        if (resultEmitted2.data) {
-
-                                            isAnySeatReserved = true
-                                            showMessage("Asiento reservado", 2)
-                                            hideProgressBar()
-                                            goToSeatReservationMain()
-
-                                        } else {
-                                            showMessage(getString(R.string.seat_reserved_error), 2)
-                                            hideProgressBar()
-                                        }
-
-                                    }
-
-                                    is Resource.Failure -> {
-                                        showMessage(resultEmitted2.exception.message.toString(), 2)
-                                        hideProgressBar()
-                                    }
-
-                                }
-
-                            })
-
-                        }
-
-                    }
-
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
-
-                }
-
-            })
-
-        }
-
-    }*/
-
-    fun goToSeatReservationMain() {
-        /*
-            Método encargado de navegar hacia el fragment "MainSeatReservation".
-        */
-        navController.navigateUp()
-    }
-
-    fun checkSeatSavedByIdNumberUserObserver() {
-        /*
-            Método encargado de verificar si una persona ya tiene reservado un asiento.
-        */
-        if (isOnline(requireContext())) {
-
-            seatReservationViewModel.checkSeatSavedByIdNumberUser(idNumberUser)
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when (resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-
-                                if (resultEmitted.data) {
-                                    showMessage(getString(R.string.user_has_a_reserved_seat), 2)
-                                    hideProgressBar()
-                                } else {
-
-                                    if (seat1 <= seat2) {
-                                        saveSeatReservedObserver()
-                                    } else {
-                                        showMessage("Error", 2)
-                                        hideProgressBar()
-                                    }
-
-                                }
-
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-        }
-
-    }
-
-    fun clearFields() {
-
-        txt_name_2_seat_reservation_couple_seat_category.setText("")
-
-        txt_lastname_2_seat_reservation_couple_seat_category.setText("")
-
-        txt_id_number_user_2_seat_reservation_couple_seat_category.setText("")
-
-        txt_name_2_seat_reservation_couple_seat_category.requestFocus()
-
-    }
-
-    fun showMessage(message: String, duration: Int) {
+    override fun showMessage(message: String, duration: Int) {
         /*
             Método encargado de mostrar un Toast.
         */
         requireContext().toast(requireContext(), message, duration)
     }
 
-    fun showProgressBar() {
+    override fun showProgressBar() {
         /*
             Método encargado de mostrar un ProgressBar.
         */
         progressbar_couple_seat_category.visibility = View.VISIBLE
     }
 
-    fun hideProgressBar() {
+    override fun hideProgressBar() {
         /*
             Método encargado de ocultar un ProgressBar.
         */
         progressbar_couple_seat_category.visibility = View.GONE
     }
 
-    fun showIsOnlineDialog() {
+    override fun goTo() {
+        /*
+            Método encargado de navegar hacia el fragment "MainSeatReservation".
+        */
+        //navController.navigateUp()
+        navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_couple_seat_category_fragment)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (!isAnySeatReserved) {
+            setIsCoupleAvailable()
+        }
+
+    }
+
+    override fun showIsOnlineDialog() {
         /*
             Método encargado de mostrar el Dialog "IsOnlineDialog".
         */
@@ -495,7 +396,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
     }
 
-    fun showIsSeatReservationAvailableDialog() {
+    override fun showIsSeatReservationAvailableDialog() {
         /*
             Método encargado de mostrar el Dialog "isSeatReservationAvailableDialog".
         */
@@ -506,17 +407,14 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         /*
             Método encargado de controlar el botón positivo del Dialog "isSeatReservationAvailableDialog".
         */
-        navController.navigateUp()
+        goTo()
     }
 
-    fun showConfirmDialog(): AlertDialog? {
-        /*
-            Método encargado de mostrar el Dialog "confirmDialog".
-        */
-        return confirmDialog(this, getString(R.string.do_you_want_to_reserve_seat))
-    }
-
-    fun showReserveSeatDialog(): AlertDialog? = reserveSeatDialog(this, "¿Reservar otro asiento?")
+    /*
+        Método encargado de mostrar el Dialog "confirmDialog".
+    */
+    override fun showConfirmDialog()
+    : AlertDialog? = confirmDialog(this, getString(R.string.do_you_want_to_reserve_seat))
 
     override fun confirmPositiveButtonClicked() {
         /*
@@ -532,12 +430,15 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         showConfirmDialog()!!.dismiss()
     }
 
+    override fun showReserveSeatDialog()
+    : AlertDialog? = reserveSeatDialog(this, "¿Reservar otro asiento?")
+
     override fun reserveSeatPositiveButtonClicked() {
         showReserveSeatDialog()!!.dismiss()
     }
 
     override fun reserveSeatNegativeButtonClicked() {
-        goToSeatReservationMain()
+        goTo()
     }
 
 }
