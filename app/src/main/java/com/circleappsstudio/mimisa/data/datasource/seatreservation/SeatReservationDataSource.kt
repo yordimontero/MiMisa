@@ -267,7 +267,7 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
-    override suspend fun checkCouples(coupleNumber: String): Resource<Boolean> {
+    override suspend fun checkIfIsCoupleAvailable(coupleNumber: String): Resource<Boolean> {
 
         var isAvailable = false
 
@@ -303,44 +303,86 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
-    /*
     @ExperimentalCoroutinesApi
-    override suspend fun checkCouples(coupleNumber: String)
-            : Flow<Resource<Boolean>> = callbackFlow {
-        /*
+    override suspend fun loadNoAvailableCouples()
+    : Flow<Resource<String>> = callbackFlow {
 
-        */
-        val isAvailablePath = db.collection("diaconia")
+        var documentId = ""
+
+        val documentIdPath = db.collection("diaconia")
                 .document("la_argentina")
                 .collection("seat")
                 .document("couples")
                 .collection("data")
-                .document(coupleNumber)
 
-        val subscription = isAvailablePath.addSnapshotListener { documentSnapshot,
-                                                                 firebaseFirestoreException ->
+        val subscription = documentIdPath.addSnapshotListener { querySnapshot,
+                                                                firebaseFirestoreException ->
 
-            if (documentSnapshot!!.exists()) {
+            if (querySnapshot != null) {
 
-                val documentId = documentSnapshot.getBoolean("is_available")!!
+                for (document in querySnapshot) {
 
-                offer(Resource.Success(documentId))
+                    if (document.exists()) {
 
+                        if (document.data["is_available"] == false) {
+
+                            documentId = document.id
+                            offer(Resource.Success(documentId))
+
+                        }
+
+                    }
+
+                }
             } else {
                 channel.close(firebaseFirestoreException?.cause)
             }
 
         }
 
-        /*
-            Si no existe nada en el ViewModel que no esté haciendo ".collect",
-            entonces cancela la suscripción y cierra el canal con el awaitClose.
-            Esto pasa cuando la activity que conecta con el dicho ViewModel se cierra.
-        */
         awaitClose { subscription.remove() }
 
-    }*/
+    }
 
+    @ExperimentalCoroutinesApi
+    override suspend fun loadAvailableCouples()
+            : Flow<Resource<String>> = callbackFlow {
 
+        var documentId = ""
+
+        val documentIdPath = db.collection("diaconia")
+                .document("la_argentina")
+                .collection("seat")
+                .document("couples")
+                .collection("data")
+
+        val subscription = documentIdPath.addSnapshotListener { querySnapshot,
+                                                                firebaseFirestoreException ->
+
+            if (querySnapshot != null) {
+
+                for (document in querySnapshot) {
+
+                    if (document.exists()) {
+
+                        if (document.data["is_available"] == true) {
+
+                            documentId = document.id
+                            offer(Resource.Success(documentId))
+
+                        }
+
+                    }
+
+                }
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
+            }
+
+        }
+
+        awaitClose { subscription.remove() }
+
+    }
 
 }

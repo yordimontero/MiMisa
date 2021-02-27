@@ -98,9 +98,13 @@ interface MainViewModel {
 
         fun checkSeatLimit(seatNumber: Int, seatLimit: Int): Boolean
 
-        fun checkCouples(coupleNumber: String): LiveData<Resource<Boolean>>
+        fun checkIfIsCoupleAvailable(coupleNumber: String): LiveData<Resource<Boolean>>
 
         fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean): LiveData<Resource<Boolean>>
+
+        fun loadAvailableCouples(): LiveData<Resource<String>>
+
+        fun loadNoAvailableCouples(): LiveData<Resource<String>>
 
     }
 

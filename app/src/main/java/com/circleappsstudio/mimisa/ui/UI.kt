@@ -235,6 +235,78 @@ interface UI {
 
     }
 
+    interface AllSeatCouples {
+
+        fun fetchData()
+
+        fun checkIfIsCoupleAvailable()
+
+        fun loadAvailableCouplesObserver()
+
+        fun loadNoAvailableCouplesObserver()
+
+        fun showAvailableCoupleTextView(documentId: String)
+
+        fun showNoAvailableCoupleTextView(documentId: String)
+
+        fun callAllToGoCouples()
+
+        fun goToCouple1()
+
+        fun goToCouple2()
+
+        fun goToCouple3()
+
+        fun goToCouple4()
+
+        fun goToCouple5()
+
+        fun goToCouple6()
+
+        fun goToCouple7()
+
+        fun goToCouple8()
+
+        fun goToCouple9()
+
+        fun goToCouple10()
+
+        fun goToCouple11()
+
+        fun goToCouple12()
+
+        fun goToCouple13()
+
+        fun goToCouple14()
+
+        fun goToCouple15()
+
+        fun goToCouple16()
+
+        fun goToCouple17()
+
+        fun goToCouple18()
+
+        fun goToCouple19()
+
+        fun goToCouple20()
+
+        fun goToCouple21()
+
+        fun goToCouple22()
+
+        fun goToCouple23()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showIsOnlineDialog()
+
+    }
+
     interface CoupleSeatCategory {
 
         fun fetchData()

@@ -2,7 +2,6 @@ package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -11,12 +10,15 @@ import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
 import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
+import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_all_seat_couples.*
 
-class AllSeatCouplesFragment : BaseFragment() {
+class AllSeatCouplesFragment : BaseFragment(),
+        UI.AllSeatCouples,
+        UI.IsOnlineDialogClickButtonListener {
 
     private lateinit var navController: NavController
 
@@ -39,11 +41,314 @@ class AllSeatCouplesFragment : BaseFragment() {
 
         navController = Navigation.findNavController(view)
 
-        callAllToGo()
+        fetchData()
+
+        callAllToGoCouples()
 
     }
 
-    fun callAllToGo() {
+    override fun fetchData() {
+
+        if(!isOnline(requireContext())) {
+            showIsOnlineDialog()
+            return
+        }
+
+        loadAvailableCouplesObserver()
+
+        loadNoAvailableCouplesObserver()
+
+    }
+
+    override fun checkIfIsCoupleAvailable() {
+
+        seatReservationViewModel.checkIfIsCoupleAvailable(coupleNumber)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+
+                            if (resultEmitted.data) {
+                                navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+                            } else {
+                                showMessage("La pareja seleccionada no está disponible.", 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
+                    }
+
+                })
+
+    }
+
+    override fun loadAvailableCouplesObserver() {
+
+        seatReservationViewModel.loadAvailableCouples()
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when(resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            showAvailableCoupleTextView(resultEmitted.data)
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                        }
+
+                    }
+
+                })
+
+    }
+
+    override fun loadNoAvailableCouplesObserver() {
+
+        seatReservationViewModel.loadNoAvailableCouples()
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                    when(resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            showNoAvailableCoupleTextView(resultEmitted.data)
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
+                    }
+
+                })
+
+    }
+
+    override fun showAvailableCoupleTextView(documentId: String) {
+
+        when (documentId) {
+
+            "couple_1" -> {
+                //txt_couple_1_no_available.visibility = View.VISIBLE
+                txt_couple_1_no_available.text = "¡Disponible!"
+            }
+
+            "couple_2" -> {
+                txt_couple_2_no_available.text = "¡Disponible!"
+            }
+
+            "couple_3" -> {
+                txt_couple_3_no_available.text = "¡Disponible!"
+            }
+
+            "couple_4" -> {
+                txt_couple_4_no_available.text = "¡Disponible!"
+            }
+
+            "couple_5" -> {
+                txt_couple_5_no_available.text = "¡Disponible!"
+            }
+
+            "couple_6" -> {
+                txt_couple_6_no_available.text = "¡Disponible!"
+            }
+
+            "couple_7" -> {
+                txt_couple_7_no_available.text = "¡Disponible!"
+            }
+
+            "couple_8" -> {
+                txt_couple_8_no_available.text = "¡Disponible!"
+            }
+
+            "couple_9" -> {
+                txt_couple_9_no_available.text = "¡Disponible!"
+            }
+
+            "couple_10" -> {
+                txt_couple_10_no_available.text = "¡Disponible!"
+            }
+
+            "couple_11" -> {
+                txt_couple_11_no_available.text = "¡Disponible!"
+            }
+
+            "couple_12" -> {
+                txt_couple_12_no_available.text = "¡Disponible!"
+            }
+
+            "couple_13" -> {
+                txt_couple_13_no_available.text = "¡Disponible!"
+            }
+
+            "couple_14" -> {
+                txt_couple_14_no_available.text = "¡Disponible!"
+            }
+
+            "couple_15" -> {
+                txt_couple_15_no_available.text = "¡Disponible!"
+            }
+
+            "couple_16" -> {
+                txt_couple_16_no_available.text = "¡Disponible!"
+            }
+
+            "couple_17" -> {
+                txt_couple_17_no_available.text = "¡Disponible!"
+            }
+
+            "couple_18" -> {
+                txt_couple_18_no_available.text = "¡Disponible!"
+            }
+
+            "couple_19" -> {
+                txt_couple_19_no_available.text = "¡Disponible!"
+            }
+
+            "couple_20" -> {
+                txt_couple_20_no_available.text = "¡Disponible!"
+            }
+
+            "couple_21" -> {
+                txt_couple_21_no_available.text = "¡Disponible!"
+            }
+
+            "couple_22" -> {
+                txt_couple_22_no_available.text = "¡Disponible!"
+            }
+
+            "couple_23" -> {
+                txt_couple_23_no_available.text = "¡Disponible!"
+            }
+
+        }
+
+    }
+
+    override fun showNoAvailableCoupleTextView(documentId: String) {
+
+        when (documentId) {
+
+            "couple_1" -> {
+                //txt_couple_1_no_available.visibility = View.GONE
+                txt_couple_1_no_available.text = "¡No disponible!"
+            }
+
+            "couple_2" -> {
+                txt_couple_2_no_available.text = "¡No disponible!"
+            }
+
+            "couple_3" -> {
+                txt_couple_3_no_available.text = "¡No disponible!"
+            }
+
+            "couple_4" -> {
+                txt_couple_4_no_available.text = "¡No disponible!"
+            }
+
+            "couple_5" -> {
+                txt_couple_5_no_available.text = "¡No disponible!"
+            }
+
+            "couple_6" -> {
+                txt_couple_6_no_available.text = "¡No disponible!"
+            }
+
+            "couple_7" -> {
+                txt_couple_7_no_available.text = "¡No disponible!"
+            }
+
+            "couple_8" -> {
+                txt_couple_8_no_available.text = "¡No disponible!"
+            }
+
+            "couple_9" -> {
+                txt_couple_9_no_available.text = "¡No disponible!"
+            }
+
+            "couple_10" -> {
+                txt_couple_10_no_available.text = "¡No disponible!"
+            }
+
+            "couple_11" -> {
+                txt_couple_11_no_available.text = "¡No disponible!"
+            }
+
+            "couple_12" -> {
+                txt_couple_12_no_available.text = "¡No disponible!"
+            }
+
+            "couple_13" -> {
+                txt_couple_13_no_available.text = "¡No disponible!"
+            }
+
+            "couple_14" -> {
+                txt_couple_14_no_available.text = "¡No disponible!"
+            }
+
+            "couple_15" -> {
+                txt_couple_15_no_available.text = "¡No disponible!"
+            }
+
+            "couple_16" -> {
+                txt_couple_16_no_available.text = "¡No disponible!"
+            }
+
+            "couple_17" -> {
+                txt_couple_17_no_available.text = "¡No disponible!"
+            }
+
+            "couple_18" -> {
+                txt_couple_18_no_available.text = "¡No disponible!"
+            }
+
+            "couple_19" -> {
+                txt_couple_19_no_available.text = "¡No disponible!"
+            }
+
+            "couple_20" -> {
+                txt_couple_20_no_available.text = "¡No disponible!"
+            }
+
+            "couple_21" -> {
+                txt_couple_21_no_available.text = "¡No disponible!"
+            }
+
+            "couple_22" -> {
+                txt_couple_22_no_available.text = "¡No disponible!"
+            }
+
+            "couple_23" -> {
+                txt_couple_23_no_available.text = "¡No disponible!"
+            }
+
+        }
+
+    }
+
+    override fun callAllToGoCouples() {
 
         goToCouple1()
         goToCouple2()
@@ -71,443 +376,304 @@ class AllSeatCouplesFragment : BaseFragment() {
 
     }
 
-    fun checkCouples() {
-
-        seatReservationViewModel.checkCouples(coupleNumber)
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                    when (resultEmitted) {
-
-                        is Resource.Loading -> {
-
-                            Toast.makeText(requireContext(),
-                                    "Loading...",
-                                    Toast.LENGTH_SHORT)
-                                    .show()
-
-                        }
-
-                        is Resource.Success -> {
-
-                            if (resultEmitted.data) {
-
-                                navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
-
-                            } else {
-
-                                Toast.makeText(requireContext(),
-                                        "La pareja seleccionada no está disponible.",
-                                        Toast.LENGTH_SHORT)
-                                        .show()
-
-                            }
-
-                        }
-
-                        is Resource.Failure -> {
-
-                            Toast.makeText(requireContext(),
-                                    resultEmitted.exception.message.toString(),
-                                    Toast.LENGTH_SHORT)
-                                    .show()
-
-                        }
-
-                    }
-
-                })
-
-       /*db.collection("diaconia")
-                .document("la_argentina")
-                .collection("seat")
-                .document("data")
-                .collection("couples")
-                .get().addOnSuccessListener { documents ->
-
-                    for (document in documents) {
-
-                        if (document.exists()) {
-
-                            if (document.data["isAvailable"] == false) {
-
-                                when (document.id) {
-
-                                    "couple_1" -> {
-                                        btn_couple_1.visibility = View.GONE
-                                    }
-
-                                    "couple_2" -> {
-                                        btn_couple_2.visibility = View.GONE
-                                    }
-
-                                    "couple_3" -> {
-                                        btn_couple_3.visibility = View.GONE
-                                    }
-
-                                    "couple_4" -> {
-                                        btn_couple_4.visibility = View.GONE
-                                    }
-
-                                    "couple_5" -> {
-                                        btn_couple_5.visibility = View.GONE
-                                    }
-
-                                    "couple_6" -> {
-                                        btn_couple_6.visibility = View.GONE
-                                    }
-
-                                    "couple_7" -> {
-                                        btn_couple_7.visibility = View.GONE
-                                    }
-
-                                    "couple_8" -> {
-                                        btn_couple_8.visibility = View.GONE
-                                    }
-
-                                    "couple_9" -> {
-                                        btn_couple_9.visibility = View.GONE
-                                    }
-
-                                    "couple_10" -> {
-                                        btn_couple_10.visibility = View.GONE
-                                    }
-
-                                    "couple_11" -> {
-                                        btn_couple_11.visibility = View.GONE
-                                    }
-
-                                    "couple_12" -> {
-                                        btn_couple_12.visibility = View.GONE
-                                    }
-
-                                    "couple_13" -> {
-                                        btn_couple_13.visibility = View.GONE
-                                    }
-
-                                    "couple_14" -> {
-                                        btn_couple_14.visibility = View.GONE
-                                    }
-
-                                    "couple_15" -> {
-                                        btn_couple_15.visibility = View.GONE
-                                    }
-
-                                    "couple_16" -> {
-                                        btn_couple_16.visibility = View.GONE
-                                    }
-
-                                    "couple_17" -> {
-                                        btn_couple_17.visibility = View.GONE
-                                    }
-
-                                    "couple_18" -> {
-                                        btn_couple_18.visibility = View.GONE
-                                    }
-
-                                    "couple_19" -> {
-                                        btn_couple_19.visibility = View.GONE
-                                    }
-
-                                    "couple_20" -> {
-                                        btn_couple_20.visibility = View.GONE
-                                    }
-
-                                    "couple_21" -> {
-                                        btn_couple_21.visibility = View.GONE
-                                    }
-
-                                    "couple_22" -> {
-                                        btn_couple_22.visibility = View.GONE
-                                    }
-
-                                    "couple_23" -> {
-                                        btn_couple_23.visibility = View.GONE
-                                    }
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }*/
-
-    }
-
-    fun goToCouple1() {
+    override fun goToCouple1() {
 
         btn_couple_1.setOnClickListener {
 
             coupleNumber = "couple_1"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "19", "20"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple2() {
+    override fun goToCouple2() {
 
         btn_couple_2.setOnClickListener {
 
             coupleNumber = "couple_2"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "21", "22"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple3() {
+    override fun goToCouple3() {
 
         btn_couple_3.setOnClickListener {
 
             coupleNumber = "couple_3"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "26", "27"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple4() {
+    override fun goToCouple4() {
 
         btn_couple_4.setOnClickListener {
 
             coupleNumber = "couple_4"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "28", "29"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple5() {
+    override fun goToCouple5() {
 
         btn_couple_5.setOnClickListener {
 
             coupleNumber = "couple_5"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "33", "34"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple6() {
+    override fun goToCouple6() {
 
         btn_couple_6.setOnClickListener {
 
             coupleNumber = "couple_6"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "35", "36"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple7() {
+    override fun goToCouple7() {
 
         btn_couple_7.setOnClickListener {
 
             coupleNumber = "couple_7"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "40", "41"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple8() {
+    override fun goToCouple8() {
 
         btn_couple_8.setOnClickListener {
 
             coupleNumber = "couple_8"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "42", "43"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple9() {
+    override fun goToCouple9() {
 
         btn_couple_9.setOnClickListener {
 
             coupleNumber = "couple_9"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "44", "45"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple10() {
+    override fun goToCouple10() {
 
         btn_couple_10.setOnClickListener {
 
             coupleNumber = "couple_10"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "46", "47"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple11() {
+    override fun goToCouple11() {
 
         btn_couple_11.setOnClickListener {
 
             coupleNumber = "couple_11"
             bundle.putStringArrayList(coupleNumber, arrayListOf("couple_11", "51", "52"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple12() {
+    override fun goToCouple12() {
 
         btn_couple_12.setOnClickListener {
 
             coupleNumber = "couple_12"
             bundle.putStringArrayList(coupleNumber, arrayListOf("couple_12", "53", "54"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple13() {
+    override fun goToCouple13() {
 
         btn_couple_13.setOnClickListener {
 
             coupleNumber = "couple_13"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "58", "59"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple14() {
+    override fun goToCouple14() {
 
         btn_couple_14.setOnClickListener {
 
             coupleNumber = "couple_14"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "60", "61"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple15() {
+    override fun goToCouple15() {
 
         btn_couple_15.setOnClickListener {
 
             coupleNumber = "couple_15"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "65", "66"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple16() {
+    override fun goToCouple16() {
 
         btn_couple_16.setOnClickListener {
 
             coupleNumber = "couple_16"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "67", "68"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple17() {
+    override fun goToCouple17() {
 
         btn_couple_17.setOnClickListener {
 
             coupleNumber = "couple_17"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "72", "73"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple18() {
+    override fun goToCouple18() {
 
         btn_couple_18.setOnClickListener {
 
             coupleNumber = "couple_18"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "74", "75"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple19() {
+    override fun goToCouple19() {
 
         btn_couple_19.setOnClickListener {
 
             coupleNumber = "couple_19"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "79", "80"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple20() {
+    override fun goToCouple20() {
 
         btn_couple_20.setOnClickListener {
 
             coupleNumber = "couple_20"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "81", "82"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple21() {
+    override fun goToCouple21() {
 
         btn_couple_21.setOnClickListener {
 
             coupleNumber = "couple_21"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "86", "87"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple22() {
+    override fun goToCouple22() {
 
         btn_couple_22.setOnClickListener {
 
             coupleNumber = "couple_22"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "88", "89"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
         }
 
     }
 
-    fun goToCouple23() {
+    override fun goToCouple23() {
 
         btn_couple_23.setOnClickListener {
 
             coupleNumber = "couple_23"
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "93", "94"))
-            checkCouples()
+            checkIfIsCoupleAvailable()
 
+        }
+
+    }
+
+    override fun showMessage(message: String, duration: Int) {
+        requireContext().toast(requireContext(), message, duration)
+    }
+
+    override fun showProgressBar() {
+        progressbar_all_seat_couples.visibility = View.VISIBLE
+        layout_all_seat_couples.visibility = View.GONE
+    }
+
+    override fun hideProgressBar() {
+        progressbar_all_seat_couples.visibility = View.GONE
+        layout_all_seat_couples.visibility = View.VISIBLE
+    }
+
+    override fun showIsOnlineDialog() = isOnlineDialog(this)
+
+    override fun isOnlineDialogPositiveButtonClicked() {
+
+        if (isOnline(requireContext())) {
+            fetchData()
+        } else {
+            showIsOnlineDialog()
         }
 
     }

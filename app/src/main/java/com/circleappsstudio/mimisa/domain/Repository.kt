@@ -72,11 +72,13 @@ interface Repository {
 
         suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
 
-        //suspend fun checkCouples(coupleNumber: String): Flow<Resource<Boolean>>
-
-        suspend fun checkCouples(coupleNumber: String): Resource<Boolean>
+        suspend fun checkIfIsCoupleAvailable(coupleNumber: String): Resource<Boolean>
 
         suspend fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean)
+
+        suspend fun loadAvailableCouples(): Flow<Resource<String>>
+
+        suspend fun loadNoAvailableCouples(): Flow<Resource<String>>
 
     }
 

@@ -151,30 +151,13 @@ class SeatReservationViewModel(
     override fun checkSeatLimit(seatNumber: Int, seatLimit: Int)
             : Boolean = seatNumber > seatLimit
 
-    /*override fun checkCouples(coupleNumber: String)
-    : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+    override fun checkIfIsCoupleAvailable(coupleNumber: String): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
 
         emit(Resource.Loading())
 
         try {
 
-            seatReservationRepository.checkCouples(coupleNumber).collect { documentId ->
-                emit(documentId)
-            }
-
-        } catch (e: FirebaseException) {
-            emit(Resource.Failure(e))
-        }
-
-    }*/
-
-    override fun checkCouples(coupleNumber: String): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
-
-        emit(Resource.Loading())
-
-        try {
-
-            emit(seatReservationRepository.checkCouples(coupleNumber))
+            emit(seatReservationRepository.checkIfIsCoupleAvailable(coupleNumber))
 
         } catch (e: FirebaseException) {
             emit(Resource.Failure(e))
@@ -191,6 +174,40 @@ class SeatReservationViewModel(
 
             seatReservationRepository.updateIsCoupleAvailable(coupleNumber, isAvailable)
             emit(Resource.Success(true))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun loadAvailableCouples()
+            : LiveData<Resource<String>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.loadAvailableCouples().collect { documentId ->
+                emit(documentId)
+            }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun loadNoAvailableCouples()
+    : LiveData<Resource<String>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.loadNoAvailableCouples().collect { documentId ->
+                emit(documentId)
+            }
 
         } catch (e: FirebaseException) {
             emit(Resource.Failure(e))
