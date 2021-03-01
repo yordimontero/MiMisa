@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
@@ -70,6 +71,9 @@
         <action
             android:id="@+id/action_navigationSeatCategoryFragment_to_coupleSeatCategoryFragment"
             app:destination="@id/navigation_couple_seat_category_fragment" />
+        <action
+            android:id="@+id/action_go_to_all_threesome_seats_from_seat_category_fragment"
+            app:destination="@id/allSeatThreesomesFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_couple_seat_category_fragment"
@@ -87,4 +91,24 @@
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple.AllSeatCouplesFragment"
         android:label="fragment_all_seat_couples"
         tools:layout="@layout/fragment_all_seat_couples" />
+    <fragment
+        android:id="@+id/allSeatThreesomesFragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.threesome.AllSeatThreesomesFragment"
+        android:label="fragment_all_seat_threesomes"
+        tools:layout="@layout/fragment_all_seat_threesomes" >
+        <action
+            android:id="@+id/action_go_to_threesome_seat_category_from_seat_category_fragment"
+            app:destination="@id/threesomeSeatCategoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/threesomeSeatCategoryFragment2"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.threesome.ThreesomeSeatCategoryFragment"
+        android:label="fragment_threesome_seat_category"
+        tools:layout="@layout/fragment_threesome_seat_category" >
+        <action
+            android:id="@+id/action_go_to_seat_reservation_main_fragment_from_threesome_seat_category_fragment"
+            app:destination="@id/navigation_seat_reservation"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

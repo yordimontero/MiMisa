@@ -186,7 +186,7 @@ class SeatReservationFragment : BaseFragment(),
 
     override fun saveSeatReserved() {
 
-        btn_seat_reservation.setOnClickListener {
+        btn_couple_seat_reservation.setOnClickListener {
 
             hideKeyboard()
 

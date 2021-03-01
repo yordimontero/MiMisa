@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mask="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.seatreservation.seatcategory.couple.CoupleSeatCategoryFragment">
+    android:orientation="vertical"
+    tools:context=".ui.main.seatreservation.seatcategory.threesome.ThreesomeSeatCategoryFragment">
 
     <LinearLayout
-        android:id="@+id/progressbar_couple_seat_category"
+        android:id="@+id/progressbar_threesome_seat_category"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -80,7 +79,7 @@
                         android:layout_marginBottom="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_name_seat_reservation_couple_seat_category"
+                            android:id="@+id/txt_name_seat_reservation_threesome_seat_category"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -101,7 +100,7 @@
                         android:layout_marginBottom="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_lastname_seat_reservation_couple_seat_category"
+                            android:id="@+id/txt_lastname_seat_reservation_threesome_seat_category"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -122,7 +121,7 @@
                         android:layout_marginBottom="8dp">
 
                         <br.com.sapereaude.maskedEditText.MaskedEditText
-                            android:id="@+id/txt_id_number_user_seat_reservation_couple_seat_category"
+                            android:id="@+id/txt_id_number_user_seat_reservation_threesome_seat_category"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -140,7 +139,7 @@
                         android:gravity="center">
 
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/btn_couple_seat_reservation"
+                            android:id="@+id/btn_threesome_seat_reservation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:cardBackgroundColor="@color/light_green"

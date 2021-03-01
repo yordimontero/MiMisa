@@ -106,6 +106,22 @@ interface MainViewModel {
 
         fun loadNoAvailableCouples(): LiveData<Resource<String>>
 
+        fun checkIfIsThreesomeAvailable(threesomeNumber: String): LiveData<Resource<Boolean>>
+
+        fun updateIsThreesomeAvailable(threesomeNumber: String, isAvailable: Boolean): LiveData<Resource<Boolean>>
+
+        fun loadAvailableThreesomes(): LiveData<Resource<String>>
+
+        fun loadNoAvailableThreesomes(): LiveData<Resource<String>>
+
+        fun checkIfIsBubbleAvailable(bubbleNumber: String): LiveData<Resource<Boolean>>
+
+        fun updateIsBubbleAvailable(bubbleNumber: String, isAvailable: Boolean): LiveData<Resource<Boolean>>
+
+        fun loadAvailableBubbles(): LiveData<Resource<String>>
+
+        fun loadNoAvailableBubbles(): LiveData<Resource<String>>
+
     }
 
     interface Intentions {

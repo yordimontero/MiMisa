@@ -1,4 +1,4 @@
-package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple
+package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.threesome
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -19,30 +19,30 @@ import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
-import kotlinx.android.synthetic.main.fragment_couple_seat_category.*
+import kotlinx.android.synthetic.main.fragment_threesome_seat_category.*
 
-class CoupleSeatCategoryFragment : BaseFragment(),
-        UI.CoupleSeatCategory,
-        UI.IsOnlineDialogClickButtonListener,
-        UI.ConfirmDialogClickButtonListener,
-        UI.ReserveSeatDialogClickButtonListener,
-        UI.IsSeatReservationAvailableDialogClickButtonListener {
+class ThreesomeSeatCategoryFragment : BaseFragment(),
+    UI.ThreesomeSeatCategory,
+    UI.IsOnlineDialogClickButtonListener,
+    UI.ConfirmDialogClickButtonListener,
+    UI.ReserveSeatDialogClickButtonListener,
+    UI.IsSeatReservationAvailableDialogClickButtonListener{
 
     private lateinit var navController: NavController
 
     private val seatReservationViewModel by activityViewModels<SeatReservationViewModel> {
         VMFactorySeatReservation(
-                SeatReservationRepository(
-                        SeatReservationDataSource()
-                )
+            SeatReservationRepository(
+                SeatReservationDataSource()
+            )
         )
     }
 
     private val paramsViewModel by activityViewModels<ParamsViewModel> {
         VMFactoryParams(
-                ParamsRepository(
-                        ParamsDataSource()
-                )
+            ParamsRepository(
+                ParamsDataSource()
+            )
         )
     }
 
@@ -50,15 +50,16 @@ class CoupleSeatCategoryFragment : BaseFragment(),
     private var isAnySeatReserved = false
 
     private lateinit var getSeats: ArrayList<String>
-    private lateinit var coupleNumber: String
+    private lateinit var threesomeNumber: String
     private var seat1: Int = 0
     private var seat2: Int = 0
+    private var seat3: Int = 0
 
     private lateinit var nameUser: String
     private lateinit var lastNameUser: String
     private lateinit var idNumberUser: String
 
-    override fun getLayout(): Int = R.layout.fragment_couple_seat_category
+    override fun getLayout(): Int = R.layout.fragment_threesome_seat_category
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,7 +68,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         fetchData()
 
-        setIsNotCoupleAvailable()
+        setIsNotThreesomeAvailable()
 
         saveSeatReserved()
 
@@ -90,12 +91,14 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         requireArguments().let {
 
-            getSeats = it.getStringArrayList("coupleSeats")!!
-            coupleNumber = getSeats[0]
+            getSeats = it.getStringArrayList("threesomeSeats")!!
+            threesomeNumber = getSeats[0]
             seat1 = getSeats[1].toInt()
             seat2 = getSeats[2].toInt()
+            seat3 = getSeats[3].toInt()
 
         }
+
 
     }
 
@@ -140,13 +143,13 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
     override fun saveSeatReserved() {
 
-        btn_couple_seat_reservation.setOnClickListener {
+        btn_threesome_seat_reservation.setOnClickListener {
 
             hideKeyboard()
 
-            nameUser = txt_name_seat_reservation_couple_seat_category.text.toString().trim()
-            lastNameUser = txt_lastname_seat_reservation_couple_seat_category.text.toString().trim()
-            idNumberUser = txt_id_number_user_seat_reservation_couple_seat_category.text.toString()
+            nameUser = txt_name_seat_reservation_threesome_seat_category.text.toString().trim()
+            lastNameUser = txt_lastname_seat_reservation_threesome_seat_category.text.toString().trim()
+            idNumberUser = txt_id_number_user_seat_reservation_threesome_seat_category.text.toString()
 
             if (!isOnline(requireContext())) {
                 showIsOnlineDialog()
@@ -154,28 +157,29 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             }
 
             if (seatReservationViewModel.checkEmptyNameUser(nameUser)) {
-                txt_name_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
+                txt_name_seat_reservation_threesome_seat_category.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkEmptyLastNameUser(lastNameUser)) {
-                txt_lastname_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
+                txt_lastname_seat_reservation_threesome_seat_category.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
-                txt_id_number_user_seat_reservation_couple_seat_category.error = getString(R.string.complete_fields)
+                txt_id_number_user_seat_reservation_threesome_seat_category.error = getString(R.string.complete_fields)
                 return@setOnClickListener
             }
 
             if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
-                txt_id_number_user_seat_reservation_couple_seat_category.error = getString(R.string.invalid_id_number)
+                txt_id_number_user_seat_reservation_threesome_seat_category.error = getString(R.string.invalid_id_number)
                 return@setOnClickListener
             }
 
             showConfirmDialog()
 
         }
+
 
     }
 
@@ -227,10 +231,10 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         if (isOnline(requireContext())) {
 
             seatReservationViewModel.saveSeatReserved(
-                    seat1,
-                    nameUser,
-                    lastNameUser,
-                    idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
+                seat1,
+                nameUser,
+                lastNameUser,
+                idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
 
@@ -249,10 +253,10 @@ class CoupleSeatCategoryFragment : BaseFragment(),
                             clearFields()
                             hideProgressBar()
 
-                            if (seat1 > seat2) {
+                            if (seat1 > seat3) {
                                 goToMainSeatReservation()
                             } else {
-                                 showReserveSeatDialog()
+                                showReserveSeatDialog()
                             }
 
                         }
@@ -272,69 +276,67 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
     }
 
+    override fun setIsThreesomeAvailable() {
 
-    override fun setIsCoupleAvailable() {
+        seatReservationViewModel.updateIsThreesomeAvailable(threesomeNumber, true)
+            .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-        seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, true)
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+                when (resultEmitted) {
 
-                    when (resultEmitted) {
-
-                        is Resource.Loading -> {
-                            showProgressBar()
-                        }
-
-                        is Resource.Success -> {
-                            hideProgressBar()
-                        }
-
-                        is Resource.Failure -> {
-                            showMessage(resultEmitted.exception.message.toString(), 2)
-                            hideProgressBar()
-                        }
-
+                    is Resource.Loading -> {
+                        showProgressBar()
                     }
 
-                })
+                    is Resource.Success -> {
+                        hideProgressBar()
+                    }
+
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
+                    }
+
+                }
+
+            })
 
     }
 
-    override fun setIsNotCoupleAvailable() {
+    override fun setIsNotThreesomeAvailable() {
 
-        seatReservationViewModel.updateIsCoupleAvailable(coupleNumber, false)
-                .observe(viewLifecycleOwner, Observer { resultEmitted ->
+        seatReservationViewModel.updateIsThreesomeAvailable(threesomeNumber, false)
+            .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                    when (resultEmitted) {
+                when (resultEmitted) {
 
-                        is Resource.Loading -> {
-                            showProgressBar()
-                        }
-
-                        is Resource.Success -> {
-                            hideProgressBar()
-                        }
-
-                        is Resource.Failure -> {
-                            showMessage(resultEmitted.exception.message.toString(), 2)
-                            hideProgressBar()
-                        }
-
+                    is Resource.Loading -> {
+                        showProgressBar()
                     }
 
-                })
+                    is Resource.Success -> {
+                        hideProgressBar()
+                    }
 
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
+                    }
+
+                }
+
+            })
 
     }
 
     override fun clearFields() {
 
-        txt_name_seat_reservation_couple_seat_category.setText("")
+        txt_name_seat_reservation_threesome_seat_category.setText("")
 
-        txt_lastname_seat_reservation_couple_seat_category.setText("")
+        txt_lastname_seat_reservation_threesome_seat_category.setText("")
 
-        txt_id_number_user_seat_reservation_couple_seat_category.setText("")
+        txt_id_number_user_seat_reservation_threesome_seat_category.setText("")
 
-        txt_name_seat_reservation_couple_seat_category.requestFocus()
+        txt_name_seat_reservation_threesome_seat_category.requestFocus()
 
     }
 
@@ -346,32 +348,25 @@ class CoupleSeatCategoryFragment : BaseFragment(),
     }
 
     override fun showProgressBar() {
-        /*
-            Método encargado de mostrar un ProgressBar.
-        */
-        progressbar_couple_seat_category.visibility = View.VISIBLE
+        progressbar_threesome_seat_category.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        /*
-            Método encargado de ocultar un ProgressBar.
-        */
-        progressbar_couple_seat_category.visibility = View.GONE
+        progressbar_threesome_seat_category.visibility = View.GONE
     }
 
     override fun goToMainSeatReservation() {
         /*
             Método encargado de navegar hacia el fragment "MainSeatReservation".
         */
-        //navController.navigateUp()
-        navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_couple_seat_category_fragment)
+        navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_threesome_seat_category_fragment)
     }
 
     override fun onPause() {
         super.onPause()
 
         if (!isAnySeatReserved) {
-            setIsCoupleAvailable()
+            setIsThreesomeAvailable()
         }
 
     }
@@ -381,7 +376,6 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             Método encargado de mostrar el Dialog "IsOnlineDialog".
         */
         isOnlineDialog(this)
-
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
@@ -410,9 +404,6 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         goToMainSeatReservation()
     }
 
-    /*
-        Método encargado de mostrar el Dialog "confirmDialog".
-    */
     override fun showConfirmDialog()
     : AlertDialog? = confirmDialog(this, getString(R.string.do_you_want_to_reserve_seat))
 

@@ -333,7 +333,103 @@ interface UI {
 
         fun hideProgressBar()
 
-        fun goTo()
+        fun goToMainSeatReservation()
+
+        fun showIsOnlineDialog()
+
+        fun showIsSeatReservationAvailableDialog()
+
+        fun showConfirmDialog(): AlertDialog?
+
+        fun showReserveSeatDialog(): AlertDialog?
+
+    }
+
+    interface AllSeatThreesomes {
+
+        fun fetchData()
+
+        fun checkIfIsThreesomeAvailable()
+
+        fun loadAvailableThreesomesObserver()
+
+        fun loadNoAvailableThreesomesObserver()
+
+        fun showAvailableThreesomeTextView(documentId: String)
+
+        fun showNoAvailableThreesomeTextView(documentId: String)
+
+        fun callAllToGoThreesomes()
+
+        fun goToThreesome1()
+
+        fun goToThreesome2()
+
+        fun goToThreesome3()
+
+        fun goToThreesome4()
+
+        fun goToThreesome5()
+
+        fun goToThreesome6()
+
+        fun goToThreesome7()
+
+        fun goToThreesome8()
+
+        fun goToThreesome9()
+
+        fun goToThreesome10()
+
+        fun goToThreesome11()
+
+        fun goToThreesome12()
+
+        fun goToThreesome13()
+
+        fun goToThreesome14()
+
+        fun goToThreesome15()
+
+        fun goToThreesome16()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showIsOnlineDialog()
+
+    }
+
+    interface ThreesomeSeatCategory {
+
+        fun fetchData()
+
+        fun getBundle()
+
+        fun fetchIsSeatReservationAvailableObserver()
+
+        fun saveSeatReserved()
+
+        fun checkSeatSavedByIdNumberUserObserver()
+
+        fun saveSeatReservedObserver()
+
+        fun setIsThreesomeAvailable()
+
+        fun setIsNotThreesomeAvailable()
+
+        fun clearFields()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun goToMainSeatReservation()
 
         fun showIsOnlineDialog()
 

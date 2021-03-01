@@ -215,4 +215,133 @@ class SeatReservationViewModel(
 
     }
 
+    override fun checkIfIsThreesomeAvailable(threesomeNumber: String)
+    : LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepository.checkIfIsThreesomeAvailable(threesomeNumber))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun updateIsThreesomeAvailable(
+        threesomeNumber: String,
+        isAvailable: Boolean
+    ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.updateIsThreesomeAvailable(threesomeNumber, isAvailable)
+            emit(Resource.Success(true))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun loadAvailableThreesomes(): LiveData<Resource<String>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.loadAvailableThreesomes().collect { documentId ->
+                emit(documentId)
+            }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun loadNoAvailableThreesomes(): LiveData<Resource<String>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.loadNoAvailableThreesomes().collect { documentId ->
+                emit(documentId)
+            }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun checkIfIsBubbleAvailable(bubbleNumber: String): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            emit(seatReservationRepository.checkIfIsBubbleAvailable(bubbleNumber))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun updateIsBubbleAvailable(
+        bubbleNumber: String,
+        isAvailable: Boolean
+    ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.updateIsBubbleAvailable(bubbleNumber, isAvailable)
+            emit(Resource.Success(true))
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun loadAvailableBubbles(): LiveData<Resource<String>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.loadAvailableBubbles().collect { documentId ->
+                emit(documentId)
+            }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
+    override fun loadNoAvailableBubbles(): LiveData<Resource<String>> = liveData(Dispatchers.IO) {
+
+        emit(Resource.Loading())
+
+        try {
+
+            seatReservationRepository.loadNoAvailableBubbles().collect { documentId ->
+                emit(documentId)
+            }
+
+        } catch (e: FirebaseException) {
+            emit(Resource.Failure(e))
+        }
+
+    }
+
 }

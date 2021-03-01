@@ -385,4 +385,236 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
+    override suspend fun checkIfIsThreesomeAvailable(threesomeNumber: String): Resource<Boolean> {
+
+        var isAvailable = false
+
+        db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("threesomes")
+            .collection("data")
+            .document(threesomeNumber)
+            .get()
+            .addOnSuccessListener { document ->
+
+                if (document.exists()) {
+                    isAvailable = document.getBoolean("is_available")!!
+                }
+
+            }.await()
+
+        return Resource.Success(isAvailable)
+
+    }
+
+    override suspend fun updateIsThreesomeAvailable(threesomeNumber: String, isAvailable: Boolean) {
+
+        db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("threesomes")
+            .collection("data")
+            .document(threesomeNumber)
+            .update("is_available", isAvailable)
+            .await()
+
+    }
+
+    @ExperimentalCoroutinesApi
+    override suspend fun loadAvailableThreesomes(): Flow<Resource<String>> = callbackFlow {
+
+        var documentId = ""
+
+        val documentIdPath = db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("threesomes")
+            .collection("data")
+
+        val subscription = documentIdPath.addSnapshotListener { querySnapshot,
+                                                                firebaseFirestoreException ->
+
+            if (querySnapshot != null) {
+
+                for (document in querySnapshot) {
+
+                    if (document.exists()) {
+
+                        if (document.data["is_available"] == true) {
+
+                            documentId = document.id
+                            offer(Resource.Success(documentId))
+
+                        }
+
+                    }
+
+                }
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
+            }
+
+        }
+
+        awaitClose { subscription.remove() }
+
+    }
+
+    @ExperimentalCoroutinesApi
+    override suspend fun loadNoAvailableThreesomes(): Flow<Resource<String>> = callbackFlow {
+
+        var documentId = ""
+
+        val documentIdPath = db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("threesomes")
+            .collection("data")
+
+        val subscription = documentIdPath.addSnapshotListener { querySnapshot,
+                                                                firebaseFirestoreException ->
+
+            if (querySnapshot != null) {
+
+                for (document in querySnapshot) {
+
+                    if (document.exists()) {
+
+                        if (document.data["is_available"] == false) {
+
+                            documentId = document.id
+                            offer(Resource.Success(documentId))
+
+                        }
+
+                    }
+
+                }
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
+            }
+
+        }
+
+        awaitClose { subscription.remove() }
+
+    }
+
+    override suspend fun checkIfIsBubbleAvailable(bubbleNumber: String): Resource<Boolean> {
+
+        var isAvailable = false
+
+        db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("bubbles")
+            .collection("data")
+            .document(bubbleNumber)
+            .get()
+            .addOnSuccessListener { document ->
+
+                if (document.exists()) {
+                    isAvailable = document.getBoolean("is_available")!!
+                }
+
+            }.await()
+
+        return Resource.Success(isAvailable)
+
+    }
+
+    override suspend fun updateIsBubbleAvailable(bubbleNumber: String, isAvailable: Boolean) {
+
+        db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("bubbles")
+            .collection("data")
+            .document(bubbleNumber)
+            .update("is_available", isAvailable)
+            .await()
+
+    }
+
+    @ExperimentalCoroutinesApi
+    override suspend fun loadAvailableBubbles(): Flow<Resource<String>> = callbackFlow {
+
+        var documentId = ""
+
+        val documentIdPath = db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("bubbles")
+            .collection("data")
+
+        val subscription = documentIdPath.addSnapshotListener { querySnapshot,
+                                                                firebaseFirestoreException ->
+
+            if (querySnapshot != null) {
+
+                for (document in querySnapshot) {
+
+                    if (document.exists()) {
+
+                        if (document.data["is_available"] == true) {
+
+                            documentId = document.id
+                            offer(Resource.Success(documentId))
+
+                        }
+
+                    }
+
+                }
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
+            }
+
+        }
+
+        awaitClose { subscription.remove() }
+
+    }
+
+    @ExperimentalCoroutinesApi
+    override suspend fun loadNoAvailableBubbles(): Flow<Resource<String>> = callbackFlow {
+
+        var documentId = ""
+
+        val documentIdPath = db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("bubbles")
+            .collection("data")
+
+        val subscription = documentIdPath.addSnapshotListener { querySnapshot,
+                                                                firebaseFirestoreException ->
+
+            if (querySnapshot != null) {
+
+                for (document in querySnapshot) {
+
+                    if (document.exists()) {
+
+                        if (document.data["is_available"] == false) {
+
+                            documentId = document.id
+                            offer(Resource.Success(documentId))
+
+                        }
+
+                    }
+
+                }
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
+            }
+
+        }
+
+        awaitClose { subscription.remove() }
+
+    }
+
 }

@@ -81,6 +81,22 @@ interface DataSource {
 
         suspend fun loadNoAvailableCouples(): Flow<Resource<String>>
 
+        suspend fun checkIfIsThreesomeAvailable(threesomeNumber: String): Resource<Boolean>
+
+        suspend fun updateIsThreesomeAvailable(threesomeNumber: String, isAvailable: Boolean)
+
+        suspend fun loadAvailableThreesomes(): Flow<Resource<String>>
+
+        suspend fun loadNoAvailableThreesomes(): Flow<Resource<String>>
+
+        suspend fun checkIfIsBubbleAvailable(bubbleNumber: String): Resource<Boolean>
+
+        suspend fun updateIsBubbleAvailable(bubbleNumber: String, isAvailable: Boolean)
+
+        suspend fun loadAvailableBubbles(): Flow<Resource<String>>
+
+        suspend fun loadNoAvailableBubbles(): Flow<Resource<String>>
+
     }
 
     interface Intentions {

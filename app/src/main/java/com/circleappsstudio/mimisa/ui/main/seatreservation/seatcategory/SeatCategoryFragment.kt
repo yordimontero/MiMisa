@@ -23,6 +23,8 @@ class SeatCategoryFragment : BaseFragment(),
 
         goToCoupleSeat()
 
+        goToThreesomeSeat()
+
     }
 
     override fun goToCoupleSeat() {
@@ -37,23 +39,15 @@ class SeatCategoryFragment : BaseFragment(),
 
     override fun goToThreesomeSeat() {
 
-        val bundle = Bundle()
-
-        bundle.putString("seatCategory", "couple")
-
         btn_threesome_seat_category.setOnClickListener {
 
-            //navController.navigate(, bundle)
+            navController.navigate(R.id.action_go_to_all_threesome_seats_from_seat_category_fragment)
 
         }
 
     }
 
     override fun goToBubbleSeat() {
-
-        val bundle = Bundle()
-
-        bundle.putString("seatCategory", "couple")
 
         btn_bubble_seat_category.setOnClickListener {
 

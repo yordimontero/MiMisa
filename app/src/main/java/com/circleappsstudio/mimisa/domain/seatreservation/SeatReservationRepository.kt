@@ -10,16 +10,6 @@ class SeatReservationRepository(
         private val seatReservationDataSource: DataSource.SeatReservation
 ) : Repository.SeatReservation {
 
-    /*
-        Método encargado de reservar un asiento.
-    */
-    /*override suspend fun saveSeatReserved(
-            seatNumber: Int,
-            nameUser: String,
-            lastNameUser: String,
-            idNumberUser: String
-    ) = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser)*/
-
     override suspend fun saveSeatReserved(
             seatNumber: Int,
             nameUser: String,
@@ -74,5 +64,28 @@ class SeatReservationRepository(
     override suspend fun loadNoAvailableCouples()
     : Flow<Resource<String>> = seatReservationDataSource.loadNoAvailableCouples()
 
+    override suspend fun checkIfIsThreesomeAvailable(threesomeNumber: String)
+    : Resource<Boolean> = seatReservationDataSource.checkIfIsThreesomeAvailable(threesomeNumber)
+
+    override suspend fun updateIsThreesomeAvailable(threesomeNumber: String, isAvailable: Boolean)
+    = seatReservationDataSource.updateIsThreesomeAvailable(threesomeNumber, isAvailable)
+
+    override suspend fun loadAvailableThreesomes()
+    : Flow<Resource<String>> = seatReservationDataSource.loadAvailableThreesomes()
+
+    override suspend fun loadNoAvailableThreesomes()
+    : Flow<Resource<String>> = seatReservationDataSource.loadNoAvailableThreesomes()
+
+    override suspend fun checkIfIsBubbleAvailable(bubbleNumber: String)
+    : Resource<Boolean> = seatReservationDataSource.checkIfIsBubbleAvailable(bubbleNumber)
+
+    override suspend fun updateIsBubbleAvailable(bubbleNumber: String, isAvailable: Boolean)
+    = seatReservationDataSource.updateIsBubbleAvailable(bubbleNumber, isAvailable)
+
+    override suspend fun loadAvailableBubbles()
+    : Flow<Resource<String>> = seatReservationDataSource.loadAvailableBubbles()
+
+    override suspend fun loadNoAvailableBubbles()
+    : Flow<Resource<String>> = seatReservationDataSource.loadNoAvailableBubbles()
 
 }
