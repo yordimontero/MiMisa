@@ -50,6 +50,7 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
     private var isAnySeatReserved = false
 
     private lateinit var getSeats: ArrayList<String>
+    private lateinit var threesomeId: String
     private lateinit var threesomeNumber: String
     private var seat1: Int = 0
     private var seat2: Int = 0
@@ -92,10 +93,11 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
         requireArguments().let {
 
             getSeats = it.getStringArrayList("threesomeSeats")!!
-            threesomeNumber = getSeats[0]
-            seat1 = getSeats[1].toInt()
-            seat2 = getSeats[2].toInt()
-            seat3 = getSeats[3].toInt()
+            threesomeId = getSeats[0]
+            threesomeNumber = getSeats[1]
+            seat1 = getSeats[2].toInt()
+            seat2 = getSeats[3].toInt()
+            seat3 = getSeats[4].toInt()
 
         }
 
@@ -166,9 +168,15 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
                 return@setOnClickListener
             }
 
-            if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
-                txt_id_number_user_seat_reservation_threesome_seat_category.error = getString(R.string.complete_fields)
-                return@setOnClickListener
+            if (!cb_btn_under_age_seat_reservation_threesome_seat_category.isChecked) {
+
+                if (seatReservationViewModel.checkEmptyIdNumberUser(idNumberUser)){
+                    txt_id_number_user_seat_reservation_threesome_seat_category.error = getString(R.string.complete_fields)
+                    return@setOnClickListener
+                }
+
+            } else {
+                idNumberUser = "Menor de edad"
             }
 
             if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
@@ -231,7 +239,8 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
         if (isOnline(requireContext())) {
 
             seatReservationViewModel.saveSeatReserved(
-                seat1,
+                threesomeNumber,
+                seat1.toString(),
                 nameUser,
                 lastNameUser,
                 idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
@@ -278,7 +287,7 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
 
     override fun setIsThreesomeAvailable() {
 
-        seatReservationViewModel.updateIsThreesomeAvailable(threesomeNumber, true)
+        seatReservationViewModel.updateIsThreesomeAvailable(threesomeId, true)
             .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
@@ -304,7 +313,7 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
 
     override fun setIsNotThreesomeAvailable() {
 
-        seatReservationViewModel.updateIsThreesomeAvailable(threesomeNumber, false)
+        seatReservationViewModel.updateIsThreesomeAvailable(threesomeId, false)
             .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {

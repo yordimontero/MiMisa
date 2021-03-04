@@ -72,10 +72,11 @@ interface MainViewModel {
             la reservación de asientos.
         */
         fun saveSeatReserved(
-                seatNumber: Int,
-                nameUser: String,
-                lastNameUser: String,
-                idNumberUser: String
+            seatCategory: String,
+            seatNumber: String,
+            nameUser: String,
+            lastNameUser: String,
+            idNumberUser: String
         ): LiveData<Resource<Boolean>>
 
         fun fetchRegisteredSeatsByNameUser(): LiveData<Resource<List<Seat>>?>

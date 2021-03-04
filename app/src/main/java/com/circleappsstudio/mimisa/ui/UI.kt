@@ -441,6 +441,86 @@ interface UI {
 
     }
 
+    interface AllSeatBubbles {
+
+        fun fetchData()
+
+        fun checkIfIsBubbleAvailable()
+
+        fun loadAvailableBubblesObserver()
+
+        fun loadNoAvailableBubblesObserver()
+
+        fun showAvailableBubbleTextView(documentId: String)
+
+        fun showNoAvailableBubbleTextView(documentId: String)
+
+        fun callAllToGoBubbles()
+
+        fun goToBubble1()
+
+        fun goToBubble2()
+
+        fun goToBubble3()
+
+        fun goToBubble4()
+
+        fun goToBubble5()
+
+        fun goToBubble6()
+
+        fun goToBubble7()
+
+        fun goToBubble8()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun showIsOnlineDialog()
+
+    }
+
+    interface BubbleSeatCategory {
+
+        fun fetchData()
+
+        fun getBundle()
+
+        fun fetchIsSeatReservationAvailableObserver()
+
+        fun saveSeatReserved()
+
+        fun checkSeatSavedByIdNumberUserObserver()
+
+        fun saveSeatReservedObserver()
+
+        fun setIsBubbleAvailable()
+
+        fun setIsNotBubbleAvailable()
+
+        fun clearFields()
+
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
+        fun goToMainSeatReservation()
+
+        fun showIsOnlineDialog()
+
+        fun showIsSeatReservationAvailableDialog()
+
+        fun showConfirmDialog(): AlertDialog?
+
+        fun showReserveSeatDialog(): AlertDialog?
+
+    }
+
     interface SeatReservation {
         /*
             Interface encargada de controlar los métodos de la base de datos Firestore para

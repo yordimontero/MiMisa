@@ -269,11 +269,11 @@ class SeatReservationFragment : BaseFragment(),
     override fun saveSeatReservedObserver() {
         /*
             Método encargado de reservar un asiento.
-        */
+
         if (isOnline(requireContext())){
 
             seatReservationViewModel.saveSeatReserved(
-                    seatNumber.toInt(),
+                    seatNumber,
                     nameUser,
                     lastNameUser,
                     idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
@@ -304,7 +304,7 @@ class SeatReservationFragment : BaseFragment(),
 
             })
 
-        }
+        }*/
 
     }
 

@@ -56,10 +56,11 @@ interface Repository {
             la reservación de asientos.
         */
         suspend fun saveSeatReserved(
-                seatNumber: Int,
-                nameUser: String,
-                lastNameUser: String,
-                idNumberUser: String
+            seatCategory: String,
+            seatNumber: String,
+            nameUser: String,
+            lastNameUser: String,
+            idNumberUser: String
         ): Resource<Boolean>
 
         suspend fun fetchAllRegisteredSeats(): Resource<List<Seat>>?

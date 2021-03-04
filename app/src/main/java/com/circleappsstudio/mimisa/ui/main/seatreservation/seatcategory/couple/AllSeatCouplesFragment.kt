@@ -32,6 +32,7 @@ class AllSeatCouplesFragment : BaseFragment(),
 
     private val bundle by lazy { Bundle() }
 
+    private lateinit var coupleId: String
     private lateinit var coupleNumber: String
 
     override fun getLayout(): Int = R.layout.fragment_all_seat_couples
@@ -62,7 +63,7 @@ class AllSeatCouplesFragment : BaseFragment(),
 
     override fun checkIfIsCoupleAvailable() {
 
-        seatReservationViewModel.checkIfIsCoupleAvailable(coupleNumber)
+        seatReservationViewModel.checkIfIsCoupleAvailable(coupleId)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                     when (resultEmitted) {
@@ -151,7 +152,6 @@ class AllSeatCouplesFragment : BaseFragment(),
         when (documentId) {
 
             "couple_1" -> {
-                //txt_couple_1_no_available.visibility = View.VISIBLE
                 txt_couple_1_no_available.text = "¡Disponible!"
             }
 
@@ -380,8 +380,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_1.setOnClickListener {
 
-            coupleNumber = "couple_1"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "19", "20"))
+            coupleId = "couple_1"
+            coupleNumber = "Pareja 1"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "19", "20"))
             checkIfIsCoupleAvailable()
 
         }
@@ -392,8 +393,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_2.setOnClickListener {
 
-            coupleNumber = "couple_2"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "21", "22"))
+            coupleId = "couple_2"
+            coupleNumber = "Pareja 2"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "21", "22"))
             checkIfIsCoupleAvailable()
 
         }
@@ -404,8 +406,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_3.setOnClickListener {
 
-            coupleNumber = "couple_3"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "26", "27"))
+            coupleId = "couple_3"
+            coupleNumber = "Pareja 3"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber,"26", "27"))
             checkIfIsCoupleAvailable()
 
         }
@@ -416,8 +419,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_4.setOnClickListener {
 
-            coupleNumber = "couple_4"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "28", "29"))
+            coupleId = "couple_4"
+            coupleNumber = "Pareja 4"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "28", "29"))
             checkIfIsCoupleAvailable()
 
         }
@@ -428,8 +432,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_5.setOnClickListener {
 
-            coupleNumber = "couple_5"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "33", "34"))
+            coupleId = "couple_5"
+            coupleNumber = "Pareja 5"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "33", "34"))
             checkIfIsCoupleAvailable()
 
         }
@@ -440,8 +445,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_6.setOnClickListener {
 
-            coupleNumber = "couple_6"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "35", "36"))
+            coupleId = "couple_6"
+            coupleNumber = "Pareja 6"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "35", "36"))
             checkIfIsCoupleAvailable()
 
         }
@@ -452,8 +458,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_7.setOnClickListener {
 
-            coupleNumber = "couple_7"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "40", "41"))
+            coupleId = "couple_7"
+            coupleNumber = "Pareja 7"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "40", "41"))
             checkIfIsCoupleAvailable()
 
         }
@@ -464,8 +471,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_8.setOnClickListener {
 
-            coupleNumber = "couple_8"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "42", "43"))
+            coupleId = "couple_8"
+            coupleNumber = "Pareja 8"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "42", "43"))
             checkIfIsCoupleAvailable()
 
         }
@@ -476,8 +484,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_9.setOnClickListener {
 
-            coupleNumber = "couple_9"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "44", "45"))
+            coupleId = "couple_9"
+            coupleNumber = "Pareja 9"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "44", "45"))
             checkIfIsCoupleAvailable()
 
         }
@@ -488,8 +497,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_10.setOnClickListener {
 
-            coupleNumber = "couple_10"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "46", "47"))
+            coupleId = "couple_10"
+            coupleNumber = "Pareja 10"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "46", "47"))
             checkIfIsCoupleAvailable()
 
         }
@@ -500,8 +510,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_11.setOnClickListener {
 
-            coupleNumber = "couple_11"
-            bundle.putStringArrayList(coupleNumber, arrayListOf("couple_11", "51", "52"))
+            coupleId = "couple_11"
+            coupleNumber = "Pareja 11"
+            bundle.putStringArrayList(coupleId, arrayListOf(coupleId, coupleNumber, "51", "52"))
             checkIfIsCoupleAvailable()
 
         }
@@ -512,8 +523,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_12.setOnClickListener {
 
-            coupleNumber = "couple_12"
-            bundle.putStringArrayList(coupleNumber, arrayListOf("couple_12", "53", "54"))
+            coupleId = "couple_12"
+            coupleNumber = "Pareja 12"
+            bundle.putStringArrayList(coupleId, arrayListOf(coupleId, coupleNumber, "53", "54"))
             checkIfIsCoupleAvailable()
 
         }
@@ -524,8 +536,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_13.setOnClickListener {
 
-            coupleNumber = "couple_13"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "58", "59"))
+            coupleId = "couple_13"
+            coupleNumber = "Pareja 13"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "58", "59"))
             checkIfIsCoupleAvailable()
 
         }
@@ -536,8 +549,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_14.setOnClickListener {
 
-            coupleNumber = "couple_14"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "60", "61"))
+            coupleId = "couple_14"
+            coupleNumber = "Pareja 14"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "60", "61"))
             checkIfIsCoupleAvailable()
 
         }
@@ -548,8 +562,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_15.setOnClickListener {
 
-            coupleNumber = "couple_15"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "65", "66"))
+            coupleId = "couple_15"
+            coupleNumber = "Pareja 15"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "65", "66"))
             checkIfIsCoupleAvailable()
 
         }
@@ -560,8 +575,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_16.setOnClickListener {
 
-            coupleNumber = "couple_16"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "67", "68"))
+            coupleId = "couple_16"
+            coupleNumber = "Pareja 16"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "67", "68"))
             checkIfIsCoupleAvailable()
 
         }
@@ -572,8 +588,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_17.setOnClickListener {
 
-            coupleNumber = "couple_17"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "72", "73"))
+            coupleId = "couple_17"
+            coupleNumber = "Pareja 17"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "72", "73"))
             checkIfIsCoupleAvailable()
 
         }
@@ -584,8 +601,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_18.setOnClickListener {
 
-            coupleNumber = "couple_18"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "74", "75"))
+            coupleId = "couple_18"
+            coupleNumber = "Pareja 18"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "74", "75"))
             checkIfIsCoupleAvailable()
 
         }
@@ -596,8 +614,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_19.setOnClickListener {
 
-            coupleNumber = "couple_19"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "79", "80"))
+            coupleId = "couple_19"
+            coupleNumber = "Pareja 19"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "79", "80"))
             checkIfIsCoupleAvailable()
 
         }
@@ -608,8 +627,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_20.setOnClickListener {
 
-            coupleNumber = "couple_20"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "81", "82"))
+            coupleId = "couple_20"
+            coupleNumber = "Pareja 20"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "81", "82"))
             checkIfIsCoupleAvailable()
 
         }
@@ -620,8 +640,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_21.setOnClickListener {
 
-            coupleNumber = "couple_21"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "86", "87"))
+            coupleId = "couple_21"
+            coupleNumber = "Pareja 21"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "86", "87"))
             checkIfIsCoupleAvailable()
 
         }
@@ -632,8 +653,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_22.setOnClickListener {
 
-            coupleNumber = "couple_22"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "88", "89"))
+            coupleId = "couple_22"
+            coupleNumber = "Pareja 22"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "88", "89"))
             checkIfIsCoupleAvailable()
 
         }
@@ -644,8 +666,9 @@ class AllSeatCouplesFragment : BaseFragment(),
 
         btn_couple_23.setOnClickListener {
 
-            coupleNumber = "couple_23"
-            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleNumber, "93", "94"))
+            coupleId = "couple_23"
+            coupleNumber = "Pareja 23"
+            bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "93", "94"))
             checkIfIsCoupleAvailable()
 
         }

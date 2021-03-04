@@ -11,11 +11,12 @@ class SeatReservationRepository(
 ) : Repository.SeatReservation {
 
     override suspend fun saveSeatReserved(
-            seatNumber: Int,
-            nameUser: String,
-            lastNameUser: String,
-            idNumberUser: String
-    ): Resource<Boolean> = seatReservationDataSource.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser)
+        seatCategory: String,
+        seatNumber: String,
+        nameUser: String,
+        lastNameUser: String,
+        idNumberUser: String
+    ): Resource<Boolean> = seatReservationDataSource.saveSeatReserved(seatCategory, seatNumber, nameUser, lastNameUser, idNumberUser)
 
     /*
             Método encargado de traer todos los asientos reservados de la base datos.

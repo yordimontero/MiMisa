@@ -1,7 +1,8 @@
 package com.circleappsstudio.mimisa.data.model
 
 data class Seat(
-        val seatNumber: Int = 0,
+        val seatCategory: String = "",
+        val seatNumber: String = "",
         val nameUser: String = "",
         val lastNameUser: String = "",
         val idNumberUser: String = "",

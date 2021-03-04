@@ -25,6 +25,8 @@ class SeatCategoryFragment : BaseFragment(),
 
         goToThreesomeSeat()
 
+        goToBubbleSeat()
+
     }
 
     override fun goToCoupleSeat() {
@@ -51,7 +53,7 @@ class SeatCategoryFragment : BaseFragment(),
 
         btn_bubble_seat_category.setOnClickListener {
 
-            //navController.navigate(, bundle)
+            navController.navigate(R.id.action_go_to_all_bubble_seats_from_seat_category_fragment)
 
         }
 

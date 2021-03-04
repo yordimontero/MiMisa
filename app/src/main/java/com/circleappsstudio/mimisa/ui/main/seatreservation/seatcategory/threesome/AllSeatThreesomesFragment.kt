@@ -1,10 +1,7 @@
 package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.threesome
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -35,6 +32,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
     private val bundle by lazy { Bundle() }
 
+    private lateinit var threesomeId: String
     private lateinit var threesomeNumber: String
 
     override fun getLayout(): Int = R.layout.fragment_all_seat_threesomes
@@ -65,7 +63,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
     override fun checkIfIsThreesomeAvailable() {
 
-        seatReservationViewModel.checkIfIsThreesomeAvailable(threesomeNumber)
+        seatReservationViewModel.checkIfIsThreesomeAvailable(threesomeId)
             .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                 when (resultEmitted) {
@@ -321,8 +319,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_1.setOnClickListener {
 
-            threesomeNumber = "threesome_1"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "1", "2", "3"))
+            threesomeId = "threesome_1"
+            threesomeNumber = "Trío 1"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "1", "2", "3"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -333,8 +332,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_2.setOnClickListener {
 
-            threesomeNumber = "threesome_2"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "4", "5", "6"))
+            threesomeId = "threesome_2"
+            threesomeNumber = "Trío 2"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "4", "5", "6"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -346,8 +346,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_3.setOnClickListener {
 
-            threesomeNumber = "threesome_3"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "7", "8", "9"))
+            threesomeId = "threesome_3"
+            threesomeNumber = "Trío 3"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "7", "8", "9"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -359,8 +360,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_4.setOnClickListener {
 
-            threesomeNumber = "threesome_4"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "10", "11", "12"))
+            threesomeId = "threesome_4"
+            threesomeNumber = "Trío 4"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "10", "11", "12"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -372,8 +374,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_5.setOnClickListener {
 
-            threesomeNumber = "threesome_5"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "13", "14", "15"))
+            threesomeId = "threesome_5"
+            threesomeNumber = "Trío 5"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "13", "14", "15"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -385,8 +388,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_6.setOnClickListener {
 
-            threesomeNumber = "threesome_6"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "16", "17", "18"))
+            threesomeId = "threesome_6"
+            threesomeNumber = "Trío 6"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "16", "17", "18"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -398,8 +402,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_7.setOnClickListener {
 
-            threesomeNumber = "threesome_7"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "23", "24", "25"))
+            threesomeId = "threesome_7"
+            threesomeNumber = "Trío 7"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "23", "24", "25"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -411,8 +416,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_8.setOnClickListener {
 
-            threesomeNumber = "threesome_8"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "30", "31", "32"))
+            threesomeId = "threesome_8"
+            threesomeNumber = "Trío 8"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "30", "31", "32"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -424,8 +430,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_9.setOnClickListener {
 
-            threesomeNumber = "threesome_9"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "37", "38", "39"))
+            threesomeId = "threesome_9"
+            threesomeNumber = "Trío 9"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "37", "38", "39"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -437,8 +444,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_10.setOnClickListener {
 
-            threesomeNumber = "threesome_10"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "48", "49", "50"))
+            threesomeId = "threesome_10"
+            threesomeNumber = "Trío 10"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "48", "49", "50"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -450,8 +458,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_11.setOnClickListener {
 
-            threesomeNumber = "threesome_11"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "55", "56", "57"))
+            threesomeId = "threesome_11"
+            threesomeNumber = "Trío 11"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "55", "56", "57"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -463,8 +472,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_12.setOnClickListener {
 
-            threesomeNumber = "threesome_12"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "62", "63", "64"))
+            threesomeId = "threesome_12"
+            threesomeNumber = "Trío 12"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "62", "63", "64"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -476,8 +486,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_13.setOnClickListener {
 
-            threesomeNumber = "threesome_13"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "69", "70", "71"))
+            threesomeId = "threesome_13"
+            threesomeNumber = "Trío 13"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "69", "70", "71"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -489,8 +500,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_14.setOnClickListener {
 
-            threesomeNumber = "threesome_14"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "76", "77", "78"))
+            threesomeId = "threesome_14"
+            threesomeNumber = "Trío 14"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "76", "77", "78"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -502,8 +514,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_15.setOnClickListener {
 
-            threesomeNumber = "threesome_15"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "83", "84", "85"))
+            threesomeId = "threesome_15"
+            threesomeNumber = "Trío 15"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "83", "84", "85"))
             checkIfIsThreesomeAvailable()
 
         }
@@ -515,8 +528,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         btn_threesome_16.setOnClickListener {
 
-            threesomeNumber = "threesome_16"
-            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeNumber, "90", "91", "92"))
+            threesomeId = "threesome_16"
+            threesomeNumber = "Trío 16"
+            bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "90", "91", "92"))
             checkIfIsThreesomeAvailable()
 
         }

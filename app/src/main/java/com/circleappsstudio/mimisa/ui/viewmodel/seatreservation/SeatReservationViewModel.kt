@@ -16,10 +16,11 @@ class SeatReservationViewModel(
 ) : ViewModel(), MainViewModel.SeatReservation {
 
     override fun saveSeatReserved(
-            seatNumber: Int,
-            nameUser: String,
-            lastNameUser: String,
-            idNumberUser: String
+        seatCategory: String,
+        seatNumber: String,
+        nameUser: String,
+        lastNameUser: String,
+        idNumberUser: String
     ): LiveData<Resource<Boolean>> = liveData(Dispatchers.IO) {
         /*
             Método encargado de reservar un asiento.
@@ -28,7 +29,7 @@ class SeatReservationViewModel(
 
         try {
 
-            emit(seatReservationRepository.saveSeatReserved(seatNumber, nameUser, lastNameUser, idNumberUser))
+            emit(seatReservationRepository.saveSeatReserved(seatCategory, seatNumber, nameUser, lastNameUser, idNumberUser))
 
         } catch (e: FirebaseException){
             emit(Resource.Failure(e))
