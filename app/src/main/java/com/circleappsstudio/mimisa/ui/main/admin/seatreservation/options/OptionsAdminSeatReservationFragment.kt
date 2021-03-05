@@ -48,7 +48,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
         fetchData()
 
-        updateSeatLimit()
+        //updateSeatLimit()
 
         setAvailability()
 
@@ -63,7 +63,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
         fetchIsSeatReservationAvailableObserver()
 
-        fetchSeatLimitObserver()
+        //fetchSeatLimitObserver()
 
     }
 
@@ -188,94 +188,18 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
         /*
             Método encargado de traer el número límite de asientos disponibles.
         */
-        if (isOnline(requireContext())) {
-
-            paramsViewModel.fetchSeatLimit()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when (resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-                                seatLimit = resultEmitted.data.toString()
-                                txt_seat_limit.setText(seatLimit)
-                                hideProgressBar()
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-        }
-
+        TODO()
     }
 
     override fun updateSeatLimitObserver() {
         /*
             Método encargado de actualizar el número máximo de asientos disponibles.
         */
-        if (isOnline(requireContext())) {
-
-            val newSeatLimit = txt_seat_limit.text.toString().toInt()
-
-            paramsViewModel.updateSeatLimit(newSeatLimit)
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when (resultEmitted) {
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-                                showMessage(getString(R.string.seat_limit_has_been_updated_successfully), 2)
-                                fetchSeatLimitObserver()
-                                hideProgressBar()
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-        }
-
-
+        TODO()
     }
 
     override fun updateSeatLimit() {
-
-        btn_update_seat_limit.setOnClickListener {
-
-            hideKeyboard()
-
-            if (!isOnline(requireContext())) {
-                showIsOnlineDialog()
-                return@setOnClickListener
-            }
-
-            if (paramsViewModel.checkEmptySeatLimit(txt_seat_limit.text.toString())) {
-                txt_seat_limit.error = getString(R.string.complete_fields)
-                return@setOnClickListener
-            }
-
-            selectedButton = "btn_update_seat_limit"
-            showConfirmDialog()
-
-        }
-
+        TODO()
     }
 
     override fun showMessage(message: String, duration: Int) {

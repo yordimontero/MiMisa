@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
+import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.adapter.SeatAdapter
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
+import com.circleappsstudio.mimisa.utils.PDFReport
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_admin_seat_reservation.*
 
@@ -33,6 +35,10 @@ class AdminSeatReservationFragment : BaseFragment(),
                 SeatReservationDataSource()
             )
         )
+    }
+
+    val pdfReport by lazy {
+        PDFReport(requireContext(), requireActivity())
     }
 
     override fun getLayout(): Int = R.layout.fragment_admin_seat_reservation
@@ -79,6 +85,11 @@ class AdminSeatReservationFragment : BaseFragment(),
                             }
 
                             is Resource.Success -> {
+
+                                //pdfReport.printPDF(resultEmitted.data)
+                                pdfReport.hasPermissions(resultEmitted.data)
+
+                                showMessage(resultEmitted.data.size.toString(), 2)
 
                                 if (resultEmitted.data.isNotEmpty()) {
 
