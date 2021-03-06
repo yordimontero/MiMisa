@@ -143,11 +143,20 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                     if (document.exists()) {
 
                         seat = Seat(
+                            /*document.data!!["seatNumber"].toString(),
+                            document.data!!["nameUser"].toString(),
+                            document.data!!["lastNameUser"].toString(),
+                            document.data!!["idNumberUser"].toString(),
+                            document.data!!["dateRegistered"].toString()*/
+
+                            document.data!!["seatCategory"].toString(),
                             document.data!!["seatNumber"].toString(),
                             document.data!!["nameUser"].toString(),
                             document.data!!["lastNameUser"].toString(),
                             document.data!!["idNumberUser"].toString(),
-                            document.data!!["dateRegistered"].toString()
+                            document.data!!["dateRegistered"].toString(),
+                            document.data!!["seatRegisteredBy"].toString()
+
                         )
 
                         seatList.add(seat)

@@ -300,7 +300,7 @@ class MainSeatReservationFragment : BaseFragment(),
             Método encargado de hacer el setup del RecyclerView.
         */
         rv_seat_reservation.layoutManager = LinearLayoutManager(requireContext())
-        rv_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        //rv_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
 
     }
 

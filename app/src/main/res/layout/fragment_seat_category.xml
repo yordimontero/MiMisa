@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,24 +11,27 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:fontFamily="sans-serif-light"
-        android:gravity="center"
         android:text="Seleccione la categoría de asiento"
-        android:textSize="20sp"
+        android:textSize="22sp"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_couple_seat_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -41,7 +45,7 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_person_pin"
+                    android:src="@drawable/ic_keyboard_arrow_right"
                     app:tint="@color/light_green" />
 
                 <TextView
@@ -62,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -76,7 +80,7 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_person_pin"
+                    android:src="@drawable/ic_keyboard_arrow_right"
                     app:tint="@color/light_green" />
 
                 <TextView
@@ -84,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
-                    android:text="Trio"
+                    android:text="Trío"
                     android:layout_gravity="center"
                     android:textSize="18sp" />
 
@@ -97,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -111,7 +115,7 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_person_pin"
+                    android:src="@drawable/ic_keyboard_arrow_right"
                     app:tint="@color/light_green" />
 
                 <TextView

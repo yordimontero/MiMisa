@@ -234,7 +234,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         */
         if (isOnline(requireContext())) {
 
-            seatReservationViewModel.saveSeatReserved(
+            /*seatReservationViewModel.saveSeatReserved(
                 coupleNumber,
                     seat1.toString(),
                     nameUser,
@@ -262,6 +262,52 @@ class CoupleSeatCategoryFragment : BaseFragment(),
                                 goToMainSeatReservation()
                             } else {
                                  showReserveSeatDialog()
+                            }
+
+                        }
+
+                    }
+
+                    is Resource.Failure -> {
+                        showMessage(resultEmitted.exception.message.toString(), 2)
+                        hideProgressBar()
+                    }
+
+                }
+
+            })*/
+
+            seatReservationViewModel.saveSeatReserved(
+
+                coupleId,
+                seat1.toString(),
+                nameUser,
+                lastNameUser,
+                idNumberUser
+
+            ).observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                when (resultEmitted) {
+
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
+
+                    is Resource.Success -> {
+
+                        if (resultEmitted.data) {
+
+                            isAnySeatReserved = true
+                            ++seat1
+
+                            showMessage("Asiento reservado con éxito.", 2)
+                            clearFields()
+                            hideProgressBar()
+
+                            if (seat1 > seat2) {
+                                goToMainSeatReservation()
+                            } else {
+                                showReserveSeatDialog()
                             }
 
                         }
