@@ -54,6 +54,8 @@ class AdminSeatReservationFragment : BaseFragment(),
 
         fetchData()
 
+        goToSeatCategoryReservation()
+
         goToOptionAdminSeatReservation()
 
     }
@@ -86,10 +88,7 @@ class AdminSeatReservationFragment : BaseFragment(),
 
                             is Resource.Success -> {
 
-                                //pdfReport.printPDF(resultEmitted.data)
-                                pdfReport.hasPermissions(resultEmitted.data)
-
-                                showMessage(resultEmitted.data.size.toString(), 2)
+                                //pdfReport.hasPermissions(resultEmitted.data)
 
                                 if (resultEmitted.data.isNotEmpty()) {
 
@@ -224,6 +223,14 @@ class AdminSeatReservationFragment : BaseFragment(),
 
                     })
 
+        }
+
+    }
+
+    override fun goToSeatCategoryReservation() {
+
+        btn_go_to_admin_seat_reservation.setOnClickListener {
+            navController.navigate(R.id.action_go_to_seat_category_from_seat_reservation_main_fragment)
         }
 
     }

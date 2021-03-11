@@ -9,14 +9,22 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.data.datasource.params.ParamsDataSource
+import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleUserDataSource
 import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
+import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.params.ParamsRepository
+import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
+import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryParams
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_bubble_seat_category.*
@@ -45,6 +53,26 @@ class BubbleSeatCategoryFragment : BaseFragment(),
             )
         )
     }
+
+    private val authViewModel by activityViewModels<AuthViewModel> {
+        VMFactoryAuth(
+                AuthRepository(
+                        AuthDataSource()
+                )
+        )
+    }
+
+    private val adminViewModel by activityViewModels<RoleUserViewModel> {
+        VMFactoryAdmin(
+                RoleUserRepository(
+                        RoleUserDataSource()
+                )
+        )
+    }
+
+    private var isAdmin = false
+
+    private val emailUser by lazy { authViewModel.getEmailUser() }
 
     private var isAvailable = true
     private var isAnySeatReserved = false
@@ -91,6 +119,8 @@ class BubbleSeatCategoryFragment : BaseFragment(),
 
         getBundle()
 
+        checkIfUserIsAdmin()
+
         fetchIsSeatReservationAvailableObserver()
 
     }
@@ -103,34 +133,44 @@ class BubbleSeatCategoryFragment : BaseFragment(),
             bubbleId = getSeats[0]
             bubbleNumber = getSeats[1]
             nameBubbleSeat = getSeats[2]
-            /*nameSeat2 = getSeats[2]
-            nameSeat3 = getSeats[3]
-            nameSeat4 = getSeats[4]
-            nameSeat5 = getSeats[5]
-
-            when(bubbleNumber) {
-
-                "bubble_3" -> {
-                    nameSeat6 = getSeats[6]
-                }
-
-                "bubble_5" -> {
-                    nameSeat6 = getSeats[6]
-                }
-
-                "bubble_6" -> {
-                    nameSeat6 = getSeats[6]
-                }
-
-                "bubble_8" -> {
-                    nameSeat6 = getSeats[6]
-                }
-
-            }*/
 
         }
 
     }
+
+    override fun checkIfUserIsAdmin() {
+
+        if (isOnline(requireContext())) {
+
+            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                isAdmin = resultEmitted.data
+                                hideProgressBar()
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+    }
+
 
     override fun fetchIsSeatReservationAvailableObserver() {
         /*
@@ -152,9 +192,16 @@ class BubbleSeatCategoryFragment : BaseFragment(),
 
                             isAvailable = resultEmitted.data
 
-                            if (!isAvailable) {
-                                showIsSeatReservationAvailableDialog()
+                            if (!isAdmin) {
+
+                                if (!isAvailable) {
+                                    showIsSeatReservationAvailableDialog()
+                                }
+
+                            } else {
+                                hideProgressBar()
                             }
+
 
                         }
 
@@ -478,7 +525,15 @@ class BubbleSeatCategoryFragment : BaseFragment(),
         /*
             Método encargado de navegar hacia el fragment "MainSeatReservation".
         */
-        navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_bubble_seat_category_fragment)
+        //navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_bubble_seat_category_fragment)
+
+        if (isAdmin) {
+            navController.popBackStack(R.id.navigation_home_admin, true)
+            navController.navigate(R.id.navigation_seat_reservation_admin)
+        } else {
+            navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_bubble_seat_category_fragment)
+        }
+
     }
 
     override fun onPause() {

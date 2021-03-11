@@ -227,17 +227,27 @@ interface UI {
 
     interface SeatCategory {
 
+        fun checkIfUserIsAdmin()
+
         fun goToCoupleSeat()
 
         fun goToThreesomeSeat()
 
         fun goToBubbleSeat()
 
+        fun showMessage(message: String, duration: Int)
+
+        fun showProgressBar()
+
+        fun hideProgressBar()
+
     }
 
     interface AllSeatCouples {
 
         fun fetchData()
+
+        fun checkIfUserIsAdmin()
 
         fun checkIfIsCoupleAvailable()
 
@@ -313,6 +323,8 @@ interface UI {
 
         fun getBundle()
 
+        fun checkIfUserIsAdmin()
+
         fun fetchIsSeatReservationAvailableObserver()
 
         fun saveSeatReserved()
@@ -348,6 +360,8 @@ interface UI {
     interface AllSeatThreesomes {
 
         fun fetchData()
+
+        fun checkIfUserIsAdmin()
 
         fun checkIfIsThreesomeAvailable()
 
@@ -409,6 +423,8 @@ interface UI {
 
         fun getBundle()
 
+        fun checkIfUserIsAdmin()
+
         fun fetchIsSeatReservationAvailableObserver()
 
         fun saveSeatReserved()
@@ -444,6 +460,8 @@ interface UI {
     interface AllSeatBubbles {
 
         fun fetchData()
+
+        fun checkIfUserIsAdmin()
 
         fun checkIfIsBubbleAvailable()
 
@@ -488,6 +506,8 @@ interface UI {
         fun fetchData()
 
         fun getBundle()
+
+        fun checkIfUserIsAdmin()
 
         fun fetchIsSeatReservationAvailableObserver()
 
@@ -570,6 +590,8 @@ interface UI {
         //fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String)
 
         fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: Int)
+
+        fun goToSeatCategoryReservation()
 
         fun goToOptionAdminSeatReservation()
 

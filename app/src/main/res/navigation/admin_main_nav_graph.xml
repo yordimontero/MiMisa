@@ -44,6 +44,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_go_to_seat_category_from_seat_reservation_main_fragment"
+            app:destination="@id/seatCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_home_admin"
@@ -60,4 +63,39 @@
         android:name="com.circleappsstudio.mimisa.ui.main.admin.intention.options.OptionsAdminIntentionFragment"
         android:label="@string/options"
         tools:layout="@layout/fragment_options_admin_intention" />
+    <fragment
+        android:id="@+id/seatCategoryFragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.SeatCategoryFragment"
+        android:label="fragment_seat_category"
+        tools:layout="@layout/fragment_seat_category" />
+    <fragment
+        android:id="@+id/allSeatBubblesFragment2"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.bubble.AllSeatBubblesFragment"
+        android:label="fragment_all_seat_bubbles"
+        tools:layout="@layout/fragment_all_seat_bubbles" />
+    <fragment
+        android:id="@+id/bubbleSeatCategoryFragment2"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.bubble.BubbleSeatCategoryFragment"
+        android:label="fragment_bubble_seat_category"
+        tools:layout="@layout/fragment_bubble_seat_category" />
+    <fragment
+        android:id="@+id/allSeatCouplesFragment2"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple.AllSeatCouplesFragment"
+        android:label="fragment_all_seat_couples"
+        tools:layout="@layout/fragment_all_seat_couples" />
+    <fragment
+        android:id="@+id/coupleSeatCategoryFragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple.CoupleSeatCategoryFragment"
+        android:label="fragment_couple_seat_category"
+        tools:layout="@layout/fragment_couple_seat_category" />
+    <fragment
+        android:id="@+id/allSeatThreesomesFragment2"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.threesome.AllSeatThreesomesFragment"
+        android:label="fragment_all_seat_threesomes"
+        tools:layout="@layout/fragment_all_seat_threesomes" />
+    <fragment
+        android:id="@+id/threesomeSeatCategoryFragment"
+        android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.threesome.ThreesomeSeatCategoryFragment"
+        android:label="fragment_threesome_seat_category"
+        tools:layout="@layout/fragment_threesome_seat_category" />
 </navigation>
