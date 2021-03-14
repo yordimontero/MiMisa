@@ -11,11 +11,17 @@ import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
 import com.circleappsstudio.mimisa.data.datasource.params.ParamsDataSource
+import com.circleappsstudio.mimisa.data.datasource.seatreservation.SeatReservationDataSource
 import com.circleappsstudio.mimisa.domain.params.ParamsRepository
+import com.circleappsstudio.mimisa.domain.seatreservation.SeatReservationRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryParams
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactorySeatReservation
 import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.seatreservation.SeatReservationViewModel
+import com.circleappsstudio.mimisa.utils.PDFReport
 import com.circleappsstudio.mimisa.vo.Resource
+import kotlinx.android.synthetic.main.fragment_admin_seat_reservation.*
 import kotlinx.android.synthetic.main.fragment_options_admin_seat_reservation.*
 
 class OptionsAdminSeatReservationFragment : BaseFragment(),
@@ -33,7 +39,17 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
         )
     }
 
-    private lateinit var seatLimit: String
+    private val seatReservationViewModel by activityViewModels<SeatReservationViewModel> {
+        VMFactorySeatReservation(
+                SeatReservationRepository(
+                        SeatReservationDataSource()
+                )
+        )
+    }
+
+    private val pdfReport by lazy {
+        PDFReport(requireContext(), requireActivity())
+    }
 
     private var isSeatReservationAvailable = true
 
@@ -52,6 +68,8 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
         setAvailability()
 
+        generateAllSeatsReport()
+
     }
 
     override fun fetchData() {
@@ -66,6 +84,57 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
         //fetchSeatLimitObserver()
 
     }
+
+    override fun generateAllSeatsReport() {
+
+        btn_generate_seats_report.setOnClickListener {
+            generateAllSeatsReportObserver()
+        }
+
+    }
+
+    override fun generateAllSeatsReportObserver() {
+        /*
+            Método encargado de traer todos los asientos reservados en la base de datos.
+        */
+        if (isOnline(requireContext())) {
+
+            seatReservationViewModel.fetchAllRegisteredSeats()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                if (resultEmitted.data.isNotEmpty()) {
+
+                                    pdfReport.hasPermissionsForSeatListReport(resultEmitted.data)
+                                    hideProgressBar()
+
+                                } else {
+                                    showMessage("¡Aún no hay asientos registrados!", 2)
+                                    hideProgressBar()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+    }
+
 
     override fun fetchIsSeatReservationAvailableObserver() {
         /*

@@ -176,7 +176,7 @@ class AdminSeatReservationFragment : BaseFragment(),
 
     }*/
 
-    override fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: Int) {
+    override fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: String) {
         /*
             Método encargado de traer el asiento reservado por el número de asiento.
         */
@@ -290,6 +290,17 @@ class AdminSeatReservationFragment : BaseFragment(),
 
                 hideKeyboard()
 
+                try {
+
+                    val seatNumber = p0.toString().trim()
+                    fetchRegisteredSeatBySeatNumberObserver(seatNumber)
+
+                } catch (e: Exception) {
+                    showMessage(getString(R.string.search_error), 2)
+                }
+
+                return false
+
                 /*if (!rd_btn_search_by_name.isChecked && !rd_btn_search_by_seat_number.isChecked){
                     showMessage(getString(R.string.select_search_filter), 2)
                 }*/
@@ -311,17 +322,6 @@ class AdminSeatReservationFragment : BaseFragment(),
                     }
 
                 }*/
-
-                try {
-
-                    val seatNumber = p0.toString().trim().toInt()
-                    fetchRegisteredSeatBySeatNumberObserver(seatNumber)
-
-                } catch (e: Exception) {
-                    showMessage(getString(R.string.search_error), 2)
-                }
-
-                return false
 
             }
 

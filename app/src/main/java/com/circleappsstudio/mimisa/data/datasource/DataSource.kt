@@ -70,7 +70,7 @@ interface DataSource {
 
         suspend fun fetchRegisteredSeatByRegisteredPerson(registeredPerson: String): Resource<List<Seat>>?
 
-        suspend fun fetchRegisteredSeatBySeatNumber(seatNumber: Int): Resource<List<Seat>>?
+        suspend fun fetchRegisteredSeatBySeatNumber(seatNumber: String): Resource<List<Seat>>?
 
         suspend fun checkSeatSavedByIdNumberUser(idNumberUser: String): Resource<Boolean>
 

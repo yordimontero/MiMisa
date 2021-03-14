@@ -1,5 +1,6 @@
 package com.circleappsstudio.mimisa.data.datasource.seatreservation
 
+import android.util.Log
 import com.circleappsstudio.mimisa.data.datasource.DataSource
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.circleappsstudio.mimisa.vo.Resource
@@ -25,33 +26,33 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     override suspend fun saveSeatReserved(
-        seatCategory: String,
-        seatNumber: String,
-        nameUser: String,
-        lastNameUser: String,
-        idNumberUser: String
+            seatCategory: String,
+            seatNumber: String,
+            nameUser: String,
+            lastNameUser: String,
+            idNumberUser: String
     ): Resource<Boolean> {
         /*
             Método encargado de reservar un asiento.
         */
         val reservedSeat = hashMapOf(
-            "seatCategory" to seatCategory,
-            "seatNumber" to seatNumber,
-            "nameUser" to nameUser,
-            "lastNameUser" to lastNameUser,
-            "idNumberUser" to idNumberUser,
-            "dateRegistered" to date,
-            "seatRegisteredBy" to currentNameUser
+                "seatCategory" to seatCategory,
+                "seatNumber" to seatNumber,
+                "nameUser" to nameUser,
+                "lastNameUser" to lastNameUser,
+                "idNumberUser" to idNumberUser,
+                "dateRegistered" to date,
+                "seatRegisteredBy" to currentNameUser
         )
 
         var isSeatReserved = false
 
         val path = db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("data")
-            .collection("registered_seats")
-            .document(seatNumber)
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .document(seatNumber)
 
         db.runTransaction { transaction ->
 
@@ -60,12 +61,12 @@ class SeatReservationDataSource : DataSource.SeatReservation {
             if (!snapshot.exists()) {
 
                 db.collection("diaconia")
-                    .document("la_argentina")
-                    .collection("seat")
-                    .document("data")
-                    .collection("registered_seats")
-                    .document(seatNumber)
-                    .set(reservedSeat)
+                        .document("la_argentina")
+                        .collection("seat")
+                        .document("data")
+                        .collection("registered_seats")
+                        .document(seatNumber)
+                        .set(reservedSeat)
 
                 isSeatReserved = true
 
@@ -85,36 +86,36 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         val seatList = arrayListOf<Seat>()
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("data")
-            .collection("registered_seats")
-            .orderBy("seatNumber", Query.Direction.DESCENDING)
-            .get().addOnSuccessListener { documents ->
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .orderBy("seatNumber", Query.Direction.DESCENDING)
+                .get().addOnSuccessListener { documents ->
 
-                seatList.clear()
+                    seatList.clear()
 
-                for (document in documents.documents) {
+                    for (document in documents.documents) {
 
-                    if (document.exists()) {
+                        if (document.exists()) {
 
-                        seat = Seat(
-                            document.data!!["seatCategory"].toString(),
-                            document.data!!["seatNumber"].toString(),
-                            document.data!!["nameUser"].toString(),
-                            document.data!!["lastNameUser"].toString(),
-                            document.data!!["idNumberUser"].toString(),
-                            document.data!!["dateRegistered"].toString(),
-                            document.data!!["seatRegisteredBy"].toString()
-                        )
+                            seat = Seat(
+                                    document.data!!["seatCategory"].toString(),
+                                    document.data!!["seatNumber"].toString(),
+                                    document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
+                                    document.data!!["idNumberUser"].toString(),
+                                    document.data!!["dateRegistered"].toString(),
+                                    document.data!!["seatRegisteredBy"].toString()
+                            )
 
-                        seatList.add(seat)
+                            seatList.add(seat)
+
+                        }
 
                     }
 
-                }
-
-            }.await()
+                }.await()
 
         return Resource.Success(seatList)
 
@@ -128,44 +129,44 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         val seatList = arrayListOf<Seat>()
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("data")
-            .collection("registered_seats")
-            .whereEqualTo("seatRegisteredBy", currentNameUser)
-            .orderBy("seatNumber", Query.Direction.DESCENDING)
-            .get().addOnSuccessListener { documents ->
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .whereEqualTo("seatRegisteredBy", currentNameUser)
+                .orderBy("seatNumber", Query.Direction.DESCENDING)
+                .get().addOnSuccessListener { documents ->
 
-                seatList.clear()
+                    seatList.clear()
 
-                for (document in documents.documents) {
+                    for (document in documents.documents) {
 
-                    if (document.exists()) {
+                        if (document.exists()) {
 
-                        seat = Seat(
-                            /*document.data!!["seatNumber"].toString(),
-                            document.data!!["nameUser"].toString(),
-                            document.data!!["lastNameUser"].toString(),
-                            document.data!!["idNumberUser"].toString(),
-                            document.data!!["dateRegistered"].toString()*/
+                            seat = Seat(
+                                    /*document.data!!["seatNumber"].toString(),
+                                    document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
+                                    document.data!!["idNumberUser"].toString(),
+                                    document.data!!["dateRegistered"].toString()*/
 
-                            document.data!!["seatCategory"].toString(),
-                            document.data!!["seatNumber"].toString(),
-                            document.data!!["nameUser"].toString(),
-                            document.data!!["lastNameUser"].toString(),
-                            document.data!!["idNumberUser"].toString(),
-                            document.data!!["dateRegistered"].toString(),
-                            document.data!!["seatRegisteredBy"].toString()
+                                    document.data!!["seatCategory"].toString(),
+                                    document.data!!["seatNumber"].toString(),
+                                    document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
+                                    document.data!!["idNumberUser"].toString(),
+                                    document.data!!["dateRegistered"].toString()
+                                    //document.data!!["seatRegisteredBy"].toString()
 
-                        )
+                            )
 
-                        seatList.add(seat)
+                            seatList.add(seat)
+
+                        }
 
                     }
 
-                }
-
-            }.await()
+                }.await()
 
         return Resource.Success(seatList)
 
@@ -180,41 +181,41 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         val seatList = arrayListOf<Seat>()
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("data")
-            .collection("registered_seats")
-            .whereEqualTo("nameUser", registeredPerson)
-            .orderBy("seatNumber", Query.Direction.DESCENDING)
-            .get().addOnSuccessListener { documents ->
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .whereEqualTo("nameUser", registeredPerson)
+                .orderBy("seatNumber", Query.Direction.DESCENDING)
+                .get().addOnSuccessListener { documents ->
 
-                seatList.clear()
+                    seatList.clear()
 
-                for (document in documents.documents) {
+                    for (document in documents.documents) {
 
-                    if (document.exists()) {
+                        if (document.exists()) {
 
-                        seat = Seat(
-                            document.data!!["seatNumber"].toString(),
-                            document.data!!["nameUser"].toString(),
-                            document.data!!["lastNameUser"].toString(),
-                            document.data!!["idNumberUser"].toString(),
-                            document.data!!["dateRegistered"].toString()
-                        )
+                            seat = Seat(
+                                    document.data!!["seatNumber"].toString(),
+                                    document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
+                                    document.data!!["idNumberUser"].toString(),
+                                    document.data!!["dateRegistered"].toString()
+                            )
 
-                        seatList.add(seat)
+                            seatList.add(seat)
+
+                        }
 
                     }
 
-                }
-
-            }.await()
+                }.await()
 
         return Resource.Success(seatList)
 
     }
 
-    override suspend fun fetchRegisteredSeatBySeatNumber(seatNumber: Int): Resource<List<Seat>>? {
+    override suspend fun fetchRegisteredSeatBySeatNumber(seatNumber: String): Resource<List<Seat>>? {
         /*
             Método encargado de traer el asiento reservado por el número de asiento.
         */
@@ -222,34 +223,45 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         val seatList = arrayListOf<Seat>()
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("data")
-            .collection("registered_seats")
-            .whereEqualTo("seatNumber", seatNumber)
-            .get().addOnSuccessListener { documents ->
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .whereEqualTo("seatNumber", seatNumber)
+                .get().addOnSuccessListener { documents ->
 
-                seatList.clear()
+                    seatList.clear()
 
-                for (document in documents.documents) {
+                    for (document in documents) {
 
-                    if (document.exists()) {
+                        if (document.exists()) {
 
-                        seat = Seat(
-                            document.data!!["seatNumber"].toString(),
-                            document.data!!["nameUser"].toString(),
-                            document.data!!["lastNameUser"].toString(),
-                            document.data!!["idNumberUser"].toString(),
-                            document.data!!["dateRegistered"].toString()
-                        )
+                            seat = Seat(
+                                    /*document.data!!["seatNumber"].toString(),
+                                    document.data!!["nameUser"].toString(),
+                                    document.data!!["lastNameUser"].toString(),
+                                    document.data!!["idNumberUser"].toString(),
+                                    document.data!!["dateRegistered"].toString()*/
 
-                        seatList.add(seat)
+                                    document.data["seatCategory"].toString(),
+                                    document.data["seatNumber"].toString(),
+                                    document.data["nameUser"].toString(),
+                                    document.data["lastNameUser"].toString(),
+                                    document.data["idNumberUser"].toString(),
+                                    document.data["dateRegistered"].toString(),
+                                    document.data["seatRegisteredBy"].toString()
+
+                            )
+
+                            seatList.add(seat)
+
+                            Log.e("TAG", "seat: $seat")
+
+                        }
 
                     }
 
-                }
-
-            }.await()
+                }.await()
 
         return Resource.Success(seatList)
 
@@ -262,18 +274,18 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var isUserRegistered = false
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("data")
-            .collection("registered_seats")
-            .whereEqualTo("idNumberUser", idNumberUser)
-            .get().addOnSuccessListener { documents ->
+                .document("la_argentina")
+                .collection("seat")
+                .document("data")
+                .collection("registered_seats")
+                .whereEqualTo("idNumberUser", idNumberUser)
+                .get().addOnSuccessListener { documents ->
 
-                for (document in documents) {
-                    isUserRegistered = document.exists()
-                }
+                    for (document in documents) {
+                        isUserRegistered = document.exists()
+                    }
 
-            }.await()
+                }.await()
 
         return Resource.Success(isUserRegistered)
 
@@ -284,19 +296,19 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var isAvailable = false
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("couples")
-            .collection("data")
-            .document(coupleNumber)
-            .get()
-            .addOnSuccessListener { document ->
+                .document("la_argentina")
+                .collection("seat")
+                .document("couples")
+                .collection("data")
+                .document(coupleNumber)
+                .get()
+                .addOnSuccessListener { document ->
 
-                if (document.exists()) {
-                    isAvailable = document.getBoolean("is_available")!!
-                }
+                    if (document.exists()) {
+                        isAvailable = document.getBoolean("is_available")!!
+                    }
 
-            }.await()
+                }.await()
 
         return Resource.Success(isAvailable)
 
@@ -305,13 +317,13 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     override suspend fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean) {
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("couples")
-            .collection("data")
-            .document(coupleNumber)
-            .update("is_available", isAvailable)
-            .await()
+                .document("la_argentina")
+                .collection("seat")
+                .document("couples")
+                .collection("data")
+                .document(coupleNumber)
+                .update("is_available", isAvailable)
+                .await()
 
     }
 
@@ -322,10 +334,10 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("couples")
-            .collection("data")
+                .document("la_argentina")
+                .collection("seat")
+                .document("couples")
+                .collection("data")
 
         val subscription = documentIdPath.addSnapshotListener { querySnapshot,
                                                                 firebaseFirestoreException ->
@@ -363,10 +375,10 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("couples")
-            .collection("data")
+                .document("la_argentina")
+                .collection("seat")
+                .document("couples")
+                .collection("data")
 
         val subscription = documentIdPath.addSnapshotListener { querySnapshot,
                                                                 firebaseFirestoreException ->
@@ -402,19 +414,19 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var isAvailable = false
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("threesomes")
-            .collection("data")
-            .document(threesomeNumber)
-            .get()
-            .addOnSuccessListener { document ->
+                .document("la_argentina")
+                .collection("seat")
+                .document("threesomes")
+                .collection("data")
+                .document(threesomeNumber)
+                .get()
+                .addOnSuccessListener { document ->
 
-                if (document.exists()) {
-                    isAvailable = document.getBoolean("is_available")!!
-                }
+                    if (document.exists()) {
+                        isAvailable = document.getBoolean("is_available")!!
+                    }
 
-            }.await()
+                }.await()
 
         return Resource.Success(isAvailable)
 
@@ -423,13 +435,13 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     override suspend fun updateIsThreesomeAvailable(threesomeNumber: String, isAvailable: Boolean) {
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("threesomes")
-            .collection("data")
-            .document(threesomeNumber)
-            .update("is_available", isAvailable)
-            .await()
+                .document("la_argentina")
+                .collection("seat")
+                .document("threesomes")
+                .collection("data")
+                .document(threesomeNumber)
+                .update("is_available", isAvailable)
+                .await()
 
     }
 
@@ -439,10 +451,10 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("threesomes")
-            .collection("data")
+                .document("la_argentina")
+                .collection("seat")
+                .document("threesomes")
+                .collection("data")
 
         val subscription = documentIdPath.addSnapshotListener { querySnapshot,
                                                                 firebaseFirestoreException ->
@@ -479,10 +491,10 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("threesomes")
-            .collection("data")
+                .document("la_argentina")
+                .collection("seat")
+                .document("threesomes")
+                .collection("data")
 
         val subscription = documentIdPath.addSnapshotListener { querySnapshot,
                                                                 firebaseFirestoreException ->
@@ -518,19 +530,19 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var isAvailable = false
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("bubbles")
-            .collection("data")
-            .document(bubbleNumber)
-            .get()
-            .addOnSuccessListener { document ->
+                .document("la_argentina")
+                .collection("seat")
+                .document("bubbles")
+                .collection("data")
+                .document(bubbleNumber)
+                .get()
+                .addOnSuccessListener { document ->
 
-                if (document.exists()) {
-                    isAvailable = document.getBoolean("is_available")!!
-                }
+                    if (document.exists()) {
+                        isAvailable = document.getBoolean("is_available")!!
+                    }
 
-            }.await()
+                }.await()
 
         return Resource.Success(isAvailable)
 
@@ -539,13 +551,13 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     override suspend fun updateIsBubbleAvailable(bubbleNumber: String, isAvailable: Boolean) {
 
         db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("bubbles")
-            .collection("data")
-            .document(bubbleNumber)
-            .update("is_available", isAvailable)
-            .await()
+                .document("la_argentina")
+                .collection("seat")
+                .document("bubbles")
+                .collection("data")
+                .document(bubbleNumber)
+                .update("is_available", isAvailable)
+                .await()
 
     }
 
@@ -555,10 +567,10 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("bubbles")
-            .collection("data")
+                .document("la_argentina")
+                .collection("seat")
+                .document("bubbles")
+                .collection("data")
 
         val subscription = documentIdPath.addSnapshotListener { querySnapshot,
                                                                 firebaseFirestoreException ->
@@ -595,10 +607,10 @@ class SeatReservationDataSource : DataSource.SeatReservation {
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
-            .document("la_argentina")
-            .collection("seat")
-            .document("bubbles")
-            .collection("data")
+                .document("la_argentina")
+                .collection("seat")
+                .document("bubbles")
+                .collection("data")
 
         val subscription = documentIdPath.addSnapshotListener { querySnapshot,
                                                                 firebaseFirestoreException ->

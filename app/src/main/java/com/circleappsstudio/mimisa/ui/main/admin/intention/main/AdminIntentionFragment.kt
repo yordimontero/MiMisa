@@ -46,6 +46,8 @@ class AdminIntentionFragment : BaseFragment(),
 
         fetchSavedIntentionsByCategory()
 
+        goToIntentionAdmin()
+
         goToOptionAdminIntention()
 
     }
@@ -225,6 +227,14 @@ class AdminIntentionFragment : BaseFragment(),
 
                     })
 
+        }
+
+    }
+
+    override fun goToIntentionAdmin() {
+
+        btn_go_to_admin_intention.setOnClickListener {
+            navController.navigate(R.id.intentionFragmentAdmin)
         }
 
     }

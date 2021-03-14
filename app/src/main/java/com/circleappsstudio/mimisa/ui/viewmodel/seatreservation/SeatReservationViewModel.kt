@@ -90,7 +90,7 @@ class SeatReservationViewModel(
 
     }
 
-    override fun fetchRegisteredSeatBySeatNumber(seatNumber: Int)
+    override fun fetchRegisteredSeatBySeatNumber(seatNumber: String)
             : LiveData<Resource<List<Seat>>?> = liveData(Dispatchers.IO) {
         /*
             Método encargado de traer el asiento reservado por el número de asiento.

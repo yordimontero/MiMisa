@@ -41,7 +41,7 @@ class SeatReservationRepository(
     /*
         Método encargado de traer el asiento reservado por el número de asiento.
     */
-    override suspend fun fetchRegisteredSeatBySeatNumber(seatNumber: Int): Resource<List<Seat>>? =
+    override suspend fun fetchRegisteredSeatBySeatNumber(seatNumber: String): Resource<List<Seat>>? =
             seatReservationDataSource.fetchRegisteredSeatBySeatNumber(seatNumber)
 
     /*

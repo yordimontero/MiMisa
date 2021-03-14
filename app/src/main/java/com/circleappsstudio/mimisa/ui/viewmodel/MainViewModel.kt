@@ -85,7 +85,7 @@ interface MainViewModel {
 
         fun fetchRegisteredSeatByRegisteredPerson(registeredPerson: String): LiveData<Resource<List<Seat>>?>
 
-        fun fetchRegisteredSeatBySeatNumber(seatNumber: Int): LiveData<Resource<List<Seat>>?>
+        fun fetchRegisteredSeatBySeatNumber(seatNumber: String): LiveData<Resource<List<Seat>>?>
 
         fun checkSeatSavedByIdNumberUser(idNumberUser: String): LiveData<Resource<Boolean>>
 

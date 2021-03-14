@@ -7,9 +7,11 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.app.ActivityCompat
 import com.circleappsstudio.mimisa.R
+import com.circleappsstudio.mimisa.data.model.Intention
 import com.circleappsstudio.mimisa.data.model.Seat
 import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.colors.ColorConstants
@@ -39,7 +41,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
     var PERMISSION_ALL = 12
 
-    fun hasPermissions(context: Context?, vararg permissions: String?): Boolean {
+    fun hasPermissionsForSeatListReport(context: Context?, vararg permissions: String?): Boolean {
         if (context != null && permissions != null) {
             for (permission in permissions) {
                 if (ActivityCompat.checkSelfPermission(
@@ -54,13 +56,22 @@ class PDFReport(private val context: Context, private val activity: Activity) {
         return true
     }
 
-    fun hasPermissions(seatList: List<Seat>) {
-        if (hasPermissions(context, *PERMISSIONS)) {
+    fun hasPermissionsForSeatListReport(seatList: List<Seat>) {
+        if (hasPermissionsForSeatListReport(context, *PERMISSIONS)) {
             printSeatListReportPDF(seatList)
         } else {
             ActivityCompat.requestPermissions(activity, PERMISSIONS, PERMISSION_ALL)
         }
     }
+
+    fun hasPermissionsForIntentionListReport(intentionList: List<Intention>) {
+        if (hasPermissionsForSeatListReport(context, *PERMISSIONS)) {
+            printIntentionListReportPDF(intentionList)
+        } else {
+            ActivityCompat.requestPermissions(activity, PERMISSIONS, PERMISSION_ALL)
+        }
+    }
+
 
     fun printSeatListReportPDF(seatList: List<Seat>) {
 
@@ -70,7 +81,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
             .toString()*/
         //val file = File(pdfPath, "Test.pdf")
 
-        val file = File(context.getExternalFilesDir("/"), "Reporte_Asientos_Registrados_${date}.pdf")
+        val file = File(context.getExternalFilesDir("/"), "reporte_asientos_reservados_${date}.pdf")
         //val outputStream = FileOutputStream(file)
 
         val pdfWriter = PdfWriter(file)
@@ -166,6 +177,94 @@ class PDFReport(private val context: Context, private val activity: Activity) {
         document.add(table)
 
         document.close()
+
+        Toast.makeText(context, "Reporte generado correctamente en la ruta: $file", Toast.LENGTH_LONG).show()
+
+    }
+
+    fun printIntentionListReportPDF(intentionList: List<Intention>) {
+
+        //Escribir el archivo en la ruta "Downloads". (Deprecado).
+        /*val pdfPath = Environment
+            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            .toString()*/
+        //val file = File(pdfPath, "Test.pdf")
+
+        val file = File(context.getExternalFilesDir("/"), "reporte_intenciones_registradas_${date}.pdf")
+        //val outputStream = FileOutputStream(file)
+
+        val pdfWriter = PdfWriter(file)
+        val pdfDocument = com.itextpdf.kernel.pdf.PdfDocument(pdfWriter)
+        val document = Document(pdfDocument)
+
+        val columnWidth = floatArrayOf(160F, 530F)
+        val table = Table(columnWidth)
+
+        document.add(
+                setImage()
+        )
+
+        document.add(
+                createParagraph(
+                        "Diaconía La Argentina - Parroquia de Tacares",
+                        DeviceRgb(50, 115, 168),
+                        true,
+                        25F,
+                        TextAlignment.CENTER
+                )
+        )
+
+        document.add(
+                createParagraph(
+                        "Fecha de generación: $date",
+                        DeviceRgb(0, 0, 0),
+                        false,
+                        15F,
+                        TextAlignment.LEFT
+                )
+
+        )
+
+        document.add(
+                createParagraph(
+                        "Lista de Intenciones",
+                        DeviceRgb(50, 115, 168),
+                        true,
+                        22F,
+                        TextAlignment.CENTER
+                )
+
+        )
+
+        intentionList.forEach { i ->
+
+            table.addCell(
+                    createParagraph(
+                            "Categoría: \n${i.category}",
+                            DeviceRgb(0, 0, 0),
+                            false,
+                            15F,
+                            TextAlignment.CENTER
+                    )
+            )
+
+            table.addCell(
+                    createParagraph(
+                            "Intención: \n${i.intention}",
+                            DeviceRgb(0, 0, 0),
+                            false,
+                            15F,
+                            TextAlignment.CENTER
+                    )
+            )
+
+        }
+
+        document.add(table)
+
+        document.close()
+
+        Toast.makeText(context, "Reporte generado correctamente en la ruta: $file", Toast.LENGTH_LONG).show()
 
     }
 

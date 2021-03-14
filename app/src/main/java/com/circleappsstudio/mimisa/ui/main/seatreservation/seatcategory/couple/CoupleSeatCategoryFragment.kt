@@ -460,6 +460,8 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         txt_id_number_user_seat_reservation_couple_seat_category.setText("")
 
+        cb_btn_under_age_seat_reservation_couple_seat_category.isChecked = false
+
         txt_name_seat_reservation_couple_seat_category.requestFocus()
 
     }
@@ -553,7 +555,13 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         /*
             Método encargado de controlar el botón positivo del Dialog "confirmDialog".
         */
-        checkSeatSavedByIdNumberUserObserver()
+        if (cb_btn_under_age_seat_reservation_couple_seat_category.isChecked) {
+            saveSeatReservedObserver()
+        } else {
+            checkSeatSavedByIdNumberUserObserver()
+        }
+
+
     }
 
     override fun confirmNegativeButtonClicked() {

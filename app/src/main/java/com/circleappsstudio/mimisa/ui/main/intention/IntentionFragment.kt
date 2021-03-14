@@ -11,14 +11,22 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.data.datasource.auth.AuthDataSource
 import com.circleappsstudio.mimisa.data.datasource.intention.IntentionDataSource
+import com.circleappsstudio.mimisa.data.datasource.roleuser.RoleUserDataSource
 import com.circleappsstudio.mimisa.data.model.IntentionSpinner
 import com.circleappsstudio.mimisa.data.model.Intentions
+import com.circleappsstudio.mimisa.domain.auth.AuthRepository
 import com.circleappsstudio.mimisa.domain.intention.IntentionRepository
+import com.circleappsstudio.mimisa.domain.roleuser.RoleUserRepository
 import com.circleappsstudio.mimisa.ui.UI
 import com.circleappsstudio.mimisa.ui.adapter.IntentionSpinnerAdapter
+import com.circleappsstudio.mimisa.ui.viewmodel.auth.AuthViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAdmin
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryAuth
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryIntention
 import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
+import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_intention.*
 
@@ -37,6 +45,26 @@ class IntentionFragment : BaseFragment(),
         )
     }
 
+    private val authViewModel by activityViewModels<AuthViewModel> {
+        VMFactoryAuth(
+                AuthRepository(
+                        AuthDataSource()
+                )
+        )
+    }
+
+    private val adminViewModel by activityViewModels<RoleUserViewModel> {
+        VMFactoryAdmin(
+                RoleUserRepository(
+                        RoleUserDataSource()
+                )
+        )
+    }
+
+    private var isAdmin = false
+
+    private val emailUser by lazy { authViewModel.getEmailUser() }
+
     private lateinit var intentionCategory: String
     private lateinit var intention: String
 
@@ -47,11 +75,48 @@ class IntentionFragment : BaseFragment(),
 
         navController = Navigation.findNavController(view)
 
+        checkIfUserIsAdmin()
+
         setUpSpinner()
 
         saveIntention()
 
     }
+
+    override fun checkIfUserIsAdmin() {
+
+        if (isOnline(requireContext())) {
+
+            adminViewModel.checkCreatedAdminByEmailUser(emailUser)
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when(resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                isAdmin = resultEmitted.data
+                                hideProgressBar()
+
+                            }
+
+                            is Resource.Failure -> {
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+                            }
+
+                        }
+
+                    })
+
+        }
+
+
+    }
+
 
     override fun saveIntention() {
 

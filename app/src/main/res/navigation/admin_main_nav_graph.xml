@@ -98,4 +98,9 @@
         android:name="com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.threesome.ThreesomeSeatCategoryFragment"
         android:label="fragment_threesome_seat_category"
         tools:layout="@layout/fragment_threesome_seat_category" />
+    <fragment
+        android:id="@+id/intentionFragmentAdmin"
+        android:name="com.circleappsstudio.mimisa.ui.main.intention.IntentionFragment"
+        android:label="fragment_intention"
+        tools:layout="@layout/fragment_intention" />
 </navigation>

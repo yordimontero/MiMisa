@@ -589,7 +589,7 @@ interface UI {
 
         //fun fetchRegisteredSeatByRegisteredPersonObserver(registeredPerson: String)
 
-        fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: Int)
+        fun fetchRegisteredSeatBySeatNumberObserver(seatNumber: String)
 
         fun goToSeatCategoryReservation()
 
@@ -623,6 +623,10 @@ interface UI {
             la reservación de asientos en el rol de Administrador.
         */
         fun fetchData()
+
+        fun generateAllSeatsReport()
+
+        fun generateAllSeatsReportObserver()
 
         fun fetchIsSeatReservationAvailableObserver()
 
@@ -702,6 +706,8 @@ interface UI {
             Interface encargada de controlar los métodos de la base de datos Firestore para el
             registro de intenciones.
         */
+        fun checkIfUserIsAdmin()
+
         fun saveIntention()
 
         fun saveIntentionObserver()
@@ -737,6 +743,8 @@ interface UI {
 
         fun fetchSavedIntentionsByCategoryObserver(category: String)
 
+        fun goToIntentionAdmin()
+
         fun goToOptionAdminIntention()
 
         fun showMessage(message: String, duration: Int)
@@ -769,6 +777,10 @@ interface UI {
             registro de intenciones en el rol de Administrador.
         */
         fun fetchData()
+
+        fun generateAllIntentionsReport()
+
+        fun generateAllIntentionsReportObserver()
 
         fun fetchIsRegisterIntentionAvailableObserver()
 

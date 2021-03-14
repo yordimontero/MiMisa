@@ -8,12 +8,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
+import com.circleappsstudio.mimisa.data.datasource.intention.IntentionDataSource
 import com.circleappsstudio.mimisa.data.datasource.params.ParamsDataSource
+import com.circleappsstudio.mimisa.domain.intention.IntentionRepository
 import com.circleappsstudio.mimisa.domain.params.ParamsRepository
 import com.circleappsstudio.mimisa.ui.UI
+import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryIntention
 import com.circleappsstudio.mimisa.ui.viewmodel.factory.VMFactoryParams
+import com.circleappsstudio.mimisa.ui.viewmodel.intention.IntentionViewModel
 import com.circleappsstudio.mimisa.ui.viewmodel.params.ParamsViewModel
+import com.circleappsstudio.mimisa.utils.PDFReport
 import com.circleappsstudio.mimisa.vo.Resource
+import kotlinx.android.synthetic.main.fragment_admin_intention.*
 import kotlinx.android.synthetic.main.fragment_options_admin_intention.*
 
 class OptionsAdminIntentionFragment : BaseFragment(),
@@ -29,6 +35,18 @@ class OptionsAdminIntentionFragment : BaseFragment(),
         )
     }
 
+    private val intentionViewModel by activityViewModels<IntentionViewModel> {
+        VMFactoryIntention(
+                IntentionRepository(
+                        IntentionDataSource()
+                )
+        )
+    }
+
+    private val pdfReport by lazy {
+        PDFReport(requireContext(), requireActivity())
+    }
+
     private var isSeatReservationAvailable = true
 
     private lateinit var selectedButton: String
@@ -39,6 +57,8 @@ class OptionsAdminIntentionFragment : BaseFragment(),
         super.onViewCreated(view, savedInstanceState)
 
         fetchData()
+
+        generateAllIntentionsReport()
 
         setAvailability()
 
@@ -52,6 +72,56 @@ class OptionsAdminIntentionFragment : BaseFragment(),
         }
 
         fetchIsRegisterIntentionAvailableObserver()
+
+    }
+
+    override fun generateAllIntentionsReport() {
+
+        btn_generate_intentions_report.setOnClickListener {
+            generateAllIntentionsReportObserver()
+        }
+
+    }
+
+    override fun generateAllIntentionsReportObserver() {
+
+        if (isOnline(requireContext())) {
+
+            intentionViewModel.fetchAllSavedIntentions()
+                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
+
+                        when (resultEmitted) {
+
+                            is Resource.Loading -> {
+                                showProgressBar()
+                            }
+
+                            is Resource.Success -> {
+
+                                if (resultEmitted.data.isNotEmpty()) {
+
+                                    pdfReport.hasPermissionsForIntentionListReport(resultEmitted.data)
+                                    hideProgressBar()
+
+                                } else {
+                                    showMessage("¡Aún no hay asientos registrados!", 2)
+                                    hideProgressBar()
+                                }
+
+                            }
+
+                            is Resource.Failure -> {
+
+                                showMessage(resultEmitted.exception.message.toString(), 2)
+                                hideProgressBar()
+
+                            }
+
+                        }
+
+                    })
+
+        }
 
     }
 
