@@ -6,11 +6,18 @@ data class IntentionSpinner(val image: Int, val name: String)
 
 object Intentions {
 
-    private val images = intArrayOf(
+    /*private val images = intArrayOf(
         R.drawable.ic_text,
         R.drawable.ic_thumb_up,
         R.drawable.ic_deceased,
         R.drawable.ic_cake
+    )*/
+
+    private val images = intArrayOf(
+            R.drawable.ic_keyboard_arrow_right,
+            R.drawable.ic_keyboard_arrow_right,
+            R.drawable.ic_keyboard_arrow_right,
+            R.drawable.ic_keyboard_arrow_right
     )
 
     private val categories = arrayOf(
@@ -27,6 +34,7 @@ object Intentions {
                 return field
 
             field = ArrayList()
+
             for (i in images.indices) {
 
                 val imageId = images[i]

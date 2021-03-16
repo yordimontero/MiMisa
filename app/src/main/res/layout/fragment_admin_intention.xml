@@ -93,51 +93,43 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <RadioGroup
-                    android:id="@+id/radiogroup_search_saved_intentions"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RadioButton
+                    <CheckBox
                         android:id="@+id/rd_btn_search_thanksgiving_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/light_green"
-                        android:checked="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:buttonTint="@color/green"
                         android:fontFamily="sans-serif-light"
-                        android:text="@string/search_by_thanksgiving_category"
-                        android:textSize="18sp" />
+                        android:text="Acción de gracias"
+                        android:textSize="17sp" />
 
-                    <RadioButton
-                        android:id="@+id/rd_btn_search_deceased_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/light_green"
-                        android:fontFamily="sans-serif-light"
-                        android:text="@string/search_by_deceased_category"
-                        android:textSize="18sp" />
-
-                    <RadioButton
+                    <CheckBox
                         android:id="@+id/rd_btn_search_birthday_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/light_green"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:buttonTint="@color/green"
                         android:fontFamily="sans-serif-light"
-                        android:text="@string/search_by_birthday_category"
-                        android:textSize="18sp" />
+                        android:text="Cumpleaños"
+                        android:textSize="17sp" />
 
-                    <RadioButton
-                        android:id="@+id/rd_btn_search_all_intentions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/light_green"
-                        android:checked="true"
+                    <CheckBox
+                        android:id="@+id/rd_btn_search_deceased_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:buttonTint="@color/green"
                         android:fontFamily="sans-serif-light"
-                        android:text="@string/search_all_intentions"
-                        android:textSize="18sp" />
+                        android:text="Difuntos"
+                        android:textSize="17sp" />
 
-                </RadioGroup>
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_rv_admin_intentions"
@@ -156,7 +148,10 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/registered_intentions"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView

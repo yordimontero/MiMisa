@@ -45,7 +45,7 @@ class IntentionAdapter(
             itemView.txt_date_intention_row.text = item.dateRegistered
             itemView.txt_intention_registered_by_intention_row.text = item.intentionRegisteredBy
 
-            when (item.category) {
+            /*when (item.category) {
 
                 context.getString(R.string.thanksgiving) -> {
                     itemView.img_intention_intention_row.setImageDrawable(
@@ -74,7 +74,7 @@ class IntentionAdapter(
                     )
                 }
 
-            }
+            }*/
 
             if (item.intentionRegisteredBy.isEmpty()) {
                 itemView.layout_intention_registered_by_intention_row.visibility = View.GONE

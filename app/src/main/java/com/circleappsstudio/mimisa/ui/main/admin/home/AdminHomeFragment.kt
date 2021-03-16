@@ -9,8 +9,4 @@ class AdminHomeFragment: BaseFragment() {
 
     override fun getLayout(): Int = R.layout.fragment_admin_home
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
 }

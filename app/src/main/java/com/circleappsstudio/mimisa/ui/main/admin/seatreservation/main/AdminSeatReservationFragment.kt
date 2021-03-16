@@ -37,10 +37,6 @@ class AdminSeatReservationFragment : BaseFragment(),
         )
     }
 
-    val pdfReport by lazy {
-        PDFReport(requireContext(), requireActivity())
-    }
-
     override fun getLayout(): Int = R.layout.fragment_admin_seat_reservation
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -343,8 +339,6 @@ class AdminSeatReservationFragment : BaseFragment(),
             Método encargado de hacer el setup del RecyclerView.
         */
         rv_admin_seat_reservation.layoutManager = LinearLayoutManager(requireContext())
-        rv_admin_seat_reservation.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-        rv_admin_seat_reservation.setHasFixedSize(true)
     }
 
     override fun showNotSeatFoundedMessage() {

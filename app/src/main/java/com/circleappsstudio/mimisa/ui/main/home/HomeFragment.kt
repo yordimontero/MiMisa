@@ -9,8 +9,4 @@ class HomeFragment : BaseFragment() {
 
     override fun getLayout(): Int = R.layout.fragment_home
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
 }

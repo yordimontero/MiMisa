@@ -211,7 +211,6 @@ class MainIntentionFragment : BaseFragment(),
             Método encargado de hacer el setup del RecyclerView.
         */
         rv_intentions.layoutManager = LinearLayoutManager(requireContext())
-        rv_intentions.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     override fun showRecyclerView() {

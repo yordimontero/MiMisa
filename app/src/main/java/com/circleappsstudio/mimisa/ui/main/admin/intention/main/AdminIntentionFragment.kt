@@ -50,6 +50,27 @@ class AdminIntentionFragment : BaseFragment(),
 
         goToOptionAdminIntention()
 
+        setUpCheckBoxes()
+
+    }
+
+    fun setUpCheckBoxes() {
+
+        rd_btn_search_thanksgiving_category.setOnClickListener {
+            rd_btn_search_deceased_category.isChecked = false
+            rd_btn_search_birthday_category.isChecked = false
+        }
+
+        rd_btn_search_deceased_category.setOnClickListener {
+            rd_btn_search_thanksgiving_category.isChecked = false
+            rd_btn_search_birthday_category.isChecked = false
+        }
+
+        rd_btn_search_birthday_category.setOnClickListener {
+            rd_btn_search_thanksgiving_category.isChecked = false
+            rd_btn_search_deceased_category.isChecked = false
+        }
+
     }
 
     override fun fetchData() {
@@ -133,10 +154,10 @@ class AdminIntentionFragment : BaseFragment(),
             if (
                     !rd_btn_search_thanksgiving_category.isChecked &&
                     !rd_btn_search_deceased_category.isChecked &&
-                    !rd_btn_search_birthday_category.isChecked &&
-                    !rd_btn_search_all_intentions.isChecked
+                    !rd_btn_search_birthday_category.isChecked
             ) {
-                showMessage(getString(R.string.select_search_filter), 2)
+                //showMessage(getString(R.string.select_search_filter), 2)
+                fetchAllSavedIntentionsObserver()
                 return@setOnClickListener
             }
 
@@ -160,13 +181,6 @@ class AdminIntentionFragment : BaseFragment(),
 
                 category = "Cumpleaños"
                 fetchSavedIntentionsByCategoryObserver(category)
-                return@setOnClickListener
-
-            }
-
-            if (rd_btn_search_all_intentions.isChecked) {
-
-                fetchAllSavedIntentionsObserver()
                 return@setOnClickListener
 
             }
@@ -275,8 +289,6 @@ class AdminIntentionFragment : BaseFragment(),
             Método encargado de hacer el setup del RecyclerView.
         */
         rv_admin_intentions.layoutManager = LinearLayoutManager(requireContext())
-        rv_admin_intentions.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-
     }
 
     override fun showRecyclerView() {

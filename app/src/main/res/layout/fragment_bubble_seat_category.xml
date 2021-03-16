@@ -129,8 +129,8 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginBottom="8dp"
                             android:hint="@string/id_number"
                             app:boxStrokeColor="@color/light_green"
@@ -154,12 +154,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:layout_marginTop="8dp">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/btn_bubble_seat_reservation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:backgroundTint="@color/light_green"
                             app:cardCornerRadius="8dp"
                             app:cardElevation="4dp"
                             app:cardPreventCornerOverlap="true"
@@ -174,18 +176,17 @@
                                 <ImageView
                                     android:layout_width="50dp"
                                     android:layout_height="35dp"
-                                    android:tint="@color/light_green"
                                     android:layout_gravity="center"
                                     android:src="@drawable/ic_check_circle" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
                                     android:fontFamily="sans-serif-light"
                                     android:gravity="center"
                                     android:text="@string/confirm_reservation"
-                                    android:layout_gravity="center"
-                                    android:textSize="18sp" />
+                                    android:textSize="18sp"/>
 
                             </LinearLayout>
 

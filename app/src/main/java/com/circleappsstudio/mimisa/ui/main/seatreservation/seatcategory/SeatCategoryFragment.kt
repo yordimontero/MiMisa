@@ -20,8 +20,7 @@ import com.circleappsstudio.mimisa.ui.viewmodel.roleuser.RoleUserViewModel
 import com.circleappsstudio.mimisa.vo.Resource
 import kotlinx.android.synthetic.main.fragment_seat_category.*
 
-class SeatCategoryFragment : BaseFragment(),
-    UI.SeatCategory {
+class SeatCategoryFragment : BaseFragment(), UI.SeatCategory {
 
     private lateinit var navController: NavController
 

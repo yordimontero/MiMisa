@@ -92,7 +92,10 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/reserved_seats"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
