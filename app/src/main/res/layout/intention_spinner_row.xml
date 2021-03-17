@@ -38,7 +38,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-light"
                     tools:text="Acción de Gracias"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

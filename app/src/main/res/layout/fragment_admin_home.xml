@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/church_info"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="italic" />
 
         </LinearLayout>
@@ -80,7 +80,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="8dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
@@ -104,7 +104,7 @@
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
                         android:text="@string/you_are_in_admin_mode"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

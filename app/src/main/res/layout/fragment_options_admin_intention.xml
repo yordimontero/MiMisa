@@ -118,8 +118,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/light_green"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="4dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="8dp"
                         app:cardPreventCornerOverlap="true"
                         app:cardUseCompatPadding="true">
 
@@ -142,7 +142,7 @@
                                 android:gravity="center"
                                 android:text="Generar reporte"
                                 android:layout_gravity="center"
-                                android:textSize="18sp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 

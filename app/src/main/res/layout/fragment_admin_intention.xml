@@ -87,7 +87,7 @@
                             android:fontFamily="sans-serif-light"
                             android:gravity="center"
                             android:text="@string/search"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -106,7 +106,7 @@
                         android:buttonTint="@color/green"
                         android:fontFamily="sans-serif-light"
                         android:text="Acción de gracias"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <CheckBox
                         android:id="@+id/rd_btn_search_birthday_category"
@@ -116,7 +116,7 @@
                         android:buttonTint="@color/green"
                         android:fontFamily="sans-serif-light"
                         android:text="Cumpleaños"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <CheckBox
                         android:id="@+id/rd_btn_search_deceased_category"
@@ -127,7 +127,7 @@
                         android:buttonTint="@color/green"
                         android:fontFamily="sans-serif-light"
                         android:text="Difuntos"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/registered_intentions"
-                        android:textSize="22sp"
+                        android:textSize="24sp"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginBottom="8dp"
@@ -205,8 +205,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="@color/light_green"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
 
@@ -229,7 +229,7 @@
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
                         android:text="@string/to_register_intention"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -241,8 +241,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="@color/light_green"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
 
@@ -265,7 +265,7 @@
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
                         android:text="@string/options"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 

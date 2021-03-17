@@ -85,7 +85,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
                             android:inputType="textPersonName"
-                            android:maxLength="200" />
+                            android:maxLength="200"
+                            android:textSize="16sp"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,7 +107,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
                             android:inputType="textPersonName"
-                            android:maxLength="200" />
+                            android:maxLength="200"
+                            android:textSize="16sp"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +126,7 @@
                             android:buttonTint="@color/green"
                             android:fontFamily="sans-serif-light"
                             android:text="Menor de edad"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -145,7 +147,8 @@
                                 android:inputType="number"
                                 android:typeface="normal"
                                 mask:allowed_chars="1234567890"
-                                mask:mask="#-####-####" />
+                                mask:mask="#-####-####"
+                                android:textSize="16sp"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +166,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/light_green"
-                            app:cardCornerRadius="8dp"
+                            app:cardCornerRadius="16dp"
                             app:cardElevation="4dp"
                             app:cardPreventCornerOverlap="true"
                             app:cardUseCompatPadding="true">
@@ -187,7 +190,7 @@
                                     android:gravity="center"
                                     android:text="@string/confirm_reservation"
                                     android:layout_gravity="center"
-                                    android:textSize="18sp" />
+                                    android:textSize="16sp" />
 
                             </LinearLayout>
 

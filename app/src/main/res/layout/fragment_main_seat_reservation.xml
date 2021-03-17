@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/your_reserved_seats"
-                        android:textSize="22sp"
+                        android:textSize="24sp"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginBottom="8dp"
@@ -174,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/light_green"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="16dp"
                     app:cardElevation="4dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
@@ -198,7 +198,7 @@
                             android:gravity="center"
                             android:text="@string/to_reserve_seat"
                             android:layout_gravity="center"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 

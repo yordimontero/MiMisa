@@ -41,18 +41,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:text="Seleccione la categoría de asiento"
-        android:textSize="22sp"
-        android:padding="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,7 +51,8 @@
             android:id="@+id/btn_couple_seat_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            android:backgroundTint="@color/light_green"
+            app:cardCornerRadius="16dp"
             app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -78,8 +67,7 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_keyboard_arrow_right"
-                    app:tint="@color/light_green" />
+                    android:src="@drawable/ic_keyboard_arrow_right" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -88,7 +76,7 @@
                     android:gravity="center"
                     android:text="Pareja"
                     android:layout_gravity="center"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -98,7 +86,8 @@
             android:id="@+id/btn_threesome_seat_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            android:backgroundTint="@color/light_green"
+            app:cardCornerRadius="16dp"
             app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -113,8 +102,7 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_keyboard_arrow_right"
-                    app:tint="@color/light_green"/>
+                    android:src="@drawable/ic_keyboard_arrow_right" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -123,7 +111,7 @@
                     android:gravity="center"
                     android:text="Trío"
                     android:layout_gravity="center"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -133,7 +121,8 @@
             android:id="@+id/btn_bubble_seat_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            android:backgroundTint="@color/light_green"
+            app:cardCornerRadius="16dp"
             app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -148,8 +137,7 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_keyboard_arrow_right"
-                    app:tint="@color/light_green"/>
+                    android:src="@drawable/ic_keyboard_arrow_right" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -158,7 +146,7 @@
                     android:gravity="center"
                     android:text="Burbuja"
                     android:layout_gravity="center"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.threeso
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -226,66 +227,82 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
             "threesome_1" -> {
                 txt_threesome_1_no_available.text = "¡Disponible!"
+                ll_availability_threesome_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_2" -> {
                 txt_threesome_2_no_available.text = "¡Disponible!"
+                ll_availability_threesome_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_3" -> {
                 txt_threesome_3_no_available.text = "¡Disponible!"
+                ll_availability_threesome_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_4" -> {
                 txt_threesome_4_no_available.text = "¡Disponible!"
+                ll_availability_threesome_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_5" -> {
                 txt_threesome_5_no_available.text = "¡Disponible!"
+                ll_availability_threesome_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_6" -> {
                 txt_threesome_6_no_available.text = "¡Disponible!"
+                ll_availability_threesome_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_7" -> {
                 txt_threesome_7_no_available.text = "¡Disponible!"
+                ll_availability_threesome_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_8" -> {
                 txt_threesome_8_no_available.text = "¡Disponible!"
+                ll_availability_threesome_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_9" -> {
                 txt_threesome_9_no_available.text = "¡Disponible!"
+                ll_availability_threesome_9.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_10" -> {
                 txt_threesome_10_no_available.text = "¡Disponible!"
+                ll_availability_threesome_10.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_11" -> {
                 txt_threesome_11_no_available.text = "¡Disponible!"
+                ll_availability_threesome_11.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_12" -> {
                 txt_threesome_12_no_available.text = "¡Disponible!"
+                ll_availability_threesome_12.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_13" -> {
                 txt_threesome_13_no_available.text = "¡Disponible!"
+                ll_availability_threesome_13.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_14" -> {
                 txt_threesome_14_no_available.text = "¡Disponible!"
+                ll_availability_threesome_14.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_15" -> {
                 txt_threesome_15_no_available.text = "¡Disponible!"
+                ll_availability_threesome_15.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_16" -> {
                 txt_threesome_16_no_available.text = "¡Disponible!"
+                ll_availability_threesome_16.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
         }
@@ -299,66 +316,82 @@ class AllSeatThreesomesFragment : BaseFragment(),
             "threesome_1" -> {
                 //txt_couple_1_no_available.visibility = View.VISIBLE
                 txt_threesome_1_no_available.text = "¡No disponible!"
+                ll_availability_threesome_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_2" -> {
                 txt_threesome_2_no_available.text = "¡No disponible!"
+                ll_availability_threesome_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_3" -> {
                 txt_threesome_3_no_available.text = "¡No disponible!"
+                ll_availability_threesome_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_4" -> {
                 txt_threesome_4_no_available.text = "¡No disponible!"
+                ll_availability_threesome_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_5" -> {
                 txt_threesome_5_no_available.text = "¡No disponible!"
+                ll_availability_threesome_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_6" -> {
                 txt_threesome_6_no_available.text = "¡No disponible!"
+                ll_availability_threesome_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_7" -> {
                 txt_threesome_7_no_available.text = "¡No disponible!"
+                ll_availability_threesome_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_8" -> {
                 txt_threesome_8_no_available.text = "¡No disponible!"
+                ll_availability_threesome_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_9" -> {
                 txt_threesome_9_no_available.text = "¡No disponible!"
+                ll_availability_threesome_9.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_10" -> {
                 txt_threesome_10_no_available.text = "¡No disponible!"
+                ll_availability_threesome_10.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_11" -> {
                 txt_threesome_11_no_available.text = "¡No disponible!"
+                ll_availability_threesome_11.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_12" -> {
                 txt_threesome_12_no_available.text = "¡No disponible!"
+                ll_availability_threesome_12.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_13" -> {
                 txt_threesome_13_no_available.text = "¡No disponible!"
+                ll_availability_threesome_13.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_14" -> {
                 txt_threesome_14_no_available.text = "¡No disponible!"
+                ll_availability_threesome_14.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_15" -> {
                 txt_threesome_15_no_available.text = "¡No disponible!"
+                ll_availability_threesome_15.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_16" -> {
                 txt_threesome_16_no_available.text = "¡No disponible!"
+                ll_availability_threesome_16.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
         }

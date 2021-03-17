@@ -2,6 +2,7 @@ package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.bubble
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -222,34 +223,42 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             "bubble_1" -> {
                 txt_bubble_1_no_available.text = "¡Disponible!"
+                ll_availability_bubble_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_2" -> {
                 txt_bubble_2_no_available.text = "¡Disponible!"
+                ll_availability_bubble_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_3" -> {
                 txt_bubble_3_no_available.text = "¡Disponible!"
+                ll_availability_bubble_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_4" -> {
                 txt_bubble_4_no_available.text = "¡Disponible!"
+                ll_availability_bubble_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_5" -> {
                 txt_bubble_5_no_available.text = "¡Disponible!"
+                ll_availability_bubble_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_6" -> {
                 txt_bubble_6_no_available.text = "¡Disponible!"
+                ll_availability_bubble_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_7" -> {
                 txt_bubble_7_no_available.text = "¡Disponible!"
+                ll_availability_bubble_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_8" -> {
                 txt_bubble_8_no_available.text = "¡Disponible!"
+                ll_availability_bubble_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
         }
@@ -262,34 +271,42 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             "bubble_1" -> {
                 txt_bubble_1_no_available.text = "¡No disponible!"
+                ll_availability_bubble_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_2" -> {
                 txt_bubble_2_no_available.text = "¡No disponible!"
+                ll_availability_bubble_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_3" -> {
                 txt_bubble_3_no_available.text = "¡No disponible!"
+                ll_availability_bubble_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_4" -> {
                 txt_bubble_4_no_available.text = "¡No disponible!"
+                ll_availability_bubble_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_5" -> {
                 txt_bubble_5_no_available.text = "¡No disponible!"
+                ll_availability_bubble_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_6" -> {
                 txt_bubble_6_no_available.text = "¡No disponible!"
+                ll_availability_bubble_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_7" -> {
                 txt_bubble_7_no_available.text = "¡No disponible!"
+                ll_availability_bubble_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_8" -> {
                 txt_bubble_8_no_available.text = "¡No disponible!"
+                ll_availability_bubble_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
         }

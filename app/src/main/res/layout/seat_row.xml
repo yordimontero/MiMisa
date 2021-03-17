@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="12dp"
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
@@ -45,7 +45,7 @@
                         android:layout_marginEnd="4dp"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/txt_seat"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             tools:text="20" />
 
@@ -77,7 +77,7 @@
                         android:layout_marginEnd="4dp"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/txt_name"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             tools:text="Nombre"
                             android:layout_marginEnd="4dp"/>
@@ -110,7 +110,7 @@
                         android:layout_marginEnd="4dp"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/txt_last_name"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             tools:text="Apellido"/>
 
@@ -142,7 +142,7 @@
                         android:layout_marginEnd="4dp"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/txt_id_number"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -154,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             tools:text="2-0000-1111" />
 
@@ -174,7 +174,7 @@
                         android:layout_marginEnd="4dp"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/txt_date"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -186,7 +186,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             tools:text="Fecha" />
 
@@ -207,7 +207,7 @@
                         android:layout_marginEnd="4dp"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/txt_registered_by"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -219,7 +219,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             tools:text="Tester" />
 

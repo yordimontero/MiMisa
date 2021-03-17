@@ -2,6 +2,7 @@ package com.circleappsstudio.mimisa.ui.main.seatreservation.seatcategory.couple
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -231,94 +232,117 @@ class AllSeatCouplesFragment : BaseFragment(),
 
             "couple_1" -> {
                 txt_couple_1_no_available.text = "¡Disponible!"
+                ll_availability_couple_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_2" -> {
                 txt_couple_2_no_available.text = "¡Disponible!"
+                ll_availability_couple_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_3" -> {
                 txt_couple_3_no_available.text = "¡Disponible!"
+                ll_availability_couple_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_4" -> {
                 txt_couple_4_no_available.text = "¡Disponible!"
+                ll_availability_couple_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_5" -> {
                 txt_couple_5_no_available.text = "¡Disponible!"
+                ll_availability_couple_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_6" -> {
                 txt_couple_6_no_available.text = "¡Disponible!"
+                ll_availability_couple_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_7" -> {
                 txt_couple_7_no_available.text = "¡Disponible!"
+                ll_availability_couple_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_8" -> {
                 txt_couple_8_no_available.text = "¡Disponible!"
+                ll_availability_couple_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_9" -> {
                 txt_couple_9_no_available.text = "¡Disponible!"
+                ll_availability_couple_9.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_10" -> {
                 txt_couple_10_no_available.text = "¡Disponible!"
+                ll_availability_couple_10.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_11" -> {
                 txt_couple_11_no_available.text = "¡Disponible!"
+                ll_availability_couple_11.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_12" -> {
                 txt_couple_12_no_available.text = "¡Disponible!"
+                ll_availability_couple_12.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_13" -> {
                 txt_couple_13_no_available.text = "¡Disponible!"
+                ll_availability_couple_13.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_14" -> {
                 txt_couple_14_no_available.text = "¡Disponible!"
+                ll_availability_couple_14.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_15" -> {
                 txt_couple_15_no_available.text = "¡Disponible!"
+                ll_availability_couple_15.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_16" -> {
                 txt_couple_16_no_available.text = "¡Disponible!"
+                ll_availability_couple_16.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_17" -> {
                 txt_couple_17_no_available.text = "¡Disponible!"
+                ll_availability_couple_17.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_18" -> {
                 txt_couple_18_no_available.text = "¡Disponible!"
+                ll_availability_couple_18.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_19" -> {
                 txt_couple_19_no_available.text = "¡Disponible!"
+                ll_availability_couple_19.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_20" -> {
                 txt_couple_20_no_available.text = "¡Disponible!"
+                ll_availability_couple_20.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_21" -> {
                 txt_couple_21_no_available.text = "¡Disponible!"
+                ll_availability_couple_21.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_22" -> {
                 txt_couple_22_no_available.text = "¡Disponible!"
+                ll_availability_couple_22.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_23" -> {
                 txt_couple_23_no_available.text = "¡Disponible!"
+                ll_availability_couple_23.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
         }
@@ -332,94 +356,117 @@ class AllSeatCouplesFragment : BaseFragment(),
             "couple_1" -> {
                 //txt_couple_1_no_available.visibility = View.GONE
                 txt_couple_1_no_available.text = "¡No disponible!"
+                ll_availability_couple_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_2" -> {
                 txt_couple_2_no_available.text = "¡No disponible!"
+                ll_availability_couple_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_3" -> {
                 txt_couple_3_no_available.text = "¡No disponible!"
+                ll_availability_couple_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_4" -> {
                 txt_couple_4_no_available.text = "¡No disponible!"
+                ll_availability_couple_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_5" -> {
                 txt_couple_5_no_available.text = "¡No disponible!"
+                ll_availability_couple_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_6" -> {
                 txt_couple_6_no_available.text = "¡No disponible!"
+                ll_availability_couple_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_7" -> {
                 txt_couple_7_no_available.text = "¡No disponible!"
+                ll_availability_couple_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_8" -> {
                 txt_couple_8_no_available.text = "¡No disponible!"
+                ll_availability_couple_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_9" -> {
                 txt_couple_9_no_available.text = "¡No disponible!"
+                ll_availability_couple_9.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_10" -> {
                 txt_couple_10_no_available.text = "¡No disponible!"
+                ll_availability_couple_10.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_11" -> {
                 txt_couple_11_no_available.text = "¡No disponible!"
+                ll_availability_couple_11.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_12" -> {
                 txt_couple_12_no_available.text = "¡No disponible!"
+                ll_availability_couple_12.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_13" -> {
                 txt_couple_13_no_available.text = "¡No disponible!"
+                ll_availability_couple_13.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_14" -> {
                 txt_couple_14_no_available.text = "¡No disponible!"
+                ll_availability_couple_14.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_15" -> {
                 txt_couple_15_no_available.text = "¡No disponible!"
+                ll_availability_couple_15.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_16" -> {
                 txt_couple_16_no_available.text = "¡No disponible!"
+                ll_availability_couple_16.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_17" -> {
                 txt_couple_17_no_available.text = "¡No disponible!"
+                ll_availability_couple_17.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_18" -> {
                 txt_couple_18_no_available.text = "¡No disponible!"
+                ll_availability_couple_18.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_19" -> {
                 txt_couple_19_no_available.text = "¡No disponible!"
+                ll_availability_couple_19.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_20" -> {
                 txt_couple_20_no_available.text = "¡No disponible!"
+                ll_availability_couple_20.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_21" -> {
                 txt_couple_21_no_available.text = "¡No disponible!"
+                ll_availability_couple_21.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_22" -> {
                 txt_couple_22_no_available.text = "¡No disponible!"
+                ll_availability_couple_22.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_23" -> {
                 txt_couple_23_no_available.text = "¡No disponible!"
+                ll_availability_couple_23.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
         }

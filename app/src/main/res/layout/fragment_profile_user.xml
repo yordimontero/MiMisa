@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:textSize="20sp"
+            android:textSize="18sp"
             tools:text="Persona" />
 
         <TextView
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:textSize="20sp"
+            android:textSize="18sp"
             tools:text="E-mail" />
 
         <LinearLayout
@@ -83,14 +83,14 @@
                 android:layout_marginEnd="2dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/actual_role"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/txt_role_user_profile_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 tools:text="Rol" />
 
         </LinearLayout>
@@ -100,8 +100,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light_green"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -124,7 +124,7 @@
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
                     android:text="@string/change_role"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -135,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light_green"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -159,7 +159,7 @@
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
                     android:text="@string/logout"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/role"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
                 <RadioGroup
                     android:id="@+id/radiogroup_role"
@@ -210,7 +210,7 @@
                         android:checked="true"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/user"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <RadioButton
                         android:id="@+id/rd_btn_admin_role"
@@ -219,7 +219,7 @@
                         android:buttonTint="@color/light_green"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/admin"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </RadioGroup>
 
@@ -243,7 +243,7 @@
                         android:fontFamily="sans-serif-light"
                         android:inputType="text"
                         android:maxLength="100"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -252,8 +252,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/light_green"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
 
@@ -276,7 +276,7 @@
                             android:fontFamily="sans-serif-light"
                             android:gravity="center"
                             android:text="@string/confirm_change"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -287,8 +287,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/light_green"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
 
@@ -311,7 +311,7 @@
                             android:fontFamily="sans-serif-light"
                             android:gravity="center"
                             android:text="@string/to_cancel"
-                            android:textSize="18sp" />
+                            android:textSize="16dp" />
 
                     </LinearLayout>
 

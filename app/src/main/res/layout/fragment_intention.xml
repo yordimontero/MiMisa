@@ -88,7 +88,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:inputType="textMultiLine"
-                        android:maxLength="600" />
+                        android:maxLength="600"
+                        android:textSize="16sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/light_green"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="16dp"
                         app:cardElevation="4dp"
                         app:cardPreventCornerOverlap="true"
                         app:cardUseCompatPadding="true">
@@ -128,7 +129,7 @@
                                 android:gravity="center"
                                 android:text="@string/to_confirm_intention"
                                 android:layout_gravity="center"
-                                android:textSize="18sp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
