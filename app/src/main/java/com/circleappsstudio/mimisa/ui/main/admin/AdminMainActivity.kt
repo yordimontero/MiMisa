@@ -55,10 +55,10 @@ class AdminMainActivity : BaseActivity(),
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home_admin,
-                R.id.navigation_seat_reservation_admin,
-                R.id.navigation_intention_admin,
-                R.id.navigation_more_admin
+                R.id.admin_home,
+                R.id.admin_seat_reservation,
+                R.id.admin_intention,
+                R.id.admin_more
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -83,10 +83,10 @@ class AdminMainActivity : BaseActivity(),
 
             when(destination.id){
 
-                R.id.navigation_home_admin -> showNavView()
-                R.id.navigation_seat_reservation_admin -> showNavView()
-                R.id.navigation_intention_admin -> showNavView()
-                R.id.navigation_more_admin -> showNavView()
+                R.id.admin_home -> showNavView()
+                R.id.admin_seat_reservation -> showNavView()
+                R.id.admin_intention -> showNavView()
+                R.id.admin_more -> showNavView()
 
                 else -> hideNavView()
 

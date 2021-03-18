@@ -150,9 +150,10 @@ class AllSeatCouplesFragment : BaseFragment(),
                             if (resultEmitted.data) {
 
                                 if (isAdmin) {
-                                    navController.navigate(R.id.coupleSeatCategoryFragment, bundle)
+                                    navController.navigate(R.id.admin_couple_seat_category_fragment, bundle)
                                 } else {
-                                    navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+                                    //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
+                                    navController.navigate(R.id.couple_seat_category_fragment, bundle)
                                 }
 
                             } else {

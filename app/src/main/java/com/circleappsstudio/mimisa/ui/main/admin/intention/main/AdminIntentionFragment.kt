@@ -6,7 +6,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
@@ -248,7 +247,7 @@ class AdminIntentionFragment : BaseFragment(),
     override fun goToIntentionAdmin() {
 
         btn_go_to_admin_intention.setOnClickListener {
-            navController.navigate(R.id.intentionFragmentAdmin)
+            navController.navigate(R.id.admin_intention_fragment)
         }
 
     }
@@ -258,7 +257,8 @@ class AdminIntentionFragment : BaseFragment(),
             Método encargado de navegar hacia el fragment "OptionsAdminSeatReservation".
         */
         btn_go_to_options_admin_intention.setOnClickListener {
-            navController.navigate(R.id.action_go_to_admin_options_intention_fragment_from_admin_main_intention_fragment)
+            //navController.navigate(R.id.action_go_to_admin_options_intention_fragment_from_admin_main_intention_fragment)
+            navController.navigate(R.id.admin_options_intention_fragment)
         }
 
     }

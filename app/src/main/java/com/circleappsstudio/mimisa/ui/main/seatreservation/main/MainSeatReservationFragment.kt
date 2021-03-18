@@ -6,7 +6,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
@@ -269,7 +268,7 @@ class MainSeatReservationFragment : BaseFragment(),
         }*/
 
         btn_go_to_seat_reservation.setOnClickListener {
-            navController.navigate(R.id.navigation_seat_category_fragment)
+            navController.navigate(R.id.seat_category_fragment)
         }
 
     }

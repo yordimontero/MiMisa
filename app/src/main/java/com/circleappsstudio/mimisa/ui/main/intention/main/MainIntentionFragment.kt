@@ -6,7 +6,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.circleappsstudio.mimisa.R
 import com.circleappsstudio.mimisa.base.BaseFragment
@@ -180,7 +179,7 @@ class MainIntentionFragment : BaseFragment(),
         */
         btn_go_to_intention.setOnClickListener {
             //navController.navigate(R.id.action_go_to_intention_fragment_from_main_intention_fragment)
-            navController.navigate(R.id.intentionFragment)
+            navController.navigate(R.id.intention_fragment)
         }
 
     }

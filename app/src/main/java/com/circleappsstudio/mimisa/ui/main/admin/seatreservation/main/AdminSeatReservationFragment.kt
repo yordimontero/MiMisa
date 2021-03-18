@@ -226,7 +226,8 @@ class AdminSeatReservationFragment : BaseFragment(),
     override fun goToSeatCategoryReservation() {
 
         btn_go_to_admin_seat_reservation.setOnClickListener {
-            navController.navigate(R.id.action_go_to_seat_category_from_seat_reservation_main_fragment)
+            //navController.navigate(R.id.action_go_to_seat_category_from_seat_reservation_main_fragment)
+            navController.navigate(R.id.admin_seat_category_fragment)
         }
 
     }
@@ -236,7 +237,8 @@ class AdminSeatReservationFragment : BaseFragment(),
             Método encargado de navegar hacia el fragment "OptionsAdminSeatReservation".
         */
         btn_go_to_options_admin_seat_reservation.setOnClickListener {
-            navController.navigate(R.id.action_go_to_admin_options_seat_reservation_fragment_from_admin_main_seat_reservation_fragment)
+            //navController.navigate(R.id.action_go_to_admin_options_seat_reservation_fragment_from_admin_main_seat_reservation_fragment)
+            navController.navigate(R.id.admin_options_seat_reservation)
         }
 
     }

@@ -90,7 +90,8 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 .collection("seat")
                 .document("data")
                 .collection("registered_seats")
-                .orderBy("seatNumber", Query.Direction.DESCENDING)
+                //.orderBy("seatNumber", Query.Direction.ASCENDING)
+                .orderBy("seatCategory", Query.Direction.ASCENDING)
                 .get().addOnSuccessListener { documents ->
 
                     seatList.clear()
@@ -149,13 +150,18 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                                     document.data!!["lastNameUser"].toString(),
                                     document.data!!["idNumberUser"].toString(),
                                     document.data!!["dateRegistered"].toString()*/
+                                    //document.data!!["seatCategory"].toString(),
 
-                                    document.data!!["seatCategory"].toString(),
+
+                                    "",
                                     document.data!!["seatNumber"].toString(),
                                     document.data!!["nameUser"].toString(),
                                     document.data!!["lastNameUser"].toString(),
                                     document.data!!["idNumberUser"].toString(),
-                                    document.data!!["dateRegistered"].toString()
+                                    document.data!!["dateRegistered"].toString(),
+                                    ""
+
+
                                     //document.data!!["seatRegisteredBy"].toString()
 
                             )

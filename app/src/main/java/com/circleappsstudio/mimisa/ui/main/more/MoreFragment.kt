@@ -46,7 +46,7 @@ class MoreFragment : BaseFragment(), UI.More {
             Método encargado de navegar hacia el fragment "ProfileUser".
         */
         btn_go_to_profile.setOnClickListener {
-            navController.navigate(R.id.navigation_profile_user)
+            navController.navigate(R.id.profile_user)
         }
 
     }

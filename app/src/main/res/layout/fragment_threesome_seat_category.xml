@@ -129,6 +129,7 @@
                             android:textSize="16sp" />
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_layout_txt_id_number_user_seat_reservation_threesome_seat_category"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

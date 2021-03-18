@@ -101,9 +101,9 @@ class SeatCategoryFragment : BaseFragment(), UI.SeatCategory {
 
             if (isAdmin) {
                 //navController.navigate(R.id.action_go_to_seat_category_from_seat_reservation_main_fragment)
-                navController.navigate(R.id.allSeatCouplesFragment2)
+                navController.navigate(R.id.admin_all_seat_couples_fragment)
             } else {
-                navController.navigate(R.id.allSeatCouplesFragment)
+                navController.navigate(R.id.all_seat_couples_fragment)
             }
 
             //navController.navigate(R.id.allSeatCouplesFragment)
@@ -117,9 +117,10 @@ class SeatCategoryFragment : BaseFragment(), UI.SeatCategory {
         btn_threesome_seat_category.setOnClickListener {
 
             if (isAdmin) {
-                navController.navigate(R.id.allSeatThreesomesFragment2)
+                navController.navigate(R.id.admin_all_seat_threesomes_fragment)
             } else {
-                navController.navigate(R.id.action_go_to_all_threesome_seats_from_seat_category_fragment)
+                //navController.navigate(R.id.action_go_to_all_threesome_seats_from_seat_category_fragment)
+                navController.navigate(R.id.all_seat_threesomes_fragment)
             }
 
             //navController.navigate(R.id.action_go_to_all_threesome_seats_from_seat_category_fragment)
@@ -135,9 +136,10 @@ class SeatCategoryFragment : BaseFragment(), UI.SeatCategory {
             //navController.navigate(R.id.action_go_to_all_bubble_seats_from_seat_category_fragment)
 
             if (isAdmin) {
-                navController.navigate(R.id.allSeatBubblesFragment2)
+                navController.navigate(R.id.admin_all_seat_bubbles_fragment)
             } else {
-                navController.navigate(R.id.action_go_to_all_bubble_seats_from_seat_category_fragment)
+                //navController.navigate(R.id.action_go_to_all_bubble_seats_from_seat_category_fragment)
+                navController.navigate(R.id.all_seat_bubbles_fragment)
             }
 
         }

@@ -143,9 +143,10 @@ class AllSeatThreesomesFragment : BaseFragment(),
                         if (resultEmitted.data) {
 
                             if (isAdmin) {
-                                navController.navigate(R.id.threesomeSeatCategoryFragment, bundle)
+                                navController.navigate(R.id.admin_threesome_seat_category_fragment, bundle)
                             } else {
-                                navController.navigate(R.id.action_go_to_threesome_seat_category_from_seat_category_fragment, bundle)
+                                //navController.navigate(R.id.action_go_to_threesome_seat_category_from_seat_category_fragment, bundle)
+                                navController.navigate(R.id.threesome_seat_category_fragment, bundle)
                             }
 
                         } else {

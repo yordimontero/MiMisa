@@ -37,6 +37,12 @@ class SeatAdapter(private val context: Context,
         override fun bind(item: Seat, position: Int) {
             // Creación de cada elemento a "dibujar" en el RecyclerView.
 
+            if (item.seatCategory.isEmpty()){
+                itemView.layout_category.visibility = View.GONE
+            } else {
+                itemView.txt_category_row.text = item.seatCategory
+            }
+
             itemView.txt_seat_number_row.text = item.seatNumber
             itemView.txt_name_user_row.text = item.nameUser
             itemView.txt_lastname_user_row.text = item.lastNameUser

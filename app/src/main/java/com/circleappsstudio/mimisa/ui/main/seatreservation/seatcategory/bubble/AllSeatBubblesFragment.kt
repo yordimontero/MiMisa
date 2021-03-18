@@ -141,9 +141,10 @@ class AllSeatBubblesFragment : BaseFragment(),
                         if (resultEmitted.data) {
 
                             if (isAdmin) {
-                                navController.navigate(R.id.bubbleSeatCategoryFragment2, bundle)
+                                navController.navigate(R.id.admin_bubble_seat_category_fragment, bundle)
                             } else {
-                                navController.navigate(R.id.action_go_to_bubble_seat_category_from_all_bubble_seats_fragment, bundle)
+                                //navController.navigate(R.id.action_go_to_bubble_seat_category_from_all_bubble_seats_fragment, bundle)
+                                navController.navigate(R.id.bubble_seat_category_fragment, bundle)
                             }
 
                         } else {

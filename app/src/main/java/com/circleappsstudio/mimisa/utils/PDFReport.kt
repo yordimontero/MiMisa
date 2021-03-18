@@ -294,7 +294,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
     fun setImage(): Image {
 
-        val drawable: Drawable = getDrawable(context, R.drawable.templo_la_argentina_report)!!
+        val drawable: Drawable = getDrawable(context, R.drawable.mimisa_banner)!!
         val bitmap = (drawable as BitmapDrawable).bitmap
 
         val stream = ByteArrayOutputStream()
@@ -305,8 +305,8 @@ class PDFReport(private val context: Context, private val activity: Activity) {
         val imageData = ImageDataFactory.create(bitmapData)
 
         val image = Image(imageData)
-        image.setHeight(100F)
-        image.setWidth(150F)
+        image.setHeight(80F)
+        image.setWidth(350F)
         image.setHorizontalAlignment(HorizontalAlignment.CENTER)
 
         return image

@@ -7,17 +7,17 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/navigation_seat_reservation"
+        android:id="@+id/seat_reservation"
         android:icon="@drawable/ic_seat_reservation"
         android:title="@string/txt_seats" />
 
     <item
-        android:id="@+id/navigation_intention"
+        android:id="@+id/intention"
         android:icon="@drawable/ic_article"
         android:title="@string/txt_intentions" />
 
     <item
-        android:id="@+id/navigation_more"
+        android:id="@+id/more"
         android:icon="@drawable/ic_more"
         android:title="@string/more"/>
 

@@ -101,6 +101,8 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
 
         saveSeatReserved()
 
+        setVisibilityIdNumberUserField()
+
     }
 
     override fun fetchData() {
@@ -128,6 +130,20 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
             seat1 = getSeats[2].toInt()
             seat2 = getSeats[3].toInt()
             seat3 = getSeats[4].toInt()
+
+        }
+
+    }
+
+    fun setVisibilityIdNumberUserField() {
+
+        cb_btn_under_age_seat_reservation_threesome_seat_category.setOnClickListener {
+
+            if (cb_btn_under_age_seat_reservation_threesome_seat_category.isChecked) {
+                text_input_layout_txt_id_number_user_seat_reservation_threesome_seat_category.visibility = View.GONE
+            } else {
+                text_input_layout_txt_id_number_user_seat_reservation_threesome_seat_category.visibility = View.VISIBLE
+            }
 
         }
 
@@ -440,11 +456,13 @@ class ThreesomeSeatCategoryFragment : BaseFragment(),
 
         if (isAdmin) {
 
-            navController.popBackStack(R.id.navigation_home_admin, true)
-            navController.navigate(R.id.navigation_seat_reservation_admin)
+            navController.popBackStack(R.id.admin_home, true)
+            navController.navigate(R.id.admin_seat_reservation)
 
         } else {
-            navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_threesome_seat_category_fragment)
+            //navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_threesome_seat_category_fragment)
+            navController.popBackStack(R.id.navigation_home, true)
+            navController.navigate(R.id.seat_reservation)
         }
 
     }

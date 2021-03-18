@@ -65,7 +65,9 @@ class ProfileUserFragment : BaseFragment(),
 
         fetchData()
 
-        addListenerRadioButtons()
+        //addListenerRadioButtons()
+
+        setUpCheckboxes()
 
         showChangeRoleLayout()
 
@@ -114,9 +116,11 @@ class ProfileUserFragment : BaseFragment(),
 
                                 if (isAdmin) {
                                     rd_btn_admin_role.isChecked = true
+                                    showEditText()
                                     hideProgressBar()
                                 } else {
                                     rd_btn_user_role.isChecked = true
+                                    hideEditText()
                                     hideProgressBar()
                                 }
 
@@ -338,7 +342,7 @@ class ProfileUserFragment : BaseFragment(),
         /*
             Método encargado de escuchar cuál RadioButton está seleccionado.
         */
-        radiogroup_role.setOnCheckedChangeListener { radioGroup, i ->
+        /*radiogroup_role.setOnCheckedChangeListener { radioGroup, i ->
 
             when(i){
 
@@ -352,6 +356,22 @@ class ProfileUserFragment : BaseFragment(),
 
             }
 
+        }*/
+
+    }
+
+    fun setUpCheckboxes() {
+
+        rd_btn_admin_role.setOnClickListener {
+            rd_btn_admin_role.isChecked = true
+            rd_btn_user_role.isChecked = false
+            showEditText()
+        }
+
+        rd_btn_user_role.setOnClickListener {
+            rd_btn_admin_role.isChecked = false
+            rd_btn_user_role.isChecked = true
+            hideEditText()
         }
 
     }

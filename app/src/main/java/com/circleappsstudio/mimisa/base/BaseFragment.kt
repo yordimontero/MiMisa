@@ -211,7 +211,7 @@ abstract class BaseFragment() : Fragment() {
 
         builder!!.setMessage(message)
 
-        builder.setCancelable(true)
+        builder.setCancelable(false)
         builder.setIcon(R.drawable.ic_info)
 
         builder.apply {
