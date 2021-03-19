@@ -260,7 +260,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
                 }
 
             } else {
-                idNumberUser = "Menor de edad"
+                idNumberUser = getString(R.string.under_age)
             }
 
             if (seatReservationViewModel.checkValidIdNumberUser(idNumberUser)) {
@@ -387,7 +387,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
                             isAnySeatReserved = true
                             ++seat1
 
-                            showMessage("Asiento reservado con éxito.", 2)
+                            showMessage(getString(R.string.seat_reserved_successfully), 2)
                             clearFields()
                             hideProgressBar()
 
@@ -474,9 +474,9 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         txt_lastname_seat_reservation_couple_seat_category.setText("")
 
-        txt_id_number_user_seat_reservation_couple_seat_category.setText("")
-
         cb_btn_under_age_seat_reservation_couple_seat_category.isChecked = false
+
+        txt_id_number_user_seat_reservation_couple_seat_category.setText("")
 
         txt_name_seat_reservation_couple_seat_category.requestFocus()
 
@@ -590,7 +590,7 @@ class CoupleSeatCategoryFragment : BaseFragment(),
     }
 
     override fun showReserveSeatDialog()
-    : AlertDialog? = reserveSeatDialog(this, "¿Desea reservar otro asiento?")
+    : AlertDialog? = reserveSeatDialog(this, getString(R.string.do_you_want_to_reserve_another_seat))
 
     override fun reserveSeatPositiveButtonClicked() {
         showReserveSeatDialog()!!.dismiss()

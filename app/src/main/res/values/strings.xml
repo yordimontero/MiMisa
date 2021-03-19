@@ -32,6 +32,13 @@
     <!-- main_nav_graph -->
     <string name="home">Inicio</string>
     <string name="seat_reservation">Reservación de Asientos</string>
+    <string name="seat_category">Categoría de Asiento</string>
+    <string name="couples">Parejas</string>
+    <string name="threesomes">Tríos</string>
+    <string name="bubbles">Burbujas</string>
+    <string name="to_reserve_couple">Reservar Pareja</string>
+    <string name="to_reserve_threesome">Reservar Trío</string>
+    <string name="to_reserve_bubble">Reservar Burbuja</string>
     <string name="intention_register">Registro de Intenciones</string>
     <string name="more">Más</string>
 
@@ -95,9 +102,158 @@
     <string name="there_are_not_available_seats">¡No hay asientos disponibles!</string>
 
 
+    <!-- SeatCategoryFragment -->
+    <string name="couple">Pareja</string>
+    <string name="threesome">Trío</string>
+    <string name="bubble">Burbuja</string>
+
+
+    <!-- AllSeatBubblesFragment -->
+    <string name="txt_bubble_1">Burbuja 1</string>
+    <string name="txt_bubble_2">Burbuja 2</string>
+    <string name="txt_bubble_3">Burbuja 3</string>
+    <string name="txt_bubble_4">Burbuja 4</string>
+    <string name="txt_bubble_5">Burbuja 5</string>
+    <string name="txt_bubble_6">Burbuja 6</string>
+    <string name="txt_bubble_7">Burbuja 7</string>
+    <string name="txt_bubble_8">Burbuja 8</string>
+
+    <string name="five_seats">Cantidad de asientos: 5</string>
+    <string name="six_seats">Cantidad de asientos: 6</string>
+
+    <string name="bubble_no_available">¡La burbuja seleccionada no está disponible!</string>
+
+
+    <!-- AllSeatCouplesFragment -->
+    <string name="txt_couple_1">Pareja 1</string>
+    <string name="seats_couple_1">Asientos: 19 y 20</string>
+
+    <string name="txt_couple_2">Pareja 2</string>
+    <string name="seats_couple_2">Asientos: 21 y 22</string>
+
+    <string name="txt_couple_3">Pareja 3</string>
+    <string name="seats_couple_3">Asientos: 26 y 27</string>
+
+    <string name="txt_couple_4">Pareja 4</string>
+    <string name="seats_couple_4">Asientos: 28 y 29</string>
+
+    <string name="txt_couple_5">Pareja 5</string>
+    <string name="seats_couple_5">Asientos: 33 y 34</string>
+
+    <string name="txt_couple_6">Pareja 6</string>
+    <string name="seats_couple_6">Asientos: 35 y 36</string>
+
+    <string name="txt_couple_7">Pareja 7</string>
+    <string name="seats_couple_7">Asientos: 40 y 41</string>
+
+    <string name="txt_couple_8">Pareja 8</string>
+    <string name="seats_couple_8">Asientos: 42 y 43</string>
+
+    <string name="txt_couple_9">Pareja 9</string>
+    <string name="seats_couple_9">Asientos: 44 y 45</string>
+
+    <string name="txt_couple_10">Pareja 10</string>
+    <string name="seats_couple_10">Asientos: 46 y 47</string>
+
+    <string name="txt_couple_11">Pareja 11</string>
+    <string name="seats_couple_11">Asientos: 51 y 52</string>
+
+    <string name="txt_couple_12">Pareja 12</string>
+    <string name="seats_couple_12">Asientos: 53 y 54</string>
+
+    <string name="txt_couple_13">Pareja 13</string>
+    <string name="seats_couple_13">Asientos: 58 y 59</string>
+
+    <string name="txt_couple_14">Pareja 14</string>
+    <string name="seats_couple_14">Asientos: 60 y 61</string>
+
+    <string name="txt_couple_15">Pareja 15</string>
+    <string name="seats_couple_15">Asientos: 65 y 66</string>
+
+    <string name="txt_couple_16">Pareja 16</string>
+    <string name="seats_couple_16">Asientos: 67 y 68</string>
+
+    <string name="txt_couple_17">Pareja 17</string>
+    <string name="seats_couple_17">Asientos: 72 y 73</string>
+
+    <string name="txt_couple_18">Pareja 18</string>
+    <string name="seats_couple_18">Asientos: 74 y 75</string>
+
+    <string name="txt_couple_19">Pareja 19</string>
+    <string name="seats_couple_19">Asientos: 79 y 80</string>
+
+    <string name="txt_couple_20">Pareja 20</string>
+    <string name="seats_couple_20">Asientos: 81 y 82</string>
+
+    <string name="txt_couple_21">Pareja 21</string>
+    <string name="seats_couple_21">Asientos: 86 y 87</string>
+
+    <string name="txt_couple_22">Pareja 22</string>
+    <string name="seats_couple_22">Asientos: 88 y 89</string>
+
+    <string name="txt_couple_23">Pareja 23</string>
+    <string name="seats_couple_23">Asientos: 93 y 94</string>
+
+    <string name="couple_no_available">¡La pareja seleccionada no está disponible!</string>
+
+
+    <!-- AllSeatCouplesFragment -->
+    <string name="txt_threesome_1">Trío 1</string>
+    <string name="seats_threesome_1">Asientos: 1, 2 y 3</string>
+
+    <string name="txt_threesome_2">Trío 2</string>
+    <string name="seats_threesome_2">Asientos: 4, 5 y 6</string>
+
+    <string name="txt_threesome_3">Trío 3</string>
+    <string name="seats_threesome_3">Asientos: 7, 8 y 9</string>
+
+    <string name="txt_threesome_4">Trío 4</string>
+    <string name="seats_threesome_4">Asientos: 10, 11 y 12</string>
+
+    <string name="txt_threesome_5">Trío 5</string>
+    <string name="seats_threesome_5">Asientos: 13, 14 y 15</string>
+
+    <string name="txt_threesome_6">Trío 6</string>
+    <string name="seats_threesome_6">Asientos: 16, 17 y 18</string>
+
+    <string name="txt_threesome_7">Trío 7</string>
+    <string name="seats_threesome_7">Asientos: 23, 24 y 25</string>
+
+    <string name="txt_threesome_8">Trío 8</string>
+    <string name="seats_threesome_8">Asientos: 30, 31 y 32</string>
+
+    <string name="txt_threesome_9">Trío 9</string>
+    <string name="seats_threesome_9">Asientos: 37, 38 y 39</string>
+
+    <string name="txt_threesome_10">Trío 10</string>
+    <string name="seats_threesome_10">Asientos: 48, 49 y 50</string>
+
+    <string name="txt_threesome_11">Trío 11</string>
+    <string name="seats_threesome_11">Asientos: 55, 56 y 57</string>
+
+    <string name="txt_threesome_12">Trío 12</string>
+    <string name="seats_threesome_12">Asientos: 62, 63 y 64</string>
+
+    <string name="txt_threesome_13">Trío 13</string>
+    <string name="seats_threesome_13">Asientos: 69, 70 y 71</string>
+
+    <string name="txt_threesome_14">Trío 14</string>
+    <string name="seats_threesome_14">Asientos: 76, 77 y 78</string>
+
+    <string name="txt_threesome_15">Trío 15</string>
+    <string name="seats_threesome_15">Asientos: 83, 84 y 85</string>
+
+    <string name="txt_threesome_16">Trío 16</string>
+    <string name="seats_threesome_16">Asientos: 90, 91 y 92</string>
+
+    <string name="threesome_no_available">¡El trío seleccionado no está disponible!</string>
+
+
+
     <!-- SeatReservationFragment -->
     <string name="name">Nombre</string>
     <string name="last_name">Apellido</string>
+    <string name="under_age">Menor de edad</string>
     <string name="id_number">Número de cédula</string>
     <string name="confirm_reservation">Confirmar reservación</string>
     <string name="invalid_id_number">Número de cédula inválido.</string>
@@ -105,6 +261,7 @@
     <string name="seat_reserved_error">Se produjo un error al reservar el asiento.</string>
     <string name="user_has_a_reserved_seat">La persona que se le asignará el asiento ya tiene un asiento reservado.</string>
     <string name="do_you_want_to_reserve_seat">¿Desea reservar el asiento?</string>
+    <string name="do_you_want_to_reserve_another_seat">¿Desea reservar otro asiento?</string>
 
 
     <!-- MainIntentionFragment -->
@@ -172,8 +329,12 @@
     <string name="enable_seat_reservation">Habilitar la reservación de asientos.</string>
     <string name="disable_seat_reservation">Deshabilitar la reservación de asientos.</string>
     <string name="do_you_want_to_update_seat_limit">¿Desea actualizar el límite de asientos disponibles?</string>
+    <string name="generate_seats_report">Generar reporte de los asientos.</string>
+    <string name="generate_report">Generar reporte</string>
+    <string name="there_are_not_reserved_seats">¡Aún no hay asientos registrados!</string>
     <string name="do_you_want_to_enable_seat_reservation">¿Desea habilitar la reservación de asientos?</string>
     <string name="do_you_want_to_disable_seat_reservation">¿Desea deshabilitar la reservación de asientos?</string>
+    <string name="do_you_want_to_generate_seats_report">¿Desea generar un reporte de los asientos?</string>
 
 
     <!-- AdminIntentionFragment -->
@@ -189,8 +350,11 @@
     <string name="register_intention_has_been_disabled">El registro de intenciones ha sido deshabilitado.</string>
     <string name="enable_register_intention">Habilitar el registro de intenciones.</string>
     <string name="disable_register_intention">Deshabilitar el registro de intenciones.</string>
+    <string name="generate_intentions_report">Generar reporte de las intenciones.</string>
+    <string name="there_are_not_registered_intentions">¡Aún no hay intenciones registradas!</string>
     <string name="do_you_want_to_enable_register_intention">¿Desea habilitar el registro de intenciones?</string>
     <string name="do_you_want_to_disable_register_intention">¿Desea deshabilitar el registro de intenciones?</string>
+    <string name="do_you_want_to_generate_intentions_report">¿Desea generar un reporte de las intenciones?</string>
 
 
     <!-- IntentionAdapter -->
@@ -211,6 +375,23 @@
     <!-- intention_row -->
     <string name="txt_category">Categoría:</string>
     <string name="txt_intention">Intención:</string>
+
+
+    <!-- PDFReport -->
+    <string name="report_title">Diaconía La Argentina - Parroquia de Tacares</string>
+    <string name="report_date">Fecha de generación:</string>
+    <string name="seat_list">Lista de Asientos</string>
+    <string name="seat_number_cell">N.º Asiento:</string>
+    <string name="name_cell">Nombre:</string>
+    <string name="id_number_cell">N.º Cédula:</string>
+    <string name="assistance_cell">Asistencia:</string>
+
+    <string name="intention_list">Lista de Intenciones</string>
+    <string name="category_cell">Categoría:</string>
+    <string name="intention_cell">Intención:</string>
+
+
+    <string name="report_created_successfully">Reporte generado correctamente en la ruta:</string>
 
 
     <!-- App Rate -->

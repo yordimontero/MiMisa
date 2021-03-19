@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
-                    android:text="Pareja"
+                    android:text="@string/couple"
                     android:layout_gravity="center"
                     android:textSize="16sp" />
 
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
-                    android:text="Trío"
+                    android:text="@string/threesome"
                     android:layout_gravity="center"
                     android:textSize="16sp" />
 
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
-                    android:text="Burbuja"
+                    android:text="@string/bubble"
                     android:layout_gravity="center"
                     android:textSize="16sp" />
 

@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="Generar reporte de los asientos reservados"
+                    android:text="@string/generate_seats_report"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
@@ -140,7 +140,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-light"
                                 android:gravity="center"
-                                android:text="Generar reporte"
+                                android:text="@string/generate_report"
                                 android:layout_gravity="center"
                                 android:textSize="16sp" />
 

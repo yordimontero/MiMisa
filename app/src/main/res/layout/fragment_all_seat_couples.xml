@@ -79,7 +79,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 1"
+                        android:text="@string/txt_couple_1"
                         android:textSize="18sp" />
 
                     <TextView
@@ -88,20 +88,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 19 y 20"
+                        android:text="@string/seats_couple_1"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_1_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -142,7 +130,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 2"
+                        android:text="@string/txt_couple_2"
                         android:textSize="18sp" />
 
                     <TextView
@@ -151,20 +139,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 21 y 22"
+                        android:text="@string/seats_couple_2"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_2_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -205,7 +181,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 3"
+                        android:text="@string/txt_couple_3"
                         android:textSize="18sp" />
 
                     <TextView
@@ -214,20 +190,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 26 y 27"
+                        android:text="@string/seats_couple_3"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_3_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -268,7 +232,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 4"
+                        android:text="@string/txt_couple_4"
                         android:textSize="18sp" />
 
                     <TextView
@@ -277,20 +241,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 28 y 29"
+                        android:text="@string/seats_couple_4"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_4_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -331,7 +283,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 5"
+                        android:text="@string/txt_couple_5"
                         android:textSize="18sp" />
 
                     <TextView
@@ -340,20 +292,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 33 y 34"
+                        android:text="@string/seats_couple_5"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_5_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -394,7 +334,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 6"
+                        android:text="@string/txt_couple_6"
                         android:textSize="18sp" />
 
                     <TextView
@@ -403,20 +343,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 35 y 36"
+                        android:text="@string/seats_couple_6"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_6_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -457,7 +385,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 7"
+                        android:text="@string/txt_couple_7"
                         android:textSize="18sp" />
 
                     <TextView
@@ -466,20 +394,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 40 y 41"
+                        android:text="@string/seats_couple_7"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_7_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -520,7 +436,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 8"
+                        android:text="@string/txt_couple_8"
                         android:textSize="18sp" />
 
                     <TextView
@@ -529,20 +445,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 42 y 43"
+                        android:text="@string/seats_couple_8"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_8_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -583,7 +487,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 9"
+                        android:text="@string/txt_couple_9"
                         android:textSize="18sp" />
 
                     <TextView
@@ -592,20 +496,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 44 y 45"
+                        android:text="@string/seats_couple_9"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_9_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -646,7 +538,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 10"
+                        android:text="@string/txt_couple_10"
                         android:textSize="18sp" />
 
                     <TextView
@@ -655,20 +547,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 46 y 47"
+                        android:text="@string/seats_couple_10"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_10_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -709,7 +589,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 11"
+                        android:text="@string/txt_couple_11"
                         android:textSize="18sp" />
 
                     <TextView
@@ -718,20 +598,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 51 y 52"
+                        android:text="@string/seats_couple_11"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_11_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -772,7 +640,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 12"
+                        android:text="@string/txt_couple_12"
                         android:textSize="18sp" />
 
                     <TextView
@@ -781,20 +649,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 53 y 54"
+                        android:text="@string/seats_couple_12"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_12_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -835,7 +691,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 13"
+                        android:text="@string/txt_couple_13"
                         android:textSize="18sp" />
 
                     <TextView
@@ -844,20 +700,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 58 y 59"
+                        android:text="@string/seats_couple_13"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_13_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -898,7 +742,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 14"
+                        android:text="@string/txt_couple_14"
                         android:textSize="18sp" />
 
                     <TextView
@@ -907,20 +751,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 60 y 61"
+                        android:text="@string/seats_couple_14"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_14_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -961,7 +793,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 15"
+                        android:text="@string/txt_couple_15"
                         android:textSize="18sp" />
 
                     <TextView
@@ -970,20 +802,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 65 y 66"
+                        android:text="@string/seats_couple_15"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_15_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -1024,7 +844,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 16"
+                        android:text="@string/txt_couple_16"
                         android:textSize="18sp" />
 
                     <TextView
@@ -1033,20 +853,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 67 y 68"
+                        android:text="@string/seats_couple_16"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_16_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -1087,7 +895,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 17"
+                        android:text="@string/txt_couple_17"
                         android:textSize="18sp" />
 
                     <TextView
@@ -1096,20 +904,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 72 y 73"
+                        android:text="@string/seats_couple_17"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_17_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -1150,7 +946,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 18"
+                        android:text="@string/txt_couple_18"
                         android:textSize="18sp" />
 
                     <TextView
@@ -1159,20 +955,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 74 y 75"
+                        android:text="@string/seats_couple_18"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_18_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -1213,7 +997,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 19"
+                        android:text="@string/txt_couple_19"
                         android:textSize="18sp" />
 
                     <TextView
@@ -1222,20 +1006,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 79 y 80"
+                        android:text="@string/seats_couple_19"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_19_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -1276,7 +1048,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 20"
+                        android:text="@string/txt_couple_20"
                         android:textSize="18sp" />
 
                     <TextView
@@ -1285,20 +1057,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 81 y 82"
+                        android:text="@string/seats_couple_20"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_20_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -1339,7 +1099,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 21"
+                        android:text="@string/txt_couple_21"
                         android:textSize="18sp" />
 
                     <TextView
@@ -1348,20 +1108,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 86 y 87"
+                        android:text="@string/seats_couple_21"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_21_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -1402,7 +1150,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 22"
+                        android:text="@string/txt_couple_22"
                         android:textSize="18sp" />
 
                     <TextView
@@ -1411,20 +1159,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 88 y 89"
+                        android:text="@string/seats_couple_22"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_22_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 
@@ -1465,7 +1201,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Pareja 23"
+                        android:text="@string/txt_couple_23"
                         android:textSize="18sp" />
 
                     <TextView
@@ -1474,20 +1210,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-light"
                         android:gravity="center"
-                        android:text="Asientos: 93 y 94"
+                        android:text="@string/seats_couple_23"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_couple_23_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        tools:text="Disponibilidad" />
 
                 </LinearLayout>
 

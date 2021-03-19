@@ -78,7 +78,16 @@ class OptionsAdminIntentionFragment : BaseFragment(),
     override fun generateAllIntentionsReport() {
 
         btn_generate_intentions_report.setOnClickListener {
-            generateAllIntentionsReportObserver()
+            //generateAllIntentionsReportObserver()
+
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
+            selectedButton = "btn_generate_intentions_report"
+            showConfirmDialog()
+
         }
 
     }
@@ -104,7 +113,7 @@ class OptionsAdminIntentionFragment : BaseFragment(),
                                     hideProgressBar()
 
                                 } else {
-                                    showMessage("¡Aún no hay asientos registrados!", 2)
+                                    showMessage(getString(R.string.there_are_not_registered_intentions), 2)
                                     hideProgressBar()
                                 }
 
@@ -321,6 +330,10 @@ class OptionsAdminIntentionFragment : BaseFragment(),
 
             }
 
+            selectedButton.contains("btn_generate_intentions_report") -> {
+                message = getString(R.string.do_you_want_to_generate_intentions_report)
+            }
+
         }
 
         return confirmDialog(this, message)
@@ -341,6 +354,10 @@ class OptionsAdminIntentionFragment : BaseFragment(),
                     enableRegisterIntention()
                 }
 
+            }
+
+            selectedButton.contains("btn_generate_intentions_report") -> {
+                generateAllIntentionsReportObserver()
             }
 
         }

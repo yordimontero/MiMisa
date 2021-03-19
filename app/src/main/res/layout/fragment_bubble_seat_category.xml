@@ -125,7 +125,7 @@
                             android:layout_marginBottom="8dp"
                             android:buttonTint="@color/green"
                             android:fontFamily="sans-serif-light"
-                            android:text="Menor de edad"
+                            android:text="@string/under_age"
                             android:textSize="16sp" />
 
                         <com.google.android.material.textfield.TextInputLayout

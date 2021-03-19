@@ -150,7 +150,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
                             }
 
                         } else {
-                            showMessage("El trio seleccionado no está disponible.", 2)
+                            showMessage(getString(R.string.threesome_no_available), 2)
                             hideProgressBar()
                         }
 
@@ -227,82 +227,66 @@ class AllSeatThreesomesFragment : BaseFragment(),
         when (documentId) {
 
             "threesome_1" -> {
-                txt_threesome_1_no_available.text = "¡Disponible!"
                 ll_availability_threesome_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_2" -> {
-                txt_threesome_2_no_available.text = "¡Disponible!"
                 ll_availability_threesome_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_3" -> {
-                txt_threesome_3_no_available.text = "¡Disponible!"
                 ll_availability_threesome_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_4" -> {
-                txt_threesome_4_no_available.text = "¡Disponible!"
                 ll_availability_threesome_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_5" -> {
-                txt_threesome_5_no_available.text = "¡Disponible!"
                 ll_availability_threesome_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_6" -> {
-                txt_threesome_6_no_available.text = "¡Disponible!"
                 ll_availability_threesome_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_7" -> {
-                txt_threesome_7_no_available.text = "¡Disponible!"
                 ll_availability_threesome_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_8" -> {
-                txt_threesome_8_no_available.text = "¡Disponible!"
                 ll_availability_threesome_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_9" -> {
-                txt_threesome_9_no_available.text = "¡Disponible!"
                 ll_availability_threesome_9.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_10" -> {
-                txt_threesome_10_no_available.text = "¡Disponible!"
                 ll_availability_threesome_10.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_11" -> {
-                txt_threesome_11_no_available.text = "¡Disponible!"
                 ll_availability_threesome_11.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_12" -> {
-                txt_threesome_12_no_available.text = "¡Disponible!"
                 ll_availability_threesome_12.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_13" -> {
-                txt_threesome_13_no_available.text = "¡Disponible!"
                 ll_availability_threesome_13.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_14" -> {
-                txt_threesome_14_no_available.text = "¡Disponible!"
                 ll_availability_threesome_14.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_15" -> {
-                txt_threesome_15_no_available.text = "¡Disponible!"
                 ll_availability_threesome_15.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "threesome_16" -> {
-                txt_threesome_16_no_available.text = "¡Disponible!"
                 ll_availability_threesome_16.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
@@ -315,83 +299,66 @@ class AllSeatThreesomesFragment : BaseFragment(),
         when (documentId) {
 
             "threesome_1" -> {
-                //txt_couple_1_no_available.visibility = View.VISIBLE
-                txt_threesome_1_no_available.text = "¡No disponible!"
                 ll_availability_threesome_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_2" -> {
-                txt_threesome_2_no_available.text = "¡No disponible!"
                 ll_availability_threesome_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_3" -> {
-                txt_threesome_3_no_available.text = "¡No disponible!"
                 ll_availability_threesome_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_4" -> {
-                txt_threesome_4_no_available.text = "¡No disponible!"
                 ll_availability_threesome_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_5" -> {
-                txt_threesome_5_no_available.text = "¡No disponible!"
                 ll_availability_threesome_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_6" -> {
-                txt_threesome_6_no_available.text = "¡No disponible!"
                 ll_availability_threesome_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_7" -> {
-                txt_threesome_7_no_available.text = "¡No disponible!"
                 ll_availability_threesome_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_8" -> {
-                txt_threesome_8_no_available.text = "¡No disponible!"
                 ll_availability_threesome_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_9" -> {
-                txt_threesome_9_no_available.text = "¡No disponible!"
                 ll_availability_threesome_9.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_10" -> {
-                txt_threesome_10_no_available.text = "¡No disponible!"
                 ll_availability_threesome_10.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_11" -> {
-                txt_threesome_11_no_available.text = "¡No disponible!"
                 ll_availability_threesome_11.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_12" -> {
-                txt_threesome_12_no_available.text = "¡No disponible!"
                 ll_availability_threesome_12.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_13" -> {
-                txt_threesome_13_no_available.text = "¡No disponible!"
                 ll_availability_threesome_13.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_14" -> {
-                txt_threesome_14_no_available.text = "¡No disponible!"
                 ll_availability_threesome_14.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_15" -> {
-                txt_threesome_15_no_available.text = "¡No disponible!"
                 ll_availability_threesome_15.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "threesome_16" -> {
-                txt_threesome_16_no_available.text = "¡No disponible!"
                 ll_availability_threesome_16.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
@@ -425,7 +392,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_1.setOnClickListener {
 
             threesomeId = "threesome_1"
-            threesomeNumber = "Trío 1"
+            threesomeNumber = getString(R.string.txt_threesome_1)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "1", "2", "3"))
             checkIfIsThreesomeAvailable()
 
@@ -438,7 +405,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_2.setOnClickListener {
 
             threesomeId = "threesome_2"
-            threesomeNumber = "Trío 2"
+            threesomeNumber = getString(R.string.txt_threesome_2)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "4", "5", "6"))
             checkIfIsThreesomeAvailable()
 
@@ -452,7 +419,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_3.setOnClickListener {
 
             threesomeId = "threesome_3"
-            threesomeNumber = "Trío 3"
+            threesomeNumber = getString(R.string.txt_threesome_3)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "7", "8", "9"))
             checkIfIsThreesomeAvailable()
 
@@ -466,7 +433,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_4.setOnClickListener {
 
             threesomeId = "threesome_4"
-            threesomeNumber = "Trío 4"
+            threesomeNumber = getString(R.string.txt_threesome_4)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "10", "11", "12"))
             checkIfIsThreesomeAvailable()
 
@@ -480,7 +447,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_5.setOnClickListener {
 
             threesomeId = "threesome_5"
-            threesomeNumber = "Trío 5"
+            threesomeNumber = getString(R.string.txt_threesome_5)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "13", "14", "15"))
             checkIfIsThreesomeAvailable()
 
@@ -494,7 +461,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_6.setOnClickListener {
 
             threesomeId = "threesome_6"
-            threesomeNumber = "Trío 6"
+            threesomeNumber = getString(R.string.txt_threesome_6)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "16", "17", "18"))
             checkIfIsThreesomeAvailable()
 
@@ -508,7 +475,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_7.setOnClickListener {
 
             threesomeId = "threesome_7"
-            threesomeNumber = "Trío 7"
+            threesomeNumber = getString(R.string.txt_threesome_7)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "23", "24", "25"))
             checkIfIsThreesomeAvailable()
 
@@ -522,7 +489,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_8.setOnClickListener {
 
             threesomeId = "threesome_8"
-            threesomeNumber = "Trío 8"
+            threesomeNumber = getString(R.string.txt_threesome_8)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "30", "31", "32"))
             checkIfIsThreesomeAvailable()
 
@@ -536,7 +503,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_9.setOnClickListener {
 
             threesomeId = "threesome_9"
-            threesomeNumber = "Trío 9"
+            threesomeNumber = getString(R.string.txt_threesome_9)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "37", "38", "39"))
             checkIfIsThreesomeAvailable()
 
@@ -550,7 +517,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_10.setOnClickListener {
 
             threesomeId = "threesome_10"
-            threesomeNumber = "Trío 10"
+            threesomeNumber = getString(R.string.txt_threesome_10)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "48", "49", "50"))
             checkIfIsThreesomeAvailable()
 
@@ -564,7 +531,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_11.setOnClickListener {
 
             threesomeId = "threesome_11"
-            threesomeNumber = "Trío 11"
+            threesomeNumber = getString(R.string.txt_threesome_11)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "55", "56", "57"))
             checkIfIsThreesomeAvailable()
 
@@ -578,7 +545,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_12.setOnClickListener {
 
             threesomeId = "threesome_12"
-            threesomeNumber = "Trío 12"
+            threesomeNumber = getString(R.string.txt_threesome_12)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "62", "63", "64"))
             checkIfIsThreesomeAvailable()
 
@@ -592,7 +559,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_13.setOnClickListener {
 
             threesomeId = "threesome_13"
-            threesomeNumber = "Trío 13"
+            threesomeNumber = getString(R.string.txt_threesome_13)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "69", "70", "71"))
             checkIfIsThreesomeAvailable()
 
@@ -606,7 +573,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_14.setOnClickListener {
 
             threesomeId = "threesome_14"
-            threesomeNumber = "Trío 14"
+            threesomeNumber = getString(R.string.txt_threesome_14)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "76", "77", "78"))
             checkIfIsThreesomeAvailable()
 
@@ -620,7 +587,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_15.setOnClickListener {
 
             threesomeId = "threesome_15"
-            threesomeNumber = "Trío 15"
+            threesomeNumber = getString(R.string.txt_threesome_15)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "83", "84", "85"))
             checkIfIsThreesomeAvailable()
 
@@ -634,7 +601,7 @@ class AllSeatThreesomesFragment : BaseFragment(),
         btn_threesome_16.setOnClickListener {
 
             threesomeId = "threesome_16"
-            threesomeNumber = "Trío 16"
+            threesomeNumber = getString(R.string.txt_threesome_16)
             bundle.putStringArrayList("threesomeSeats", arrayListOf(threesomeId, threesomeNumber, "90", "91", "92"))
             checkIfIsThreesomeAvailable()
 

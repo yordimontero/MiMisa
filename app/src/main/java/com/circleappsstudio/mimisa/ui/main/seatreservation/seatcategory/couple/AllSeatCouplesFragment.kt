@@ -157,7 +157,7 @@ class AllSeatCouplesFragment : BaseFragment(),
                                 }
 
                             } else {
-                                showMessage("La pareja seleccionada no está disponible.", 2)
+                                showMessage(getString(R.string.couple_no_available), 2)
                                 hideProgressBar()
                             }
 
@@ -232,117 +232,94 @@ class AllSeatCouplesFragment : BaseFragment(),
         when (documentId) {
 
             "couple_1" -> {
-                txt_couple_1_no_available.text = "¡Disponible!"
                 ll_availability_couple_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_2" -> {
-                txt_couple_2_no_available.text = "¡Disponible!"
                 ll_availability_couple_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_3" -> {
-                txt_couple_3_no_available.text = "¡Disponible!"
                 ll_availability_couple_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_4" -> {
-                txt_couple_4_no_available.text = "¡Disponible!"
                 ll_availability_couple_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_5" -> {
-                txt_couple_5_no_available.text = "¡Disponible!"
                 ll_availability_couple_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_6" -> {
-                txt_couple_6_no_available.text = "¡Disponible!"
                 ll_availability_couple_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_7" -> {
-                txt_couple_7_no_available.text = "¡Disponible!"
                 ll_availability_couple_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_8" -> {
-                txt_couple_8_no_available.text = "¡Disponible!"
                 ll_availability_couple_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_9" -> {
-                txt_couple_9_no_available.text = "¡Disponible!"
                 ll_availability_couple_9.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_10" -> {
-                txt_couple_10_no_available.text = "¡Disponible!"
                 ll_availability_couple_10.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_11" -> {
-                txt_couple_11_no_available.text = "¡Disponible!"
                 ll_availability_couple_11.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_12" -> {
-                txt_couple_12_no_available.text = "¡Disponible!"
                 ll_availability_couple_12.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_13" -> {
-                txt_couple_13_no_available.text = "¡Disponible!"
                 ll_availability_couple_13.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_14" -> {
-                txt_couple_14_no_available.text = "¡Disponible!"
                 ll_availability_couple_14.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_15" -> {
-                txt_couple_15_no_available.text = "¡Disponible!"
                 ll_availability_couple_15.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_16" -> {
-                txt_couple_16_no_available.text = "¡Disponible!"
                 ll_availability_couple_16.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_17" -> {
-                txt_couple_17_no_available.text = "¡Disponible!"
                 ll_availability_couple_17.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_18" -> {
-                txt_couple_18_no_available.text = "¡Disponible!"
                 ll_availability_couple_18.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_19" -> {
-                txt_couple_19_no_available.text = "¡Disponible!"
                 ll_availability_couple_19.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_20" -> {
-                txt_couple_20_no_available.text = "¡Disponible!"
                 ll_availability_couple_20.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_21" -> {
-                txt_couple_21_no_available.text = "¡Disponible!"
                 ll_availability_couple_21.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_22" -> {
-                txt_couple_22_no_available.text = "¡Disponible!"
                 ll_availability_couple_22.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "couple_23" -> {
-                txt_couple_23_no_available.text = "¡Disponible!"
                 ll_availability_couple_23.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
@@ -355,118 +332,94 @@ class AllSeatCouplesFragment : BaseFragment(),
         when (documentId) {
 
             "couple_1" -> {
-                //txt_couple_1_no_available.visibility = View.GONE
-                txt_couple_1_no_available.text = "¡No disponible!"
                 ll_availability_couple_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_2" -> {
-                txt_couple_2_no_available.text = "¡No disponible!"
                 ll_availability_couple_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_3" -> {
-                txt_couple_3_no_available.text = "¡No disponible!"
                 ll_availability_couple_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_4" -> {
-                txt_couple_4_no_available.text = "¡No disponible!"
                 ll_availability_couple_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_5" -> {
-                txt_couple_5_no_available.text = "¡No disponible!"
                 ll_availability_couple_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_6" -> {
-                txt_couple_6_no_available.text = "¡No disponible!"
                 ll_availability_couple_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_7" -> {
-                txt_couple_7_no_available.text = "¡No disponible!"
                 ll_availability_couple_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_8" -> {
-                txt_couple_8_no_available.text = "¡No disponible!"
                 ll_availability_couple_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_9" -> {
-                txt_couple_9_no_available.text = "¡No disponible!"
                 ll_availability_couple_9.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_10" -> {
-                txt_couple_10_no_available.text = "¡No disponible!"
                 ll_availability_couple_10.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_11" -> {
-                txt_couple_11_no_available.text = "¡No disponible!"
                 ll_availability_couple_11.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_12" -> {
-                txt_couple_12_no_available.text = "¡No disponible!"
                 ll_availability_couple_12.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_13" -> {
-                txt_couple_13_no_available.text = "¡No disponible!"
                 ll_availability_couple_13.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_14" -> {
-                txt_couple_14_no_available.text = "¡No disponible!"
                 ll_availability_couple_14.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_15" -> {
-                txt_couple_15_no_available.text = "¡No disponible!"
                 ll_availability_couple_15.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_16" -> {
-                txt_couple_16_no_available.text = "¡No disponible!"
                 ll_availability_couple_16.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_17" -> {
-                txt_couple_17_no_available.text = "¡No disponible!"
                 ll_availability_couple_17.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_18" -> {
-                txt_couple_18_no_available.text = "¡No disponible!"
                 ll_availability_couple_18.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_19" -> {
-                txt_couple_19_no_available.text = "¡No disponible!"
                 ll_availability_couple_19.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_20" -> {
-                txt_couple_20_no_available.text = "¡No disponible!"
                 ll_availability_couple_20.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_21" -> {
-                txt_couple_21_no_available.text = "¡No disponible!"
                 ll_availability_couple_21.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_22" -> {
-                txt_couple_22_no_available.text = "¡No disponible!"
                 ll_availability_couple_22.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "couple_23" -> {
-                txt_couple_23_no_available.text = "¡No disponible!"
                 ll_availability_couple_23.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
@@ -507,7 +460,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_1.setOnClickListener {
 
             coupleId = "couple_1"
-            coupleNumber = "Pareja 1"
+            coupleNumber = getString(R.string.txt_couple_1)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "19", "20"))
             checkIfIsCoupleAvailable()
 
@@ -520,7 +473,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_2.setOnClickListener {
 
             coupleId = "couple_2"
-            coupleNumber = "Pareja 2"
+            coupleNumber = getString(R.string.txt_couple_2)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "21", "22"))
             checkIfIsCoupleAvailable()
 
@@ -533,7 +486,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_3.setOnClickListener {
 
             coupleId = "couple_3"
-            coupleNumber = "Pareja 3"
+            coupleNumber = getString(R.string.txt_couple_3)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber,"26", "27"))
             checkIfIsCoupleAvailable()
 
@@ -546,7 +499,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_4.setOnClickListener {
 
             coupleId = "couple_4"
-            coupleNumber = "Pareja 4"
+            coupleNumber = getString(R.string.txt_couple_4)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "28", "29"))
             checkIfIsCoupleAvailable()
 
@@ -559,7 +512,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_5.setOnClickListener {
 
             coupleId = "couple_5"
-            coupleNumber = "Pareja 5"
+            coupleNumber = getString(R.string.txt_couple_5)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "33", "34"))
             checkIfIsCoupleAvailable()
 
@@ -572,7 +525,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_6.setOnClickListener {
 
             coupleId = "couple_6"
-            coupleNumber = "Pareja 6"
+            coupleNumber = getString(R.string.txt_couple_6)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "35", "36"))
             checkIfIsCoupleAvailable()
 
@@ -585,7 +538,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_7.setOnClickListener {
 
             coupleId = "couple_7"
-            coupleNumber = "Pareja 7"
+            coupleNumber = getString(R.string.txt_couple_7)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "40", "41"))
             checkIfIsCoupleAvailable()
 
@@ -598,7 +551,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_8.setOnClickListener {
 
             coupleId = "couple_8"
-            coupleNumber = "Pareja 8"
+            coupleNumber = getString(R.string.txt_couple_8)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "42", "43"))
             checkIfIsCoupleAvailable()
 
@@ -611,7 +564,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_9.setOnClickListener {
 
             coupleId = "couple_9"
-            coupleNumber = "Pareja 9"
+            coupleNumber = getString(R.string.txt_couple_9)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "44", "45"))
             checkIfIsCoupleAvailable()
 
@@ -624,7 +577,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_10.setOnClickListener {
 
             coupleId = "couple_10"
-            coupleNumber = "Pareja 10"
+            coupleNumber = getString(R.string.txt_couple_10)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "46", "47"))
             checkIfIsCoupleAvailable()
 
@@ -637,7 +590,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_11.setOnClickListener {
 
             coupleId = "couple_11"
-            coupleNumber = "Pareja 11"
+            coupleNumber = getString(R.string.txt_couple_11)
             bundle.putStringArrayList(coupleId, arrayListOf(coupleId, coupleNumber, "51", "52"))
             checkIfIsCoupleAvailable()
 
@@ -650,7 +603,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_12.setOnClickListener {
 
             coupleId = "couple_12"
-            coupleNumber = "Pareja 12"
+            coupleNumber = getString(R.string.txt_couple_12)
             bundle.putStringArrayList(coupleId, arrayListOf(coupleId, coupleNumber, "53", "54"))
             checkIfIsCoupleAvailable()
 
@@ -663,7 +616,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_13.setOnClickListener {
 
             coupleId = "couple_13"
-            coupleNumber = "Pareja 13"
+            coupleNumber = getString(R.string.txt_couple_13)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "58", "59"))
             checkIfIsCoupleAvailable()
 
@@ -676,7 +629,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_14.setOnClickListener {
 
             coupleId = "couple_14"
-            coupleNumber = "Pareja 14"
+            coupleNumber = getString(R.string.txt_couple_14)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "60", "61"))
             checkIfIsCoupleAvailable()
 
@@ -689,7 +642,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_15.setOnClickListener {
 
             coupleId = "couple_15"
-            coupleNumber = "Pareja 15"
+            coupleNumber = getString(R.string.txt_couple_15)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "65", "66"))
             checkIfIsCoupleAvailable()
 
@@ -702,7 +655,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_16.setOnClickListener {
 
             coupleId = "couple_16"
-            coupleNumber = "Pareja 16"
+            coupleNumber = getString(R.string.txt_couple_16)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "67", "68"))
             checkIfIsCoupleAvailable()
 
@@ -715,7 +668,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_17.setOnClickListener {
 
             coupleId = "couple_17"
-            coupleNumber = "Pareja 17"
+            coupleNumber = getString(R.string.txt_couple_17)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "72", "73"))
             checkIfIsCoupleAvailable()
 
@@ -728,7 +681,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_18.setOnClickListener {
 
             coupleId = "couple_18"
-            coupleNumber = "Pareja 18"
+            coupleNumber = getString(R.string.txt_couple_18)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "74", "75"))
             checkIfIsCoupleAvailable()
 
@@ -741,7 +694,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_19.setOnClickListener {
 
             coupleId = "couple_19"
-            coupleNumber = "Pareja 19"
+            coupleNumber = getString(R.string.txt_couple_19)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "79", "80"))
             checkIfIsCoupleAvailable()
 
@@ -754,7 +707,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_20.setOnClickListener {
 
             coupleId = "couple_20"
-            coupleNumber = "Pareja 20"
+            coupleNumber = getString(R.string.txt_couple_20)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "81", "82"))
             checkIfIsCoupleAvailable()
 
@@ -767,7 +720,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_21.setOnClickListener {
 
             coupleId = "couple_21"
-            coupleNumber = "Pareja 21"
+            coupleNumber = getString(R.string.txt_couple_21)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "86", "87"))
             checkIfIsCoupleAvailable()
 
@@ -780,7 +733,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_22.setOnClickListener {
 
             coupleId = "couple_22"
-            coupleNumber = "Pareja 22"
+            coupleNumber = getString(R.string.txt_couple_22)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "88", "89"))
             checkIfIsCoupleAvailable()
 
@@ -793,7 +746,7 @@ class AllSeatCouplesFragment : BaseFragment(),
         btn_couple_23.setOnClickListener {
 
             coupleId = "couple_23"
-            coupleNumber = "Pareja 23"
+            coupleNumber = getString(R.string.txt_couple_23)
             bundle.putStringArrayList("coupleSeats", arrayListOf(coupleId, coupleNumber, "93", "94"))
             checkIfIsCoupleAvailable()
 

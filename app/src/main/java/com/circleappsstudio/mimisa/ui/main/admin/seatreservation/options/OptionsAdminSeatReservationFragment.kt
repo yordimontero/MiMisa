@@ -64,8 +64,6 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
         fetchData()
 
-        //updateSeatLimit()
-
         setAvailability()
 
         generateAllSeatsReport()
@@ -81,14 +79,21 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
         fetchIsSeatReservationAvailableObserver()
 
-        //fetchSeatLimitObserver()
-
     }
 
     override fun generateAllSeatsReport() {
 
         btn_generate_seats_report.setOnClickListener {
-            generateAllSeatsReportObserver()
+            //generateAllSeatsReportObserver()
+
+            if (!isOnline(requireContext())) {
+                showIsOnlineDialog()
+                return@setOnClickListener
+            }
+
+            selectedButton = "btn_generate_seats_report"
+            showConfirmDialog()
+
         }
 
     }
@@ -116,7 +121,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
                                     hideProgressBar()
 
                                 } else {
-                                    showMessage("¡Aún no hay asientos registrados!", 2)
+                                    showMessage(getString(R.string.there_are_not_reserved_seats), 2)
                                     hideProgressBar()
                                 }
 
@@ -352,6 +357,10 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
             }
 
+            selectedButton.contains("btn_generate_seats_report") -> {
+                message = getString(R.string.do_you_want_to_generate_seats_report)
+            }
+
         }
 
         return confirmDialog(this, message)
@@ -376,6 +385,10 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
                     enableSeatReservation()
                 }
 
+            }
+
+            selectedButton.contains("btn_generate_seats_report") -> {
+                generateAllSeatsReportObserver()
             }
 
         }

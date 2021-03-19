@@ -148,7 +148,8 @@ class AllSeatBubblesFragment : BaseFragment(),
                             }
 
                         } else {
-                            showMessage("La burbuja seleccionada no está disponible.", 2)
+                            //showMessage("La burbuja seleccionada no está disponible.", 2)
+                            showMessage(getString(R.string.bubble_no_available), 2)
                             hideProgressBar()
                         }
 
@@ -333,7 +334,9 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             //bubbleNumber = "bubble_1"
             bubbleId = "bubble_1"
-            bubbleNumber = "Burbuja 1"
+            //bubbleNumber = "Burbuja 1"
+            bubbleNumber = getString(R.string.txt_bubble_1)
+
             bundle.putStringArrayList(
                 "bubbleSeats", arrayListOf(
                     bubbleId,
@@ -355,7 +358,9 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             //bubbleNumber = "bubble_2"
             bubbleId = "bubble_2"
-            bubbleNumber = "Burbuja 2"
+
+            bubbleNumber = getString(R.string.txt_bubble_2)
+
             bundle.putStringArrayList(
                 "bubbleSeats", arrayListOf(
                     bubbleId,
@@ -376,7 +381,9 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             //bubbleNumber = "bubble_3"
             bubbleId = "bubble_3"
-            bubbleNumber = "Burbuja 3"
+
+            bubbleNumber = getString(R.string.txt_bubble_3)
+
             bundle.putStringArrayList(
                 "bubbleSeats", arrayListOf(
                     bubbleId,
@@ -397,7 +404,9 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             //bubbleNumber = "bubble_4"
             bubbleId = "bubble_4"
-            bubbleNumber = "Burbuja 4"
+
+            bubbleNumber = getString(R.string.txt_bubble_4)
+
             bundle.putStringArrayList(
                 "bubbleSeats", arrayListOf(
                     bubbleId,
@@ -418,7 +427,9 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             //bubbleNumber = "bubble_5"
             bubbleId = "bubble_5"
-            bubbleNumber = "Burbuja 5"
+
+            bubbleNumber = getString(R.string.txt_bubble_5)
+
             bundle.putStringArrayList(
                 "bubbleSeats", arrayListOf(
                     bubbleId,
@@ -439,7 +450,9 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             //bubbleNumber = "bubble_6"
             bubbleId = "bubble_6"
-            bubbleNumber = "Burbuja 6"
+
+            bubbleNumber = getString(R.string.txt_bubble_6)
+
             bundle.putStringArrayList(
                 "bubbleSeats", arrayListOf(
                     bubbleId,
@@ -460,7 +473,9 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             //bubbleNumber = "bubble_7"
             bubbleId = "bubble_7"
-            bubbleNumber = "Burbuja 7"
+
+            bubbleNumber = getString(R.string.txt_bubble_7)
+
             bundle.putStringArrayList(
                 "bubbleSeats", arrayListOf(
                     bubbleId,
@@ -481,7 +496,9 @@ class AllSeatBubblesFragment : BaseFragment(),
 
             //bubbleNumber = "bubble_8"
             bubbleId = "bubble_8"
-            bubbleNumber = "Burbuja 8"
+
+            bubbleNumber = getString(R.string.txt_bubble_8)
+
             bundle.putStringArrayList(
                 "bubbleSeats", arrayListOf(
                     bubbleId,

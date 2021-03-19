@@ -75,14 +75,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
     fun printSeatListReportPDF(seatList: List<Seat>) {
 
-        //Escribir el archivo en la ruta "Downloads". (Deprecado).
-        /*val pdfPath = Environment
-            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            .toString()*/
-        //val file = File(pdfPath, "Test.pdf")
-
         val file = File(context.getExternalFilesDir("/"), "reporte_asientos_reservados_${date}.pdf")
-        //val outputStream = FileOutputStream(file)
 
         val pdfWriter = PdfWriter(file)
         val pdfDocument = com.itextpdf.kernel.pdf.PdfDocument(pdfWriter)
@@ -97,7 +90,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         document.add(
                 createParagraph(
-                        "Diaconía La Argentina - Parroquia de Tacares",
+                        context.getString(R.string.report_title),
                         DeviceRgb(50, 115, 168),
                         true,
                         25F,
@@ -107,7 +100,8 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         document.add(
                 createParagraph(
-                        "Fecha de generación: $date",
+                        //"Fecha de generación: $date",
+                        "${context.getString(R.string.report_date)} $date",
                         DeviceRgb(0, 0, 0),
                         false,
                         15F,
@@ -118,7 +112,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         document.add(
                 createParagraph(
-                        "Lista de Asientos",
+                        context.getString(R.string.seat_list),
                         DeviceRgb(50, 115, 168),
                         true,
                         22F,
@@ -127,11 +121,12 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         )
 
-        seatList.forEach { i ->
+        seatList.forEach { seat ->
 
             table.addCell(
                     createParagraph(
-                            "N.º Asiento: ${i.seatNumber}",
+                            //"N.º Asiento: ${seat.seatNumber}",
+                            "${context.getString(R.string.seat_number_cell)} ${seat.seatNumber}",
                             DeviceRgb(0, 0, 0),
                             false,
                             15F,
@@ -141,18 +136,8 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
             table.addCell(
                     createParagraph(
-                            "Nombre: \n${i.nameUser} ${i.lastNameUser}",
-                            DeviceRgb(0, 0, 0),
-                            false,
-                            15F,
-                            TextAlignment.CENTER
-                    )
-
-            )
-
-            table.addCell(
-                    createParagraph(
-                            "Cédula: \n${i.idNumberUser}",
+                            //"Nombre: \n${seat.nameUser} ${seat.lastNameUser}",
+                            "${context.getString(R.string.name_cell)} \n${seat.nameUser} ${seat.lastNameUser}",
                             DeviceRgb(0, 0, 0),
                             false,
                             15F,
@@ -163,7 +148,19 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
             table.addCell(
                     createParagraph(
-                            "Asistencia: \nSí (  )   No (  )",
+                            //"Cédula: \n${seat.idNumberUser}",
+                            "${context.getString(R.string.id_number_cell)} \n${seat.idNumberUser}",
+                            DeviceRgb(0, 0, 0),
+                            false,
+                            15F,
+                            TextAlignment.CENTER
+                    )
+
+            )
+
+            table.addCell(
+                    createParagraph(
+                            "${context.getString(R.string.assistance_cell)} \nSí (  )   No (  )",
                             DeviceRgb(0, 0, 0),
                             false,
                             15F,
@@ -178,20 +175,13 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         document.close()
 
-        Toast.makeText(context, "Reporte generado correctamente en la ruta: $file", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "${context.getString(R.string.report_created_successfully)} $file", Toast.LENGTH_LONG).show()
 
     }
 
     fun printIntentionListReportPDF(intentionList: List<Intention>) {
 
-        //Escribir el archivo en la ruta "Downloads". (Deprecado).
-        /*val pdfPath = Environment
-            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            .toString()*/
-        //val file = File(pdfPath, "Test.pdf")
-
         val file = File(context.getExternalFilesDir("/"), "reporte_intenciones_registradas_${date}.pdf")
-        //val outputStream = FileOutputStream(file)
 
         val pdfWriter = PdfWriter(file)
         val pdfDocument = com.itextpdf.kernel.pdf.PdfDocument(pdfWriter)
@@ -206,7 +196,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         document.add(
                 createParagraph(
-                        "Diaconía La Argentina - Parroquia de Tacares",
+                        context.getString(R.string.report_title),
                         DeviceRgb(50, 115, 168),
                         true,
                         25F,
@@ -216,7 +206,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         document.add(
                 createParagraph(
-                        "Fecha de generación: $date",
+                        "${context.getString(R.string.report_date)} $date",
                         DeviceRgb(0, 0, 0),
                         false,
                         15F,
@@ -227,7 +217,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         document.add(
                 createParagraph(
-                        "Lista de Intenciones",
+                        context.getString(R.string.intention_list),
                         DeviceRgb(50, 115, 168),
                         true,
                         22F,
@@ -240,7 +230,8 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
             table.addCell(
                     createParagraph(
-                            "Categoría: \n${i.category}",
+                            //"Categoría: \n${i.category}",
+                            "${context.getString(R.string.category_cell)} \n${i.category}",
                             DeviceRgb(0, 0, 0),
                             false,
                             15F,
@@ -250,7 +241,8 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
             table.addCell(
                     createParagraph(
-                            "Intención: \n${i.intention}",
+                            //"Intención: \n${i.intention}",
+                            "${context.getString(R.string.intention_cell)} \n${i.intention}",
                             DeviceRgb(0, 0, 0),
                             false,
                             15F,
@@ -264,7 +256,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
         document.close()
 
-        Toast.makeText(context, "Reporte generado correctamente en la ruta: $file", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "${context.getString(R.string.report_created_successfully)} $file", Toast.LENGTH_LONG).show()
 
     }
 
