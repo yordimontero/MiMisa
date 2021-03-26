@@ -92,18 +92,6 @@
                         android:text="@string/five_seats"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/txt_bubble_1_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Disponibilidad"
-                        android:visibility="gone"/>
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -154,18 +142,6 @@
                         android:gravity="center"
                         android:text="@string/five_seats"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_bubble_2_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Disponibilidad"
-                        android:visibility="gone"/>
 
                 </LinearLayout>
 
@@ -218,18 +194,6 @@
                         android:text="@string/six_seats"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/txt_bubble_3_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Disponibilidad"
-                        android:visibility="gone"/>
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -280,18 +244,6 @@
                         android:gravity="center"
                         android:text="@string/five_seats"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_bubble_4_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Disponibilidad"
-                        android:visibility="gone"/>
 
                 </LinearLayout>
 
@@ -344,18 +296,6 @@
                         android:text="@string/six_seats"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/txt_bubble_5_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Disponibilidad"
-                        android:visibility="gone"/>
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -406,18 +346,6 @@
                         android:gravity="center"
                         android:text="@string/six_seats"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_bubble_6_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Disponibilidad"
-                        android:visibility="gone"/>
 
                 </LinearLayout>
 
@@ -470,18 +398,6 @@
                         android:text="@string/five_seats"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/txt_bubble_7_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Disponibilidad"
-                        android:visibility="gone"/>
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -532,18 +448,6 @@
                         android:gravity="center"
                         android:text="@string/six_seats"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txt_bubble_8_no_available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Disponibilidad"
-                        android:visibility="gone"/>
 
                 </LinearLayout>
 

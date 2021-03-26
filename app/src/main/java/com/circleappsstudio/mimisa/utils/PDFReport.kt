@@ -1,9 +1,7 @@
 package com.circleappsstudio.mimisa.utils
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -29,12 +27,14 @@ import java.util.*
 
 class PDFReport(private val context: Context, private val activity: Activity) {
 
+    private val permissions by lazy { Permissions() }
+
     private val date by lazy {
         SimpleDateFormat("dd-MM-yyyy hh:mm:ss aa", Locale.US)
                 .format(Calendar.getInstance().time)
     }
 
-    var PERMISSIONS = arrayOf(
+    /*var PERMISSIONS = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
@@ -54,9 +54,9 @@ class PDFReport(private val context: Context, private val activity: Activity) {
             }
         }
         return true
-    }
+    }*/
 
-    fun hasPermissionsForSeatListReport(seatList: List<Seat>) {
+    /*fun hasPermissionsForSeatListReport(seatList: List<Seat>) {
         if (hasPermissionsForSeatListReport(context, *PERMISSIONS)) {
             printSeatListReportPDF(seatList)
         } else {
@@ -70,10 +70,27 @@ class PDFReport(private val context: Context, private val activity: Activity) {
         } else {
             ActivityCompat.requestPermissions(activity, PERMISSIONS, PERMISSION_ALL)
         }
+    }*/
+
+    fun printSeatListPDFReport(seatList: List<Seat>): Boolean {
+        return if (permissions.hasReadAndWritePermission(context, *permissions.PERMISSIONS)) {
+            seatListReportPDF(seatList)
+            true
+        } else {
+            ActivityCompat.requestPermissions(activity, permissions.PERMISSIONS, permissions.PERMISSION_ALL)
+            false
+        }
     }
 
+    fun printIntentionListPDFReport(intentionList: List<Intention>) {
+        if (permissions.hasReadAndWritePermission(context, *permissions.PERMISSIONS)) {
+            intentionListReportPDF(intentionList)
+        } else {
+            ActivityCompat.requestPermissions(activity, permissions.PERMISSIONS, permissions.PERMISSION_ALL)
+        }
+    }
 
-    fun printSeatListReportPDF(seatList: List<Seat>) {
+    fun seatListReportPDF(seatList: List<Seat>) {
 
         val file = File(context.getExternalFilesDir("/"), "reporte_asientos_reservados_${date}.pdf")
 
@@ -179,7 +196,7 @@ class PDFReport(private val context: Context, private val activity: Activity) {
 
     }
 
-    fun printIntentionListReportPDF(intentionList: List<Intention>) {
+    fun intentionListReportPDF(intentionList: List<Intention>) {
 
         val file = File(context.getExternalFilesDir("/"), "reporte_intenciones_registradas_${date}.pdf")
 

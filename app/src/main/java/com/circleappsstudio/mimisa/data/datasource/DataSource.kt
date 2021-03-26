@@ -124,14 +124,6 @@ interface DataSource {
 
         suspend fun setIsSeatReservationAvailable(isSeatReservationAvailable: Boolean)
 
-        suspend fun fetchIterator(): Flow<Resource<Int>>
-
-        suspend fun addIterator(seatNumber: Int)
-
-        suspend fun fetchSeatLimit(): Resource<Int>
-
-        suspend fun updateSeatLimit(seatLimit: Int)
-
         suspend fun fetchVersionCode(): Flow<Resource<Int>>
 
         suspend fun fetchIsRegisterIntentionAvailable(): Flow<Resource<Boolean>>

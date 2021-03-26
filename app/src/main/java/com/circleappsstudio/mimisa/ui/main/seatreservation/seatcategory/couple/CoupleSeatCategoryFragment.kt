@@ -96,8 +96,6 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         fetchData()
 
-        setIsNotCoupleAvailable()
-
         saveSeatReserved()
 
         setVisibilityIdNumberUserField()
@@ -115,12 +113,16 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
         checkIfUserIsAdmin()
 
+        setIsNotCoupleAvailable()
+
         fetchIsSeatReservationAvailableObserver()
 
     }
 
     override fun getBundle() {
-
+        /*
+             Método encargado de traer todos los valores del Bundle.
+        */
         requireArguments().let {
 
             getSeats = it.getStringArrayList("coupleSeats")!!
@@ -133,22 +135,10 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
     }
 
-    fun setVisibilityIdNumberUserField() {
-
-        cb_btn_under_age_seat_reservation_couple_seat_category.setOnClickListener {
-
-            if (cb_btn_under_age_seat_reservation_couple_seat_category.isChecked) {
-                text_input_layout_txt_id_number_user_seat_reservation_couple_seat_category.visibility = View.GONE
-            } else {
-                text_input_layout_txt_id_number_user_seat_reservation_couple_seat_category.visibility = View.VISIBLE
-            }
-
-        }
-
-    }
-
     override fun checkIfUserIsAdmin() {
-
+        /*
+            Método encargado de verificar si el usuario actual es un administrador.
+        */
         if (isOnline(requireContext())) {
 
             adminViewModel.checkCreatedAdminByEmailUser(emailUser)
@@ -321,49 +311,6 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         */
         if (isOnline(requireContext())) {
 
-            /*seatReservationViewModel.saveSeatReserved(
-                coupleNumber,
-                    seat1.toString(),
-                    nameUser,
-                    lastNameUser,
-                    idNumberUser).observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                when (resultEmitted) {
-
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
-
-                    is Resource.Success -> {
-
-                        if (resultEmitted.data) {
-
-                            isAnySeatReserved = true
-                            ++seat1
-
-                            showMessage("Asiento reservado con éxito.", 2)
-                            clearFields()
-                            hideProgressBar()
-
-                            if (seat1 > seat2) {
-                                goToMainSeatReservation()
-                            } else {
-                                 showReserveSeatDialog()
-                            }
-
-                        }
-
-                    }
-
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
-
-                }
-
-            })*/
-
             seatReservationViewModel.saveSeatReserved(
 
                 coupleNumber,
@@ -416,8 +363,12 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
 
     override fun setIsCoupleAvailable() {
+        /*
+            Método encargado de habilitar la pareja.
+        */
+        if (isOnline(requireContext())) {
 
-        seatReservationViewModel.updateIsCoupleAvailable(coupleId, true)
+            seatReservationViewModel.updateIsCoupleAvailable(coupleId, true)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                     when (resultEmitted) {
@@ -438,12 +389,18 @@ class CoupleSeatCategoryFragment : BaseFragment(),
                     }
 
                 })
+
+        }
 
     }
 
     override fun setIsNotCoupleAvailable() {
+        /*
+            Método encargado de deshabilitar la pareja.
+        */
+        if (isOnline(requireContext())) {
 
-        seatReservationViewModel.updateIsCoupleAvailable(coupleId, false)
+            seatReservationViewModel.updateIsCoupleAvailable(coupleId, false)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                     when (resultEmitted) {
@@ -465,11 +422,31 @@ class CoupleSeatCategoryFragment : BaseFragment(),
 
                 })
 
+        }
+
+    }
+
+    override fun setVisibilityIdNumberUserField() {
+        /*
+            Método encargado de ocultar el field de número de cédula
+            si la casilla de menor de edad está marcada.
+        */
+        cb_btn_under_age_seat_reservation_couple_seat_category.setOnClickListener {
+
+            if (cb_btn_under_age_seat_reservation_couple_seat_category.isChecked) {
+                text_input_layout_txt_id_number_user_seat_reservation_couple_seat_category.visibility = View.GONE
+            } else {
+                text_input_layout_txt_id_number_user_seat_reservation_couple_seat_category.visibility = View.VISIBLE
+            }
+
+        }
 
     }
 
     override fun clearFields() {
-
+        /*
+            Método encargado de limpiar los fields.
+        */
         txt_name_seat_reservation_couple_seat_category.setText("")
 
         txt_lastname_seat_reservation_couple_seat_category.setText("")
@@ -507,15 +484,17 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         /*
             Método encargado de navegar hacia el fragment "MainSeatReservation".
         */
-        //**navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_couple_seat_category_fragment)
 
         if (isAdmin) {
+
             navController.popBackStack(R.id.admin_home, true)
             navController.navigate(R.id.admin_seat_reservation)
+
         } else {
-            //navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_couple_seat_category_fragment)
+
             navController.popBackStack(R.id.navigation_home, true)
             navController.navigate(R.id.seat_reservation)
+
         }
 
     }
@@ -524,6 +503,10 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         super.onPause()
 
         if (!isAnySeatReserved) {
+            /*
+                Si no se ha reservado ningún asiento y el usuario abandona el fragment, la burbuja pasa
+                a estar disponible.
+            */
             setIsCoupleAvailable()
         }
 
@@ -534,7 +517,6 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             Método encargado de mostrar el Dialog "IsOnlineDialog".
         */
         isOnlineDialog(this)
-
     }
 
     override fun isOnlineDialogPositiveButtonClicked() {
@@ -579,7 +561,6 @@ class CoupleSeatCategoryFragment : BaseFragment(),
             checkSeatSavedByIdNumberUserObserver()
         }
 
-
     }
 
     override fun confirmNegativeButtonClicked() {
@@ -589,14 +570,23 @@ class CoupleSeatCategoryFragment : BaseFragment(),
         showConfirmDialog()!!.dismiss()
     }
 
+    /*
+        Método encargado de mostrar el Dialog "reserveSeatDialog".
+     */
     override fun showReserveSeatDialog()
     : AlertDialog? = reserveSeatDialog(this, getString(R.string.do_you_want_to_reserve_another_seat))
 
     override fun reserveSeatPositiveButtonClicked() {
+        /*
+            Método encargado de controlar el botón positivo del Dialog "reserveSeatDialog".
+        */
         showReserveSeatDialog()!!.dismiss()
     }
 
     override fun reserveSeatNegativeButtonClicked() {
+        /*
+            Método encargado de controlar el botón negativo del Dialog "reserveSeatDialog".
+        */
         goToMainSeatReservation()
     }
 

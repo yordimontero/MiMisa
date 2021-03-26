@@ -183,13 +183,7 @@ interface UI {
 
         fun fetchRegisteredSeatsByUserNameObserver()
 
-        fun fetchIteratorObserver()
-
         fun fetchIsSeatReservationAvailable()
-
-        fun fetchSeatLimitObserver()
-
-        fun checkAvailableSeats()
 
         fun goToSeatReservation()
 
@@ -255,9 +249,9 @@ interface UI {
 
         fun loadNoAvailableCouplesObserver()
 
-        fun showAvailableCoupleTextView(documentId: String)
+        fun showAvailableCoupleLinearLayout(documentId: String)
 
-        fun showNoAvailableCoupleTextView(documentId: String)
+        fun showNoAvailableCoupleLinearLayout(documentId: String)
 
         fun callAllToGoCouples()
 
@@ -336,6 +330,8 @@ interface UI {
         fun setIsCoupleAvailable()
 
         fun setIsNotCoupleAvailable()
+
+        fun setVisibilityIdNumberUserField()
 
         fun clearFields()
 
@@ -437,6 +433,8 @@ interface UI {
 
         fun setIsNotThreesomeAvailable()
 
+        fun setVisibilityIdNumberUserField()
+
         fun clearFields()
 
         fun showMessage(message: String, duration: Int)
@@ -469,9 +467,9 @@ interface UI {
 
         fun loadNoAvailableBubblesObserver()
 
-        fun showAvailableBubbleTextView(documentId: String)
+        fun showAvailableBubbleLinearLayout(documentId: String)
 
-        fun showNoAvailableBubbleTextView(documentId: String)
+        fun showNoAvailableBubbleLinearLayout(documentId: String)
 
         fun callAllToGoBubbles()
 
@@ -520,6 +518,8 @@ interface UI {
         fun setIsBubbleAvailable()
 
         fun setIsNotBubbleAvailable()
+
+        fun setVisibilityIdNumberUserField()
 
         fun clearFields()
 

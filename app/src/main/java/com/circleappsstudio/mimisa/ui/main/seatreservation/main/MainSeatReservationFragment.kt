@@ -44,9 +44,6 @@ class MainSeatReservationFragment : BaseFragment(),
         )
     }
 
-    private lateinit var seatNumber: String
-    private lateinit var seatLimitNumber: String
-
     private var isSeatReservationAvailable = true
 
     override fun getLayout(): Int = R.layout.fragment_main_seat_reservation
@@ -72,8 +69,6 @@ class MainSeatReservationFragment : BaseFragment(),
         }
 
         fetchRegisteredSeatsByUserNameObserver()
-
-        fetchIteratorObserver()
 
         fetchIsSeatReservationAvailable()
 
@@ -115,39 +110,6 @@ class MainSeatReservationFragment : BaseFragment(),
 
                                 }
 
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-        }
-
-    }
-
-    override fun fetchIteratorObserver() {
-        /*
-            Método encargado de escuchar en tiempo real el iterador de la reserva de asientos.
-        */
-        if (isOnline(requireContext())) {
-
-            paramsViewModel.fetchIterator()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when(resultEmitted){
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-                                seatNumber = resultEmitted.data.toString()
-                                fetchSeatLimitObserver()
                             }
 
                             is Resource.Failure -> {
@@ -211,62 +173,10 @@ class MainSeatReservationFragment : BaseFragment(),
 
     }
 
-    override fun fetchSeatLimitObserver() {
-        /*
-            Método encargado de traer el número límite de asientos disponibles.
-        */
-        if (isOnline(requireContext())) {
-
-            paramsViewModel.fetchSeatLimit()
-                    .observe(viewLifecycleOwner, Observer { resultEmitted ->
-
-                        when(resultEmitted){
-
-                            is Resource.Loading -> {
-                                showProgressBar()
-                            }
-
-                            is Resource.Success -> {
-                                seatLimitNumber = resultEmitted.data.toString()
-                                checkAvailableSeats()
-                                hideProgressBar()
-                            }
-
-                            is Resource.Failure -> {
-                                showMessage(resultEmitted.exception.message.toString(), 2)
-                                hideProgressBar()
-                            }
-
-                        }
-
-                    })
-
-        }
-
-    }
-
-    override fun checkAvailableSeats() {
-        /*
-            Método encargado de verificar si hay asientos disponibles.
-        */
-        if (seatReservationViewModel.checkSeatLimit(seatNumber.toInt(), seatLimitNumber.toInt())) {
-
-            showInfoMessage()
-            changeTextViewToNoSeatsAvailable()
-            hideButton()
-
-        }
-
-    }
-
     override fun goToSeatReservation() {
         /*
             Método encargado de navegar hacia el fragment "SeatReservation".
         */
-        /*btn_go_to_seat_reservation.setOnClickListener {
-            navController.navigate(R.id.action_go_to_seat_reservation_fragment_from_main_seat_reservation_fragment)
-        }*/
-
         btn_go_to_seat_reservation.setOnClickListener {
             navController.navigate(R.id.seat_category_fragment)
         }

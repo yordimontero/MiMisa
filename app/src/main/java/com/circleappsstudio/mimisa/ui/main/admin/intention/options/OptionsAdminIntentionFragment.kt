@@ -109,7 +109,7 @@ class OptionsAdminIntentionFragment : BaseFragment(),
 
                                 if (resultEmitted.data.isNotEmpty()) {
 
-                                    pdfReport.hasPermissionsForIntentionListReport(resultEmitted.data)
+                                    pdfReport.printIntentionListPDFReport(resultEmitted.data)
                                     hideProgressBar()
 
                                 } else {

@@ -84,7 +84,6 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
     override fun generateAllSeatsReport() {
 
         btn_generate_seats_report.setOnClickListener {
-            //generateAllSeatsReportObserver()
 
             if (!isOnline(requireContext())) {
                 showIsOnlineDialog()
@@ -117,7 +116,7 @@ class OptionsAdminSeatReservationFragment : BaseFragment(),
 
                                 if (resultEmitted.data.isNotEmpty()) {
 
-                                    pdfReport.hasPermissionsForSeatListReport(resultEmitted.data)
+                                    pdfReport.printSeatListPDFReport(resultEmitted.data)
                                     hideProgressBar()
 
                                 } else {

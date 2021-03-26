@@ -62,7 +62,9 @@ class SeatCategoryFragment : BaseFragment(), UI.SeatCategory {
     }
 
     override fun checkIfUserIsAdmin() {
-
+        /*
+            Método encargado de verificar si el usuario actual es un administrador.
+        */
         if (isOnline(requireContext())) {
 
             adminViewModel.checkCreatedAdminByEmailUser(emailUser)
@@ -96,49 +98,46 @@ class SeatCategoryFragment : BaseFragment(), UI.SeatCategory {
     }
 
     override fun goToCoupleSeat() {
-
+        /*
+            Método encargado de navegar hacia el fragment AllSeatCouplesFragment.
+        */
         btn_couple_seat_category.setOnClickListener {
 
             if (isAdmin) {
-                //navController.navigate(R.id.action_go_to_seat_category_from_seat_reservation_main_fragment)
                 navController.navigate(R.id.admin_all_seat_couples_fragment)
             } else {
                 navController.navigate(R.id.all_seat_couples_fragment)
             }
-
-            //navController.navigate(R.id.allSeatCouplesFragment)
 
         }
 
     }
 
     override fun goToThreesomeSeat() {
-
+        /*
+            Método encargado de navegar hacia el fragment AllSeatThreesomesFragment.
+        */
         btn_threesome_seat_category.setOnClickListener {
 
             if (isAdmin) {
                 navController.navigate(R.id.admin_all_seat_threesomes_fragment)
             } else {
-                //navController.navigate(R.id.action_go_to_all_threesome_seats_from_seat_category_fragment)
                 navController.navigate(R.id.all_seat_threesomes_fragment)
             }
-
-            //navController.navigate(R.id.action_go_to_all_threesome_seats_from_seat_category_fragment)
 
         }
 
     }
 
     override fun goToBubbleSeat() {
-
+        /*
+            Método encargado de navegar hacia el fragment AllSeatBubblesFragment.
+        */
         btn_bubble_seat_category.setOnClickListener {
-
-            //navController.navigate(R.id.action_go_to_all_bubble_seats_from_seat_category_fragment)
 
             if (isAdmin) {
                 navController.navigate(R.id.admin_all_seat_bubbles_fragment)
             } else {
-                //navController.navigate(R.id.action_go_to_all_bubble_seats_from_seat_category_fragment)
                 navController.navigate(R.id.all_seat_bubbles_fragment)
             }
 
@@ -147,14 +146,23 @@ class SeatCategoryFragment : BaseFragment(), UI.SeatCategory {
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+             Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+             Método encargado de mostrar un ProgressBar.
+        */
         progressbar_seat_category.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
+        /*
+             Método encargado de ocultar un ProgressBar.
+        */
         progressbar_seat_category.visibility = View.GONE
     }
 

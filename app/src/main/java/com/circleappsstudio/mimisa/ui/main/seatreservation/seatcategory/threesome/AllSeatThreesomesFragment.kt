@@ -93,7 +93,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun checkIfUserIsAdmin() {
-
+        /*
+            Método encargado de verificar si el usuario actual es un administrador.
+        */
         if (isOnline(requireContext())) {
 
             adminViewModel.checkCreatedAdminByEmailUser(emailUser)
@@ -128,102 +130,120 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
 
     override fun checkIfIsThreesomeAvailable() {
+        /*
+            Método encargado de verificar si un trío se encuentra disponible.
+        */
+        if (isOnline(requireContext())) {
 
-        seatReservationViewModel.checkIfIsThreesomeAvailable(threesomeId)
-            .observe(viewLifecycleOwner, Observer { resultEmitted ->
+            seatReservationViewModel.checkIfIsThreesomeAvailable(threesomeId)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                when (resultEmitted) {
+                    when (resultEmitted) {
 
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
 
-                    is Resource.Success -> {
+                        is Resource.Success -> {
 
-                        if (resultEmitted.data) {
+                            if (resultEmitted.data) {
 
-                            if (isAdmin) {
-                                navController.navigate(R.id.admin_threesome_seat_category_fragment, bundle)
+                                if (isAdmin) {
+                                    navController.navigate(R.id.admin_threesome_seat_category_fragment, bundle)
+                                } else {
+                                    navController.navigate(R.id.threesome_seat_category_fragment, bundle)
+                                }
+
                             } else {
-                                //navController.navigate(R.id.action_go_to_threesome_seat_category_from_seat_category_fragment, bundle)
-                                navController.navigate(R.id.threesome_seat_category_fragment, bundle)
+                                showMessage(getString(R.string.threesome_no_available), 2)
+                                hideProgressBar()
                             }
 
-                        } else {
-                            showMessage(getString(R.string.threesome_no_available), 2)
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
                             hideProgressBar()
                         }
 
                     }
 
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
+                })
 
-                }
-
-            })
-
+        }
 
     }
 
     override fun loadAvailableThreesomesObserver() {
+        /*
+            Método encargado de cargar todas los tríos que se encuentran disponibles.
+        */
 
-        seatReservationViewModel.loadAvailableThreesomes()
-            .observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-                when(resultEmitted) {
+            seatReservationViewModel.loadAvailableThreesomes()
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                    is Resource.Loading -> {
-                        showProgressBar()
+                    when(resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            showAvailableThreesomeTextView(resultEmitted.data)
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                        }
+
                     }
 
-                    is Resource.Success -> {
-                        showAvailableThreesomeTextView(resultEmitted.data)
-                        hideProgressBar()
-                    }
+                })
 
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                    }
-
-                }
-
-            })
+        }
 
     }
 
     override fun loadNoAvailableThreesomesObserver() {
+        /*
+            Método encargado de cargar todas los tríos que no se encuentran disponibles.
+        */
+        if (isOnline(requireContext())) {
 
-        seatReservationViewModel.loadNoAvailableThreesomes()
-            .observe(viewLifecycleOwner, Observer { resultEmitted ->
+            seatReservationViewModel.loadNoAvailableThreesomes()
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                when(resultEmitted) {
+                    when(resultEmitted) {
 
-                    is Resource.Loading -> {
-                        showProgressBar()
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            showNoAvailableThreesomeTextView(resultEmitted.data)
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
                     }
 
-                    is Resource.Success -> {
-                        showNoAvailableThreesomeTextView(resultEmitted.data)
-                        hideProgressBar()
-                    }
+                })
 
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
-
-                }
-
-            })
-
+        }
 
     }
 
     override fun showAvailableThreesomeTextView(documentId: String) {
-
+        /*
+            Método encargado de mostrar un LinearLayout verde a los tríos disponibles.
+        */
         when (documentId) {
 
             "threesome_1" -> {
@@ -295,7 +315,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun showNoAvailableThreesomeTextView(documentId: String) {
-
+        /*
+            Método encargado de mostrar un LinearLayout rojo a las parejas no disponibles.
+        */
         when (documentId) {
 
             "threesome_1" -> {
@@ -388,7 +410,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome1() {
-
+        /*
+            Método encargado de navegar hacia el trío 1
+        */
         btn_threesome_1.setOnClickListener {
 
             threesomeId = "threesome_1"
@@ -401,7 +425,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome2() {
-
+        /*
+            Método encargado de navegar hacia el trío 2
+        */
         btn_threesome_2.setOnClickListener {
 
             threesomeId = "threesome_2"
@@ -415,7 +441,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome3() {
-
+        /*
+            Método encargado de navegar hacia el trío 3
+        */
         btn_threesome_3.setOnClickListener {
 
             threesomeId = "threesome_3"
@@ -429,7 +457,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome4() {
-
+        /*
+            Método encargado de navegar hacia el trío 4
+        */
         btn_threesome_4.setOnClickListener {
 
             threesomeId = "threesome_4"
@@ -443,7 +473,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome5() {
-
+        /*
+            Método encargado de navegar hacia el trío 5
+        */
         btn_threesome_5.setOnClickListener {
 
             threesomeId = "threesome_5"
@@ -457,7 +489,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome6() {
-
+        /*
+            Método encargado de navegar hacia el trío 6
+        */
         btn_threesome_6.setOnClickListener {
 
             threesomeId = "threesome_6"
@@ -471,7 +505,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome7() {
-
+        /*
+            Método encargado de navegar hacia el trío 7
+        */
         btn_threesome_7.setOnClickListener {
 
             threesomeId = "threesome_7"
@@ -485,7 +521,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome8() {
-
+        /*
+            Método encargado de navegar hacia el trío 8
+        */
         btn_threesome_8.setOnClickListener {
 
             threesomeId = "threesome_8"
@@ -499,7 +537,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome9() {
-
+        /*
+            Método encargado de navegar hacia el trío 9
+        */
         btn_threesome_9.setOnClickListener {
 
             threesomeId = "threesome_9"
@@ -513,7 +553,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome10() {
-
+        /*
+            Método encargado de navegar hacia el trío 10
+        */
         btn_threesome_10.setOnClickListener {
 
             threesomeId = "threesome_10"
@@ -527,7 +569,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome11() {
-
+        /*
+            Método encargado de navegar hacia el trío 11
+        */
         btn_threesome_11.setOnClickListener {
 
             threesomeId = "threesome_11"
@@ -541,7 +585,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome12() {
-
+        /*
+            Método encargado de navegar hacia el trío 12
+        */
         btn_threesome_12.setOnClickListener {
 
             threesomeId = "threesome_12"
@@ -555,7 +601,9 @@ class AllSeatThreesomesFragment : BaseFragment(),
     }
 
     override fun goToThreesome13() {
-
+        /*
+            Método encargado de navegar hacia el trío 13
+        */
         btn_threesome_13.setOnClickListener {
 
             threesomeId = "threesome_13"
@@ -565,11 +613,12 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         }
 
-
     }
 
     override fun goToThreesome14() {
-
+        /*
+            Método encargado de navegar hacia el trío 14
+        */
         btn_threesome_14.setOnClickListener {
 
             threesomeId = "threesome_14"
@@ -579,11 +628,12 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         }
 
-
     }
 
     override fun goToThreesome15() {
-
+        /*
+            Método encargado de navegar hacia el trío 15
+        */
         btn_threesome_15.setOnClickListener {
 
             threesomeId = "threesome_15"
@@ -593,11 +643,12 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         }
 
-
     }
 
     override fun goToThreesome16() {
-
+        /*
+            Método encargado de navegar hacia el trío 16
+        */
         btn_threesome_16.setOnClickListener {
 
             threesomeId = "threesome_16"
@@ -607,27 +658,40 @@ class AllSeatThreesomesFragment : BaseFragment(),
 
         }
 
-
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+             Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+             Método encargado de mostrar un ProgressBar.
+        */
         progressbar_all_seat_threesomes.visibility = View.VISIBLE
         layout_all_seat_threesomes.visibility = View.GONE
     }
 
     override fun hideProgressBar() {
+        /*
+             Método encargado de ocultar un ProgressBar.
+        */
         progressbar_all_seat_threesomes.visibility = View.GONE
         layout_all_seat_threesomes.visibility = View.VISIBLE
     }
 
+    /*
+        Método encargado de mostrar el Dialog "IsOnlineDialog".
+    */
     override fun showIsOnlineDialog() = isOnlineDialog(this)
 
     override fun isOnlineDialogPositiveButtonClicked() {
-
+        /*
+             Método encargado de controlar el botón positivo del Dialog "IsOnlineDialog".
+        */
         if (isOnline(requireContext())) {
             fetchData()
         } else {

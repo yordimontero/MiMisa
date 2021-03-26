@@ -93,7 +93,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun checkIfUserIsAdmin() {
-
+        /*
+            Método encargado de verificar si el usuario actual es un administrador.
+        */
         if (isOnline(requireContext())) {
 
             adminViewModel.checkCreatedAdminByEmailUser(emailUser)
@@ -128,8 +130,12 @@ class AllSeatCouplesFragment : BaseFragment(),
 
 
     override fun checkIfIsCoupleAvailable() {
+        /*
+            Método encargado de verificar si una pareja se encuentra disponible.
+        */
+        if (isOnline(requireContext())) {
 
-        seatReservationViewModel.checkIfIsCoupleAvailable(coupleId)
+            seatReservationViewModel.checkIfIsCoupleAvailable(coupleId)
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                     when (resultEmitted) {
@@ -140,19 +146,11 @@ class AllSeatCouplesFragment : BaseFragment(),
 
                         is Resource.Success -> {
 
-                            /*if (resultEmitted.data) {
-                                navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
-                            } else {
-                                showMessage("La pareja seleccionada no está disponible.", 2)
-                                hideProgressBar()
-                            }*/
-
                             if (resultEmitted.data) {
 
                                 if (isAdmin) {
                                     navController.navigate(R.id.admin_couple_seat_category_fragment, bundle)
                                 } else {
-                                    //navController.navigate(R.id.navigation_couple_seat_category_fragment, bundle)
                                     navController.navigate(R.id.couple_seat_category_fragment, bundle)
                                 }
 
@@ -172,11 +170,17 @@ class AllSeatCouplesFragment : BaseFragment(),
 
                 })
 
+        }
+
     }
 
     override fun loadAvailableCouplesObserver() {
+        /*
+            Método encargado de cargar todas las parejas que se encuentran disponibles.
+        */
+        if (isOnline(requireContext())) {
 
-        seatReservationViewModel.loadAvailableCouples()
+            seatReservationViewModel.loadAvailableCouples()
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                     when(resultEmitted) {
@@ -186,7 +190,7 @@ class AllSeatCouplesFragment : BaseFragment(),
                         }
 
                         is Resource.Success -> {
-                            showAvailableCoupleTextView(resultEmitted.data)
+                            showAvailableCoupleLinearLayout(resultEmitted.data)
                             hideProgressBar()
                         }
 
@@ -197,12 +201,18 @@ class AllSeatCouplesFragment : BaseFragment(),
                     }
 
                 })
+
+        }
 
     }
 
     override fun loadNoAvailableCouplesObserver() {
+        /*
+            Método encargado de cargar todas las parejas que no se encuentran disponibles.
+        */
+        if (isOnline(requireContext())) {
 
-        seatReservationViewModel.loadNoAvailableCouples()
+            seatReservationViewModel.loadNoAvailableCouples()
                 .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
                     when(resultEmitted) {
@@ -212,7 +222,7 @@ class AllSeatCouplesFragment : BaseFragment(),
                         }
 
                         is Resource.Success -> {
-                            showNoAvailableCoupleTextView(resultEmitted.data)
+                            showNoAvailableCoupleLinearLayout(resultEmitted.data)
                             hideProgressBar()
                         }
 
@@ -225,10 +235,14 @@ class AllSeatCouplesFragment : BaseFragment(),
 
                 })
 
+        }
+
     }
 
-    override fun showAvailableCoupleTextView(documentId: String) {
-
+    override fun showAvailableCoupleLinearLayout(documentId: String) {
+        /*
+            Método encargado de mostrar un LinearLayout verde a las parejas disponibles.
+        */
         when (documentId) {
 
             "couple_1" -> {
@@ -327,8 +341,10 @@ class AllSeatCouplesFragment : BaseFragment(),
 
     }
 
-    override fun showNoAvailableCoupleTextView(documentId: String) {
-
+    override fun showNoAvailableCoupleLinearLayout(documentId: String) {
+        /*
+            Método encargado de mostrar un LinearLayout rojo a las parejas no disponibles.
+        */
         when (documentId) {
 
             "couple_1" -> {
@@ -456,7 +472,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple1() {
-
+        /*
+            Método encargado de navegar hacia la pareja 1
+        */
         btn_couple_1.setOnClickListener {
 
             coupleId = "couple_1"
@@ -469,7 +487,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple2() {
-
+        /*
+            Método encargado de navegar hacia la pareja 2
+        */
         btn_couple_2.setOnClickListener {
 
             coupleId = "couple_2"
@@ -482,7 +502,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple3() {
-
+        /*
+            Método encargado de navegar hacia la pareja 3
+        */
         btn_couple_3.setOnClickListener {
 
             coupleId = "couple_3"
@@ -495,7 +517,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple4() {
-
+        /*
+            Método encargado de navegar hacia la pareja 4
+        */
         btn_couple_4.setOnClickListener {
 
             coupleId = "couple_4"
@@ -508,7 +532,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple5() {
-
+        /*
+            Método encargado de navegar hacia la pareja 5
+        */
         btn_couple_5.setOnClickListener {
 
             coupleId = "couple_5"
@@ -521,7 +547,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple6() {
-
+        /*
+            Método encargado de navegar hacia la pareja 6
+        */
         btn_couple_6.setOnClickListener {
 
             coupleId = "couple_6"
@@ -534,7 +562,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple7() {
-
+        /*
+            Método encargado de navegar hacia la pareja 7
+        */
         btn_couple_7.setOnClickListener {
 
             coupleId = "couple_7"
@@ -547,7 +577,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple8() {
-
+        /*
+            Método encargado de navegar hacia la pareja 8
+        */
         btn_couple_8.setOnClickListener {
 
             coupleId = "couple_8"
@@ -560,7 +592,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple9() {
-
+        /*
+            Método encargado de navegar hacia la pareja 9
+        */
         btn_couple_9.setOnClickListener {
 
             coupleId = "couple_9"
@@ -573,7 +607,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple10() {
-
+        /*
+            Método encargado de navegar hacia la pareja 10
+        */
         btn_couple_10.setOnClickListener {
 
             coupleId = "couple_10"
@@ -586,7 +622,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple11() {
-
+        /*
+            Método encargado de navegar hacia la pareja 11
+        */
         btn_couple_11.setOnClickListener {
 
             coupleId = "couple_11"
@@ -599,7 +637,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple12() {
-
+        /*
+            Método encargado de navegar hacia la pareja 12
+        */
         btn_couple_12.setOnClickListener {
 
             coupleId = "couple_12"
@@ -612,7 +652,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple13() {
-
+        /*
+            Método encargado de navegar hacia la pareja 13
+        */
         btn_couple_13.setOnClickListener {
 
             coupleId = "couple_13"
@@ -625,7 +667,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple14() {
-
+        /*
+            Método encargado de navegar hacia la pareja 14
+        */
         btn_couple_14.setOnClickListener {
 
             coupleId = "couple_14"
@@ -638,7 +682,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple15() {
-
+        /*
+            Método encargado de navegar hacia la pareja 15
+        */
         btn_couple_15.setOnClickListener {
 
             coupleId = "couple_15"
@@ -651,7 +697,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple16() {
-
+        /*
+            Método encargado de navegar hacia la pareja 16
+        */
         btn_couple_16.setOnClickListener {
 
             coupleId = "couple_16"
@@ -664,7 +712,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple17() {
-
+        /*
+            Método encargado de navegar hacia la pareja 17
+        */
         btn_couple_17.setOnClickListener {
 
             coupleId = "couple_17"
@@ -677,7 +727,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple18() {
-
+        /*
+            Método encargado de navegar hacia la pareja 18
+        */
         btn_couple_18.setOnClickListener {
 
             coupleId = "couple_18"
@@ -690,7 +742,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple19() {
-
+        /*
+            Método encargado de navegar hacia la pareja 19
+        */
         btn_couple_19.setOnClickListener {
 
             coupleId = "couple_19"
@@ -703,7 +757,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple20() {
-
+        /*
+            Método encargado de navegar hacia la pareja 20
+        */
         btn_couple_20.setOnClickListener {
 
             coupleId = "couple_20"
@@ -716,7 +772,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple21() {
-
+        /*
+            Método encargado de navegar hacia la pareja 21
+        */
         btn_couple_21.setOnClickListener {
 
             coupleId = "couple_21"
@@ -729,7 +787,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple22() {
-
+        /*
+            Método encargado de navegar hacia la pareja 22
+        */
         btn_couple_22.setOnClickListener {
 
             coupleId = "couple_22"
@@ -742,7 +802,9 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun goToCouple23() {
-
+        /*
+            Método encargado de navegar hacia la pareja 23
+        */
         btn_couple_23.setOnClickListener {
 
             coupleId = "couple_23"
@@ -755,23 +817,37 @@ class AllSeatCouplesFragment : BaseFragment(),
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+             Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+             Método encargado de mostrar un ProgressBar.
+        */
         progressbar_all_seat_couples.visibility = View.VISIBLE
         layout_all_seat_couples.visibility = View.GONE
     }
 
     override fun hideProgressBar() {
+        /*
+             Método encargado de ocultar un ProgressBar.
+        */
         progressbar_all_seat_couples.visibility = View.GONE
         layout_all_seat_couples.visibility = View.VISIBLE
     }
 
+    /*
+        Método encargado de mostrar el Dialog "IsOnlineDialog".
+    */
     override fun showIsOnlineDialog() = isOnlineDialog(this)
 
     override fun isOnlineDialogPositiveButtonClicked() {
-
+        /*
+             Método encargado de controlar el botón positivo del Dialog "IsOnlineDialog".
+        */
         if (isOnline(requireContext())) {
             fetchData()
         } else {

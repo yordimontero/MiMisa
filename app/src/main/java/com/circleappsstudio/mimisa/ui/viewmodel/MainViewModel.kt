@@ -89,16 +89,6 @@ interface MainViewModel {
 
         fun checkSeatSavedByIdNumberUser(idNumberUser: String): LiveData<Resource<Boolean>>
 
-        fun checkEmptyNameUser(nameUser: String): Boolean
-
-        fun checkEmptyLastNameUser(lastNameUser: String): Boolean
-
-        fun checkEmptyIdNumberUser(idNumberUser: String): Boolean
-
-        fun checkValidIdNumberUser(idNumberUser: String): Boolean
-
-        fun checkSeatLimit(seatNumber: Int, seatLimit: Int): Boolean
-
         fun checkIfIsCoupleAvailable(coupleNumber: String): LiveData<Resource<Boolean>>
 
         fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean): LiveData<Resource<Boolean>>
@@ -122,6 +112,14 @@ interface MainViewModel {
         fun loadAvailableBubbles(): LiveData<Resource<String>>
 
         fun loadNoAvailableBubbles(): LiveData<Resource<String>>
+
+        fun checkEmptyNameUser(nameUser: String): Boolean
+
+        fun checkEmptyLastNameUser(lastNameUser: String): Boolean
+
+        fun checkEmptyIdNumberUser(idNumberUser: String): Boolean
+
+        fun checkValidIdNumberUser(idNumberUser: String): Boolean
 
     }
 
@@ -152,14 +150,6 @@ interface MainViewModel {
         fun fetchIsSeatReservationAvailable(): LiveData<Resource<Boolean>>
 
         fun setIsSeatReservationAvailable(isAvailable: Boolean): LiveData<Resource<Boolean>>
-
-        fun fetchIterator(): LiveData<Resource<Int>>
-
-        fun addIterator(seatNumber: Int): LiveData<Resource<Boolean>>
-
-        fun fetchSeatLimit(): LiveData<Resource<Int>>
-
-        fun updateSeatLimit(seatLimit: Int): LiveData<Resource<Boolean>>
 
         fun fetchVersionCode(): LiveData<Resource<Int>>
 

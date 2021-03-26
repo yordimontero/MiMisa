@@ -90,7 +90,6 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                 .collection("seat")
                 .document("data")
                 .collection("registered_seats")
-                //.orderBy("seatNumber", Query.Direction.ASCENDING)
                 .orderBy("seatCategory", Query.Direction.ASCENDING)
                 .get().addOnSuccessListener { documents ->
 
@@ -145,13 +144,6 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                         if (document.exists()) {
 
                             seat = Seat(
-                                    /*document.data!!["seatNumber"].toString(),
-                                    document.data!!["nameUser"].toString(),
-                                    document.data!!["lastNameUser"].toString(),
-                                    document.data!!["idNumberUser"].toString(),
-                                    document.data!!["dateRegistered"].toString()*/
-                                    //document.data!!["seatCategory"].toString(),
-
 
                                     "",
                                     document.data!!["seatNumber"].toString(),
@@ -160,9 +152,6 @@ class SeatReservationDataSource : DataSource.SeatReservation {
                                     document.data!!["idNumberUser"].toString(),
                                     document.data!!["dateRegistered"].toString(),
                                     ""
-
-
-                                    //document.data!!["seatRegisteredBy"].toString()
 
                             )
 
@@ -298,7 +287,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     override suspend fun checkIfIsCoupleAvailable(coupleNumber: String): Resource<Boolean> {
-
+        /*
+            Método encargado de verificar si una pareja se encuentra disponible.
+        */
         var isAvailable = false
 
         db.collection("diaconia")
@@ -321,7 +312,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     override suspend fun updateIsCoupleAvailable(coupleNumber: String, isAvailable: Boolean) {
-
+        /*
+            Método encargado de habilitar o deshabilitar una pareja.
+        */
         db.collection("diaconia")
                 .document("la_argentina")
                 .collection("seat")
@@ -334,50 +327,11 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     @ExperimentalCoroutinesApi
-    override suspend fun loadNoAvailableCouples()
-            : Flow<Resource<String>> = callbackFlow {
-
-        var documentId = ""
-
-        val documentIdPath = db.collection("diaconia")
-                .document("la_argentina")
-                .collection("seat")
-                .document("couples")
-                .collection("data")
-
-        val subscription = documentIdPath.addSnapshotListener { querySnapshot,
-                                                                firebaseFirestoreException ->
-
-            if (querySnapshot != null) {
-
-                for (document in querySnapshot) {
-
-                    if (document.exists()) {
-
-                        if (document.data["is_available"] == false) {
-
-                            documentId = document.id
-                            offer(Resource.Success(documentId))
-
-                        }
-
-                    }
-
-                }
-            } else {
-                channel.close(firebaseFirestoreException?.cause)
-            }
-
-        }
-
-        awaitClose { subscription.remove() }
-
-    }
-
-    @ExperimentalCoroutinesApi
     override suspend fun loadAvailableCouples()
             : Flow<Resource<String>> = callbackFlow {
-
+        /*
+            Método encargado de cargar todas las parejas que se encuentran disponibles.
+        */
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
@@ -415,8 +369,53 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     }
 
-    override suspend fun checkIfIsThreesomeAvailable(threesomeNumber: String): Resource<Boolean> {
+    @ExperimentalCoroutinesApi
+    override suspend fun loadNoAvailableCouples()
+            : Flow<Resource<String>> = callbackFlow {
+        /*
+            Método encargado de cargar todas las parejas que no se encuentran disponibles.
+        */
+        var documentId = ""
 
+        val documentIdPath = db.collection("diaconia")
+            .document("la_argentina")
+            .collection("seat")
+            .document("couples")
+            .collection("data")
+
+        val subscription = documentIdPath.addSnapshotListener { querySnapshot,
+                                                                firebaseFirestoreException ->
+
+            if (querySnapshot != null) {
+
+                for (document in querySnapshot) {
+
+                    if (document.exists()) {
+
+                        if (document.data["is_available"] == false) {
+
+                            documentId = document.id
+                            offer(Resource.Success(documentId))
+
+                        }
+
+                    }
+
+                }
+            } else {
+                channel.close(firebaseFirestoreException?.cause)
+            }
+
+        }
+
+        awaitClose { subscription.remove() }
+
+    }
+
+    override suspend fun checkIfIsThreesomeAvailable(threesomeNumber: String): Resource<Boolean> {
+        /*
+            Método encargado de verificar si un trío se encuentra disponible.
+        */
         var isAvailable = false
 
         db.collection("diaconia")
@@ -439,7 +438,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     override suspend fun updateIsThreesomeAvailable(threesomeNumber: String, isAvailable: Boolean) {
-
+        /*
+            Método encargado de habilitar o deshabilitar un trío.
+        */
         db.collection("diaconia")
                 .document("la_argentina")
                 .collection("seat")
@@ -453,7 +454,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     @ExperimentalCoroutinesApi
     override suspend fun loadAvailableThreesomes(): Flow<Resource<String>> = callbackFlow {
-
+        /*
+            Método encargado de cargar todas los tríos que se encuentran disponibles.
+        */
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
@@ -493,7 +496,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     @ExperimentalCoroutinesApi
     override suspend fun loadNoAvailableThreesomes(): Flow<Resource<String>> = callbackFlow {
-
+        /*
+            Método encargado de cargar todos los tríos que no se encuentran disponibles.
+        */
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
@@ -532,7 +537,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     override suspend fun checkIfIsBubbleAvailable(bubbleNumber: String): Resource<Boolean> {
-
+        /*
+            Método encargado de verificar si una burbuja se encuentra disponible.
+        */
         var isAvailable = false
 
         db.collection("diaconia")
@@ -555,7 +562,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
     }
 
     override suspend fun updateIsBubbleAvailable(bubbleNumber: String, isAvailable: Boolean) {
-
+        /*
+            Método encargado de habilitar o deshabilitar una burbuja.
+        */
         db.collection("diaconia")
                 .document("la_argentina")
                 .collection("seat")
@@ -569,7 +578,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     @ExperimentalCoroutinesApi
     override suspend fun loadAvailableBubbles(): Flow<Resource<String>> = callbackFlow {
-
+        /*
+            Método encargado de cargar todas las burbujas que se encuentran disponibles.
+        */
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")
@@ -609,7 +620,9 @@ class SeatReservationDataSource : DataSource.SeatReservation {
 
     @ExperimentalCoroutinesApi
     override suspend fun loadNoAvailableBubbles(): Flow<Resource<String>> = callbackFlow {
-
+        /*
+            Método encargado de cargar todas las burbujas que no se encuentran disponibles.
+        */
         var documentId = ""
 
         val documentIdPath = db.collection("diaconia")

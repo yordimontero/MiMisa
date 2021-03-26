@@ -93,7 +93,9 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun checkIfUserIsAdmin() {
-
+        /*
+            Método encargado de verificar si el usuario actual es un administrador.
+        */
         if (isOnline(requireContext())) {
 
             adminViewModel.checkCreatedAdminByEmailUser(emailUser)
@@ -126,7 +128,9 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun checkIfIsBubbleAvailable() {
-
+        /*
+            Método encargado de verificar si una burbuja se encuentra disponible.
+        */
         seatReservationViewModel.checkIfIsBubbleAvailable(bubbleId)
             .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
@@ -143,12 +147,10 @@ class AllSeatBubblesFragment : BaseFragment(),
                             if (isAdmin) {
                                 navController.navigate(R.id.admin_bubble_seat_category_fragment, bundle)
                             } else {
-                                //navController.navigate(R.id.action_go_to_bubble_seat_category_from_all_bubble_seats_fragment, bundle)
                                 navController.navigate(R.id.bubble_seat_category_fragment, bundle)
                             }
 
                         } else {
-                            //showMessage("La burbuja seleccionada no está disponible.", 2)
                             showMessage(getString(R.string.bubble_no_available), 2)
                             hideProgressBar()
                         }
@@ -167,7 +169,9 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun loadAvailableBubblesObserver() {
-
+        /*
+            Método encargado de cargar todas las burbujas que se encuentran disponibles.
+        */
         seatReservationViewModel.loadAvailableBubbles()
             .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
@@ -178,7 +182,7 @@ class AllSeatBubblesFragment : BaseFragment(),
                     }
 
                     is Resource.Success -> {
-                        showAvailableBubbleTextView(resultEmitted.data)
+                        showAvailableBubbleLinearLayout(resultEmitted.data)
                         hideProgressBar()
                     }
 
@@ -193,7 +197,9 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun loadNoAvailableBubblesObserver() {
-
+        /*
+            Método encargado de cargar todas las burbujas que no se encuentran disponibles.
+        */
         seatReservationViewModel.loadNoAvailableBubbles()
             .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
@@ -204,7 +210,7 @@ class AllSeatBubblesFragment : BaseFragment(),
                     }
 
                     is Resource.Success -> {
-                        showNoAvailableBubbleTextView(resultEmitted.data)
+                        showNoAvailableBubbleLinearLayout(resultEmitted.data)
                         hideProgressBar()
                     }
 
@@ -219,47 +225,41 @@ class AllSeatBubblesFragment : BaseFragment(),
 
     }
 
-    override fun showAvailableBubbleTextView(documentId: String) {
-
+    override fun showAvailableBubbleLinearLayout(documentId: String) {
+        /*
+            Método encargado de mostrar un LinearLayout verde a las burbujas disponibles.
+        */
         when (documentId) {
 
             "bubble_1" -> {
-                txt_bubble_1_no_available.text = "¡Disponible!"
                 ll_availability_bubble_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_2" -> {
-                txt_bubble_2_no_available.text = "¡Disponible!"
                 ll_availability_bubble_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_3" -> {
-                txt_bubble_3_no_available.text = "¡Disponible!"
                 ll_availability_bubble_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_4" -> {
-                txt_bubble_4_no_available.text = "¡Disponible!"
                 ll_availability_bubble_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_5" -> {
-                txt_bubble_5_no_available.text = "¡Disponible!"
                 ll_availability_bubble_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_6" -> {
-                txt_bubble_6_no_available.text = "¡Disponible!"
                 ll_availability_bubble_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_7" -> {
-                txt_bubble_7_no_available.text = "¡Disponible!"
                 ll_availability_bubble_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
             "bubble_8" -> {
-                txt_bubble_8_no_available.text = "¡Disponible!"
                 ll_availability_bubble_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
             }
 
@@ -267,47 +267,41 @@ class AllSeatBubblesFragment : BaseFragment(),
 
     }
 
-    override fun showNoAvailableBubbleTextView(documentId: String) {
-
+    override fun showNoAvailableBubbleLinearLayout(documentId: String) {
+        /*
+            Método encargado de mostrar un LinearLayout rojo a las burbujas no disponibles.
+        */
         when (documentId) {
 
             "bubble_1" -> {
-                txt_bubble_1_no_available.text = "¡No disponible!"
                 ll_availability_bubble_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_2" -> {
-                txt_bubble_2_no_available.text = "¡No disponible!"
                 ll_availability_bubble_2.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_3" -> {
-                txt_bubble_3_no_available.text = "¡No disponible!"
                 ll_availability_bubble_3.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_4" -> {
-                txt_bubble_4_no_available.text = "¡No disponible!"
                 ll_availability_bubble_4.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_5" -> {
-                txt_bubble_5_no_available.text = "¡No disponible!"
                 ll_availability_bubble_5.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_6" -> {
-                txt_bubble_6_no_available.text = "¡No disponible!"
                 ll_availability_bubble_6.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_7" -> {
-                txt_bubble_7_no_available.text = "¡No disponible!"
                 ll_availability_bubble_7.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
             "bubble_8" -> {
-                txt_bubble_8_no_available.text = "¡No disponible!"
                 ll_availability_bubble_8.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
 
@@ -329,12 +323,12 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun goToBubble1() {
-
+        /*
+            Método encargado de navegar hacia la burbuja 1
+        */
         btn_bubble_1.setOnClickListener {
 
-            //bubbleNumber = "bubble_1"
             bubbleId = "bubble_1"
-            //bubbleNumber = "Burbuja 1"
             bubbleNumber = getString(R.string.txt_bubble_1)
 
             bundle.putStringArrayList(
@@ -353,12 +347,12 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun goToBubble2() {
-
+        /*
+            Método encargado de navegar hacia la burbuja 2
+        */
         btn_bubble_2.setOnClickListener {
 
-            //bubbleNumber = "bubble_2"
             bubbleId = "bubble_2"
-
             bubbleNumber = getString(R.string.txt_bubble_2)
 
             bundle.putStringArrayList(
@@ -376,12 +370,12 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun goToBubble3() {
-
+        /*
+            Método encargado de navegar hacia la burbuja 3
+        */
         btn_bubble_3.setOnClickListener {
 
-            //bubbleNumber = "bubble_3"
             bubbleId = "bubble_3"
-
             bubbleNumber = getString(R.string.txt_bubble_3)
 
             bundle.putStringArrayList(
@@ -399,12 +393,12 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun goToBubble4() {
-
+        /*
+            Método encargado de navegar hacia la burbuja 4
+        */
         btn_bubble_4.setOnClickListener {
 
-            //bubbleNumber = "bubble_4"
             bubbleId = "bubble_4"
-
             bubbleNumber = getString(R.string.txt_bubble_4)
 
             bundle.putStringArrayList(
@@ -422,12 +416,12 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun goToBubble5() {
-
+        /*
+            Método encargado de navegar hacia la burbuja 5
+        */
         btn_bubble_5.setOnClickListener {
 
-            //bubbleNumber = "bubble_5"
             bubbleId = "bubble_5"
-
             bubbleNumber = getString(R.string.txt_bubble_5)
 
             bundle.putStringArrayList(
@@ -445,12 +439,12 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun goToBubble6() {
-
+        /*
+            Método encargado de navegar hacia la burbuja 6
+        */
         btn_bubble_6.setOnClickListener {
 
-            //bubbleNumber = "bubble_6"
             bubbleId = "bubble_6"
-
             bubbleNumber = getString(R.string.txt_bubble_6)
 
             bundle.putStringArrayList(
@@ -468,12 +462,12 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun goToBubble7() {
-
+        /*
+            Método encargado de navegar hacia la burbuja 7
+        */
         btn_bubble_7.setOnClickListener {
 
-            //bubbleNumber = "bubble_7"
             bubbleId = "bubble_7"
-
             bubbleNumber = getString(R.string.txt_bubble_7)
 
             bundle.putStringArrayList(
@@ -491,12 +485,12 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun goToBubble8() {
-
+        /*
+            Método encargado de navegar hacia la burbuja 8
+        */
         btn_bubble_8.setOnClickListener {
 
-            //bubbleNumber = "bubble_8"
             bubbleId = "bubble_8"
-
             bubbleNumber = getString(R.string.txt_bubble_8)
 
             bundle.putStringArrayList(
@@ -514,23 +508,37 @@ class AllSeatBubblesFragment : BaseFragment(),
     }
 
     override fun showMessage(message: String, duration: Int) {
+        /*
+             Método encargado de mostrar un Toast.
+        */
         requireContext().toast(requireContext(), message, duration)
     }
 
     override fun showProgressBar() {
+        /*
+             Método encargado de mostrar un ProgressBar.
+        */
         progressbar_all_seat_bubbles.visibility = View.VISIBLE
         layout_all_seat_bubbles.visibility = View.GONE
     }
 
     override fun hideProgressBar() {
+        /*
+             Método encargado de ocultar un ProgressBar.
+        */
         progressbar_all_seat_bubbles.visibility = View.GONE
         layout_all_seat_bubbles.visibility = View.VISIBLE
     }
 
+    /*
+        Método encargado de mostrar el Dialog "IsOnlineDialog".
+    */
     override fun showIsOnlineDialog() = isOnlineDialog(this)
 
     override fun isOnlineDialogPositiveButtonClicked() {
-
+        /*
+             Método encargado de controlar el botón positivo del Dialog "IsOnlineDialog".
+        */
         if (isOnline(requireContext())) {
             fetchData()
         } else {

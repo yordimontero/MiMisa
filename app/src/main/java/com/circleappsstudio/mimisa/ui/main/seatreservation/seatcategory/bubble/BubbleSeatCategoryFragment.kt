@@ -104,8 +104,6 @@ class BubbleSeatCategoryFragment : BaseFragment(),
 
         fetchData()
 
-        setIsNotBubbleAvailable()
-
         saveSeatReserved()
 
         setVisibilityIdNumberUserField()
@@ -123,12 +121,16 @@ class BubbleSeatCategoryFragment : BaseFragment(),
 
         checkIfUserIsAdmin()
 
+        setIsNotBubbleAvailable()
+
         fetchIsSeatReservationAvailableObserver()
 
     }
 
     override fun getBundle() {
-
+        /*
+             Método encargado de traer todos los valores del Bundle.
+        */
         requireArguments().let {
 
             getSeats = it.getStringArrayList("bubbleSeats")!!
@@ -140,22 +142,10 @@ class BubbleSeatCategoryFragment : BaseFragment(),
 
     }
 
-    fun setVisibilityIdNumberUserField() {
-
-        cb_btn_under_age_seat_reservation_bubble_seat_category.setOnClickListener {
-
-            if (cb_btn_under_age_seat_reservation_bubble_seat_category.isChecked) {
-                text_input_layout_txt_id_number_user_seat_reservation_bubble_seat_category.visibility = View.GONE
-            } else {
-                text_input_layout_txt_id_number_user_seat_reservation_bubble_seat_category.visibility = View.VISIBLE
-            }
-
-        }
-
-    }
-
     override fun checkIfUserIsAdmin() {
-
+        /*
+            Método encargado de verificar si el usuario actual es un administrador.
+        */
         if (isOnline(requireContext())) {
 
             adminViewModel.checkCreatedAdminByEmailUser(emailUser)
@@ -457,61 +447,92 @@ class BubbleSeatCategoryFragment : BaseFragment(),
     }
 
     override fun setIsBubbleAvailable() {
+        /*
+            Método encargado de habilitar la burbuja.
+        */
 
-        seatReservationViewModel.updateIsBubbleAvailable(bubbleId, true)
-            .observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-                when (resultEmitted) {
+            seatReservationViewModel.updateIsBubbleAvailable(bubbleId, true)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                    is Resource.Loading -> {
-                        showProgressBar()
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
                     }
 
-                    is Resource.Success -> {
-                        hideProgressBar()
-                    }
+                })
 
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
-
-                }
-
-            })
-
+        }
 
     }
 
     override fun setIsNotBubbleAvailable() {
+        /*
+            Método encargado de deshabilitar la burbuja.
+        */
 
-        seatReservationViewModel.updateIsBubbleAvailable(bubbleId, false)
-            .observe(viewLifecycleOwner, Observer { resultEmitted ->
+        if (isOnline(requireContext())) {
 
-                when (resultEmitted) {
+            seatReservationViewModel.updateIsBubbleAvailable(bubbleId, false)
+                .observe(viewLifecycleOwner, Observer { resultEmitted ->
 
-                    is Resource.Loading -> {
-                        showProgressBar()
+                    when (resultEmitted) {
+
+                        is Resource.Loading -> {
+                            showProgressBar()
+                        }
+
+                        is Resource.Success -> {
+                            hideProgressBar()
+                        }
+
+                        is Resource.Failure -> {
+                            showMessage(resultEmitted.exception.message.toString(), 2)
+                            hideProgressBar()
+                        }
+
                     }
 
-                    is Resource.Success -> {
-                        hideProgressBar()
-                    }
+                })
 
-                    is Resource.Failure -> {
-                        showMessage(resultEmitted.exception.message.toString(), 2)
-                        hideProgressBar()
-                    }
+        }
 
-                }
+    }
 
-            })
+    override fun setVisibilityIdNumberUserField() {
+        /*
+            Método encargado de ocultar el field de número de cédula
+            si la casilla de menor de edad está marcada.
+        */
+        cb_btn_under_age_seat_reservation_bubble_seat_category.setOnClickListener {
 
+            if (cb_btn_under_age_seat_reservation_bubble_seat_category.isChecked) {
+                text_input_layout_txt_id_number_user_seat_reservation_bubble_seat_category.visibility = View.GONE
+            } else {
+                text_input_layout_txt_id_number_user_seat_reservation_bubble_seat_category.visibility = View.VISIBLE
+            }
+
+        }
 
     }
 
     override fun clearFields() {
-
+        /*
+            Método encargado de limpiar los fields.
+        */
         txt_name_seat_reservation_bubble_seat_category.setText("")
 
         txt_lastname_seat_reservation_bubble_seat_category.setText("")
@@ -532,10 +553,16 @@ class BubbleSeatCategoryFragment : BaseFragment(),
     }
 
     override fun showProgressBar() {
+        /*
+             Método encargado de mostrar un ProgressBar.
+        */
         progressbar_bubble_seat_category.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
+        /*
+             Método encargado de ocultar un ProgressBar.
+        */
         progressbar_bubble_seat_category.visibility = View.GONE
     }
 
@@ -543,14 +570,17 @@ class BubbleSeatCategoryFragment : BaseFragment(),
         /*
             Método encargado de navegar hacia el fragment "MainSeatReservation".
         */
-        //navController.navigate(R.id.action_go_to_seat_reservation_main_fragment_from_bubble_seat_category_fragment)
 
         if (isAdmin) {
+
             navController.popBackStack(R.id.admin_home, true)
             navController.navigate(R.id.admin_seat_reservation)
+
         } else {
+
             navController.popBackStack(R.id.navigation_home, true)
             navController.navigate(R.id.seat_reservation)
+
         }
 
     }
@@ -559,6 +589,10 @@ class BubbleSeatCategoryFragment : BaseFragment(),
         super.onPause()
 
         if (!isAnySeatReserved) {
+            /*
+                Si no se ha reservado ningún asiento y el usuario abandona el fragment, la burbuja pasa
+                a estar disponible.
+            */
             setIsBubbleAvailable()
         }
 
@@ -596,6 +630,9 @@ class BubbleSeatCategoryFragment : BaseFragment(),
         goToMainSeatReservation()
     }
 
+    /*
+        Método encargado de mostrar el Dialog "confirmDialog".
+     */
     override fun showConfirmDialog()
     : AlertDialog? = confirmDialog(this, getString(R.string.do_you_want_to_reserve_seat))
 
@@ -618,14 +655,23 @@ class BubbleSeatCategoryFragment : BaseFragment(),
         showConfirmDialog()!!.dismiss()
     }
 
+    /*
+        Método encargado de mostrar el Dialog "reserveSeatDialog".
+     */
     override fun showReserveSeatDialog()
     : AlertDialog? = reserveSeatDialog(this, getString(R.string.do_you_want_to_reserve_another_seat))
 
     override fun reserveSeatPositiveButtonClicked() {
+        /*
+            Método encargado de controlar el botón positivo del Dialog "reserveSeatDialog".
+        */
         showReserveSeatDialog()!!.dismiss()
     }
 
     override fun reserveSeatNegativeButtonClicked() {
+        /*
+            Método encargado de controlar el botón negativo del Dialog "reserveSeatDialog".
+        */
         goToMainSeatReservation()
     }
 
